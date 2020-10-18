@@ -1,13 +1,109 @@
 *{
-  box-sizing : border-box;
-  font-family : DX경필명조B;
+    box-sizing : border-box;
+    font-family : DX경필명조B;
 }
 
 body {
-  min-height: 75rem;
-  padding-top: 4.5rem;
-  background-color: #fffcfa;
+min-height: 75rem;
+padding-top: 4.5rem;
+/* background-color: blue; */
 }
-.jumbotron{
+
+/* .jumbotron{
     margin-top: 500px;
+} */
+
+.nav{
+    font-family : inherit;
 }
+
+.navbar-nav>li>a {
+    font-size: 15px;
+    padding-top: 13px;
+    padding-bottom: 10px;
+}
+
+.navbar-brand {
+    float: left;
+    height: 40px;
+    line-height: 20px;
+    padding: 0;
+}
+
+.content {
+    width: 100%;
+    height: 25%;
+    line-height: 25%;
+    margin-top: -16px;
+    background-color: rgb(225, 189, 189);
+    /* border-bottom: 0.8px solid #4e4e4e; */
+}
+
+
+.content img{
+    width:400px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.name{
+    background-color: rgb(225, 189, 189);
+    text-align: right;
+    font-size: small;
+    padding-right: 20px;
+}
+/* @media (min-width: 768px) {
+    .content img {
+      width:300px;
+    }
+} */
+
+/* .jumbotron {
+    padding-top: 3rem;
+    padding-bottom: 3rem;
+    margin-bottom: 0;
+    background-color:red;
+  }
+  @media (min-width: 768px) {
+    .jumbotron {
+      padding-top: 6rem;
+      padding-bottom: 6rem;
+    }
+  }
+
+  .jumbotron p:last-child {
+    margin-bottom: 0;
+  }
+
+  .jumbotron h1 {
+    font-weight: 300;
+  }
+
+  .jumbotron .container {
+    max-width: 40rem;
+  }
+
+  footer {
+    padding-top: 3rem;
+    padding-bottom: 3rem;
+  }
+
+  footer p {
+    margin-bottom: .25rem;
+  } */
+
+/* .bd-placeholder-img {
+    font-size: 1.125rem;
+    text-anchor: middle;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+  }
+
+  @media (min-width: 768px) {
+    .bd-placeholder-img-lg {
+      font-size: 3.5rem;
+    }
+  } */

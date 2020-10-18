@@ -1,5 +1,6 @@
 <!--
 이메일 중복확인 - check_email 변수에 담아주세요.
+사업자등록번호 유효한 지 - 함수로 확인
 이메일 인증하기 - BACKEND 구역
 -->
 
@@ -11,19 +12,35 @@
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-	  <link rel="stylesheet" href="/static/css/signUp_customer.css">
-    <title>회원가입_customer</title>
+	  <link rel="stylesheet" href="/static/css/signUp_baker.css">
+    <title>회원가입_baker</title>
     <script src="http://code.jquery.com/jquery-latest.min.js"></script>
 </head>
 
 
 <body class="text-center">
- <!--<form method = "POST" action = "{%url 'signUp_customer' %}}" class="form-signup">-->
- <form method = "POST" action = "#" class="form-signup">
+ <form method = "POST" class="form-signup">
      <img class="mb-4" src="/static/img/logo_customer.png" alt="logo_customer" width="141" height="120">
-      {% csrf_token %}
+     {% csrf_token %}
+     <div class="row mt-5">
+        <div class="col-12">
+            {{error}}
+        </div>
+    </div>
     <div class="form-inline form-group">
-      <label for="name_customer" class="col-sm-4 control-label" >성명</label>
+      <label for="ID_customer" class="col-sm-4 control-label">아이디</label>
+      <input
+      type="text"
+      class="form-control"
+      placeholder="기입하였던 아이디를 입력하세요."
+      id="ID_customer"
+      name="ID_customer"
+      required>
+      <!-- 이 name 값으로 정보가 전달된다 -->
+    </div>
+
+    <div class="form-inline form-group">
+      <label for="name_customer" class="col-sm-4 control-label">성명</label>
       <input
       type="text"
       class="form-control"
@@ -35,42 +52,41 @@
 
     </div>
 
-    <div class="form-inline form-group">
-      <label for="email_customer" class="col-sm-4 control-label" >이메일</label>
+ <!--   <div class="form-inline form-group">
+      <label for="email_baker" class="col-sm-4 control-label">이메일</label>
       <input
       type="email"
       class="form-control"
-      id="email_customer"
+      id="email_baker"
       placeholder="이메일을 입력해주세요."
-      name="email_customer"
+      name="email_baker"
       required>
-        <input id="btn-email" type="button" value="중복체크">
-        <p id="email_success">사용가능한 이메일입니다.</p>
-        <p id="email_fail">중복되는 이메일입니다.</p>
-        <!-- 이 name 값으로 정보가 전달된다 -->
-    </div>
+    </div>-->
 <!--여기 수정되어야 함-->
 <!--check_email이 참이면 사용가능한 이메일입니다.-->
 <!--check_email이 거짓이면 중복되는 이메일입니다.-->
+<!--     <script>-->
+<!--        $(function(){-->
+<!--            $("#email_success").hide();-->
+<!--            $("#email_fail").hide();-->
 
- <!--    <script>
-        $(function(){
-            $("#email_success").hide();
-            $("#email_fail").hide();
+<!--            $("#btn-email").click(function(){-->
+<!--                if ({{baker.checkEmail}}==TRUE){-->
+<!--                    $("#email_success").show();-->
+<!--                    $("#email_fail").hide();-->
+<!--                }-->
+<!--                else{-->
+<!--                    $("#email_success").hide();-->
+<!--                    $("#email_fail").show();-->
+<!--                }-->
+<!--            });-->
 
-            $("#btn-email").click(function(){
-                if ({{check_email}}=="true"){
-                    $("#email_success").show();
-                    $("#email_fail").hide();
-                }
-                else{
-                    $("#email_success").hide();
-                    $("#email_fail").show();
-                }
-            });
-        })
-     </script>
--->
+<!--        })-->
+<!--     </script>-->
+
+
+
+
     <div class="form-inline form-group">
       <label for="password_customer" class="col-sm-4 control-label" >비밀번호</label>
       <input type="password"
@@ -95,7 +111,7 @@
 
 
     <div class="form-inline form-group">
-      <label for="phoneNum_customer" class="col-sm-4 control-label" >전화번호</label>
+      <label for="phoneNum_customer" class="col-sm-4 control-label" >휴대전화</label>
       <input
       type="tel"
       class="form-control"
@@ -104,14 +120,14 @@
       pattern="(010)-\d{3,4}-\d{4}"
       name="phoneNum_customer"
       required>
-      <!-- 이 name 값으로 정보가 전달된다 -->
     </div>
+      <!-- 이 name 값으로 정보가 전달된다 -->
 
-    <button type='submit' id="submit" class="btn btn-lg btn-secondary btn-block">SIGN UP</button>
+    <button type="submit" id="submit" class="btn btn-lg btn-secondary btn-block">SIGN UP</button>
  </form>
 </body>
 </html>
-<!--
+
 <script type="text/javascript">
     $(function () {
         $("#alert-success1").hide();
@@ -136,4 +152,3 @@
         });
     });
 </script>
--->
