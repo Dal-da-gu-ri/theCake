@@ -27,7 +27,7 @@ def join(request):
         phoneNumbaker = request.POST.get('phoneNum_baker',None)
         res_data = {}
         try:
-            curBaker = checkBaker.objects.get(businessName = businessName)
+            curBaker = checkBaker.objects.get(businessname = businessName)
             crnNum = curBaker.businessCRN
             baker = Baker(
                 businessID=crnNum,
@@ -65,7 +65,8 @@ def login(request):
                 request.session['user']=baker.businessID
 
                 #리다이렉트
-                return redirect('/') #urls에 정의해둔 home으로
+                #return redirect('/') #urls에 정의해둔 home으로
+                return render(request,'baker/enrollStore.html')
                 #return render(request,'fuser/loginsuccess.html',res_data)
             else:
                 res_data['error'] = "비밀번호가 틀렸습니다."
@@ -78,7 +79,7 @@ def login(request):
 def crnCheck(request):
     #global bsID
     if request.method == "GET":  # url을 이용한 방법
-        return render(request, 'baker/crnCheck.html')
+        return render(request, 'baker/useridCheck.html')
     elif request.method == "POST":  # 등록 버튼을 사용한 방법기
         businessName = request.POST.get('businessName',None)
         crn = request.POST.get('businessID', None)
@@ -87,7 +88,7 @@ def crnCheck(request):
             try:
                 baker = checkBaker.objects.get(businessCRN = crn)
                 res_data['error'] = "이미 등록된 사업자등록번호입니다."
-                return render(request, 'baker/crnCheck.html', res_data)
+                return render(request, 'baker/useridCheck.html', res_data)
             except checkBaker.DoesNotExist:
                 #comment = None
                 checkbaker = checkBaker(
@@ -101,7 +102,7 @@ def crnCheck(request):
 
         else:
             res_data['error'] = "유효하지 않은 사업자등록번호입니다."
-            return render(request, 'baker/crnCheck.html', res_data)
+            return render(request, 'baker/useridCheck.html', res_data)
 
 def idpw_search(request):
     return render(request, 'baker/idpw_search_baker.html')
@@ -116,7 +117,19 @@ def valid(request): #사업자번호확인 -> join
 
 # 가게 관리
 def enrollStore(request):
-    return render(request, 'baker/enrollStore.html')
+    if request.method == "GET":
+        return render(request, 'baker/enrollStore.html')
+    elif request.method == "POST":
+        store = Store(
+            """businessID
+            storeName
+            storeContact
+            pickUpOpen"""
+            #location
+            #manager
+        )
+        return render(request, 'baker/enrollStore.html')
+
 def opendays(request):
     return render(request, 'baker/opendays.html')
 def storeReview(request):

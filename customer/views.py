@@ -18,7 +18,7 @@ def join(request):
         phoneNumcustomer = request.POST.get('phoneNum_customer',None)
         res_data = {}
         try:
-            curCustomer = checkOrderer.objects.get(userID = userID)
+            curCustomer = checkOrderer.objects.get(userid = userID)
             customerEmail = curCustomer.useremail
             customer = Orderer(
                 userID = userID,
