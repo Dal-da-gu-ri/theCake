@@ -96,6 +96,7 @@ body {
     font-size: small;
     padding-right: 20px;
 }
+
 /* @media (min-width: 768px) {
     .content img {
       width:300px;
@@ -108,12 +109,7 @@ body {
     margin-bottom: 0;
     background-color:red;
   }
-  @media (min-width: 768px) {
-    .jumbotron {
-      padding-top: 6rem;
-      padding-bottom: 6rem;
-    }
-  }
+
 
   .jumbotron p:last-child {
     margin-bottom: 0;
