@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>crnCheck</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+	  <link rel="stylesheet" href="/static/css/crnCheck.css">
+
+</head>
+<body>
+    <div class="header">
+        <img src="/static/img/logo_customer.png" alt="logo_customer">
+   </div>
+    <div class="row mt-5">
+        <div class="col-12">
+            {{error}}
+        </div>
+    </div>
+        <!--여기를 나중에 백엔드 만들어지면 고쳐야 해요-->
+        <!--데이터 전송하는 부분-->
+ <form method = "POST">
+     {% csrf_token %}
+     <div class="form-inline form-group">
+      <label for="businessID" class="col-sm-4 control-label">사업자등록번호</label>
+      <input
+      type="text"
+      id="businessID"
+      class="form-control"
+      placeholder="'-'를 제외하고 입력하세요."
+      pattern="\d{10}"
+      name="businessID"
+      required>
+    </div>
+    <div class="form-inline form-group">
+      <label for="password">비밀번호</label>
+      <input type="password"
+      class="form-control"
+      id="password"
+      placeholder="8자리 이상, 대소문자 포함"
+      name= "password"
+      required>
+    </div>
+
+    <button type="submit" id="submit">로그인</button>
+ </form>
+
+</body>
+</html>

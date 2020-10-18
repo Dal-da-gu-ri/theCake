@@ -1,0 +1,20 @@
+<!--이메일 인증 시 나오는 권한 요청.-->
+{% extends "base_baker.html" %}
+{% load i18n %}
+{% block content %}
+    <div class="container">
+        <div class="spacer_30">&nbsp;</div>
+        <div class="spacer_90 hidden-sm hidden-xs">&nbsp;</div>
+        <div class="row">
+            <div class="col-md-8 col-md-offset-2">
+                <div class="panel panel-default">
+                    <div class="panel-body">
+                        <p>{% trans "Your account has been activated.  You may go ahead and log in now." %}</p>
+
+                        <p><a class="btn btn-success" href="{% url '/baker/login' %}">{% trans 'Log in' %}</a></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

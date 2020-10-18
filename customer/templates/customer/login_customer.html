@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+	  <link rel="stylesheet" href="/static/css/login_customer.css">
+    <title>login_customer</title>
+</head>
+<body class="text-center">
+    <form method="POST" action="{% url 'login_customer'%}" class="form-signin">
+        <img class="mb-4" src="/static/img/logo_customer.png" alt="logo_customer" width="141" height="120">
+         {% csrf_token %}
+        <input type="email" id="email_customer" class="form-control" name="email_customer" placeholder="Email address" aria-required="true"/>
+        <input type="password" id="pw_customer" class="form-control" name="pw_customer" placeholder="Password" aria-required="true"/>
+        <button type='submit' id="submit" class="btn btn-lg btn-secondary btn-block">LOGIN</button>
+
+        <p>
+            <a href="/customer/idpw_search" id="idpw_search_customer"><u>ID / PW 찾기</u></a><br>
+            <a href="/customer/signUp" id="signUp"><u>아직 회원이 아니신가요?</u></a>
+        </p>
+
+    </form>
+
+</body>
+</html>

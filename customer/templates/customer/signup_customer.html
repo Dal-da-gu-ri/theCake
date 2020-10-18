@@ -1,0 +1,139 @@
+<!--
+이메일 중복확인 - check_email 변수에 담아주세요.
+이메일 인증하기 - BACKEND 구역
+-->
+
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+	  <link rel="stylesheet" href="/static/css/signUp_customer.css">
+    <title>회원가입_customer</title>
+    <script src="http://code.jquery.com/jquery-latest.min.js"></script>
+</head>
+
+
+<body class="text-center">
+ <!--<form method = "POST" action = "{%url 'signUp_customer' %}}" class="form-signup">-->
+ <form method = "POST" action = "#" class="form-signup">
+     <img class="mb-4" src="/static/img/logo_customer.png" alt="logo_customer" width="141" height="120">
+      {% csrf_token %}
+    <div class="form-inline form-group">
+      <label for="name_customer" class="col-sm-4 control-label" >성명</label>
+      <input
+      type="text"
+      class="form-control"
+      id="name_customer"
+      placeholder="이름을 입력해주세요."
+      name="name_customer"
+      required>
+      <!-- 이 name 값으로 정보가 전달된다 -->
+
+    </div>
+
+    <div class="form-inline form-group">
+      <label for="email_customer" class="col-sm-4 control-label" >이메일</label>
+      <input
+      type="email"
+      class="form-control"
+      id="email_customer"
+      placeholder="이메일을 입력해주세요."
+      name="email_customer"
+      required>
+        <input id="btn-email" type="button" value="중복체크">
+        <p id="email_success">사용가능한 이메일입니다.</p>
+        <p id="email_fail">중복되는 이메일입니다.</p>
+        <!-- 이 name 값으로 정보가 전달된다 -->
+    </div>
+<!--여기 수정되어야 함-->
+<!--check_email이 참이면 사용가능한 이메일입니다.-->
+<!--check_email이 거짓이면 중복되는 이메일입니다.-->
+
+ <!--    <script>
+        $(function(){
+            $("#email_success").hide();
+            $("#email_fail").hide();
+
+            $("#btn-email").click(function(){
+                if ({{check_email}}=="true"){
+                    $("#email_success").show();
+                    $("#email_fail").hide();
+                }
+                else{
+                    $("#email_success").hide();
+                    $("#email_fail").show();
+                }
+            });
+        })
+     </script>
+-->
+    <div class="form-inline form-group">
+      <label for="password_customer" class="col-sm-4 control-label" >비밀번호</label>
+      <input type="password"
+      class="form-control"
+      id="password_customer"
+      placeholder="8자리 이상, 대소문자 포함"
+      name= "password_customer"
+      required>
+    </div>
+
+    <div class="form-inline form-group">
+      <label for="re-password_customer" class="col-sm-4 control-label" >비밀번호 확인</label>
+      <input type="password"
+      class="form-control"
+      id="re-password_customer"
+      placeholder="비밀번호 재입력"
+      name= "re-password_customer"
+      required>
+    </div>
+     <div class="alert alert-success" id="alert-success1">비밀번호가 일치합니다.</div>
+     <div class="alert alert-danger" id="alert-danger1">비밀번호가 일치하지 않습니다.</div>
+
+
+    <div class="form-inline form-group">
+      <label for="phoneNum_customer" class="col-sm-4 control-label" >전화번호</label>
+      <input
+      type="tel"
+      class="form-control"
+      id="phoneNum_customer"
+      placeholder="예) 010-1234-5678"
+      pattern="(010)-\d{3,4}-\d{4}"
+      name="phoneNum_customer"
+      required>
+      <!-- 이 name 값으로 정보가 전달된다 -->
+    </div>
+
+    <button type='submit' id="submit" class="btn btn-lg btn-secondary btn-block">SIGN UP</button>
+ </form>
+</body>
+</html>
+<!--
+<script type="text/javascript">
+    $(function () {
+        $("#alert-success1").hide();
+        $("#alert-danger1").hide();
+        $("#submit").attr("disabled", "disabled");
+
+            $("input").keyup(function() {
+            var pwd1=$("#password_customer").val();
+            var pwd2=$("#re-password_customer").val();
+
+
+            if (pwd1 != "" || pwd2 != "") {
+                if (pwd1 == pwd2) {
+                    $("#alert-success1").show();
+                    $("#alert-danger1").hide();
+                    $("#submit").removeAttr("disabled");
+                } else {
+                    $("#alert-success1").hide();
+                    $("#alert-danger1").show();
+                }
+            }
+        });
+    });
+</script>
+-->

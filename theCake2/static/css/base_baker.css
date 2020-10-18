@@ -1,0 +1,13 @@
+*{
+  box-sizing : border-box;
+  font-family : DX경필명조B;
+}
+
+body {
+  min-height: 75rem;
+  padding-top: 4.5rem;
+  background-color: #fffcfa;
+}
+.jumbotron{
+    margin-top: 500px;
+}

@@ -1,0 +1,51 @@
+*{
+  box-sizing : border-box;
+  font-family : DX경필명조B;
+}
+
+html,
+body {
+  height: 100%;
+}
+
+body {
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-align: center;
+  align-items: center;
+  padding-top: 10px;
+  padding-bottom: 40px;
+  background-color: #fffcfa;
+}
+
+.form-signup {
+  width: 100%;
+  max-width: 480px;
+  padding: 15px;
+  margin: auto;
+}
+
+.form-signup .form-control {
+  position: relative;
+  box-sizing: border-box;
+  height: auto;
+  padding: 10px;
+  font-size: 15px;
+  width: 270px;
+}
+.form-signup .form-control:focus {
+  z-index: 2;
+}
+.form-signup input[type="email"] {
+  margin-bottom: -1x;
+}
+.form-signup input[type="password"] {
+  margin-bottom: 0px;
+}
+#btn-email{margin-left: 42px; font-size: 14px;}
+#email_success{color: blue; margin-bottom: 0px; margin-left: 43px; font-size: 13px;}
+#email_fail{color: red; margin-bottom: 0px; margin-left: 43px; font-size: 13px;}
+
+#btn-businessID{margin-left: 31px; font-size: 14px;}
+#businessID_success{color: blue; margin-bottom: 0px; margin-left: 35px; font-size: 13px;}
+#businessID_fail{color: red; margin-bottom: 0px; margin-left: 35px; font-size: 13px;}

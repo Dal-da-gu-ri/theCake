@@ -1,0 +1,34 @@
+import sys
+import requests
+import xml.etree.ElementTree as ElementTree
+
+ReqUrl = "https://teht.hometax.go.kr/wqAction.do?actionId=ATTABZAA001R08&screenId=UTEABAAA13&popupYn=false&realScreenId="
+#ReqData = "<map id=\"ATTABZAA001R08\"><pubcUserNo/><mobYn>N</mobYn><inqrTrgtClCd>1</inqrTrgtClCd><txprDscmNo>3051577349</txprDscmNo><dongCode>15</dongCode><psbSearch>Y</psbSearch><map id=\"userReqInfoVO\"/></map><nts<nts>nts>52KhWXziRU1FSh5QaKZ6VNBV3r4kRJ9Wn84THwxB12YCQ41"
+ReqData = "<map id=\"ATTABZAA001R08\"><pubcUserNo/><mobYn>N</mobYn><inqrTrgtClCd>1</inqrTrgtClCd><txprDscmNo>\{CRN\}</txprDscmNo><dongCode>85</dongCode><psbSearch>Y</psbSearch><map id=\"userReqInfoVO\"/></map><nts<nts>nts>52KhWXziRU1FSh5QaKZ6VNBV3r4kRJ9Wn84THwxB12YCQ41"
+
+
+#global result
+
+def Search_CRN(crn):
+    #global result
+    crn = crn.replace("-","")
+    res = requests.post(ReqUrl,data=ReqData.replace("\{CRN\}",crn),headers={'Content-Type':'text/xml'})
+    xml = ElementTree.fromstring(res.text).findtext("trtCntn")
+    result = xml.replace("\n", "").replace("\t", " ")
+    #result = crn + "\t" + xml.replace("\n", "").replace("\t", " ")+"\n"
+
+    #print(result)
+    return result
+
+result = ""
+#inputs = "YOUR_CRN_VALUE"
+#result += Search_CRN(inputs)
+for idx, value in enumerate(sys.argv):
+    if(idx == 0): continue
+    result += Search_CRN(value)
+
+if result == "부가가치세 일반과세자 입니다.":
+    print("확인")
+else:
+    print("실패")
+#print(result)
