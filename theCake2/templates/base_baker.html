@@ -3,7 +3,7 @@
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
-	<title>baker</title>
+	<title>customer</title>
   <meta name="viewport"
         content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
@@ -17,22 +17,14 @@
 <body>
     <div class="container">
 <header class="blog-header px-13">
-    <div class="row flex-nowrap justify-content-between align-items-center">
+ <nav class="navbar navbar-expand-md navbar-light fixed-top bg-light ">
 
-    </div>
+    <img class=navbar-brand src="/static/img/logo_baker.png" alt="logo_baker" width="50">
 
-    <div>
-      <div class="px-13 name main_text">
-        <p>Welcome for {{baker.name}}회원님</p>
-      </div>
-    </div>
-
-  </header>
- <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
-  <img class=navbar-brand src="/static/img/logo_baker.png" alt="logo_baker" width="59" height="50">
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
+
   <div class="collapse navbar-collapse" id="navbarCollapse">
     <ul class="navbar-nav mr-auto">
         <li class="nav-item dropdown">
@@ -51,34 +43,39 @@
           </div>
         </li>
       <li class="nav-item">
-        <a class="nav-link" href="/baker/manageOrder">주문 관리<span class="sr-only"></span></a>
+        <a class="nav-link text-nowrap" href="/baker/manageOrder">주문 관리<span class="sr-only"></span></a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="/baker/mypage">마이 페이지</a>
+        <a class="nav-link text-nowrap" href="/baker/mypage">마이 페이지</a>
       </li>
-
-         <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          Dropdown
-        </a>
-        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-          <a class="dropdown-item" href="#">Action</a>
-          <a class="dropdown-item" href="#">Another action</a>
-          <div class="dropdown-divider"></div>
-          <a class="dropdown-item" href="#">Something else here</a>
-        </div>
+    <li class="nav-item">
+        <a class="nav-link text-nowrap" href="#">로그아웃</a>
       </li>
     </ul>
 
-
-    <form class="form-inline mt-2 mt-md-0">
+    <!-- <form class="form-inline mt-2 mt-md-0">
       <input class="form-control mr-sm-2" type="text" placeholder="매장명" aria-label="Search">
       <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-    </form>
+    </form> -->
+
   </div>
-</nav>
-    {% block content %}
-    {% endblock %}
+  </nav>
+
+<!-- 로고 -->
+<div class="content">
+    <div class="d-flex p-4">
+        <img src="main_logo_baker.png" align="center" alt="사업자 로고">
+    </div>
+</div>
+<!-- 반응형 설정해야함 -->
+<div class="px-13 name">
+    <p>Welcome for {{baker.name}}회원님</p>
+</div>
+
+</header>
+
+{% block content %}
+{% endblock %}
     </div>
 </body>
 </html>

@@ -1,88 +1,109 @@
-/* http://meyerweb.com/eric/tools/css/reset/
-   v2.0 | 20110126
-   License: none (public domain)
-*/
+*{
+    box-sizing : border-box;
+    font-family : DX경필명조B;
+}
 
-html, body, div, span, applet, object, iframe,
-h1, h2, h3, h4, h5, h6, p, blockquote, pre,
-a, abbr, acronym, address, big, cite, code,
-del, dfn, em, img, ins, kbd, q, s, samp,
-small, strike, strong, sub, sup, tt, var,
-b, u, i, center,
-dl, dt, dd, ol, ul, li,
-fieldset, form, label, legend,
-table, caption, tbody, tfoot, thead, tr, th, td,
-article, aside, canvas, details, embed,
-figure, figcaption, footer, header, hgroup,
-menu, nav, output, ruby, section, summary,
-time, mark, audio, video {
-	margin: 0;
-	padding: 0;
-	border: 0;
-	font-size: 100%;
-	font: inherit;
-	vertical-align: baseline;
-}
-/* HTML5 display-role reset for older browsers */
-article, aside, details, figcaption, figure,
-footer, header, hgroup, menu, nav, section {
-	display: block;
-}
 body {
-	line-height: 1;
-}
-ol, ul {
-	list-style: none;
-}
-blockquote, q {
-	quotes: none;
-}
-blockquote:before, blockquote:after,
-q:before, q:after {
-	content: '';
-	content: none;
-}
-table {
-	border-collapse: collapse;
-	border-spacing: 0;
+min-height: 75rem;
+padding-top: 4.5rem;
+/* background-color: blue; */
 }
 
-
-
-.main-header {
-  height: 3;
-  line-height: 3;
-  border-bottom: 0.8px solid #4e4e4e;
-  /* margin-top: 20px; */
-}
-
-body{
- font-family: DX경필명조B,serif;
-  background-color: #fffcfa;
-}
-/* .blog-header-logo {
-
+/* .jumbotron{
+    margin-top: 500px;
 } */
 
-.name p{
-    font-size: 13px;
-    margin-top: 50px;
-    margin-bottom: 0px;
-    margin-right: 20px;
-    color: #4e4e4e;
+.nav{
+    font-family : inherit;
+}
+
+.navbar-nav>li>a {
+    font-size: 15px;
+    padding-top: 13px;
+    padding-bottom: 10px;
+}
+
+.navbar-brand {
+    float: left;
+    height: 40px;
+    line-height: 20px;
+    padding: 0;
+}
+
+.content {
+    width: 100%;
+    height: 25%;
+    line-height: 25%;
+    margin-top: -16px;
+    background-color: rgb(225, 189, 189);
+    /* border-bottom: 0.8px solid #4e4e4e; */
+}
+
+
+.content img{
+    width:400px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.name{
+    background-color: rgb(225, 189, 189);
     text-align: right;
+    font-size: small;
+    padding-right: 20px;
 }
-
-/*
- * Footer
- */
-/* .blog-footer {
-  padding: 2.5rem 0;
-  color: #999;
-  text-align: center;
-  background-color: #f9f9f9;
-  border-top: .05rem solid #e5e5e5;
-}
-.blog-footer p:last-child {
-  margin-bottom: 0;
+/* @media (min-width: 768px) {
+    .content img {
+      width:300px;
+    }
 } */
+
+/* .jumbotron {
+    padding-top: 3rem;
+    padding-bottom: 3rem;
+    margin-bottom: 0;
+    background-color:red;
+  }
+  @media (min-width: 768px) {
+    .jumbotron {
+      padding-top: 6rem;
+      padding-bottom: 6rem;
+    }
+  }
+
+  .jumbotron p:last-child {
+    margin-bottom: 0;
+  }
+
+  .jumbotron h1 {
+    font-weight: 300;
+  }
+
+  .jumbotron .container {
+    max-width: 40rem;
+  }
+
+  footer {
+    padding-top: 3rem;
+    padding-bottom: 3rem;
+  }
+
+  footer p {
+    margin-bottom: .25rem;
+  } */
+
+/* .bd-placeholder-img {
+    font-size: 1.125rem;
+    text-anchor: middle;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+  }
+
+  @media (min-width: 768px) {
+    .bd-placeholder-img-lg {
+      font-size: 3.5rem;
+    }
+  } */
