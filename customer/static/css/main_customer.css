@@ -1,0 +1,108 @@
+/* http://meyerweb.com/eric/tools/css/reset/
+   v2.0 | 20110126
+   License: none (public domain)
+*/
+
+/*
+.container{
+}
+*/
+/*
+body {
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-align: center;
+  align-items: center;
+  padding-top: 10px;
+  padding-bottom: 40px;
+  background-color: #fffcfa;
+}
+*/
+#date {
+  width: 200px;
+  padding: .8em .5em;
+  border: 1px solid #999;
+  font-family: inherit;
+  background: url(https://farm1.staticflickr.com/379/19928272501_4ef877c265_t.jpg) no-repeat 95% 50%;
+  border-radius: 0px;
+}
+
+input[type=date]::-ms-clear {
+  display: none;
+}
+
+.location_select {
+  width: 200px;
+  padding: .8em .5em;
+  border: 1px solid #999;
+  font-family: inherit;
+  background: url(https://farm1.staticflickr.com/379/19928272501_4ef877c265_t.jpg) no-repeat 95% 50%;
+  border-radius: 0px;
+  /* 네이티브 모형 감추기 */
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  margin-right: 30px;
+}
+
+/* 네이티브 화살표 숨기기 */
+select::-ms-expand {
+    display: none;
+}
+
+.button {
+    background-color: #b5b5b5;
+    border:none;
+    color:white;
+    padding: 9px 43px;
+    text-align: center;
+    text-decoration:none;
+    display: inline-block;
+    font-size: 15px;
+    margin: 4px 0px;
+}
+/*
+select {
+-moz-appearance: none;
+-webkit-appearance: none;
+appearance: none;
+text-indent: 1px;
+text-overflow: ”;
+}
+*/
+#selectbox_letter {
+    color:#838383;
+    font-size:15px;
+    text-align: right;
+}
+
+.form-group {
+    /*position: relative;*/
+    margin: 5% 20%;
+}
+
+
+/*
+.form {
+    position: absolute;
+    top:50%
+    left:50%
+    width:100%
+    margin-top:-0.5em;
+    margin-left:-50%;
+    text-align:center;
+}
+*/
+/*
+ * Footer
+ */
+/* .blog-footer {
+  padding: 2.5rem 0;
+  color: #999;
+  text-align: center;
+  background-color: #f9f9f9;
+  border-top: .05rem solid #e5e5e5;
+}
+.blog-footer p:last-child {
+  margin-bottom: 0;
+} */
