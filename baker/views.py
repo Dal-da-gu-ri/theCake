@@ -57,17 +57,14 @@ def login(request):
         #유효성 처리
         res_data={}
         if Baker.objects.filter(businessID=businessID).exists():
-            #res_data['error']="모든 칸을 다 입력해주세요"
             baker = Baker.objects.get(businessID=businessID)
             if check_password(password,baker.password):
                 #응답 데이터 세션에 값 추가. 수신측 쿠키에 저장됨
-                #request.session['user']=baker.id
                 request.session['user']=baker.businessID
 
                 #리다이렉트
                 #return redirect('/') #urls에 정의해둔 home으로
                 return render(request,'baker/enrollStore.html')
-                #return render(request,'fuser/loginsuccess.html',res_data)
             else:
                 res_data['error'] = "비밀번호가 틀렸습니다."
                 return render(request, 'baker/login_baker.html', res_data)
@@ -77,9 +74,8 @@ def login(request):
             return render(request,'baker/login_baker.html',res_data)
 
 def crnCheck(request):
-    #global bsID
     if request.method == "GET":  # url을 이용한 방법
-        return render(request, 'baker/useridCheck.html')
+        return render(request, 'baker/crnCheck.html')
     elif request.method == "POST":  # 등록 버튼을 사용한 방법기
         businessName = request.POST.get('businessName',None)
         crn = request.POST.get('businessID', None)
@@ -88,7 +84,7 @@ def crnCheck(request):
             try:
                 baker = checkBaker.objects.get(businessCRN = crn)
                 res_data['error'] = "이미 등록된 사업자등록번호입니다."
-                return render(request, 'baker/useridCheck.html', res_data)
+                return render(request, 'baker/crnCheck.html', res_data)
             except checkBaker.DoesNotExist:
                 #comment = None
                 checkbaker = checkBaker(
@@ -102,7 +98,7 @@ def crnCheck(request):
 
         else:
             res_data['error'] = "유효하지 않은 사업자등록번호입니다."
-            return render(request, 'baker/useridCheck.html', res_data)
+            return render(request, 'baker/crnCheck.html', res_data)
 
 def idpw_search(request):
     return render(request, 'baker/idpw_search_baker.html')
@@ -120,11 +116,25 @@ def enrollStore(request):
     if request.method == "GET":
         return render(request, 'baker/enrollStore.html')
     elif request.method == "POST":
+
+        """try:
+            baker
+        except"""
+
+        storeName = request.POST.get('storeName',None)
+        storeContact = request.POST.get('storeContact',None)
+        pickopen = request.POST.get('pickUpOpen',None)
+        pickclose = request.POST.get('pickUpClose',None)
+        aboutstore = request.POST.get('aboutStore',None)
+
         store = Store(
-            """businessID
-            storeName
-            storeContact
-            pickUpOpen"""
+            #businessID =
+            storeName = storeName,
+            storeContact = storeContact,
+            pickUpOpen = pickopen,
+            pickUpClose = pickclose,
+            aboutStore = aboutstore
+            #storeImg
             #location
             #manager
         )
