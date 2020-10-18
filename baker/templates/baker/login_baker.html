@@ -9,12 +9,69 @@
 	  <link rel="stylesheet" href="/static/css/login_baker.css">
     <title>login_baker</title>
 </head>
+<style>
+    *{
+  box-sizing : border-box;
+  font-family : DX경필명조B;
+}
+
+html,
+body {
+  height: 100%;
+}
+
+body {
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-align: center;
+  align-items: center;
+  padding-top: 40px;
+  padding-bottom: 40px;
+  background-color: #fffcfa;
+}
+
+.form-signin {
+  width: 100%;
+  max-width: 330px;
+  padding: 15px;
+  margin: auto;
+}
+
+.form-signin .form-control {
+  position: relative;
+  box-sizing: border-box;
+  height: auto;
+  padding: 10px;
+  font-size: 15px;
+}
+.form-signin .form-control:focus {
+  z-index: 2;
+}
+.form-signin input[type="text"] {
+  margin-bottom: -1px;
+  border-bottom-right-radius: 0;
+  border-bottom-left-radius: 0;
+}
+.form-signin input[type="password"] {
+  margin-bottom: 10px;
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+}
+
+</style>
 <body class="text-center">
-    <form method="POST" action="{% url 'login_baker'%}" class="form-signin">
+
+    <form method="POST" class="form-signin">
         <img class="mb-4" src="/static/img/logo_baker.png" alt="logo_baker" width="141" height="120">
+            <div class="row mt-5">
+                <div class="col-12">
+                    {{error}}
+                </div>
+            </div>
         {% csrf_token %}
-        <input type="email" id="email_baker" class="form-control" name="email_baker" placeholder="Email address" aria-required="true"/>
-        <input type="password" id="pw_baker" class="form-control" name="pw_baker" placeholder="Password" aria-required="true"/>
+
+        <input type="text" id="businessID" class="form-control" name="businessID" placeholder="사업자등록번호 / '-'없이 입력하세요" required>
+        <input type="password" id="password" class="form-control" name="password" placeholder="Password" required>
         <button type='submit' id="submit" class="btn btn-lg btn-secondary btn-block">LOGIN</button>
 
         <p>

@@ -89,8 +89,8 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'thecakedb',
-        'USER': 'sohyun',
-        'PASSWORD': 'Carrie#901',
+        'USER': 'yeseul',
+        'PASSWORD': 'k01026035854!',
         'HOST': '121.139.51.190',
         'PORT': '3306',
     }
@@ -138,7 +138,7 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'baker', 'static'),
     os.path.join(BASE_DIR, 'customer', 'static'),
-    os.path.join(BASE_DIR, 'theCake', 'static')
+    os.path.join(BASE_DIR, 'theCake2', 'static')
 ]
 
 
