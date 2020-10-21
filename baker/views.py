@@ -116,29 +116,42 @@ def enrollStore(request):
     if request.method == "GET":
         return render(request, 'baker/enrollStore.html')
     elif request.method == "POST":
+        businessID = request.session.get('user')
+        if businessID:
+            baker = Baker.objects.get(pk=businessID)
 
-        """try:
-            baker
-        except"""
+            storeName = request.POST.get('storeName',None)
+            storeContact = request.POST.get('storeContact',None)
+            pickopen = request.POST.get('pickUpOpen',None)
+            pickclose = request.POST.get('pickUpClose',None)
+            aboutstore = request.POST.get('aboutStore',None)
 
-        storeName = request.POST.get('storeName',None)
-        storeContact = request.POST.get('storeContact',None)
-        pickopen = request.POST.get('pickUpOpen',None)
-        pickclose = request.POST.get('pickUpClose',None)
-        aboutstore = request.POST.get('aboutStore',None)
+            try:
+                store = Store.objects.get(pk = businessID)
+                store.storeName = storeName
+                store.storeContact = storeContact
+                store.pickUpOpen = pickopen
+                store.pickUpClose = pickclose
+                store.aboutStore = aboutstore
+                store.save()
+                return render(request, 'baker/enrollStore.html')
+            except checkBaker.DoesNotExist:
+                #comment = None
+                store = Store(
+                    businessID = businessID,
+                    storeName=storeName,
+                    storeContact=storeContact,
+                    pickUpOpen=pickopen,
+                    pickUpClose=pickclose,
+                    aboutStore=aboutstore
+                    # storeImg
+                    # location
+                    # manager
+                )
+                store.save()
+                return render(request, 'baker/enrollStore.html')
 
-        store = Store(
-            #businessID =
-            storeName = storeName,
-            storeContact = storeContact,
-            pickUpOpen = pickopen,
-            pickUpClose = pickclose,
-            aboutStore = aboutstore
-            #storeImg
-            #location
-            #manager
-        )
-        return render(request, 'baker/enrollStore.html')
+            return render(request, 'baker/enrollStore.html')
 
 def opendays(request):
     return render(request, 'baker/opendays.html')

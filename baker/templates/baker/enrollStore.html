@@ -1,5 +1,5 @@
 {% extends 'base_baker.html' %}
-{% block title%} ::가게등록:: {% endblock %}
+{% block title%} 가게등록 {% endblock %}
 {% block content %}
 <!--daum 우편주소 api-->
 <script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
@@ -14,6 +14,7 @@
             <input type="file" id="upImgFile" onChange="uploadImgPreview();" accept="image/*">
         </div>
         <div class="form-group col-md-6">
+            {% csrf_token %}
             <div class="form-row">
                 <div class="form-group col-md-2">
                     <label for="storeName">가게 이름</label>
