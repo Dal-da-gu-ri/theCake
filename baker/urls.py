@@ -7,6 +7,7 @@ urlpatterns = [
     path('idpw_search/', views.idpw_search, name='idpw_search_baker'),
     path('signUp/crnCheck/', views.crnCheck, name='crnCheck'),
     path('signUp/join/', views.join, name='join_baker'),
+    #path('signUp/join/emailSent/',views.join, name='emailSent_baker'),
     path('activate/<str:uid64>/<str:token>/', views.activate, name='activate'),
 
     # 가게 관리

@@ -3,11 +3,13 @@ from django.db import models
 # Create your models here.
 
 class Orderer(models.Model):
-    userID = models.CharField(max_length=20, verbose_name='주문자 아이디',blank=False, primary_key=True)
+    userID = models.CharField(max_length=20, verbose_name='주문자 아이디',blank=False, primary_key=True,default="")
     email = models.EmailField(max_length=128, verbose_name='주문자 이메일',blank=False,null=True)
     name = models.CharField(max_length=30,verbose_name='주문자 이름',null=True,blank=False)
     phoneNum = models.CharField(max_length=30, verbose_name='주문자 전화번호',null=True,blank=False,unique=True)
     password = models.CharField(max_length=200, verbose_name='주문자 비밀번호',null=True,blank=False)
+    is_active = models.BooleanField(default=False)
+
 
     def __str__(self):
         return self.userID
@@ -30,15 +32,17 @@ class checkOrderer(models.Model):
         verbose_name_plural = '주문자 가입용'
 
 class Baker(models.Model):
-    businessID = models.CharField(max_length=10, verbose_name='사업자 등록번호', blank=False, primary_key=True)
-    businessName = models.CharField(max_length=40, verbose_name='사업자명', blank=False, null=True)
+    userID = models.CharField(max_length=20, verbose_name='사업자 아이디', blank=False, primary_key=True,default="")
+    businessID = models.CharField(max_length=10, verbose_name='사업자 등록번호', blank=False, null=True)
+    #businessName = models.CharField(max_length=40, verbose_name='사업자명', blank=False, null=True)
     email = models.EmailField(max_length=128, verbose_name='사업자 이메일', null=True, blank=False)  # unique=True,
     name = models.CharField(max_length=30, verbose_name='사업자 이름', null=True, blank=False)
     phoneNum = models.CharField(max_length=30, verbose_name='사업자 전화번호', null=True, blank=False)  # unique=True,
     password = models.CharField(max_length=200, verbose_name='사업자 비밀번호', null=True, blank=False)
+    is_active = models.BooleanField(default=False)
 
     def __str__(self):
-        return self.email
+        return self.userID
 
     class Meta:
         db_table = 'Baker'
@@ -46,11 +50,12 @@ class Baker(models.Model):
         verbose_name_plural = '사업자'
 
 class checkBaker(models.Model):
-    businessname = models.CharField(max_length=40, verbose_name='사업자명',blank=False, primary_key=True)
+    userid = models.CharField(max_length=20, verbose_name='사업자 아이디', blank=False, primary_key=True,default="")
+    #businessname = models.CharField(max_length=40, verbose_name='사업자명',blank=False, primary_key=True)
     businessCRN = models.CharField(max_length=10,verbose_name='사업자 등록번호',blank=False,null=True)
 
     def __str__(self):
-        return self.businessname
+        return self.userid
 
     class Meta:
         db_table = 'checkBaker'

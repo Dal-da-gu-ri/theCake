@@ -6,7 +6,7 @@ from django.contrib.auth.hashers import make_password, check_password
 from .crn import Search_CRN
 import json
 from home.tokens import account_activation_token
-from home.text import messageSend
+from .text import messageSend
 from django.views import View
 from django.http import HttpResponse,JsonResponse
 from django.core.exceptions import ValidationError
@@ -64,7 +64,9 @@ def join(request):
                 user_email = baker.email
                 email = EmailMessage(mail_subject, message, to=[user_email])
                 email.send()
-                return redirect('/baker/login')
+                res_data['comment'] = user_email+" 로 이메일이 발송되었습니다. \n\n인증을 완료해주세요 :)"
+                return render(request,'baker/userEmailSent.html',res_data)
+                #return redirect('/baker/login')
                 #return render(request, 'fuser/login.html')
         except checkBaker.DoesNotExist:
             # comment = None
@@ -147,7 +149,7 @@ def activate(request,uid64, token):
         baker.is_active = True
         baker.save()
         if request.method == "GET":
-            res_data['comment'] = baker.name+"님의 계정이 활성화되었습니다."
+            res_data['comment'] = baker.userID+"님의 계정이 활성화되었습니다."
             return render(request,'baker/userActivate.html',res_data)
     elif request.method == "POST":
         return redirect('/baker/login')
