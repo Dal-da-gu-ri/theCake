@@ -9,6 +9,7 @@ urlpatterns = [
     path('signUp/join/', views.join, name='join_baker'),
     #path('signUp/join/emailSent/',views.join, name='emailSent_baker'),
     path('activate/<str:uid64>/<str:token>/', views.activate, name='activate'),
+    path('inappropriateApproach/',views.wrongApproach,name='wrongApproach'),
 
     # 가게 관리
     path('manageStore/enrollStore/', views.enrollStore, name='enrollStore_baker'),

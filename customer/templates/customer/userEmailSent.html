@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+	  <link rel="stylesheet" href="/static/css/login_customer.css">
+    <title>emailSent</title>
+</head>
+<body class="text-center">
+
+    <form method="POST" class="form-emailSent">
+        <img class="mb-4" src="/static/img/logo_baker.png" alt="logo_customer" width="141" height="120">
+             {% csrf_token %}
+
+        <div class="row mt-5">
+                <div class="col-12">
+                    {{comment}}
+                </div>
+            </div>
+
+
+        <!--<button type='submit' id="submit" class="btn btn-lg btn-secondary btn-block">로그인하러 가기</button>
+-->
+
+
+    </form>
+
+</body>
+</html>

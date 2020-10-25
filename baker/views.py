@@ -6,7 +6,7 @@ from django.contrib.auth.hashers import make_password, check_password
 from .crn import Search_CRN
 import json
 from home.tokens import account_activation_token
-from .text import messageSend
+from .textBaker import messageSend
 from django.views import View
 from django.http import HttpResponse,JsonResponse
 from django.core.exceptions import ValidationError
@@ -43,7 +43,7 @@ def join(request):
 
             try:
                 newBaker = Baker.objects.get(userID=userid)
-                res_data['error'] = "이미 등록된 계정입니다."
+                res_data['error'] = "이미 가입된 계정입니다."
                 return render(request, 'baker/join_baker.html', res_data)
             except Baker.DoesNotExist:
 
@@ -154,7 +154,16 @@ def activate(request,uid64, token):
     elif request.method == "POST":
         return redirect('/baker/login')
     else:
-        return HttpResponse('비정상적인 접근입니다.')
+        return redirect('/baker/inappropriateApproach')
+        #return HttpResponse('비정상적인 접근입니다.')
+
+def wrongApproach(request):
+    if request.method == "GET":
+        res_data = {}
+        res_data['comment'] = "잘못된 접근입니다."
+        return render(request, 'baker/inappropriateApproach.html',res_data)
+    elif request.method == "POST":
+        return redirect('/')
 
 def idpw_search(request):
     return render(request, 'baker/idpw_search_baker.html')

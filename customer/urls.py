@@ -9,8 +9,9 @@ urlpatterns = [
     #path('signUp/', views.signUp, name='signUp_customer'),
     path('signUp/idCheck/', views.useridCheck, name='idCheck'),
     path('signUp/join/', views.join, name='join_customer'),
-    #path('activate/<str:uid64>/<str:token>/', views.activate, name='activate'),
-    path('main/', views.main, name='main_customer'),
+    path('activate/<str:uid64>/<str:token>/', views.activate, name='activate'),
+    path('inappropriateApproach/',views.wrongApproach,name='wrongApproach'),
+    path('main/', views.main_customer, name='main_customer'),
 
     # 주문하기
     # 화면에서 위치, 수령일 바꾸고 싶으면 url 바뀌어야..(?)
