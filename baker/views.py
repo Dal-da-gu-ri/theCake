@@ -91,8 +91,8 @@ def login(request):
                     request.session['user']=baker.userID
 
                 #리다이렉트
-                #return redirect('/') #urls에 정의해둔 home으로
-                    return render(request,'baker/enrollStore.html')
+                    return redirect('/baker/manageStore/enrollStore')
+                    #return render(request,'baker/enrollStore.html')
                 else:
                     #res_data['error'] = "비밀번호가 틀렸습니다."
                     res_data['error'] = "아이디/비밀번호 오류"
@@ -178,45 +178,56 @@ def valid(request): #사업자번호확인 -> join
 
 # 가게 관리
 def enrollStore(request):
-    if request.method == "GET":
-        return render(request, 'baker/enrollStore.html')
-    elif request.method == "POST":
-        businessID = request.session.get('user')
-        if businessID:
-            baker = Baker.objects.get(pk=businessID)
+    res_data = {}
+    user_id = request.session.get('user')
 
-            storeName = request.POST.get('storeName',None)
-            storeContact = request.POST.get('storeContact',None)
-            pickopen = request.POST.get('pickUpOpen',None)
-            pickclose = request.POST.get('pickUpClose',None)
-            aboutstore = request.POST.get('aboutStore',None)
+    if user_id:
+        baker = Baker.objects.get(pk=user_id)
+        #return HttpResponse(baker.name)
 
-            try:
-                store = Store.objects.get(pk = businessID)
-                store.storeName = storeName
-                store.storeContact = storeContact
-                store.pickUpOpen = pickopen
-                store.pickUpClose = pickclose
-                store.aboutStore = aboutstore
-                store.save()
-                return render(request, 'baker/enrollStore.html')
-            except checkBaker.DoesNotExist:
-                #comment = None
-                store = Store(
-                    businessID = businessID,
-                    storeName=storeName,
-                    storeContact=storeContact,
-                    pickUpOpen=pickopen,
-                    pickUpClose=pickclose,
-                    aboutStore=aboutstore
-                    # storeImg
-                    # location
-                    # manager
-                )
-                store.save()
-                return render(request, 'baker/enrollStore.html')
-
+        if request.method == "GET":
+            res_data['user.baker.name'] =baker.name
             return render(request, 'baker/enrollStore.html')
+
+        elif request.method == "POST":
+            businessID = request.session.get('user')
+            if businessID:
+                baker = Baker.objects.get(pk=businessID)
+
+                storeName = request.POST.get('storeName',None)
+                storeContact = request.POST.get('storeContact',None)
+                pickopen = request.POST.get('pickUpOpen',None)
+                pickclose = request.POST.get('pickUpClose',None)
+                aboutstore = request.POST.get('aboutStore',None)
+
+                try:
+                    store = Store.objects.get(pk = businessID)
+                    store.storeName = storeName
+                    store.storeContact = storeContact
+                    store.pickUpOpen = pickopen
+                    store.pickUpClose = pickclose
+                    store.aboutStore = aboutstore
+                    store.save()
+                    return render(request, 'baker/enrollStore.html')
+                except checkBaker.DoesNotExist:
+                    #comment = None
+                    store = Store(
+                        businessID = businessID,
+                        storeName=storeName,
+                        storeContact=storeContact,
+                        pickUpOpen=pickopen,
+                        pickUpClose=pickclose,
+                        aboutStore=aboutstore
+                        # storeImg
+                        # location
+                        # manager
+                    )
+                    store.save()
+                    return render(request, 'baker/enrollStore.html')
+
+                #return render(request, 'baker/enrollStore.html')
+    else:
+        return redirect('/baker/inappropriateApproach')
 
 def opendays(request):
     return render(request, 'baker/opendays.html')
