@@ -9,6 +9,7 @@ urlpatterns = [
     #path('signUp/', views.signUp, name='signUp_customer'),
     path('signUp/idCheck/', views.useridCheck, name='idCheck'),
     path('signUp/join/', views.join, name='join_customer'),
+    #path('activate/<str:uid64>/<str:token>/', views.activate, name='activate'),
     path('main/', views.main, name='main_customer'),
 
     # 주문하기

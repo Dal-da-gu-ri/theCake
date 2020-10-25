@@ -20,8 +20,10 @@ from django.conf import settings
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('baker/', include('baker.urls')),
-    path('customer/', include('customer.urls')),
+    #path('baker/', include('baker.urls')),
+    #path('customer/', include('customer.urls')),
+    path('baker/', include(('baker.urls', 'baker'), namespace='baker')),
+    path('customer/', include(('customer.urls', 'customer'), namespace='customer')),
     path('', include('home.urls')),
 ]
 
