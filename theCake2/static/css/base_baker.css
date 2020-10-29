@@ -64,6 +64,10 @@ body {
     padding-bottom: 10px;
 }
 
+.dropdown-item{
+  font-size: 0.9em;
+}
+
 .navbar-brand {
     float: left;
     height: 40px;
