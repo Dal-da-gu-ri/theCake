@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from home.models import Orderer, Order, Store, Baker, Review, Option, DetailedOption, Cake, checkBaker
 from django.contrib.auth.models import User
 from django.contrib import auth
@@ -15,7 +15,7 @@ from django.contrib.sites.shortcuts import get_current_site
 from django.utils.http import urlsafe_base64_decode,urlsafe_base64_encode
 from django.core.mail import EmailMessage
 from django.utils.encoding import force_bytes,force_text
-
+from .forms import CakeForm
 #make_password(str) : 이 함수에 넣어준 문자열을 암호화합니다. (hashing)
 #check_password(a,b) : a,b가 일치하는지 확인, 반환합니다.
 
@@ -270,6 +270,22 @@ def storeReview(request):
 def myCakes(request):
 
     return render(request, 'baker/myCakes.html')
+
+def cake_create(request):
+    if request.method == "POST":
+        form = CakeForm(request.POST, request.FILES)
+        if form.is_valid():
+            cake = form.save(commit=False)
+            cake.ip = request.META['REMOTE_ADDR']
+            cake.save()
+            return redirect('/baker/manageCake/myCakes')
+    else:
+        form = CakeForm()
+    context = {
+        'form': form
+    }
+    return render(request, 'baker/cake_create.html', context)
+
 def options(request):
     return render(request, 'baker/options.html')
 

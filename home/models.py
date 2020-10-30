@@ -125,18 +125,17 @@ class Review(models.Model):
 class Option(Store):
     optionName = models.CharField(max_length=30,verbose_name='옵션명',null=True,blank=False,unique=True)
     isNecessary = models.BooleanField(default=False,verbose_name='필수 여부',null=True,blank=False)
+    withColor = models.BooleanField(default=False,verbose_name='색상판 유무',null=True,blank=False)
+    withImage = models.BooleanField(default=False,verbose_name='이미지추가 유무',null=True,blank=False)
 
     class Meta:
         abstract = True
 
 
-
-
-class DetailedOption(Option):
+    class DetailedOption(Option):
     detailName = models.CharField(max_length=50,verbose_name='옵션 세부항목명',null=True,blank=False)
     pricing = models.IntegerField(verbose_name='추가 금액',null=True,blank=False)
-    withColor = models.BooleanField(default=False,verbose_name='색상판 유무',null=True,blank=False)
-    withImage = models.BooleanField(default=False,verbose_name='이미지추가 유무',null=True,blank=False)
+
 
     class Meta:
         db_table = 'Options'
