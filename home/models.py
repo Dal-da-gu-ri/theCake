@@ -132,7 +132,7 @@ class Option(Store):
         abstract = True
 
 
-    class DetailedOption(Option):
+class DetailedOption(Option):
     detailName = models.CharField(max_length=50,verbose_name='옵션 세부항목명',null=True,blank=False)
     pricing = models.IntegerField(verbose_name='추가 금액',null=True,blank=False)
 

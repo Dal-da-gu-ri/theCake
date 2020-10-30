@@ -80,6 +80,7 @@ body {
     height: 25%;
     line-height: 25%;
     margin-top: -16px;
+    padding: 0px;
     background-color: rgb(255, 247, 233);
     /* border-bottom: 0.8px solid #4e4e4e; */
 }
