@@ -2,6 +2,7 @@ from django import forms
 
 from home.models import Store, Baker, Cake, DetailedOption
 
+
 class StoreForm(forms.ModelForm):
 
     class Meta:
@@ -12,13 +13,17 @@ class StoreForm(forms.ModelForm):
 class CakeForm(forms.ModelForm):
     class Meta:
         model = Cake
-        fields = ['cakeName', 'cakeImg', 'cakePrice', 'mini']
-        widgets = {
-            'cakeName': forms.TextInput(
-                # attrs={'class' : 'form-control', 'aria-label': 'cakeName', 'aria-describedby' : 'add-btn'}
-                # 여기를 이용해서 꾸며야 합니다.
-            )
-        }
+        fields = ['cakeName', 'cakeImg', 'cakePrice', 'mini'] #여기서 cakeImg는 base64형식이어야 함
+        # widgets = {
+        #     'cakeName': forms.TextInput(
+        #         # attrs={'class' : 'form-control', 'aria-label': 'cakeName', 'aria-describedby' : 'add-btn'}
+        #         # 여기를 이용해서 꾸며야 합니다.
+        #     )
+        # }
+
+
+
+
 
 class DetailedOptionForm(forms.ModelForm):
     class Meta:
