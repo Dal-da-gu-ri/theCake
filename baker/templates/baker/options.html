@@ -1,7 +1,13 @@
 {% extends 'base_baker.html' %}
-
+{% block title%} 케이크 옵션 관리 {% endblock %}
 {% block content %}
-  <div class="row">
-        <p class="pt-3 pl-4 path">케이크 관리 > 케이크 옵션 관리</p>
-  </div>
+<link rel="stylesheet" href="/static/css/enrollStore.css">
+
+    <form action="" method="POST">
+        {% csrf_token %}
+        <table>
+            {{form.as_table}}
+        </table>
+        <input type="submit" value="제출">
+    </form>
 {% endblock %}
