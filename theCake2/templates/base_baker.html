@@ -61,14 +61,15 @@
   </nav>
 
 <!-- 로고 -->
-<div class="content">
+<div class="content">`
     <div class="d-flex p-4">
         <img src="/static/img/main_logo_baker.png" align="center" alt="사업자 로고">
     </div>
 </div>
 <!-- 반응형 설정해야함 -->
+    {% csrf_token %}
 <div class="pb-3 name">
-    <p>Welcome for {{user.baker.name}}회원님</p>
+    <p>Welcome for {{bakername}} 회원님</p>
 </div>
 
 </header>
