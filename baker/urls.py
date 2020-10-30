@@ -10,7 +10,7 @@ urlpatterns = [
     #path('signUp/join/emailSent/',views.join, name='emailSent_baker'),
     path('activate/<str:uid64>/<str:token>/', views.activate, name='activate'),
     path('inappropriateApproach/',views.wrongApproach,name='wrongApproach'),
-
+    path('logout/',views.logout, name='logout_baker'),
     # 가게 관리
     path('manageStore/enrollStore/', views.enrollStore, name='enrollStore_baker'),
     path('manageStore/opendays/', views.opendays, name='opendays_baker'),
