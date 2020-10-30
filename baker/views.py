@@ -15,7 +15,7 @@ from django.contrib.sites.shortcuts import get_current_site
 from django.utils.http import urlsafe_base64_decode,urlsafe_base64_encode
 from django.core.mail import EmailMessage
 from django.utils.encoding import force_bytes,force_text
-from .forms import CakeForm
+from .forms import CakeForm,StoreForm
 #make_password(str) : 이 함수에 넣어준 문자열을 암호화합니다. (hashing)
 #check_password(a,b) : a,b가 일치하는지 확인, 반환합니다.
 
@@ -180,6 +180,7 @@ def valid(request): #사업자번호확인 -> join
 def enrollStore(request):
     res_data = {}
     user_id = request.session.get('user')
+    store = StoreForm()
 
     if user_id:
         baker = Baker.objects.get(pk=user_id)
@@ -188,6 +189,7 @@ def enrollStore(request):
         if request.method == "GET":
             res_data['bakername'] = baker.name
             return render(request, 'baker/enrollStore.html',res_data)
+            #return render(request, 'baker/enrollStore2.html', res_data, {'store': store})
 
         elif request.method == "POST":
 

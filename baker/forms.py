@@ -8,28 +8,27 @@ class StoreForm(forms.ModelForm):
         fields = ['storeName', 'storeContact', 'pickUpOpen', 'pickUpClose', 'aboutStore', 'storeImg', 'location']
         widgets = {
             'storeName': forms.TextInput(
-                label='가게 이름',
+                #label='가게 이름',
                 attrs={'class': 'form-control'}
             ),
             'storeContact': forms.TextInput(
-                label='가게 연락처',
+                #label='가게 연락처',
                 attrs={'class: form-control'}
             ),
             'pickUpOpen': forms.TextInput(
-                label='픽업 오픈 시간',
+                #label='픽업 오픈 시간',
                 attrs={'class: form-control'}
             ),
             'pickUpClose': forms.TextInput(
-                label='픽업 마감 시간',
+                #label='픽업 마감 시간',
                 attrs={'class: form-control'}
             ),
             'aboutStore': forms.Textarea(
-                label='가게 소개글',
+                #label='가게 소개글',
                 attrs={'class: form-control'}
             ),
-            'storeImg': forms.ImageField,
             'location': forms.TextInput(
-                label='가게 위치',
+                #label='가게 위치',
                 attrs={'class: form-control'}
             )
         }
