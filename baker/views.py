@@ -298,8 +298,17 @@ def mypage(request):
 
 
 def logout(request):
-    if request.method == "POST":
+    res_data = {}
+
+    if request.method == "GET":
         if request.session['user']:
-            del(request.session['user'])
-            return redirect('/baker/login')
+            user_id = request.session.get('user')
+            baker = Baker.objects.get(pk=user_id)
+            del (request.session['user'])
+            res_data['comment'] = baker.name + " 님의 계정이 성공적으로 로그아웃되었습니다!"
+            return render(request, 'baker/logout_baker.html', res_data)
+        else:
+            return redirect('/baker/inappropriateApproach')
+    elif request.method == "POST":
         return redirect('/')
+
