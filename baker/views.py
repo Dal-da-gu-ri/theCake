@@ -186,8 +186,8 @@ def enrollStore(request):
         #return HttpResponse(baker.name)
 
         if request.method == "GET":
-            res_data['user.baker.name'] = baker.name
-            return render(request, 'baker/enrollStore.html')
+            res_data['bakername'] = baker.name
+            return render(request, 'baker/enrollStore.html',res_data)
 
         elif request.method == "POST":
 
