@@ -75,7 +75,8 @@ class Store(models.Model):
         ('21:00', '21:00'), ('21:30', '21:30'), ('22:00', '22:00'), ('22:30', '22:30'),
     }
     businessID = models.CharField(max_length=10, verbose_name='사업자 등록번호', blank=False, primary_key=True)
-    manager = models.ForeignKey(Baker, on_delete=models.CASCADE)
+    #manager = models.CharField(max_length=30, verbose_name='사업자이름', null=True,blank=False)
+    #manager = models.ForeignKey(Baker, on_delete=models.CASCADE,null=True)
     storeName = models.CharField(max_length=30, verbose_name='가게 이름', null=True, blank=False)
     location = models.CharField(max_length=200, verbose_name='가게 위치', null=True, blank=True) #나중에 blank False로 수정하기
     storeContact = models.CharField(max_length=30, verbose_name='가게 연락처', null=True, blank=False,unique=True)

@@ -180,13 +180,39 @@ def valid(request): #사업자번호확인 -> join
 def enrollStore(request):
     res_data = {}
     user_id = request.session.get('user')
-    store = StoreForm()
+    #store = StoreForm()
 
     if user_id:
         baker = Baker.objects.get(pk=user_id)
         #return HttpResponse(baker.name)
+        res_data['bakername'] = baker.name
 
-        if request.method == "GET":
+        if request.method == 'POST':
+            store = StoreForm(request.POST) #,instance=request.user
+            if store.is_valid():
+                businessID = baker.businessID
+                storeName = store.cleaned_data['storeName']
+                storeContact = store.cleaned_data['storeContact']
+                pickUpOpen = store.cleaned_data['pickUpOpen']
+                pickUpClose = store.cleaned_data['pickUpClose']
+                aboutStore = store.cleaned_data['aboutStore']
+                #manager = baker.name
+                store.save()
+                res_data['store'] = store
+                return render(request, 'baker/enrollStore2.html', res_data)
+
+
+        else:
+            store = StoreForm()
+            res_data['store'] = store
+
+            return render(request, 'baker/enrollStore2.html', res_data)
+
+        """store = StoreForm()
+        res_data['store'] = store
+        return render(request, 'baker/enrollStore2.html', res_data)"""
+
+        """if request.method == "GET":
             res_data['bakername'] = baker.name
             res_data['store'] = store
             return render(request, 'baker/enrollStore2.html', res_data)
@@ -231,7 +257,7 @@ def enrollStore(request):
                 store.save()
 
                 res_data['store'] = store
-                return render(request, 'baker/enrollStore2.html', res_data)
+                return render(request, 'baker/enrollStore2.html', res_data)"""
             # businessID = request.session.get('user')
             # if businessID:
             #     baker = Baker.objects.get(pk=businessID)
