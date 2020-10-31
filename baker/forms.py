@@ -13,23 +13,23 @@ class StoreForm(forms.ModelForm):
             ),
             'storeContact': forms.TextInput(
                 #label='가게 연락처',
-                attrs={'class: form-control'}
+                attrs={'class': 'form-control'}
             ),
             'pickUpOpen': forms.TextInput(
                 #label='픽업 오픈 시간',
-                attrs={'class: form-control'}
+                attrs={'class': 'form-control'}
             ),
             'pickUpClose': forms.TextInput(
                 #label='픽업 마감 시간',
-                attrs={'class: form-control'}
+                attrs={'class': 'form-control'}
             ),
             'aboutStore': forms.Textarea(
                 #label='가게 소개글',
-                attrs={'class: form-control'}
+                attrs={'class': 'form-control'}
             ),
             'location': forms.TextInput(
                 #label='가게 위치',
-                attrs={'class: form-control'}
+                attrs={'class': 'form-control'}
             )
         }
 
