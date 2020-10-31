@@ -5,7 +5,7 @@ from home.models import Store, Baker, Cake, DetailedOption
 class StoreForm(forms.ModelForm):
     class Meta:
         model = Store
-        fields = ['storeName', 'storeContact', 'aboutStore', 'pickUpOpen', 'pickUpClose', 'storeImg', 'location', 'sido', 'sigugun', 'dong']
+        fields = ['storeName', 'storeContact', 'aboutStore', 'pickUpOpen', 'pickUpClose', 'storeImg', 'sido', 'sigugun', 'dong']
         widgets = {
             'storeName': forms.TextInput(
                 #label='가게 이름',
@@ -25,10 +25,6 @@ class StoreForm(forms.ModelForm):
             ),
             'aboutStore': forms.Textarea(
                 #label='가게 소개글',
-                attrs={'class': 'form-control'}
-            ),
-            'location': forms.TextInput(
-                #label='가게 위치',
                 attrs={'class': 'form-control'}
             ),
             'sido': forms.Select(
