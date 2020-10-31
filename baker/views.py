@@ -199,6 +199,7 @@ def enrollStore(request):
             if storeform.is_valid(): #유효성 검사
                     #storeobject = storeform.save()
                     storeobject.businessID = baker.businessID
+                    storeobject.manager = baker
                     storeobject.storeName = storeform.cleaned_data['storeName']
                     storeobject.storeContact = storeform.cleaned_data['storeContact']
                     storeobject.pickUpOpen = storeform.cleaned_data['pickUpOpen']
@@ -242,31 +243,50 @@ def myCakes(request):
     user_id = request.session.get('user')
     baker = Baker.objects.get(pk=user_id)
     res_data['bakername'] = baker.name
+
+    if Cake.objects.get(store_ptr = baker.businessID):
+        cake = Cake.objects.get(store_ptr = baker.businessID)
+        #cakes += cake
+
+    res_data['cake']=cake
     return render(request, 'baker/myCakes.html',res_data)
 
 def cake_add(request):
     res_data = {}
     user_id = request.session.get('user')
-    baker = Baker.objects.get(pk=user_id)
-    res_data['bakername'] = baker.name
 
-    if request.method == "POST":
-        cakeform = CakeForm(request.POST)
-        if cakeform.is_valid():
-            cake = cakeform.save(commit=False)
-            cake.cakeName = cakeform.cleaned_data['cakeName']
-            #cake.cakeImg = cakeform.cleaned_data['cakeImg']
-            cake.cakePrice = cakeform.cleaned_data['cakePrice']
-            cake.mini = cakeform.cleaned_data['mini']
-            #cake.ip = request.META['REMOTE_ADDR']
-            cake.save()
-            #return redirect('/baker/manageCake/myCakes')
+    if user_id:
+        baker = Baker.objects.get(pk=user_id)
+        res_data['bakername'] = baker.name
+        #cakeobject = Cake()
+        if request.method == "POST":
+            cakeform = CakeForm(request.POST)
+            store = Store.objects.get(pk=baker.businessID)
+
+            #try:
+            #    cake = Cake.objects.get(cakeName=cakeName)
+            if cakeform.is_valid():
+                cakeobject = cakeform.save(commit=False)
+                cakeobject.store_ptr = store
+                cakeobject.cakeName = cakeform.cleaned_data['cakeName']
+                #cake.cakeImg = cakeform.cleaned_data['cakeImg']
+                cakeobject.cakePrice = cakeform.cleaned_data['cakePrice']
+                cakeobject.mini = cakeform.cleaned_data['mini']
+                #cake.ip = request.META['REMOTE_ADDR']
+                cakeobject.save()
+                #return redirect('/baker/manageCake/myCakes')
+                res_data['cake'] = cakeform
+                return render(request, 'baker/cake_add.html', res_data)
+            else:
+                    print(cakeform.errors)
+                    return redirect('/baker/inappropriateApproach')
+
+        else:
+            #cakeobject = Cake.objects.get(cakeName=baker.businessID)
+            #cakeform = CakeForm(instance=cakeobject)
+            cakeform = CakeForm()
+            res_data['cake'] = cakeform
             return render(request, 'baker/cake_add.html', res_data)
-
-    else:
-        cakeform = CakeForm()
-        res_data['cake']=cakeform
-    return render(request, 'baker/cake_add.html', res_data)
 
 def options(request):
     return render(request, 'baker/options.html')

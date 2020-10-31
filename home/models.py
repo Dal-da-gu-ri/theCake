@@ -76,7 +76,7 @@ class Store(models.Model):
     }
     businessID = models.CharField(max_length=10, verbose_name='사업자 등록번호', blank=False, primary_key=True)
     #manager = models.CharField(max_length=30, verbose_name='사업자이름', null=True,blank=False)
-    #manager = models.ForeignKey(Baker, on_delete=models.CASCADE,null=True)
+    manager = models.ForeignKey(Baker, on_delete=models.CASCADE,null=True)
     storeName = models.CharField(max_length=30, verbose_name='가게 이름', null=True, blank=True)
     location = models.CharField(max_length=200, verbose_name='가게 위치', null=True, blank=True) #나중에 blank False로 수정하기
     sido = models.CharField(max_length=20, verbose_name='시/도', null=True, blank=True)
@@ -159,7 +159,7 @@ class DetailedOption(Option):
 
 class Cake(Store):
     cakeName = models.CharField(max_length=200, verbose_name='케이크 이름',null=True,blank=False,unique=True)
-    cakeImg = models.ImageField(verbose_name='케이크 이미지',null=True,blank=False)
+    cakeImg = models.ImageField(verbose_name='케이크 이미지',null=True,blank=True)
     cakePrice = models.IntegerField(verbose_name='1호 기준 가격',null=True,blank=False)
     mini = models.BooleanField(default=False,verbose_name='미니사이즈 가능 여부',null=True,blank=False)
 
