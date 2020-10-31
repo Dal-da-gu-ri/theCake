@@ -171,64 +171,11 @@ def wrongApproach(request):
         return redirect('/')
 
 def idpw_search(request):
+
     return render(request, 'baker/idpw_search_baker.html')
 
 def valid(request): #사업자번호확인 -> join
     return HttpResponse("Valid page!")
-
-def enrollStore4(request):
-    res_data = {}
-    user_id = request.session.get('user')
-    #store = StoreForm()
-    #return HttpResponse(user_id)
-
-    if user_id:
-        try:
-            baker = Baker.objects.get(userid=user_id)
-            res_data['bakername'] = baker.name
-            if request.method == 'POST':
-                try:
-                    storeobject = Store.objects.get(businessID=baker.businessID)
-                    store = StoreForm(request.POST) #,instance=request.user  ,request.FILES
-                    if store.is_valid():  # 유효성 검사
-                        # store = Store()
-                        storeobject.businessID = baker.businessID
-                        storeobject.storeName = store.cleaned_data['storeName']
-                        storeobject.storeContact = store.cleaned_data['storeContact']
-                        storeobject.pickUpOpen = store.cleaned_data['pickUpOpen']
-                        storeobject.pickUpClose = store.cleaned_data['pickUpClose']
-                        storeobject.aboutStore = store.cleaned_data['aboutStore']
-                        # storeobject.storeImg =
-                        storeobject.save()
-                        res_data['store'] = store
-                        return render(request, 'baker/enrollStore2.html', res_data)
-                    else:
-                        return redirect('/baker/inappropriateApproach')
-                except Store.DoesNotExist:
-                        storeobject = Store.objects.create()
-                        store = StoreForm(request.POST)  # ,instance=request.user  ,request.FILES
-                        if store.is_valid():  # 유효성 검사
-                            # store = Store()
-                            storeobject.businessID = baker.businessID
-                            storeobject.storeName = store.cleaned_data['storeName']
-                            storeobject.storeContact = store.cleaned_data['storeContact']
-                            storeobject.pickUpOpen = store.cleaned_data['pickUpOpen']
-                            storeobject.pickUpClose = store.cleaned_data['pickUpClose']
-                            storeobject.aboutStore = store.cleaned_data['aboutStore']
-                            # storeobject.storeImg =
-                            storeobject.save()
-                            res_data['store'] = store
-                            return render(request, 'baker/enrollStore2.html', res_data)
-                        else:
-                            return redirect('/baker/inappropriateApproach')
-            else:
-                #store = StoreForm(instance=storeobject)
-                #res_data['store'] = store
-                return render(request, 'baker/enrollStore2.html', res_data)
-
-
-        except Baker.DoesNotExist:
-            return redirect('/baker/inappropriateApproach')
 
 def enrollStore(request):
     res_data = {}
@@ -387,125 +334,6 @@ def enrollStore7(request): # 이미 생성된 객체가 있는 store에 대해�
 
 
 # 가게 관리
-def enrollStore2(request):
-    res_data = {}
-    user_id = request.session.get('user')
-    #store = StoreForm()
-
-    if user_id:
-        baker = Baker.objects.get(pk=user_id)
-        res_data['bakername'] = baker.name
-
-        if request.method == 'POST':
-            store = StoreForm(request.POST) #,instance=request.user
-            if store.is_valid():
-                businessID = baker.businessID
-                storeName = store.cleaned_data['storeName']
-                storeContact = store.cleaned_data['storeContact']
-                pickUpOpen = store.cleaned_data['pickUpOpen']
-                pickUpClose = store.cleaned_data['pickUpClose']
-                aboutStore = store.cleaned_data['aboutStore']
-                #manager = baker.name
-                store.save()
-                res_data['store'] = store
-                return render(request, 'baker/enrollStore2.html', res_data)
-
-
-        else:
-            store = StoreForm(request.GET)
-            res_data['store'] = store
-
-            return render(request, 'baker/enrollStore2.html', res_data)
-
-    else:
-        return redirect('/baker/inappropriateApproach')
-
-        """store = StoreForm()
-        res_data['store'] = store
-        return render(request, 'baker/enrollStore2.html', res_data)"""
-
-        """if request.method == "GET":
-            res_data['bakername'] = baker.name
-            res_data['store'] = store
-            return render(request, 'baker/enrollStore2.html', res_data)
-
-        elif request.method == "POST":
-
-            res_data['bakername'] = baker.name
-            businessID = baker.businessID
-            storeName = request.POST.get('storeName', None)
-            storeContact = request.POST.get('storeContact', None)
-            pickopen = request.POST.get('pickUpOpen', None)
-            pickclose = request.POST.get('pickUpClose', None)
-            aboutstore = request.POST.get('aboutStore', None)
-            location = request.POST.get('location',None)
-            img = request.POST.get('storeImg',None)
-
-            try:
-                store = Store.objects.get(pk=businessID)
-                store.storeName = storeName
-                store.storeContact = storeContact
-                store.pickUpOpen = pickopen
-                store.pickUpClose = pickclose
-                store.aboutStore = aboutstore
-                store.location = location
-                store.storeImg = img
-                store.save()
-                res_data['store'] = store
-                return render(request, 'baker/enrollStore2.html', res_data)
-            except Store.DoesNotExist:
-                # comment = None
-                store = Store(
-                    businessID=businessID,
-                    storeName=storeName,
-                    storeContact=storeContact,
-                    pickUpOpen=pickopen,
-                    pickUpClose=pickclose,
-                    aboutStore=aboutstore,
-                    storeImg = img,
-                    location = location,
-                    manager = baker
-                )
-                store.save()
-
-                res_data['store'] = store
-                return render(request, 'baker/enrollStore2.html', res_data)"""
-            # businessID = request.session.get('user')
-            # if businessID:
-            #     baker = Baker.objects.get(pk=businessID)
-            #
-            #     storeName = request.POST.get('storeName',None)
-            #     storeContact = request.POST.get('storeContact',None)
-            #     pickopen = request.POST.get('pickUpOpen',None)
-            #     pickclose = request.POST.get('pickUpClose',None)
-            #     aboutstore = request.POST.get('aboutStore',None)
-            #
-            #     try:
-            #         store = Store.objects.get(pk = businessID)
-            #         store.storeName = storeName
-            #         store.storeContact = storeContact
-            #         store.pickUpOpen = pickopen
-            #         store.pickUpClose = pickclose
-            #         store.aboutStore = aboutstore
-            #         store.save()
-            #         return render(request, 'baker/enrollStore.html')
-            #     except checkBaker.DoesNotExist:
-            #         #comment = None
-            #         store = Store(
-            #             businessID = businessID,
-            #             storeName=storeName,
-            #             storeContact=storeContact,
-            #             pickUpOpen=pickopen,
-            #             pickUpClose=pickclose,
-            #             aboutStore=aboutstore
-            #             # storeImg
-            #             # location
-            #             # manager
-            #         )
-            #         store.save()
-            #         return render(request, 'baker/enrollStore.html')
-
-                # return render(request, 'baker/enrollStore.html')
 
 
 def opendays(request):
@@ -515,23 +343,35 @@ def storeReview(request):
 
 # 케이크 관리
 def myCakes(request):
-
-    return render(request, 'baker/myCakes.html')
+    res_data = {}
+    user_id = request.session.get('user')
+    baker = Baker.objects.get(pk=user_id)
+    res_data['bakername'] = baker.name
+    return render(request, 'baker/myCakes.html',res_data)
 
 def cake_create(request):
+    res_data = {}
+    user_id = request.session.get('user')
+    baker = Baker.objects.get(pk=user_id)
+    res_data['bakername'] = baker.name
+
     if request.method == "POST":
-        form = CakeForm(request.POST, request.FILES)
-        if form.is_valid():
-            cake = form.save(commit=False)
-            cake.ip = request.META['REMOTE_ADDR']
+        cakeform = CakeForm(request.POST)
+        if cakeform.is_valid():
+            cake = cakeform.save(commit=False)
+            cake.cakeName = cakeform.cleaned_data['cakeName']
+            #cake.cakeImg = cakeform.cleaned_data['cakeImg']
+            cake.cakePrice = cakeform.cleaned_data['cakePrice']
+            cake.mini = cakeform.cleaned_data['mini']
+            #cake.ip = request.META['REMOTE_ADDR']
             cake.save()
-            return redirect('/baker/manageCake/myCakes')
+            #return redirect('/baker/manageCake/myCakes')
+            return render(request, 'baker/cake_create.html', res_data)
+
     else:
-        form = CakeForm()
-    context = {
-        'form': form
-    }
-    return render(request, 'baker/cake_create.html', context)
+        cakeform = CakeForm()
+        res_data['cake']=cakeform
+    return render(request, 'baker/cake_create.html', res_data)
 
 def options(request):
     return render(request, 'baker/options.html')
