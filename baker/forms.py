@@ -15,11 +15,11 @@ class StoreForm(forms.ModelForm):
                 #label='가게 연락처',
                 attrs={'class': 'form-control'}
             ),
-            'pickUpOpen': forms.TextInput(
+            'pickUpOpen': forms.Select(
                 #label='픽업 오픈 시간',
                 attrs={'class': 'form-control'}
             ),
-            'pickUpClose': forms.TextInput(
+            'pickUpClose': forms.Select(
                 #label='픽업 마감 시간',
                 attrs={'class': 'form-control'}
             ),
