@@ -1,0 +1,276 @@
+{% extends 'base_baker.html' %}
+{% block title%} 가게등록 {% endblock %}
+{% block content %}
+<!--daum 우편주소 api-->
+<script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+<link rel="stylesheet" href="/static/css/enrollStore.css">
+   <div class="row">
+        <p class="pt-3 pl-4 path">가게 관리 > 가게 등록</p>
+    </div>
+    <!-- 가게 썸네일 등록 -->
+
+<form method = "POST" action = "#" >
+    <div class="form-row">
+        <div class="form-group col-md-4">
+            <canvas id="canvas"></canvas>
+            <input type="file" id="upImgFile" onChange="uploadImgPreview();" accept="image/*">
+        </div>
+        <div class="form-group col-md-6">
+            {% csrf_token %}
+
+            <div class="form-row">
+                <div class="form-group col-md-2">
+                    <label>가게 이름</label>
+                </div>
+                <div class="form-group col-md-2">
+                    {{ store.storeName }}
+                </div>
+            </div>
+<hr>
+    <!--name 필요-->
+    <div class="form-row">
+        <div class="form-group col-md-2">
+      <label>가게 위치</label>
+            </div>
+       <div class="form-group col-md-2">
+        <div class="form-control">
+      <input type="text" id="sample6_postcode" placeholder="우편번호">
+      <input type="button" onclick="sample6_execDaumPostcode()" value="우편번호 찾기"><br>
+      <input type="text" id="sample6_address" placeholder="주소"><br>
+      <input type="text" id="sample6_detailAddress" placeholder="상세주소">
+      <input type="text" id="sample6_extraAddress" placeholder="참고항목">
+        </div>
+       </div>
+      <!-- 이 name 값으로 정보가 전달된다 -->
+    </div>
+<hr>
+    <div class="form-row">
+        <div class="form-group col-md-2">
+            <label>가게 연락처</label>
+        </div>
+        <div class="form-group col-md-2">
+          {{ store.storeContact}}
+        </div>
+    </div>
+            <hr>
+    <div class="form-row">
+        <div class="form-group col-md-2">
+          <label>픽업 오픈 시간</label>
+          {{ store.storepickUp }}
+        </div>
+
+        <div class="form-group col-md-2">
+            <label for="pickUpClose">픽업 마감 시간</label>
+      <select class="form-control" name="pickUpClose" id="pickUpClose">
+        <option hidden>--선택해주세요--</option>
+        <option>9:00</option>
+        <option>9:30</option>
+        <option>10:00</option>
+        <option>10:30</option>
+        <option>11:00</option>
+        <option>11:30</option>
+        <option>12:00</option>
+        <option>12:30</option>
+        <option>13:00</option>
+        <option>13:30</option>
+        <option>14:00</option>
+        <option>14:30</option>
+        <option>15:00</option>
+        <option>15:30</option>
+        <option>16:00</option>
+        <option>16:30</option>
+        <option>17:00</option>
+        <option>17:30</option>
+        <option>18:00</option>
+        <option>18:30</option>
+        <option>19:00</option>
+        <option>19:30</option>
+        <option>20:00</option>
+        <option>20:30</option>
+        <option>21:00</option>
+        <option>21:30</option>
+        <option>22:00</option>
+        <option>22:30</option>
+        <option>23:00</option>
+        <option>23:30</option>
+      </select>
+    </div>
+    </div>
+<hr>
+    <div class="form-row">
+        <div class="form-group col-md-2">
+      <label for="aboutStore">가게 소개글</label>
+        </div>
+        <div class="form-group col-md-2">
+      <textarea
+      class="form-control"
+      cols="40"
+      rows="8"
+      id="aboutStore"
+      name="aboutStore"
+      required>
+      </textarea>
+        </div>
+    </div>
+            <div class="form-row">
+        <div class="col">
+        <button type="submit" id="submit">등록</button>
+         </div>
+    </div>
+    </div>
+    </div>
+
+</div>
+
+<!--    <div class="form-group">-->
+<!--      <label for="monday">월요일 주문가능 수량</label>-->
+<!--      <input type="number"-->
+<!--      class="form-control"-->
+<!--      id="monday"-->
+<!--      name="monday">-->
+<!--      &lt;!&ndash; 이 name 값으로 정보가 전달된다 &ndash;&gt;-->
+<!--    </div>-->
+<!--    <div class="form-group">-->
+<!--      <label for="tuesday">화요일 주문가능 수량</label>-->
+<!--      <input type="number"-->
+<!--      class="form-control"-->
+<!--      id="tuesday"-->
+<!--      name="tuesday">-->
+<!--      &lt;!&ndash; 이 name 값으로 정보가 전달된다 &ndash;&gt;-->
+<!--    </div>-->
+<!--    <div class="form-group">-->
+<!--      <label for="wednesday">수요일 주문가능 수량</label>-->
+<!--      <input type="number"-->
+<!--      class="form-control"-->
+<!--      id="wednesday"-->
+<!--      name="wednesday">-->
+<!--      &lt;!&ndash; 이 name 값으로 정보가 전달된다 &ndash;&gt;-->
+<!--    </div>-->
+<!--    <div class="form-group">-->
+<!--      <label for="thursday">목요일 주문가능 수량</label>-->
+<!--      <input type="number"-->
+<!--      class="form-control"-->
+<!--      id="thursday"-->
+<!--      name="thursday">-->
+<!--      &lt;!&ndash; 이 name 값으로 정보가 전달된다 &ndash;&gt;-->
+<!--    </div>-->
+<!--    <div class="form-group">-->
+<!--      <label for="friday">금요일 주문가능 수량</label>-->
+<!--      <input type="number"-->
+<!--      class="form-control"-->
+<!--      id="friday"-->
+<!--      name="friday">-->
+<!--      &lt;!&ndash; 이 name 값으로 정보가 전달된다 &ndash;&gt;-->
+<!--    </div>-->
+<!--    <div class="form-group">-->
+<!--      <label for="saturday">토요일 주문가능 수량</label>-->
+<!--      <input type="number"-->
+<!--      class="form-control"-->
+<!--      id="saturday"-->
+<!--      name="saturday">-->
+<!--      &lt;!&ndash; 이 name 값으로 정보가 전달된다 &ndash;&gt;-->
+<!--    </div>-->
+<!--    <div class="form-group">-->
+<!--      <label for="sunday">일요일 주문가능 수량</label>-->
+<!--      <input type="number"-->
+<!--      class="form-control"-->
+<!--      id="sunday"-->
+<!--      name="sunday">-->
+<!--      &lt;!&ndash; 이 name 값으로 정보가 전달된다 &ndash;&gt;-->
+<!--    </div>-->
+
+ </form>
+
+
+    <script type="text/javascript">
+    function uploadImgPreview() {
+        // @brief 업로드 파일 읽기
+        let fileInfo = document.getElementById("upImgFile").files[0];
+        let reader = new FileReader();
+
+        // @details INDEX #01 실행 이후, 파일의 업로드( onload )가 확인되고 나서 실행된다.
+        reader.onload = function() {
+            console.log( "INDEX #02" );
+            // @brief 썸네일 이미지 생성
+            let tempImage = new Image();    // @details drawImage 메서드에 넣기 위해 이미지 객체화
+            tempImage.src = reader.result;    // @details data-uri를 이미지 객체에 주입
+
+            tempImage.addEventListener("load", function() {
+                // @brief 캔버스 위에 이미지 그리기
+                let canvas = document.getElementById( "canvas" );
+                let canvasContext = canvas.getContext( "2d" );
+                // @brief 캔버스 크기 셋팅
+                canvas.width = 200;
+                canvas.height = 200;
+                // @brief 캔버스 위에 이미지 그리기
+                canvasContext.drawImage(
+                this	// @details 업로드한 이미지 파일의 정보
+                , 0	    // @details X좌표
+                , 0	    // @details Y좌표
+                , 150	// @details 넣을 이미지의 가로 사이즈( 해당 예제는 변화를 보기위해 살짝 크게 했다. )
+                , 200	// @details 넣을 이미지의 세로 사이즈( 해당 예제는 변화를 보기위해 살짝 크게 했다. )
+                );
+                // @brief 캔버스 위에 이미지 그리기
+                canvasContext.stroke();
+                // @brief 캔버스의 이미지 URL 정보를 받아 썸네일 출력
+                let dataURI = canvas.toDataURL("image/jpeg");
+                document.querySelector("#thumbnail").src = dataURI;
+            });
+        };
+
+        if( fileInfo) {
+            console.log( "INDEX #01" );
+            reader.readAsDataURL(fileInfo);
+        }
+    }
+</script>
+<script>
+    function sample6_execDaumPostcode() {
+        new daum.Postcode({
+            oncomplete: function(data) {
+                // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
+
+                // 각 주소의 노출 규칙에 따라 주소를 조합한다.
+                // 내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
+                var addr = ''; // 주소 변수
+                var extraAddr = ''; // 참고항목 변수
+
+                //사용자가 선택한 주소 타입에 따라 해당 주소 값을 가져온다.
+                if (data.userSelectedType === 'R') { // 사용자가 도로명 주소를 선택했을 경우
+                    addr = data.roadAddress;
+                } else { // 사용자가 지번 주소를 선택했을 경우(J)
+                    addr = data.jibunAddress;
+                }
+
+                // 사용자가 선택한 주소가 도로명 타입일때 참고항목을 조합한다.
+                if(data.userSelectedType === 'R'){
+                    // 법정동명이 있을 경우 추가한다. (법정리는 제외)
+                    // 법정동의 경우 마지막 문자가 "동/로/가"로 끝난다.
+                    if(data.bname !== '' && /[동|로|가]$/g.test(data.bname)){
+                        extraAddr += data.bname;
+                    }
+                    // 건물명이 있고, 공동주택일 경우 추가한다.
+                    if(data.buildingName !== '' && data.apartment === 'Y'){
+                        extraAddr += (extraAddr !== '' ? ', ' + data.buildingName : data.buildingName);
+                    }
+                    // 표시할 참고항목이 있을 경우, 괄호까지 추가한 최종 문자열을 만든다.
+                    if(extraAddr !== ''){
+                        extraAddr = ' (' + extraAddr + ')';
+                    }
+                    // 조합된 참고항목을 해당 필드에 넣는다.
+                    document.getElementById("sample6_extraAddress").value = extraAddr;
+
+                } else {
+                    document.getElementById("sample6_extraAddress").value = '';
+                }
+
+                // 우편번호와 주소 정보를 해당 필드에 넣는다.
+                document.getElementById('sample6_postcode').value = data.zonecode;
+                document.getElementById("sample6_address").value = addr;
+                // 커서를 상세주소 필드로 이동한다.
+                document.getElementById("sample6_detailAddress").focus();
+            }
+        }).open();
+    }
+</script>
+{% endblock %}
