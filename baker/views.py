@@ -193,12 +193,15 @@ def enrollStore(request):
 
         elif request.method == "POST":
 
+            res_data['bakername'] = baker.name
             businessID = baker.businessID
             storeName = request.POST.get('storeName', None)
             storeContact = request.POST.get('storeContact', None)
             pickopen = request.POST.get('pickUpOpen', None)
             pickclose = request.POST.get('pickUpClose', None)
             aboutstore = request.POST.get('aboutStore', None)
+            location = request.POST.get('location',None)
+            img = request.POST.get('storeImg',None)
 
             try:
                 store = Store.objects.get(pk=businessID)
@@ -207,9 +210,12 @@ def enrollStore(request):
                 store.pickUpOpen = pickopen
                 store.pickUpClose = pickclose
                 store.aboutStore = aboutstore
+                store.location = location
+                store.storeImg = img
                 store.save()
-                return render(request, 'baker/enrollStore.html')
-            except checkBaker.DoesNotExist:
+                res_data['store'] = store
+                return render(request, 'baker/enrollStore2.html', res_data)
+            except Store.DoesNotExist:
                 # comment = None
                 store = Store(
                     businessID=businessID,
@@ -217,13 +223,15 @@ def enrollStore(request):
                     storeContact=storeContact,
                     pickUpOpen=pickopen,
                     pickUpClose=pickclose,
-                    aboutStore=aboutstore
-                    # storeImg
-                    # location
-                    # manager
+                    aboutStore=aboutstore,
+                    storeImg = img,
+                    location = location,
+                    manager = baker
                 )
                 store.save()
-                return render(request, 'baker/enrollStore.html')
+
+                res_data['store'] = store
+                return render(request, 'baker/enrollStore2.html', res_data)
             # businessID = request.session.get('user')
             # if businessID:
             #     baker = Baker.objects.get(pk=businessID)
