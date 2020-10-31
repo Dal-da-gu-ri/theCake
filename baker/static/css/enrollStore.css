@@ -51,7 +51,7 @@ label {
 }
 
 #submit{
-    padding: 10px 50px;
+    padding: 0px 0px;
 }
 
 form {
@@ -61,3 +61,4 @@ canvas {
 background-color: black;
 margin: 0px;
 }
+

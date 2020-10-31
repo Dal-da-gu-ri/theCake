@@ -79,6 +79,9 @@ class Store(models.Model):
     #manager = models.ForeignKey(Baker, on_delete=models.CASCADE,null=True)
     storeName = models.CharField(max_length=30, verbose_name='가게 이름', null=True, blank=False)
     location = models.CharField(max_length=200, verbose_name='가게 위치', null=True, blank=True) #나중에 blank False로 수정하기
+    sido = models.CharField(max_length=20, verbose_name='시/도', null=True, blank=True)
+    sigugun = models.CharField(max_length=20, verbose_name='시/군/구', null=True, blank=True)
+    dong = models.CharField(max_length=20, verbose_name='읍/면/동', null=True, blank=True)
     storeContact = models.CharField(max_length=30, verbose_name='가게 연락처', null=True, blank=False,unique=True)
     pickUpOpen = models.CharField(max_length=15, verbose_name='픽업 오픈 시간',null=True, blank=False, choices=TIME_CHOICES)
     pickUpClose = models.CharField(max_length=15, verbose_name='픽업 마감 시간',null=True, blank=False, choices=TIME_CHOICES)

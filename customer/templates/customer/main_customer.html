@@ -42,7 +42,7 @@
         //세종특별자치시 예외처리
         //옵션값을 읽어 비교 : $("#셀렉트박스id option:selected").val()
         if(jQuery('#sido option:selected').val() == '36'){
-          //세종특별자치시일 경우 없애줌.-> 없애지 않고 선택못하게 하고 싶음. : 했다!
+          //세종특별자치시일 경우 선택못하게
           jQuery('#sigugun').prop('disabled', true);
           //index를 이용해서 selected 속성(attr)추가
           //기본 선택 옵션이 최상위로 index 0을 가짐

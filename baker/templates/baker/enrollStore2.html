@@ -9,6 +9,35 @@
     </div>
     <!-- 가게 썸네일 등록 -->
 
+<style>
+    .location_select{
+      width: 180px;
+      padding: .3em .5em;
+      border: 1px solid #999;
+      font-family: inherit;
+      background: url(https://farm1.staticflickr.com/379/19928272501_4ef877c265_t.jpg) no-repeat 95% 50%;
+      border-radius: 0px;
+      /* 네이티브 모형 감추기 */
+      -webkit-appearance: none;
+      -moz-appearance: none;
+      appearance: none;
+      margin-right: 30px;
+        display: block;
+    }
+
+    /* 네이티브 화살표 숨기기 */
+    select::-ms-expand {
+        display: none;
+    }
+    #submit{
+    padding: 10px;
+    margin-top: 30px;
+    width: 20%;
+    margin-left: 50%;
+    }
+</style>
+
+
 <form method = "POST" action = "#" >
     <div class="form-row">
         <div class="form-group col-md-4">
@@ -44,6 +73,22 @@
        </div>
       <!-- 이 name 값으로 정보가 전달된다 -->
     </div>
+    <div>
+    </div>
+<hr>
+    <div class="form-row">
+        <div class="form-group col-md-2">
+            <label>가게 위치2</label>
+        </div>
+        <div class="form-group col-md-2">
+                <div>
+                {{ store.sido }}
+                </div>
+                {{ store.sigugun }}
+                {{ store.dong }}
+        </div>
+    </div>
+
 <hr>
     <div class="form-row">
         <div class="form-group col-md-2">
@@ -74,14 +119,12 @@
             {{ store.aboutStore }}
         </div>
     </div>
-            <div class="form-row">
-        <div class="col">
-        <button type="submit" id="submit">등록</button>
-         </div>
-    </div>
-    </div>
-    </div>
 
+    </div>
+    </div>
+<div class="form-row">
+        <button type='submit' id="submit" class="btn btn-lg btn-secondary btn-block">등록</button>
+    </div>
 </div>
 
 <!--    <div class="form-group">-->
@@ -235,4 +278,75 @@
         }).open();
     }
 </script>
+ <!-- 위치 선택을 위한 jquery -->
+    <script src="https://code.jquery.com/jquery-latest.min.js" type="application/javascript"></script>
+    <script type="application/javascript" src="https://zelkun.tistory.com/attachment/cfile8.uf@99BB7A3D5D45C065343307.js"></script>
+
+<script>
+      jQuery(document).ready(function(){
+      //sido option 추가
+      //each: 일반적인 반복함수 (배열이나 객체, 콜백함수)
+      jQuery.each(hangjungdong.sido, function(idx, code){
+        //append를 이용하여 option 하위에 붙여넣음
+        // fn_option
+        jQuery('.sido').append(fn_option(code.sido, code.codeNm));
+      });
+
+      //sido 변경시 시군구 option 추가
+      jQuery('.sido').change(function(){
+        if(jQuery('.sido option:selected').val() != '36'){
+          jQuery('.sigugun').prop('disabled', false);
+        }
+        jQuery('.sigugun').show();
+        jQuery('.sigugun').empty();
+        jQuery('.sigugun').append(fn_option('','시 / 군 / 구'));
+        jQuery.each(hangjungdong.sigugun, function(idx, code){
+          if(jQuery('.sido > option:selected').val() == code.sido)
+            jQuery('.sigugun').append(fn_option(code.sigugun, code.codeNm));
+
+        jQuery('.dong').empty();
+        jQuery('.dong').append(fn_option('','읍 / 면 / 동'));
+        });
+
+        //세종특별자치시 예외처리
+        //옵션값을 읽어 비교 : $("#셀렉트박스id option:selected").val()
+        if(jQuery('.sido option:selected').val() == '36'){
+          //세종특별자치시일 경우 없애줌.-> 없애지 않고 선택못하게 하고 싶음. : 했다!
+          jQuery('.sigugun').prop('disabled', true);
+          //index를 이용해서 selected 속성(attr)추가
+          //기본 선택 옵션이 최상위로 index 0을 가짐
+          //직접 index값을 주어 selected 속성 주기
+          jQuery('.sigugun option:eq(1)').attr('selected', 'selected');
+          //trigger를 이용해 change 실행
+          //이벤트 핸들러 없이 동작하려면 trigger가 필요
+          jQuery('.sigugun').trigger('change');
+        }
+      });
+      //시군구 변경시 행정동 옵션추가
+      jQuery('.sigugun').change(function(){
+      //option 제거
+      jQuery('.dong').empty();
+      jQuery.each(hangjungdong.dong, function(idx, code){
+          if(jQuery('.sido > option:selected').val() == code.sido && jQuery('.sigugun > option:selected').val() == code.sigugun)
+          jQuery('.dong').append(fn_option(code.dong, code.codeNm));
+      });
+      //option의 맨앞에 추가
+      jQuery('.dong').prepend(fn_option('','읍 / 면 / 동'));
+      //option중 선택을 기본으로 선택
+      jQuery('.dong option:eq("")').attr('selected', 'selected');
+
+      });
+
+      jQuery('.dong').change(function(){
+        var sido = jQuery('.sido option:selected').val();
+        var sigugun = jQuery('.sigugun option:selected').val();
+        var dong = jQuery('.dong option:selected').val();
+        var dongCode = sido + sigugun + dong + '00';
+      });
+    });
+    function fn_option(code, name){
+      return '<option value="' + code +'">' + name +'</option>';
+    }
+</script>
+
 {% endblock %}
