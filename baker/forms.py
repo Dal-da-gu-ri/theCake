@@ -13,7 +13,10 @@ class StoreForm(forms.ModelForm):
             ),
             'storeContact': forms.TextInput(
                 #label='가게 연락처',
-                attrs={'class': 'form-control'}
+                attrs={
+                    'class': 'form-control',
+                    'placeholder': '예) 02-1234-5678'
+                }
             ),
             'pickUpOpen': forms.Select(
                 #label='픽업 오픈 시간',
