@@ -5,12 +5,111 @@
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <title>index</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous"></script>
+
+    <style>
+        html, body, div, span, applet, object, iframe,
+        h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+        a, abbr, acronym, address, big, cite, code,
+        del, dfn, em, img, ins, kbd, q, s, samp,
+        small, strike, strong, sub, sup, tt, var,
+        b, u, i, center,
+        dl, dt, dd, ol, ul, li,
+        fieldset, form, label, legend,
+        table, caption, tbody, tfoot, thead, tr, th, td,
+        article, aside, canvas, details, embed,
+        figure, figcaption, footer, header, hgroup,
+        menu, nav, output, ruby, section, summary,
+        time, mark, audio, video {
+            margin: 0;
+            padding: 0;
+            border: 0;
+            font-size: 100%;
+            font: inherit;
+            vertical-align: baseline;
+        }
+
+        body {
+            min-height: 75rem;
+            padding-top: 12rem;
+            background-color: #fff7f2;
+            box-sizing : border-box;
+            font-family : DX경필명조B;
+            color:#9e9e9e;
+            text-align: center;
+        }
+
+        @media only screen and (max-width: 320px) {
+            body {
+                padding-top: 7rem;
+                font-size: 0.8em;
+            }
+        }
+
+        #logo{
+            color:#000000;
+            font-size: 2em;
+            font-family: Segoe Script;
+        }
+
+        #main>p{
+            display:inline-block;
+        }
+
+        .button{
+            border: 1px solid  #66635e;
+            background-color:#ffffff;
+            color: #66635e;
+            width: 80%;
+            height: 2em;
+            border-radius: 0.1em;
+            font-size: 0.9em;
+            font-family : DX경필명조B;
+            text-align: center;
+            margin-top:2em;
+            margin-bottom:1em;
+        }
+
+        .button:hover {
+            background-color: #cf8484;
+            color: white;
+        }
+
+        .box{
+            background-color: rgb(238, 186, 177);
+            border: 1px solid  #585858;
+            border-radius: 0.15em;
+            margin-top: 5%;
+            color: #585858;
+            word-break:break-all;
+        }
+
+    </style>
+
+
 </head>
 <body>
-    <div id="index">
-        <button type="button" id="button_customer" onclick="location.href='/customer/login'">주문자용<br>홈페이지</button>
-        <button type="button" id="button_baker" onclick="location.href='/baker/login'">사업자용<br>홈페이지</button>
+
+    <div>
+        <div id="main">
+            <p>차별화된 주문 제작 케이크 플랫폼</p>
+            <p id="logo">The CAKE</p>
+            <p>에 오신걸 환영합니다.</p>
+        </div>
+        <div class="pt-3 row d-flex justify-content-around align-items-center">
+            <div class="col-8 col-sm-5 col-md-5 box">
+                    <p>주문자를 위한 기능 나열</p>
+                    <button type="button" id="button_customer" class="button" onclick="location.href='/customer/login'">주문자 로그인하러 가기</button>
+            </div>
+
+            <div class="col-8 col-sm-5 col-md-5 box">
+                    <p>사업자를 위한 기능 나열</p>
+                    <button type="button" id="button_baker" class="button" onclick="location.href='/baker/login'">사업자 로그인하러 가기</button>
+            </div>
+        </div>
     </div>
 </body>
 </html>
