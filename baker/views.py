@@ -188,8 +188,8 @@ def enrollStore(request):
 
         if request.method == "GET":
             res_data['bakername'] = baker.name
-            # return render(request, 'baker/enrollStore.html',res_data)
-            return render(request, 'baker/enrollStore2.html', {'store': store})
+            res_data['store'] = store
+            return render(request, 'baker/enrollStore2.html', res_data)
 
         elif request.method == "POST":
 
