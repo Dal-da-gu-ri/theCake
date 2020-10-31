@@ -1,5 +1,4 @@
-<!--customer.name으로 OO회원님 표시-->
- {% load static %}
+{% load static %}
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
@@ -59,28 +58,12 @@
 </div>
 <!-- 반응형 설정해야함 -->
 <div class="pb-3 name">
-    <p>Welcome for {{user.customer.name}}회원님</p>
+    <p>Welcome for {{customername}}회원님</p>
 </div>
 
 
 
 </header>
-<!--
-<div class="content">
-
-</div> -->
-<!-- <main role="main">
-    <section class="jumbotron text-center">
-        <div class="container">
-        <h1>Album example</h1>
-        <p class="lead text-muted">Something short and leading about the collection below—its contents, the creator, etc. Make it short and sweet, but not too short so folks don’t simply skip over it entirely.</p>
-        <p>
-            <a href="#" class="btn btn-primary my-2">Main call to action</a>
-            <a href="#" class="btn btn-secondary my-2">Secondary action</a>
-        </p>
-        </div>
-    </section>
-</main> -->
 {% block content %}
 {% endblock %}
      </div>
