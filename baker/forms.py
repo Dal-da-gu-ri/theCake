@@ -47,8 +47,16 @@ class CakeForm(forms.ModelForm):
         fields = ['cakeName', 'cakeImg', 'cakePrice', 'mini']
         widgets = {
             'cakeName': forms.TextInput(
-                # attrs={'class' : 'form-control', 'aria-label': 'cakeName', 'aria-describedby' : 'add-btn'}
-                # 여기를 이용해서 꾸며야 합니다.
+                attrs={
+                    'class': 'form-control',
+                    'placeholder': '케이크 이름'
+                }
+            ),
+            'cakePrice': forms.TextInput(
+                attrs={
+                    'class': 'form-control',
+                    'placeholder': '케이크 가격(1호 기준)'
+                }
             )
         }
 

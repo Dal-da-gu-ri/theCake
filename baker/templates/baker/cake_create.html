@@ -1,0 +1,181 @@
+<!--옵션 나중에 넣어야 함-->
+{% extends 'base_baker.html' %}
+{% block title%} 케이크 추가 {% endblock %}
+{% block content %}
+
+<link rel="stylesheet" href="/static/css/enrollStore.css">
+   <div class="row">
+        <p class="pt-3 pl-4 path">케이크 관리 > 내 케이크 > 케이크 추가</p>
+    </div>
+
+<style>
+    #submit{
+    padding: 10px;
+    margin-top: 30px;
+    width: 10%;
+    margin-left: 45%;
+    }
+    @media only screen and (max-width: 842px) {
+        label {
+            visibility:hidden;
+        }
+            .container {
+                font-size: 0.9em;
+            }
+            #submit {
+                width: 100px;
+                margin-left: 40%;
+            }
+    .content{
+        height: 30px;
+    }
+
+        }
+</style>
+
+
+<form method = "POST" action = "#" >
+    {% csrf_token %}
+    <div class="form-row">
+        <div class="form-group col-md-4">
+<!--            preview 보이는 거 해야됨-->
+            {{ cake.cakeImg }}
+        </div>
+        <div class="form-group col-md-6">
+            <div class="form-row">
+                <div class="form-group col-md-2">
+                    <label>케이크 이름</label>
+                </div>
+                <div class="form-group col-md-2">
+                    {{ cake.cakeName }}
+                </div>
+            </div>
+<hr>
+    <div class="form-row">
+        <div class="form-group col-md-2">
+            <label>케이크 가격</label>
+        </div>
+        <div class="form-group col-md-2">
+          {{ cake.cakePrice }}
+        </div>
+    </div>
+<hr>
+    <div class="form-row">
+        <div class="form-group col-md-2">
+            <label>미니 사이즈 가능 여부</label>
+        </div>
+        <div class="form-group col-md-2">
+          {{ cake.mini }}
+        </div>
+    </div>
+
+    </div>
+    </div>
+    <div class="form-row">
+        <button type='submit' id="submit" class="btn btn-lg btn-secondary btn-block">등록</button>
+    </div>
+
+<!--    <div class="form-group">-->
+<!--      <label for="monday">월요일 주문가능 수량</label>-->
+<!--      <input type="number"-->
+<!--      class="form-control"-->
+<!--      id="monday"-->
+<!--      name="monday">-->
+<!--      &lt;!&ndash; 이 name 값으로 정보가 전달된다 &ndash;&gt;-->
+<!--    </div>-->
+<!--    <div class="form-group">-->
+<!--      <label for="tuesday">화요일 주문가능 수량</label>-->
+<!--      <input type="number"-->
+<!--      class="form-control"-->
+<!--      id="tuesday"-->
+<!--      name="tuesday">-->
+<!--      &lt;!&ndash; 이 name 값으로 정보가 전달된다 &ndash;&gt;-->
+<!--    </div>-->
+<!--    <div class="form-group">-->
+<!--      <label for="wednesday">수요일 주문가능 수량</label>-->
+<!--      <input type="number"-->
+<!--      class="form-control"-->
+<!--      id="wednesday"-->
+<!--      name="wednesday">-->
+<!--      &lt;!&ndash; 이 name 값으로 정보가 전달된다 &ndash;&gt;-->
+<!--    </div>-->
+<!--    <div class="form-group">-->
+<!--      <label for="thursday">목요일 주문가능 수량</label>-->
+<!--      <input type="number"-->
+<!--      class="form-control"-->
+<!--      id="thursday"-->
+<!--      name="thursday">-->
+<!--      &lt;!&ndash; 이 name 값으로 정보가 전달된다 &ndash;&gt;-->
+<!--    </div>-->
+<!--    <div class="form-group">-->
+<!--      <label for="friday">금요일 주문가능 수량</label>-->
+<!--      <input type="number"-->
+<!--      class="form-control"-->
+<!--      id="friday"-->
+<!--      name="friday">-->
+<!--      &lt;!&ndash; 이 name 값으로 정보가 전달된다 &ndash;&gt;-->
+<!--    </div>-->
+<!--    <div class="form-group">-->
+<!--      <label for="saturday">토요일 주문가능 수량</label>-->
+<!--      <input type="number"-->
+<!--      class="form-control"-->
+<!--      id="saturday"-->
+<!--      name="saturday">-->
+<!--      &lt;!&ndash; 이 name 값으로 정보가 전달된다 &ndash;&gt;-->
+<!--    </div>-->
+<!--    <div class="form-group">-->
+<!--      <label for="sunday">일요일 주문가능 수량</label>-->
+<!--      <input type="number"-->
+<!--      class="form-control"-->
+<!--      id="sunday"-->
+<!--      name="sunday">-->
+<!--      &lt;!&ndash; 이 name 값으로 정보가 전달된다 &ndash;&gt;-->
+<!--    </div>-->
+
+ </form>
+
+
+    <script type="text/javascript">
+    function uploadImgPreview() {
+        // @brief 업로드 파일 읽기
+        let fileInfo = document.getElementById("upImgFile").files[0];
+        let reader = new FileReader();
+
+        // @details INDEX #01 실행 이후, 파일의 업로드( onload )가 확인되고 나서 실행된다.
+        reader.onload = function() {
+            console.log( "INDEX #02" );
+            // @brief 썸네일 이미지 생성
+            let tempImage = new Image();    // @details drawImage 메서드에 넣기 위해 이미지 객체화
+            tempImage.src = reader.result;    // @details data-uri를 이미지 객체에 주입
+
+            tempImage.addEventListener("load", function() {
+                // @brief 캔버스 위에 이미지 그리기
+                let canvas = document.getElementById( "canvas" );
+                let canvasContext = canvas.getContext( "2d" );
+                // @brief 캔버스 크기 셋팅
+                canvas.width = 200;
+                canvas.height = 200;
+                // @brief 캔버스 위에 이미지 그리기
+                canvasContext.drawImage(
+                this	// @details 업로드한 이미지 파일의 정보
+                , 0	    // @details X좌표
+                , 0	    // @details Y좌표
+                , 150	// @details 넣을 이미지의 가로 사이즈( 해당 예제는 변화를 보기위해 살짝 크게 했다. )
+                , 200	// @details 넣을 이미지의 세로 사이즈( 해당 예제는 변화를 보기위해 살짝 크게 했다. )
+                );
+                // @brief 캔버스 위에 이미지 그리기
+                canvasContext.stroke();
+                // @brief 캔버스의 이미지 URL 정보를 받아 썸네일 출력
+                let dataURI = canvas.toDataURL("image/jpeg");
+                document.querySelector("#thumbnail").src = dataURI;
+            });
+        };
+
+        if( fileInfo) {
+            console.log( "INDEX #01" );
+            reader.readAsDataURL(fileInfo);
+        }
+    }
+</script>
+
+{% endblock %}
