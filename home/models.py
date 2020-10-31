@@ -1,5 +1,5 @@
 from django.db import models
-
+from django.core.validators import FileExtensionValidator
 # Create your models here.
 
 class Orderer(models.Model):
@@ -63,15 +63,27 @@ class checkBaker(models.Model):
         verbose_name_plural = '사업자 가입용'
 
 class Store(models.Model):
+    TIME_CHOICES = {
+        ('9:00', '9:00'), ('9:30', '9:30'), ('10:00', '10:00'), ('10:30', '10:30'), ('11:00', '11:00'),
+        ('11:30', '11:30'),
+        ('12:00', '12:00'), ('12:30', '12:30'), ('13:00', '13:00'), ('13:30', '13:30'), ('14:00', '14:00'),
+        ('14:30', '14:30'),
+        ('15:00', '15:00'), ('15:30', '15:30'), ('16:00', '16:00'), ('16:30', '16:30'), ('17:00', '17:00'),
+        ('17:30', '17:30'),
+        ('18:00', '18:00'), ('18:30', '18:30'), ('19:00', '19:00'), ('19:30', '19:30'), ('20:00', '20:00'),
+        ('20:30', '20:30'),
+        ('21:00', '21:00'), ('21:30', '21:30'), ('22:00', '22:00'), ('22:30', '22:30'),
+    }
     businessID = models.CharField(max_length=10, verbose_name='사업자 등록번호', blank=False, primary_key=True)
-    manager = models.ForeignKey(Baker, on_delete=models.CASCADE)
+    #manager = models.CharField(max_length=30, verbose_name='사업자이름', null=True,blank=False)
+    #manager = models.ForeignKey(Baker, on_delete=models.CASCADE,null=True)
     storeName = models.CharField(max_length=30, verbose_name='가게 이름', null=True, blank=False)
     location = models.CharField(max_length=200, verbose_name='가게 위치', null=True, blank=True) #나중에 blank False로 수정하기
     storeContact = models.CharField(max_length=30, verbose_name='가게 연락처', null=True, blank=False,unique=True)
-    pickUpOpen = models.CharField(max_length=15, verbose_name='픽업 오픈 시간',null=True, blank=False)
-    pickUpClose = models.CharField(max_length=15, verbose_name='픽업 마감 시간',null=True, blank=False)
+    pickUpOpen = models.CharField(max_length=15, verbose_name='픽업 오픈 시간',null=True, blank=False, choices=TIME_CHOICES)
+    pickUpClose = models.CharField(max_length=15, verbose_name='픽업 마감 시간',null=True, blank=False, choices=TIME_CHOICES)
     aboutStore = models.TextField(verbose_name='가게 소개글', null=True, blank=True)
-    storeImg = models.ImageField(verbose_name='가게 대표이미지', null=True, blank=True)
+    storeImg = models.ImageField(verbose_name='가게 대표이미지', null=True, blank=True, validators=[FileExtensionValidator(allowed_extensions=['.jpg', '.png', 'jpeg'])])
 
     def __str__(self):
         return self.businessID
