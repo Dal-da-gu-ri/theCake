@@ -166,7 +166,6 @@ def activate(request,uid64, token):
         return redirect('/baker/login')
     else:
         return redirect('/baker/inappropriateApproach')
-        #return HttpResponse('비정상적인 접근입니다.')
 
 def wrongApproach(request):
     if request.method == "GET":
@@ -219,7 +218,7 @@ def enrollStore(request):
                     storeobject.sido = storeform.cleaned_data['sido']
                     storeobject.sigugun = storeform.cleaned_data['sigugun']
                     storeobject.dong = storeform.cleaned_data['dong']
-                    storeobject.storeImg = request.FILES['storeImg']
+                    storeobject.storeImg = storeform.cleaned_data['storeImg']
 
                     storeobject.save()
                     res_data['store'] = storeform
