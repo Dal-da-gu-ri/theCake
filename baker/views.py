@@ -26,6 +26,8 @@ from .forms import CakeForm,StoreForm
 from django.http import HttpResponse, JsonResponse
 # Create your views here.
 
+def temp(request):
+    return render(request, 'baker/temp.html')
 
 def join(request):
     #global bsID, emailBaker
