@@ -64,7 +64,7 @@ class checkBaker(models.Model):
         verbose_name_plural = '사업자 가입용'
 
 class Store(models.Model):
-    TIME_CHOICES = {
+    TIME_CHOICES = [
         ('9:00', '9:00'), ('9:30', '9:30'), ('10:00', '10:00'), ('10:30', '10:30'), ('11:00', '11:00'),
         ('11:30', '11:30'),
         ('12:00', '12:00'), ('12:30', '12:30'), ('13:00', '13:00'), ('13:30', '13:30'), ('14:00', '14:00'),
@@ -74,7 +74,7 @@ class Store(models.Model):
         ('18:00', '18:00'), ('18:30', '18:30'), ('19:00', '19:00'), ('19:30', '19:30'), ('20:00', '20:00'),
         ('20:30', '20:30'),
         ('21:00', '21:00'), ('21:30', '21:30'), ('22:00', '22:00'), ('22:30', '22:30'),
-    }
+    ]
     businessID = models.CharField(max_length=10, verbose_name='사업자 등록번호', blank=False, primary_key=True)
     #manager = models.CharField(max_length=30, verbose_name='사업자이름', null=True,blank=False)
     manager = models.ForeignKey(Baker, on_delete=models.CASCADE,null=True)
@@ -127,6 +127,7 @@ class Order(models.Model):
         db_table = 'Order'
         verbose_name = '주문서'
         verbose_name_plural = '주문서'
+
 
 class Review(models.Model):
     orderNum = models.CharField(max_length=20, verbose_name='주문 번호',primary_key=True) #random하게 하기
