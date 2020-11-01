@@ -12,7 +12,7 @@
 </div>
 <!--<a href="{% url 'baker:cake_add' %}">케이크 추가</a>-->
 <div class="album py-3">
-    <button type="button" onclick="location.href='{% url 'baker:cake_add' %}'" id="add_btn">케이크 추가</button>
+    <button type="button" onclick="location.href='{% url 'baker:cake_add' %}'" class="add_btn">케이크 추가</button>
     <div class="container pt-3">
     <div class="row">
 <!--      'cakeName', 'cakeImg', 'cakePrice', 'mini'-->
@@ -51,7 +51,7 @@
               <form method = "POST" action = "#" >
 <!--                  {% csrf_token %}-->
                   <input type="hidden" name="_method" value="delete" />
-                  <button class="delete_btn">Delete</button>
+                  <button class="delete_btn" onclick="location.href='{% url 'baker:cake_delete' cake.pk %}'">Delete</button>
               </form>
             </div>
           </div>
