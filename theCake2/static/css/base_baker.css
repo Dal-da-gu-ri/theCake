@@ -50,6 +50,11 @@ body {
     font-family : DX경필명조B;
 }
 
+@font-face{
+    font-family: DX경필명조B;
+    src: url('/static/DXKPMB-KSCpc-EUC-H.ttf');
+}
+
 /* .jumbotron{
     margin-top: 500px;
 } */
