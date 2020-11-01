@@ -4,8 +4,9 @@ from home.models import Store, Baker, Cake, DetailedOption
 class StoreForm(forms.ModelForm):
     class Meta:
         model = Store
-        fields = ['storeName', 'storeContact', 'aboutStore', 'pickUpOpen', 'pickUpClose', 'storeImg', 'sido', 'sigugun', 'dong', 'postcode', 'address1','address2', 'address3']
+        fields = ['storeImg', 'storeName', 'storeContact', 'aboutStore', 'pickUpOpen', 'pickUpClose', 'sido', 'sigugun', 'dong', 'postcode', 'address1','address2', 'address3']
         widgets = {
+            
             'storeName': forms.TextInput(
                 #label='가게 이름',
                 attrs={'class': 'form-control'}

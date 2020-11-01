@@ -187,7 +187,7 @@
             <div class="col-8 col-sm-8 col-md-5 col-xl-4 box">
                 <p class="font mt-2 mb-4">아이디 찾기</p>
 <!--                    <img src="/static/logo_customer.png" class="py-3" alt="주문자로고" width="40%">-->
-                 <form method = "POST" class="form-signup">
+                 <form action="{% url 'baker:id' %}" method = "POST" class="form-signup">
                      {% csrf_token %}
                      <div class="row d-flex justify-content-between align-items-center">
                          <div class="col-12 col-sm-2 col-md-4 pl-3">
@@ -220,7 +220,7 @@
             <div class="col-8 col-sm-8 col-md-5 col-xl-4 box" >
                     <p class="font mt-2 mb-4">비밀번호 찾기</p>
 <!--                    <img src="/static/logo_customer.png" class="py-3" alt="주문자로고" width="40%">-->
-                 <form method = "POST" class="form-signup">
+                 <form action="{% url 'baker:pw' %}" method = "POST" class="form-signup">
                      {% csrf_token %}
                      <div class="row d-flex justify-content-between align-items-center form">
                          <div class="col-12 col-sm-2 col-md-4 pl-3">
