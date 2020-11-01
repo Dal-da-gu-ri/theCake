@@ -6,7 +6,12 @@ class StoreForm(forms.ModelForm):
         model = Store
         fields = ['storeImg', 'storeName', 'storeContact', 'aboutStore', 'pickUpOpen', 'pickUpClose', 'sido', 'sigugun', 'dong', 'postcode', 'address1','address2', 'address3']
         widgets = {
-            
+            # label은 HTML에서 label태그를 의미
+            # widget은 input이라고 생각
+            # 예를 들어, TextInput은 <input type="text">를 의미
+            # textarea 태그를 원하면 widget = forms.Textarea라고 설정하면 됨.
+            # attrs={}안에 지정하고자 하는 class나 placeholder등을 부가적으로 설정(이 또한 HTML 엘리먼트의 속성)
+
             'storeName': forms.TextInput(
                 #label='가게 이름',
                 attrs={'class': 'form-control'}
