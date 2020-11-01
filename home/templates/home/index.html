@@ -88,7 +88,6 @@
         }
 
         .box{
-            background-color: rgb(238, 186, 177);
             border: 1px solid  #585858;
             border-radius: 0.15em;
             margin-top: 5%;
@@ -108,13 +107,15 @@
             <p id="logo">The CAKE</p>
             <p>에 오신걸 환영합니다.</p>
         </div>
-        <div class="pt-3 row d-flex justify-content-around align-items-center">
-            <div class="col-8 col-sm-5 col-md-5 box">
-                    <br><p>나만을 위한 케이크를 주문해봐요!</p>
+        <div class="pt-3 row d-flex justify-content-around align-items-center px-5">
+            <div class="col-8 col-sm-8 col-md-5 col-xl-4 box" style="background-color: rgb(238, 186, 177);">
+                    <img src="/static/logo_customer.png" class="py-3" alt="주문자로고" width="40%">
+                    <br><p>나만을 위한 케이크를 주문해보세요!</p>
                     <button type="button" id="button_customer" class="button" onclick="location.href='/customer/login'">주문자용 로그인/회원가입</button>
             </div>
 
-            <div class="col-8 col-sm-5 col-md-5 box">
+            <div class="col-8 col-sm-8 col-md-5 col-xl-4 box" style="background-color: rgb(255, 249, 239);">
+                    <img src="/static/logo_baker.png" class="py-3" alt="사업자로고" width="40%">
                     <br><p>사장님이신가요?</p>
                     <button type="button" id="button_baker" class="button" onclick="location.href='/baker/login'">사장님용 로그인/회원가입</button>
             </div>
