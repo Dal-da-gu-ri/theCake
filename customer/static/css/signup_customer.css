@@ -1,24 +1,4 @@
-*{
-    box-sizing : border-box;
-    font-family : DX경필명조B;
-  }
-
-  html,
-  body {
-    height: 100%;
-  }
-
-  body {
-    display: -ms-flexbox;
-    display: flex;
-    -ms-flex-align: center;
-    align-items: center;
-    padding-top: 10px;
-    padding-bottom: 40px;
-    background-color: #fffcfa;
-  }
-
-  .form-signup {
+ .form-signup {
     width: 100%;
     max-width: 480px;
     padding: 15px;

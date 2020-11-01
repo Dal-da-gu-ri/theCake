@@ -7,17 +7,7 @@
 .container{
 }
 */
-/*
-body {
-  display: -ms-flexbox;
-  display: flex;
-  -ms-flex-align: center;
-  align-items: center;
-  padding-top: 10px;
-  padding-bottom: 40px;
-  background-color: #fffcfa;
-}
-*/
+
 #date {
   width: 200px;
   padding: .8em .5em;
