@@ -223,6 +223,7 @@ def enrollStore(request):
 
                     storeobject.save()
                     res_data['store'] = storeform
+                    res_data['name'] = storeobject.storeImg
                     return render(request, 'baker/enrollStore2.html', res_data)
             else:
                     print(storeform.errors)
@@ -237,6 +238,7 @@ def enrollStore(request):
             storeform = StoreForm(instance=storeobject)
             #storeform = StoreForm()
             res_data['store'] = storeform
+
             return render(request, 'baker/enrollStore2.html', res_data)
 
     else:

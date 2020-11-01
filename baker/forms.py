@@ -1,5 +1,4 @@
 from django import forms
-
 from home.models import Store, Baker, Cake, DetailedOption
 
 class StoreForm(forms.ModelForm):
