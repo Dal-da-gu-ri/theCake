@@ -27,7 +27,8 @@
           <div class="image-block card-img-top embed-responsive embed-responsive-1by1">
             <!-- 케이크 수정모드 (href에 해당 케이크수정페이지)-->
             <a href="{% url 'baker:cake_edit' cake.pk %}">
-              <img class="embed-responsive-item" src="data:image/jpg,png;base64,{{cake.cakeImg}}" alt="cake image">
+<!--              <img class="embed-responsive-item" src="data:image/jpg,png;base64,{{cake.cakeImg}}" alt="cake image">-->
+                <img class="embed-responsive-item" src="/media/{{cake.cakeImg}}" alt="cake image">
             </a>
             <div class="edit_text">
               <a href="{% url 'baker:cake_edit' cake.pk %}">Edit</a>

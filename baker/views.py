@@ -290,7 +290,7 @@ def cake_add(request):
                     cakeobject.save()
                     # return redirect('/baker/manageCake/myCakes')
                     res_data['cake'] = cakeform
-                    res_data['name'] = cakeobject.cakeImg
+                    # res_data['name'] = cakeobject.cakeImg
                     # return render(request, 'baker/myCakes2.html', res_data)
                     return redirect('/baker/manageCake/myCakes', res_data)
 
