@@ -8,25 +8,43 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 	  <link rel="stylesheet" href="/static/css/login_customer.css">
     <title>emailSent</title>
+
+    <style>
+    *{
+        font-family : DX경필명조B;
+    }
+    #submit{
+        padding: 10px 30px;
+    }
+                 .container{
+                    width:100%;
+                    margin: 0 auto;
+                }
+        @media only screen and (max-width: 360px) {
+            .container {
+                font-size: 0.9em;
+            }
+            #submit {
+                font-size: 14px;
+            }
+
+        }
+    </style>
 </head>
+
 <body class="text-center">
-
-    <form method="POST" class="form-emailSent">
-        <img class="mb-4" src="/static/img/logo_baker.png" alt="logo_customer" width="141" height="120">
-             {% csrf_token %}
-
-        <div class="row mt-5">
-                <div class="col-12">
-                    {{comment}}
+    <div class="container">
+        <div class="row d-flex justify-content-around">
+            <form method="POST" class="form-emailSent">
+                <img class="mb-4" src="/static/img/logo_customer.png" alt="logo_customer" width="141" height="120">
+                     {% csrf_token %}
+                <div class="row mt-5">
+                        <div class="col-12">
+                            {{comment}}
+                        </div>
                 </div>
-            </div>
-
-
-        <!--<button type='submit' id="submit" class="btn btn-lg btn-secondary btn-block">로그인하러 가기</button>
--->
-
-
-    </form>
-
+            </form>
+        </div>
+    </div>
 </body>
 </html>

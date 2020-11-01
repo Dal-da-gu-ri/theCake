@@ -6,7 +6,7 @@ from django.contrib.auth.hashers import make_password, check_password
 from .crn import Search_CRN
 import json
 from home.tokens import account_activation_token
-from .textBaker import messageSend
+from .textBaker import messageSend,passwordMessage
 from django.views import View
 from django.http import HttpResponse,JsonResponse
 from django.core.exceptions import ValidationError
@@ -16,6 +16,9 @@ from django.utils.http import urlsafe_base64_decode,urlsafe_base64_encode
 from django.core.mail import EmailMessage
 from django.utils.encoding import force_bytes,force_text
 from .forms import CakeForm,StoreForm
+
+from .create_password import passwordMaker
+
 #make_password(str) : 이 함수에 넣어준 문자열을 암호화합니다. (hashing)
 #check_password(a,b) : a,b가 일치하는지 확인, 반환합니다.
 
@@ -396,6 +399,48 @@ def manageOrder(request):
 
 def mypage(request):
     return render(request, 'baker/mypage_baker.html')
+
+
+def idsearch(request):
+    if request.method=="GET":
+        return render(request,'baker/idsearch_baker.html')
+    elif request.method == "POST":
+        #전송받은 이메일 비밀번호 확인
+        email = request.POST.get('email')
+        res_data={}
+        if Baker.objects.filter(email=email).exists():
+            baker = Baker.objects.get(email=email)
+            res_data['content']="고객님의 아이디는 "+baker.userID+" 입니다."
+            return render(request, 'baker/idsearch_baker.html',res_data)
+        else:
+            res_data['content'] = "등록되지 않은 이메일입니다."
+            return render(request, 'baker/idsearch_baker.html', res_data)
+
+def passwordsearch(request):
+    if request.method=="GET":
+        return render(request,'baker/pwsearch_baker.html')
+    elif request.method == "POST":
+        userid = request.POST.get('userid')
+        res_data = {}
+        if Baker.objects.filter(userID=userid).exists():
+            baker = Baker.objects.get(userID=userid)
+            temppw = passwordMaker()
+            current_site = get_current_site(request)
+            message = passwordMessage(current_site.domain,userid,temppw)
+            baker.password = temppw
+            baker.save()
+            mail_subject = "[The Cake] 임시 비밀번호 전송"
+            user_email = baker.email
+            email = EmailMessage(mail_subject, message, to=[user_email])
+            email.send()
+            res_data['comment'] = user_email + " 로 임시 비밀번호가 전송되었습니다."
+            return render(request, 'baker/pwsearch_baker.html', res_data)
+        else:
+            res_data['content'] = "등록되지 않은 아이디입니다."
+            return render(request, 'baker/pwsearch_baker.html', res_data)
+
+
+
 
 
 def logout(request):
