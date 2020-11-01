@@ -175,9 +175,7 @@ def wrongApproach(request):
     elif request.method == "POST":
         return redirect('/')
 
-def idpw_search(request):
 
-    return render(request, 'baker/idpw_search_baker.html')
 
 def valid(request): #사업자번호확인 -> join
     return HttpResponse("Valid page!")
@@ -190,18 +188,11 @@ def enrollStore(request):
 
     if user_id:
         baker = Baker.objects.get(pk=user_id)
-        #storeobject = Store.objects.get(businessID=baker.businessID)
-
-        #baker = get_object_or_404(Baker,pk=user_id)
-        #storeobject = get_object_or_404(Store,businessID=baker.businessID)
-
         res_data['bakername'] = baker.name
         storeobject = Store()
-        #storeobject = Store.objects.get(businessID=baker.businessID)
         if request.method == 'POST':
             storeform = StoreForm(request.POST, request.FILES) #,instance=request.user  ,request.FILES, data
             if storeform.is_valid(): #유효성 검사
-                    #storeobject = storeform.save()
                     storeobject.businessID = baker.businessID
                     storeobject.manager = baker
                     storeobject.storeName = storeform.cleaned_data['storeName']
@@ -209,8 +200,6 @@ def enrollStore(request):
                     storeobject.pickUpOpen = storeform.cleaned_data['pickUpOpen']
                     storeobject.pickUpClose = storeform.cleaned_data['pickUpClose']
                     storeobject.aboutStore = storeform.cleaned_data['aboutStore']
-                    #storeobject.location = storeform.cleaned_data['location1']+storeform.cleaned_data['location2']
-                    # storeobject.location = request.POST.get('location1', None)+" "+request.POST.get('location2', None)
                     storeobject.postcode = storeform.cleaned_data['postcode']
                     storeobject.address1 = storeform.cleaned_data['address1']
                     storeobject.address2 = storeform.cleaned_data['address2']
@@ -228,10 +217,6 @@ def enrollStore(request):
             else:
                     print(storeform.errors)
                     return redirect('/baker/inappropriateApproach')
-
-                # store = StoreForm()
-                #res_data['store'] = store
-                #return render(request, 'baker/enrollStore2.html', res_data)
 
         else:
             storeobject = Store.objects.get(businessID=baker.businessID)
@@ -403,25 +388,62 @@ def mypage(request):
     return render(request, 'baker/mypage_baker.html')
 
 
+def search(request):
+
+    return render(request, 'baker/idpw_search_baker.html')
+
 def idsearch(request):
     if request.method=="GET":
-        return render(request,'baker/idsearch_baker.html')
+        return render(request,'baker/idpw_search_baker.html')
     elif request.method == "POST":
         #전송받은 이메일 비밀번호 확인
-        email = request.POST.get('email')
+        email = request.POST.get('email_baker')
         res_data={}
         if Baker.objects.filter(email=email).exists():
             baker = Baker.objects.get(email=email)
-            res_data['content']="고객님의 아이디는 "+baker.userID+" 입니다."
-            return render(request, 'baker/idsearch_baker.html',res_data)
-        else:
-            res_data['content'] = "등록되지 않은 이메일입니다."
-            return render(request, 'baker/idsearch_baker.html', res_data)
+            #res_data['searched_id']=baker.userID
+            res_data['result']="고객님의 아이디는 "+baker.userID+" 입니다."
+            #return render(request, 'baker/idpw_search_baker.html',res_data)
+            return redirect('/baker/search', res_data)
 
-def passwordsearch(request):
-    if request.method=="GET":
-        return render(request,'baker/pwsearch_baker.html')
+        else:
+            res_data['result'] = "등록되지 않은 이메일입니다."
+            #return render(request, 'baker/idpw_search_baker.html',res_data)
+            return redirect('/baker/search', res_data)
+
+
+def pwsearch(request):
+        print("here")
+        userid = request.POST.get('userid')
+        print(userid)
+        res_data = {}
+        if Baker.objects.filter(userID=userid).exists():
+            baker = Baker.objects.get(userID=userid)
+            temppw = passwordMaker()
+            current_site = get_current_site(request)
+            message = passwordMessage(current_site.domain,userid,temppw)
+            baker.password = temppw
+            baker.save()
+            mail_subject = "[The Cake] 임시 비밀번호 전송"
+            user_email = baker.email
+            email = EmailMessage(mail_subject, message, to=[user_email])
+            email.send()
+            res_data['comment'] = user_email + " 로 임시 비밀번호가 전송되었습니다."
+            return redirect('/baker/search', res_data)
+            #return render(request, 'baker/idpw_search_baker.html',res_data)
+
+        else:
+            res_data['comment'] = "등록되지 않은 아이디입니다."
+            return redirect('/baker/search', res_data)
+            #return render(request, 'baker/idpw_search_baker.html',res_data)
+
+def pwsearch1(request):
+    """if request.method=="GET":
+        print("here")
+        return render(request,'baker/idpw_search_baker.html')
     elif request.method == "POST":
+        print("posting")
+
         userid = request.POST.get('userid')
         res_data = {}
         if Baker.objects.filter(userID=userid).exists():
@@ -436,10 +458,14 @@ def passwordsearch(request):
             email = EmailMessage(mail_subject, message, to=[user_email])
             email.send()
             res_data['comment'] = user_email + " 로 임시 비밀번호가 전송되었습니다."
-            return render(request, 'baker/pwsearch_baker.html', res_data)
+            return redirect('/baker/search', res_data)
+            #return render(request, 'baker/idpw_search_baker.html',res_data)
+
         else:
-            res_data['content'] = "등록되지 않은 아이디입니다."
-            return render(request, 'baker/pwsearch_baker.html', res_data)
+            res_data['comment'] = "등록되지 않은 아이디입니다."
+            return redirect('/baker/search', res_data)
+            #return render(request, 'baker/idpw_search_baker.html',res_data)
+"""
 
 
 
