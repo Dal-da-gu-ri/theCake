@@ -78,6 +78,16 @@
     color:#929292;
   }
 
+  #add_btn{
+      border: 1px solid #cf8484;
+      background-color:white;
+      color: #cc5f5f;
+      width: 90%;
+      height: 1.7em
+      border-radius: 2px;
+  }
+
+
   .delete_btn{
     border: 1px solid #cf8484;
     background-color:white;
