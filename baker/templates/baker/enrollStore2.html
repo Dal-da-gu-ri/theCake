@@ -45,12 +45,18 @@
 </style>
 
 
-<form method = "POST" action = "#" >
+<form method = "POST" action = "#" enctype="multipart/form-data">
     {% csrf_token %}
     <div class="form-row">
         <div class="form-group col-md-4">
 <!--            preview 보이는 거 해야됨-->
             {{ store.storeImg }}
+<!--                {% load thumbnail %}-->
+
+<!--            <div class="image-block card-img-top embed-responsive embed-responsive-1by1 ">-->
+<!--              <img class="embed-responsive-item" src="{{store.storeImg}}" alt="cake image">-->
+<!--          </div>-->
+<!--    <img src="{{ store.storeImg|thumbnail_url:'avatar' }}" alt="" />-->
         </div>
         <div class="form-group col-md-6">
             <div class="form-row">
@@ -68,10 +74,11 @@
             <input type="button" onclick="sample6_execDaumPostcode()" value="우편번호 찾기">
         </div>
        <div class="form-group col-md-2">
-            <input type="text" id="sample6_postcode" placeholder="우편번호"><br>
-            <input type="text" id="sample6_address" name="location1" placeholder="주소"><br>
-            <input type="text" id="sample6_detailAddress" name="location2" placeholder="상세주소">
-            <input type="text" id="sample6_extraAddress" placeholder="참고항목">
+           {{store.postcode1}}
+           {{store.postcode2}}
+           {{store.postcode3}}
+           {{store.postcode4}}
+
        </div>
     </div>
 <hr>

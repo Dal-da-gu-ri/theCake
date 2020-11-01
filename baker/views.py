@@ -197,7 +197,7 @@ def enrollStore(request):
         storeobject = Store()
         #storeobject = Store.objects.get(businessID=baker.businessID)
         if request.method == 'POST':
-            storeform = StoreForm(data=request.POST) #,instance=request.user  ,request.FILES
+            storeform = StoreForm(request.POST, request.FILES) #,instance=request.user  ,request.FILES, data
             if storeform.is_valid(): #유효성 검사
                     #storeobject = storeform.save()
                     storeobject.businessID = baker.businessID
@@ -208,11 +208,16 @@ def enrollStore(request):
                     storeobject.pickUpClose = storeform.cleaned_data['pickUpClose']
                     storeobject.aboutStore = storeform.cleaned_data['aboutStore']
                     #storeobject.location = storeform.cleaned_data['location1']+storeform.cleaned_data['location2']
-                    storeobject.location = request.POST.get('location1', None)+" "+request.POST.get('location2', None)
+                    # storeobject.location = request.POST.get('location1', None)+" "+request.POST.get('location2', None)
+                    storeobject.postcode1 = storeform.cleaned_data['postcode1']
+                    storeobject.postcode2 = storeform.cleaned_data['postcode2']
+                    storeobject.postcode3 = storeform.cleaned_data['postcode3']
+                    storeobject.postcode4 = storeform.cleaned_data['postcode4']
                     storeobject.sido = storeform.cleaned_data['sido']
                     storeobject.sigugun = storeform.cleaned_data['sigugun']
                     storeobject.dong = storeform.cleaned_data['dong']
-                    #storeobject.storeImg =
+                    storeobject.storeImg = request.FILES['storeImg']
+
                     storeobject.save()
                     res_data['store'] = storeform
                     return render(request, 'baker/enrollStore2.html', res_data)

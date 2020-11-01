@@ -51,6 +51,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'sslserver',
+    'easy_thumbnails',
     'customer',
     'baker',
     'home',
@@ -159,3 +160,9 @@ STATICFILES_DIRS = [
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 # 각 media file에 대한 URL prefix
 MEDIA_URL = '/media/'
+
+THUMBNAIL_ALIASES = {
+        '': {
+            'avatar': {'size': (50, 50), 'crop': True},
+        },
+    }

@@ -1,6 +1,7 @@
 from django.db import models
 from django.core.validators import FileExtensionValidator
 # Create your models here.
+# from easy_thumbnails.fields import ThumbnailerImageField
 
 class Orderer(models.Model):
     userID = models.CharField(max_length=20, verbose_name='주문자 아이디',blank=False, primary_key=True,default="")
@@ -79,6 +80,10 @@ class Store(models.Model):
     manager = models.ForeignKey(Baker, on_delete=models.CASCADE,null=True)
     storeName = models.CharField(max_length=30, verbose_name='가게 이름', null=True, blank=True)
     location = models.CharField(max_length=200, verbose_name='가게 위치', null=True, blank=True) #나중에 blank False로 수정하기
+    postcode1 = models.CharField(max_length=200, verbose_name='가게 위치1', null=True, blank=True)
+    postcode2 = models.CharField(max_length=200, verbose_name='가게 위치2', null=True, blank=True)
+    postcode3 = models.CharField(max_length=200, verbose_name='가게 위치3', null=True, blank=True)
+    postcode4 = models.CharField(max_length=200, verbose_name='가게 위치4', null=True, blank=True)
     sido = models.CharField(max_length=20, verbose_name='시/도', null=True, blank=True)
     sigugun = models.CharField(max_length=20, verbose_name='시/군/구', null=True, blank=True)
     dong = models.CharField(max_length=20, verbose_name='읍/면/동', null=True, blank=True)
@@ -86,7 +91,7 @@ class Store(models.Model):
     pickUpOpen = models.CharField(max_length=15, verbose_name='픽업 오픈 시간',null=True, blank=True, choices=TIME_CHOICES)
     pickUpClose = models.CharField(max_length=15, verbose_name='픽업 마감 시간',null=True, blank=True, choices=TIME_CHOICES)
     aboutStore = models.TextField(verbose_name='가게 소개글', null=True, blank=True)
-    storeImg = models.ImageField(verbose_name='가게 대표이미지', null=True, blank=True, validators=[FileExtensionValidator(allowed_extensions=['.jpg', '.png', 'jpeg'])])
+    storeImg = models.ImageField(verbose_name='가게 대표이미지', null=True, blank=True, default="logo_baker.png")
 
     def __str__(self):
         return self.businessID
