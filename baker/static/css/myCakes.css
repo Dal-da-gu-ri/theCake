@@ -68,7 +68,7 @@
 
   .edit_text>a{
     text-decoration:none;
-    color: #747474;
+    color: black;
   }
 
   .image-block:hover img{
@@ -85,18 +85,18 @@
 
   .add_btn{
       transition:.15s ease;
-      border: 1px solid #cf8484;
+      border: 1px solid #a5a5a5;
       background-color:white;
-      color: #cc5f5f;
+      color: #a5a5a5;
       width: 150px;
       height: 1.9em;
       border-radius: 2px;
   }
 
   .add_btn:hover {
-    background-color: #faebc8;
+    background-color: #a5a5a5;
     /*background-color: #903838;*/
-    color: #929292;
+    color: white;
   }
 
   .delete_btn{
