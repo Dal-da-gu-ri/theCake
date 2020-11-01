@@ -252,7 +252,6 @@ def myCakes(request):
         #cake_list = Cake.objects.all()
         cake_list = Cake.objects.filter(crn=baker.businessID)
         res_data['cake_list']= cake_list
-        #res_data['cake']=cake
         return render(request, 'baker/myCakes.html',res_data)
     else:
         if request.method == "GET":
@@ -278,21 +277,31 @@ def cake_add(request):
                 cakeobject = cakeform.save(commit=False)
                 cakeobject.crn = store.businessID
                 cakeobject.cakeName = cakeform.cleaned_data['cakeName']
-                #cake.cakeImg = cakeform.cleaned_data['cakeImg']
+                cakeobject.cakeImg = cakeform.cleaned_data['cakeImg']
                 cakeobject.cakePrice = cakeform.cleaned_data['cakePrice']
                 cakeobject.mini = cakeform.cleaned_data['mini']
-                cakeobject.save()
-                #return redirect('/baker/manageCake/myCakes')
-                res_data['cake'] = cakeform
-                #return render(request, 'baker/myCakes2.html', res_data)
-                return redirect('/baker/manageCake/myCakes', res_data)
-            else:
-                    print(cakeform.errors)
+
+                if Cake.objects.filter(cakeName=cakeobject.cakeName, crn=cakeobject.crn).exists():
                     cakeform = CakeForm()
                     res_data['cake'] = cakeform
                     res_data['error'] = "이미 등록된 케이크 이름입니다."
                     return render(request, 'baker/cake_add.html', res_data)
-                    #return redirect('/baker/inappropriateApproach')
+                else:
+                    cakeobject.save()
+                    # return redirect('/baker/manageCake/myCakes')
+                    res_data['cake'] = cakeform
+                    res_data['name'] = cakeobject.cakeImg
+                    # return render(request, 'baker/myCakes2.html', res_data)
+                    return redirect('/baker/manageCake/myCakes', res_data)
+
+
+            else:
+                    print(cakeform.errors)
+                    """cakeform = CakeForm()
+                    res_data['cake'] = cakeform
+                    res_data['error'] = "이미 등록된 케이크 이름입니다."
+                    return render(request, 'baker/cake_add.html', res_data)"""
+                    return redirect('/baker/inappropriateApproach')
 
         else:
             #cakeobject = Cake.objects.get(cakeName=baker.businessID)
@@ -329,6 +338,7 @@ def cake_edit(request,pk):
                 #return redirect('/baker/manageCake/myCakes')
                 res_data['cake'] = cakeform
                 cakeobject.save()
+                res_data['name'] = cakeobject.cakeImg
                 #return render(request, 'baker/myCakes.html', res_data)
                 return redirect('/baker/manageCake/myCakes', res_data)
             else:
