@@ -403,13 +403,13 @@ def idsearch(request):
             baker = Baker.objects.get(email=email)
             #res_data['searched_id']=baker.userID
             res_data['result']="고객님의 아이디는 "+baker.userID+" 입니다."
-            #return render(request, 'baker/idpw_search_baker.html',res_data)
-            return redirect('/baker/search', res_data)
+            return render(request, 'baker/idpw_search_baker.html',res_data)
+            #return redirect('/baker/search', res_data)
 
         else:
             res_data['result'] = "등록되지 않은 이메일입니다."
-            #return render(request, 'baker/idpw_search_baker.html',res_data)
-            return redirect('/baker/search', res_data)
+            return render(request, 'baker/idpw_search_baker.html',res_data)
+            #return redirect('/baker/search', res_data)
 
 
 def pwsearch(request):
@@ -422,20 +422,20 @@ def pwsearch(request):
             temppw = passwordMaker()
             current_site = get_current_site(request)
             message = passwordMessage(current_site.domain,userid,temppw)
-            baker.password = temppw
+            baker.password = make_password(temppw)
             baker.save()
             mail_subject = "[The Cake] 임시 비밀번호 전송"
             user_email = baker.email
             email = EmailMessage(mail_subject, message, to=[user_email])
             email.send()
             res_data['comment'] = user_email + " 로 임시 비밀번호가 전송되었습니다."
-            return redirect('/baker/search', res_data)
-            #return render(request, 'baker/idpw_search_baker.html',res_data)
+            #return redirect('/baker/search', res_data)
+            return render(request, 'baker/idpw_search_baker.html',res_data)
 
         else:
             res_data['comment'] = "등록되지 않은 아이디입니다."
-            return redirect('/baker/search', res_data)
-            #return render(request, 'baker/idpw_search_baker.html',res_data)
+            #return redirect('/baker/search', res_data)
+            return render(request, 'baker/idpw_search_baker.html',res_data)
 
 def pwsearch1(request):
     """if request.method=="GET":
