@@ -205,9 +205,13 @@ def enrollStore(request):
                     storeobject.address2 = storeform.cleaned_data['address2']
                     storeobject.address3 = storeform.cleaned_data['address3']
                     storeobject.location = storeform.cleaned_data['address1'] + " "+storeform.cleaned_data['address2']
-                    storeobject.sido = storeform.cleaned_data['sido']
-                    storeobject.sigugun = storeform.cleaned_data['sigugun']
-                    storeobject.dong = storeform.cleaned_data['dong']
+                    #storeobject.sido = storeform.cleaned_data['sido']
+                    #storeobject.sigugun = storeform.cleaned_data['sigugun']
+                    #storeobject.dong = storeform.cleaned_data['dong']
+                    storeobject.sido = request.POST.get('sido',None)
+                    storeobject.sigugun = request.POST.get('sigugun',None)
+                    storeobject.dong = request.POST.get('dong',None)
+
                     storeobject.storeImg = storeform.cleaned_data['storeImg']
 
                     storeobject.save()
