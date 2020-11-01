@@ -157,11 +157,15 @@ class DetailedOption(Option):
         verbose_name = '등록된 옵션'
         verbose_name_plural = '등록된 옵션'
 
-class Cake(Store):
-    cakeName = models.CharField(max_length=200, verbose_name='케이크 이름',null=True,blank=False,unique=True)
+class Cake(models.Model): #원래 Store상속받음
+    crn = models.CharField(max_length=50, verbose_name='사업자 등록번호',null=True,blank=False)
+    cakeName = models.CharField(max_length=200, verbose_name='케이크 이름',null=False,blank=False,unique=True,default="")
     cakeImg = models.ImageField(verbose_name='케이크 이미지',null=True,blank=True)
     cakePrice = models.IntegerField(verbose_name='1호 기준 가격',null=True,blank=False)
-    mini = models.BooleanField(default=False,verbose_name='미니사이즈 가능 여부',null=True,blank=False)
+    #mini = models.BooleanField(default=False,verbose_name='미니사이즈 가능 여부',null=True,blank=False)
+    mini = models.CharField(max_length=200, verbose_name='미니사이즈 가능 여부', null=False, blank=False,default="",
+                            choices=[('미니사이즈 가능', '가능'), ('미니사이즈 불가능', '불가능')])
+    #ip = models.CharField(max_length=20,default="",verbose_name='케이크번호')
 
     class Meta:
         db_table = 'Cake'
