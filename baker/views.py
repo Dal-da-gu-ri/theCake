@@ -245,12 +245,9 @@ def myCakes(request):
     user_id = request.session.get('user')
     baker = Baker.objects.get(pk=user_id)
     res_data['bakername'] = baker.name
-
-    if Cake.objects.get(store_ptr = baker.businessID):
-        cake = Cake.objects.get(store_ptr = baker.businessID)
-        #cakes += cake
-
-    res_data['cake']=cake
+    cake_list = Cake.objects.all()
+    res_data['cake_list']= cake_list
+    #res_data['cake']=cake
     return render(request, 'baker/myCakes.html',res_data)
 
 def cake_add(request):
@@ -262,26 +259,32 @@ def cake_add(request):
         res_data['bakername'] = baker.name
         #cakeobject = Cake()
         if request.method == "POST":
-            cakeform = CakeForm(request.POST)
+            cakeform = CakeForm(request.POST,request.FILES)
             store = Store.objects.get(pk=baker.businessID)
 
             #try:
             #    cake = Cake.objects.get(cakeName=cakeName)
             if cakeform.is_valid():
                 cakeobject = cakeform.save(commit=False)
-                cakeobject.store_ptr = store
+                #cakeobject.store_ptr = store
+                cakeobject.crn = store.businessID
                 cakeobject.cakeName = cakeform.cleaned_data['cakeName']
                 #cake.cakeImg = cakeform.cleaned_data['cakeImg']
                 cakeobject.cakePrice = cakeform.cleaned_data['cakePrice']
                 cakeobject.mini = cakeform.cleaned_data['mini']
-                #cake.ip = request.META['REMOTE_ADDR']
+                #cakeobject.ip = request.META['REMOTE_ADDR']
                 cakeobject.save()
                 #return redirect('/baker/manageCake/myCakes')
                 res_data['cake'] = cakeform
-                return render(request, 'baker/cake_add.html', res_data)
+                #return render(request, 'baker/myCakes2.html', res_data)
+                return redirect('/baker/manageCake/myCakes', res_data)
             else:
                     print(cakeform.errors)
-                    return redirect('/baker/inappropriateApproach')
+                    cakeform = CakeForm()
+                    res_data['cake'] = cakeform
+                    res_data['error'] = "이미 등록된 케이크 이름입니다."
+                    return render(request, 'baker/cake_add.html', res_data)
+                    #return redirect('/baker/inappropriateApproach')
 
         else:
             #cakeobject = Cake.objects.get(cakeName=baker.businessID)
@@ -289,6 +292,43 @@ def cake_add(request):
             cakeform = CakeForm()
             res_data['cake'] = cakeform
             return render(request, 'baker/cake_add.html', res_data)
+
+def cake_edit(request,pk):
+    res_data = {}
+    user_id = request.session.get('user')
+
+    if user_id:
+        baker = Baker.objects.get(pk=user_id)
+        res_data['bakername'] = baker.name
+        cakeobject = get_object_or_404(Cake,pk=pk)
+        if request.method == "POST":
+            cakeform = CakeForm(request.POST,request.FILES,instance=cakeobject)
+            #store = Store.objects.get(pk=baker.businessID)
+
+            #try:
+            #    cake = Cake.objects.get(cakeName=cakeName)
+            if cakeform.is_valid():
+
+                cakeobject = cakeform.save()
+                #return redirect('/baker/manageCake/myCakes')
+                res_data['cake'] = cakeform
+                cakeobject.save()
+                return render(request, 'baker/myCakes.html', res_data)
+            else:
+                    print(cakeform.errors)
+                    cakeform = CakeForm()
+                    res_data['cake'] = cakeform
+                    res_data['error'] = "이미 등록된 케이크 이름입니다."
+                    return render(request, 'baker/cake_add.html', res_data)
+                    #return redirect('/baker/inappropriateApproach')
+
+        else:
+            #cakeobject = Cake.objects.get(cakeName=baker.businessID)
+            cakeform = CakeForm(instance=cakeobject)
+            #cakeform = CakeForm()
+            res_data['cake'] = cakeform
+            return render(request, 'baker/cake_add.html', res_data)
+
 
 def options(request):
     return render(request, 'baker/options.html')

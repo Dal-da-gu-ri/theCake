@@ -57,7 +57,8 @@ class CakeForm(forms.ModelForm):
                     'class': 'form-control',
                     'placeholder': '케이크 가격(1호 기준)'
                 }
-            )
+            ),
+            'mini': forms.RadioSelect()
         }
 
 class DetailedOptionForm(forms.ModelForm):
