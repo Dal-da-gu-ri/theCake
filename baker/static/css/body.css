@@ -42,7 +42,7 @@ table {
 	border-collapse: collapse;
 	border-spacing: 0;
 }
-
+/*
 *{
   box-sizing : border-box;
   font-family : DX경필명조B;
@@ -62,7 +62,7 @@ body {
   padding-bottom: 40px;
   background-color: #fffcfa;
 }
-
+*/
 @font-face{
     font-family: DX경필명조B;
     src: url('/static/DXKPMB-KSCpc-EUC-H.ttf');

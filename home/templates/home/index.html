@@ -34,7 +34,7 @@
 
         body {
             min-height: 70rem;
-            padding-top: 8rem;
+            padding-top: 6rem;
             background-color: #fffcfa;
 <!--            background-color: white;-->
             box-sizing : border-box;
@@ -47,7 +47,7 @@
 
         @media only screen and (max-width: 767px) {
              body {
-                padding-top: 5rem;
+                padding-top: 4rem;
                 font-size: 0.9em;
             }
         }
@@ -77,6 +77,11 @@
         }
 
         .button{
+            display: absolute;
+            background-color: yellow;
+        }
+
+        .button>button{
             border: 1px solid  #66635e;
             background-color:#ffffff;
             color: #66635e;
@@ -86,11 +91,9 @@
             font-size: 0.9em;
             font-family : DX경필명조B;
             text-align: center;
-            margin-top:2em;
-            margin-bottom:1em;
         }
 
-        .button:hover {
+        .button>button:hover {
             background-color: #d8cfcf;
             color: white;
         }
@@ -101,6 +104,7 @@
             margin-top: 5%;
             color: #585858;
             word-break:keep-all;
+            display: relative;
         }
 
        .font{
@@ -127,14 +131,18 @@
                     <img src="/static/logo_customer.png" class="py-3" alt="주문자로고" width="40%">
                     <br><p class="font">위치와 날짜에 따라 손쉽게,</p>
                     <p class="font">나만을 위한 케이크를 주문해보세요!</p>
-                    <button type="button" id="button_customer" class="button font_size" onclick="location.href='/customer/login'">주문자 로그인/회원가입</button>
+                    <div class="button">
+                        <button type="button" id="button_customer" class="font_size" onclick="location.href='/customer/login'">주문자 로그인/회원가입</button>
+                    </div>
             </div>
 
             <div class="col-8 col-sm-8 col-md-5 col-xl-4 box" style="background-color: rgb(255, 249, 239);">
                     <img src="/static/logo_baker.png" class="py-3" alt="사업자로고" width="40%">
                     <br><p class="font">사장님이신가요?</p>
                     <p class="font">일일이 대응할 필요없는 편리한 서비스를 이용해보세요!</p>
-                    <button type="button" id="button_baker" class="button font_size" onclick="location.href='/baker/login'">사장님 로그인/회원가입</button>
+                    <div class="button">
+                        <button type="button" id="button_baker" class="font_size" onclick="location.href='/baker/login'">사장님 로그인/회원가입</button>
+                    </div>
             </div>
             </div>
         </div>
