@@ -10,6 +10,15 @@
     <link rel="stylesheet" href="/static/css/login_baker.css">
 
     <title>login_baker</title>
+    <style>
+
+.form-signin input[type="text"] {
+  margin-bottom: -1px;
+  border-bottom-right-radius: 0;
+  border-bottom-left-radius: 0;
+}
+
+    </style>
 </head>
 <body class="text-center">
 
@@ -22,8 +31,8 @@
             </div>
         {% csrf_token %}
 
-        <input type="text" id="userid" class="form-control" name="userid" placeholder="아이디" required>
-        <input type="password" id="password" class="form-control" name="password" placeholder="비밀번호" required>
+        <input type="text" id="userid" class="form-control" name="userid" placeholder="ID" required>
+        <input type="password" id="password" class="form-control" name="password" placeholder="Password" required>
         <button type='submit' id="submit" class="btn btn-lg btn-secondary btn-block">LOGIN</button>
 
         <p>
