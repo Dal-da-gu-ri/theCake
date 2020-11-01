@@ -231,6 +231,14 @@ def enrollStore(request):
             res_data['store'] = storeform
             return render(request, 'baker/enrollStore2.html', res_data)
 
+    else:
+        if request.method == "GET":
+            res_data = {}
+            res_data['comment'] = "잘못된 접근입니다. 로그인을 해주세요!"
+            return render(request, 'baker/inappropriateApproach.html', res_data)
+        elif request.method == "POST":
+            return redirect('/')
+
 # 가게 관리
 
 
@@ -243,12 +251,21 @@ def storeReview(request):
 def myCakes(request):
     res_data = {}
     user_id = request.session.get('user')
-    baker = Baker.objects.get(pk=user_id)
-    res_data['bakername'] = baker.name
-    cake_list = Cake.objects.all()
-    res_data['cake_list']= cake_list
-    #res_data['cake']=cake
-    return render(request, 'baker/myCakes.html',res_data)
+    if user_id:
+        baker = Baker.objects.get(pk=user_id)
+        res_data['bakername'] = baker.name
+        #cake_list = Cake.objects.all()
+        cake_list = Cake.objects.filter(crn=baker.businessID)
+        res_data['cake_list']= cake_list
+        #res_data['cake']=cake
+        return render(request, 'baker/myCakes.html',res_data)
+    else:
+        if request.method == "GET":
+            res_data = {}
+            res_data['comment'] = "잘못된 접근입니다. 로그인을 해주세요!"
+            return render(request, 'baker/inappropriateApproach.html', res_data)
+        elif request.method == "POST":
+            return redirect('/')
 
 def cake_add(request):
     res_data = {}
@@ -262,17 +279,13 @@ def cake_add(request):
             cakeform = CakeForm(request.POST,request.FILES)
             store = Store.objects.get(pk=baker.businessID)
 
-            #try:
-            #    cake = Cake.objects.get(cakeName=cakeName)
             if cakeform.is_valid():
                 cakeobject = cakeform.save(commit=False)
-                #cakeobject.store_ptr = store
                 cakeobject.crn = store.businessID
                 cakeobject.cakeName = cakeform.cleaned_data['cakeName']
                 #cake.cakeImg = cakeform.cleaned_data['cakeImg']
                 cakeobject.cakePrice = cakeform.cleaned_data['cakePrice']
                 cakeobject.mini = cakeform.cleaned_data['mini']
-                #cakeobject.ip = request.META['REMOTE_ADDR']
                 cakeobject.save()
                 #return redirect('/baker/manageCake/myCakes')
                 res_data['cake'] = cakeform
@@ -292,6 +305,14 @@ def cake_add(request):
             cakeform = CakeForm()
             res_data['cake'] = cakeform
             return render(request, 'baker/cake_add.html', res_data)
+
+    else:
+        if request.method == "GET":
+            res_data = {}
+            res_data['comment'] = "잘못된 접근입니다. 로그인을 해주세요!"
+            return render(request, 'baker/inappropriateApproach.html', res_data)
+        elif request.method == "POST":
+            return redirect('/')
 
 def cake_edit(request,pk):
     res_data = {}
@@ -313,7 +334,8 @@ def cake_edit(request,pk):
                 #return redirect('/baker/manageCake/myCakes')
                 res_data['cake'] = cakeform
                 cakeobject.save()
-                return render(request, 'baker/myCakes.html', res_data)
+                #return render(request, 'baker/myCakes.html', res_data)
+                return redirect('/baker/manageCake/myCakes', res_data)
             else:
                     print(cakeform.errors)
                     cakeform = CakeForm()
@@ -328,6 +350,36 @@ def cake_edit(request,pk):
             #cakeform = CakeForm()
             res_data['cake'] = cakeform
             return render(request, 'baker/cake_add.html', res_data)
+
+    else:
+        if request.method == "GET":
+            res_data = {}
+            res_data['comment'] = "잘못된 접근입니다. 로그인을 해주세요!"
+            return render(request, 'baker/inappropriateApproach.html', res_data)
+        elif request.method == "POST":
+            return redirect('/')
+
+
+def cake_delete(request,pk):
+    res_data = {}
+    user_id = request.session.get('user')
+
+    if user_id:
+        baker = Baker.objects.get(pk=user_id)
+        res_data['bakername'] = baker.name
+        cakeobject = get_object_or_404(Cake, pk=pk)
+        cakeobject.delete()
+        return redirect('/baker/manageCake/myCakes', res_data)
+
+
+
+    else:
+        if request.method == "GET":
+            res_data = {}
+            res_data['comment'] = "잘못된 접근입니다. 로그인을 해주세요!"
+            return render(request, 'baker/inappropriateApproach.html', res_data)
+        elif request.method == "POST":
+            return redirect('/')
 
 
 def options(request):

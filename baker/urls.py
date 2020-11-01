@@ -22,6 +22,7 @@ urlpatterns = [
     path('manageCake/myCakes/cakeAdd/', views.cake_add, name='cake_add'),
     path('manageCake/myCakes/cakeEdit/<int:pk>/', views.cake_edit, name='cake_edit'),
     path('manageCake/options/', views.options, name='options_baker'),
+    path('manageCake/myCakes/cakeEdit/<int:pk>/delete', views.cake_delete, name='cake_delete'),
 
     # 주문 관리
     path('manageOrder/', views.manageOrder, name='manageOrder_baker'),
