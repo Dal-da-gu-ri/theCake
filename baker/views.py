@@ -238,8 +238,21 @@ def enrollStore(request):
 
 
 def opendays(request):
+    res_data = {}
+    user_id = request.session.get('user')
+
+    if user_id:
+        baker = Baker.objects.get(pk=user_id)
+        res_data['bakername'] = baker.name
     return render(request, 'baker/opendays.html')
+
 def storeReview(request):
+    res_data = {}
+    user_id = request.session.get('user')
+
+    if user_id:
+        baker = Baker.objects.get(pk=user_id)
+        res_data['bakername'] = baker.name
     return render(request, 'baker/storeReview.html')
 
 # 케이크 관리
@@ -388,13 +401,31 @@ def cake_delete(request,pk):
 
 
 def options(request):
+    res_data = {}
+    user_id = request.session.get('user')
+
+    if user_id:
+        baker = Baker.objects.get(pk=user_id)
+        res_data['bakername'] = baker.name
     return render(request, 'baker/options.html')
 
 
 def manageOrder(request):
+    res_data = {}
+    user_id = request.session.get('user')
+
+    if user_id:
+        baker = Baker.objects.get(pk=user_id)
+        res_data['bakername'] = baker.name
     return render(request, 'baker/manageOrder.html')
 
 def mypage(request):
+    res_data = {}
+    user_id = request.session.get('user')
+
+    if user_id:
+        baker = Baker.objects.get(pk=user_id)
+        res_data['bakername'] = baker.name
     return render(request, 'baker/mypage_baker.html')
 
 
