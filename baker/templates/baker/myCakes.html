@@ -2,7 +2,8 @@
 
 {% block content %}
 <!--<p>케이크 관리 -> 내 케이크 페이지 입니다.</p>-->
-    <link rel="stylesheet" href="/static/css/myCakes.css">
+
+<link rel="stylesheet" href="/static/css/myCakes.css">
 
 
 <div style="font-size: 0.9rem;">
@@ -11,10 +12,13 @@
   </div>
 </div>
 <!--<a href="{% url 'baker:cake_add' %}">케이크 추가</a>-->
+
 <div class="album py-3">
-    <button type="button" onclick="location.href='{% url 'baker:cake_add' %}'" class="add_btn">케이크 추가</button>
+    <div class="d-flex justify-content-end">
+        <button class="add_btn mr-3" type="button" onclick="location.href='{% url 'baker:cake_add' %}'">케이크 추가</button>
+    </div>
     <div class="container pt-3">
-    <div class="row">
+    <div class="row row-eq-height">
 <!--      'cakeName', 'cakeImg', 'cakePrice', 'mini'-->
       {% for cake in cake_list %}
       <div class="col-lg-3 col-md-4 col-sm-6 col-6">
@@ -26,7 +30,7 @@
               <img class="embed-responsive-item" src="data:image/jpg,png;base64,{{cake.cakeImg}}" alt="cake image">
             </a>
             <div class="edit_text">
-              <p>Edit</p>
+              <a href="{% url 'baker:cake_edit' cake.pk %}">Edit</a>
             </div>
 <!--              -->
 <!--            <a href="#">-->

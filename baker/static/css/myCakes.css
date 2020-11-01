@@ -55,7 +55,7 @@
   }
 
   .edit_text{
-    /* transition:.5s ease; */
+    transition:.15s ease;
     opacity: 0;
     top: 50%;
     left: 50%;
@@ -64,6 +64,11 @@
     font-size: 1.3em;
     position: absolute;
     text-align: center;
+  }
+
+  .edit_text>a{
+    text-decoration:none;
+    color: #747474;
   }
 
   .image-block:hover img{
@@ -79,16 +84,23 @@
   }
 
   .add_btn{
+      transition:.15s ease;
       border: 1px solid #cf8484;
       background-color:white;
       color: #cc5f5f;
-      width: 90%;
-      height: 1.7em
+      width: 150px;
+      height: 1.9em;
       border-radius: 2px;
   }
 
+  .add_btn:hover {
+    background-color: #cf8484;
+    /*background-color: #903838;*/
+    color: white;
+  }
 
   .delete_btn{
+    transition:.15s ease;
     border: 1px solid #cf8484;
     background-color:white;
     color: #cc5f5f;
