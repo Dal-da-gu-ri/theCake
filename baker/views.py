@@ -208,9 +208,9 @@ def enrollStore(request):
                     #storeobject.sido = storeform.cleaned_data['sido']
                     #storeobject.sigugun = storeform.cleaned_data['sigugun']
                     #storeobject.dong = storeform.cleaned_data['dong']
-                    storeobject.sido = request.POST.get('sido',None)
-                    storeobject.sigugun = request.POST.get('sigugun',None)
-                    storeobject.dong = request.POST.get('dong',None)
+                    storeobject.daum_sido = request.POST.get('daum_sido',None)
+                    storeobject.daum_sigungu = request.POST.get('daum_sigungu',None)
+                    storeobject.daum_dong = request.POST.get('daum_dong',None)
 
                     storeobject.storeImg = storeform.cleaned_data['storeImg']
 

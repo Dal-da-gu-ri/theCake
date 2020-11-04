@@ -4,7 +4,7 @@ from home.models import Store, Baker, Cake, DetailedOption
 class StoreForm(forms.ModelForm):
     class Meta:
         model = Store
-        fields = ['storeImg', 'storeName', 'storeContact', 'aboutStore', 'pickUpOpen', 'pickUpClose', 'postcode', 'address1','address2', 'address3']
+        fields = ['storeImg', 'storeName', 'storeContact', 'aboutStore', 'pickUpOpen', 'pickUpClose', 'postcode', 'address1', 'address2', 'address3', 'daum_sido', 'daum_sigungu', 'daum_dong']
         widgets = {
             # label은 HTML에서 label태그를 의미
             # widget은 input이라고 생각
@@ -54,6 +54,21 @@ class StoreForm(forms.ModelForm):
                 attrs={'id': 'sample6_extraAddress',
                        'class': 'form-control',
                        'placeholder':"참고항목"}
+            ),
+            'daum_sido': forms.TextInput(
+                attrs={'id': 'daum_sido',
+                       'class': 'form-control',
+                       'hidden': 'hidden'}
+            ),
+            'daum_sigungu': forms.TextInput(
+                attrs={'id': 'daum_sigungu',
+                       'class': 'form-control',
+                       'hidden': 'hidden'}
+            ),
+            'daum_dong': forms.TextInput(
+                attrs={'id': 'daum_dong',
+                       'class': 'form-control',
+                       'hidden': 'hidden'}
             )
         }
 

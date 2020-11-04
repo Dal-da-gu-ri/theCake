@@ -84,9 +84,9 @@ class Store(models.Model):
     address1 = models.CharField(max_length=100, verbose_name='가게 주소', null=True, blank=True)
     address2 = models.CharField(max_length=100, verbose_name='가게 상세주소', null=True, blank=True)
     address3 = models.CharField(max_length=100, verbose_name='위치 추가정보', null=True, blank=True)
-    sido = models.CharField(max_length=20, verbose_name='시/도', null=True, blank=True)
-    sigugun = models.CharField(max_length=20, verbose_name='시/군/구', null=True, blank=True)
-    dong = models.CharField(max_length=20, verbose_name='읍/면/동', null=True, blank=True)
+    daum_sido = models.CharField(max_length=20, verbose_name='주문자와 비교할 시/도', null=True, blank=True)
+    daum_sigungu = models.CharField(max_length=20, verbose_name='주문자와 비교할 시/군/구', null=True, blank=True)
+    daum_dong = models.CharField(max_length=20, verbose_name='주문자와 비교할 읍/면/동', null=True, blank=True)
     storeContact = models.CharField(max_length=30, verbose_name='가게 연락처', null=True, blank=True) #,unique=True
     pickUpOpen = models.CharField(max_length=15, verbose_name='픽업 오픈 시간',null=True, blank=True, choices=TIME_CHOICES)
     pickUpClose = models.CharField(max_length=15, verbose_name='픽업 마감 시간',null=True, blank=True, choices=TIME_CHOICES)

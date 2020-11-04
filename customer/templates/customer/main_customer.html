@@ -7,8 +7,8 @@
 
  <!-- 위치 선택을 위한 jquery -->
     <script src="https://code.jquery.com/jquery-latest.min.js" type="application/javascript"></script>
-    <script type="application/javascript" src="https://zelkun.tistory.com/attachment/cfile8.uf@99BB7A3D5D45C065343307.js"></script>
-
+<!--    <script type="application/javascript" src="https://zelkun.tistory.com/attachment/cfile8.uf@99BB7A3D5D45C065343307.js"></script>-->
+    <script type="application/javascript" src="/static/js/hangjungdong.js"></script>
     <!-- -------------------------contents-------------------------- -->
     <div class="row">
         <p class="pt-3 pl-4 path">주문하기</p>
@@ -89,7 +89,7 @@
           <div class="row flex-nowrap justify-content-right align-items-center pt-5 form">
           <!-- <div class="selectbox_location"> -->
 <!--              <hr>-->
-            <label class="text-nowrap" for="location" style="padding-right:70px">위치</label>
+            <label class="text-nowrap" style="padding-right:70px">위치</label>
             <select id="sido" class="location_select">
               <option value="">시/ 도 선택</option>
             </select>
@@ -99,12 +99,16 @@
             <select id="dong" class="location_select">
               <option value="">읍/ 면/ 동 선택</option>
             </select>
+           <input id="daum_sido" name="daum_sido" type="text" value="" style="width:50px;" readonly/>
+           <input id="daum_sigungu" name="daum_sigungu" type="text" value="" style="width:50px;" readonly/>
+           <input id="daum_dong" name="daum_dong" type="text" value="" style="width: 50px;" readonly/>
           </div>
+
 
           <!-- 날짜 -->
           <div class="row flex-nowrap justify-content-right align-items-center pt-3 form">
               <label class="text-nowrap" for="date" style="padding-right:70px" min="2020-10-19">날짜</label>
-              <input id="date" type="date">
+              <input id="date" name="date" type="date">
           </div>
             <br>
             <br>
