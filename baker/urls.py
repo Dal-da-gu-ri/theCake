@@ -9,6 +9,11 @@ urlpatterns = [
     path('search/pw', views.pwsearch, name='pw'),
     path('signUp/crnCheck/', views.crnCheck, name='crnCheck'),
     path('signUp/join/', views.join, name='join_baker'),
+
+    path('signUp/join/idcheck/',views.isID,name='isID_baker'),
+    path('signUp/join/emailcheck/', views.isEmail, name='isEmail_baker'),
+    path('signUp/join/crncheck/', views.isCRN, name='isCRN_baker'),
+
     #path('signUp/join/emailSent/',views.join, name='emailSent_baker'),
     path('activate/<str:uid64>/<str:token>/', views.activate, name='activate'),
     path('inappropriateApproach/',views.wrongApproach,name='wrongApproach'),

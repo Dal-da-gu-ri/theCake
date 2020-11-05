@@ -151,6 +151,43 @@ def crnCheck(request):
 
 
 
+def isID(request):
+    bakerid = request.POST.get('userid', None)
+    res_data = {}
+    try:
+        baker = Baker.objects.get(userid=bakerid)
+        res_data['msg'] = "이미 존재"
+        return JsonResponse(res_data)
+
+    except Baker.DoesNotExist:
+        res_data['msg'] = "사용 가능"
+        return JsonResponse(res_data)
+
+def isEmail(request):
+    emailbaker = request.POST.get('email_baker', None)
+    res_data = {}
+    try:
+        baker = Baker.objects.get(email=emailbaker)
+        res_data['msg'] = "이미 존재"
+        return JsonResponse(res_data)
+
+    except Baker.DoesNotExist:
+        res_data['msg'] = "사용 가능"
+        return JsonResponse(res_data)
+
+def isCRN(request):
+    crn = request.POST.get('businessID', None)
+    res_data = {}
+    try:
+        baker = Baker.objects.get(businessID=crn)
+        res_data['msg'] = "이미 존재"
+        return JsonResponse(res_data)
+
+    except Baker.DoesNotExist:
+        res_data['msg'] = "사용 가능"
+        return JsonResponse(res_data)
+
+
 def activate(request,uid64, token):
     res_data = {}
     uid = force_text(urlsafe_base64_decode(uid64))
