@@ -11,6 +11,8 @@ from django.utils.http import urlsafe_base64_decode,urlsafe_base64_encode
 from django.core.mail import EmailMessage
 from django.utils.encoding import force_bytes,force_text
 
+def temp(request):
+    return render(request, 'customer/showCakes.html')
 
 def main(request):
     return render(request, 'customer/main_customer.html')

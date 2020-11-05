@@ -12,7 +12,7 @@ urlpatterns = [
     path('activate/<str:uid64>/<str:token>/', views.activate, name='activate'),
     path('inappropriateApproach/',views.wrongApproach,name='wrongApproach'),
     path('main/', views.main_customer, name='main_customer'),
-
+    path('temp/', views.temp, name='temp'),
     # 주문하기
     # 화면에서 위치, 수령일 바꾸고 싶으면 url 바뀌어야..(?)
     # 메인화면(위치, 수령일 선택 화면)

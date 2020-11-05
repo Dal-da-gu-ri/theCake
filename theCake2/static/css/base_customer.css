@@ -69,13 +69,16 @@ body {
     padding-bottom: 10px;
 }
 
+.dropdown-item{
+  font-size: 0.9em;
+}
+
 .navbar-brand {
     float: left;
     height: 40px;
     line-height: 20px;
     padding: 0;
 }
-
 
 .content img{
     width:400px;
@@ -85,12 +88,11 @@ body {
 }
 
 .name{
-    background-color: rgb(225, 189, 189);
+    background-color: rgb(255, 247, 233);
     text-align: right;
     font-size: small;
     padding-right: 20px;
 }
-
 /* @media (min-width: 768px) {
     .content img {
       width:300px;
@@ -103,7 +105,12 @@ body {
     margin-bottom: 0;
     background-color:red;
   }
-
+  @media (min-width: 768px) {
+    .jumbotron {
+      padding-top: 6rem;
+      padding-bottom: 6rem;
+    }
+  }
 
   .jumbotron p:last-child {
     margin-bottom: 0;
