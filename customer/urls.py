@@ -11,8 +11,17 @@ urlpatterns = [
     path('signUp/join/', views.join, name='join_customer'),
     path('activate/<str:uid64>/<str:token>/', views.activate, name='activate'),
     path('inappropriateApproach/',views.wrongApproach,name='wrongApproach'),
+    path('logout/', views.logout, name='logout_customer'),
+
     path('main/', views.main_customer, name='main_customer'),
+    path('main/stores/',views.showStores,name='showStores'),
+    path('main/stores/<int:pk>/', views.storeInfo, name='storeInfo'),
+    # path('main/stores/<int:pk>/<int:pk1>/order', views.cakeOrder, name='cakeOrder'),
+    path('main/stores/<int:pk>/order', views.cakeOrder, name='cakeOrder'),
+
     path('temp/', views.temp, name='temp'),
+    # path('main/showStores2', views.showStores2, name='showStores2'),
+
     # 주문하기
     # 화면에서 위치, 수령일 바꾸고 싶으면 url 바뀌어야..(?)
     # 메인화면(위치, 수령일 선택 화면)
@@ -42,5 +51,7 @@ urlpatterns = [
 
     # 마이페이지
     # (이메일(변경가능?), 비밀번호, 이름, 핸드폰번호,,)
-    path('mypage/', views.mypage, name='mypage_customer')
+    path('mypage/', views.mypage, name='mypage_customer'),
+    path('inappropriateApproach/', views.wrongApproach, name='wrongApproach')
+
 ]

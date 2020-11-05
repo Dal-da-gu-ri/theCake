@@ -496,7 +496,7 @@ def manageOrder(request):
     if user_id:
         baker = Baker.objects.get(pk=user_id)
         res_data['bakername'] = baker.name
-    return render(request, 'baker/manageOrder.html')
+    return render(request, 'baker/manageOrder.html',res_data)
 
 def mypage(request):
     res_data = {}
@@ -505,7 +505,7 @@ def mypage(request):
     if user_id:
         baker = Baker.objects.get(pk=user_id)
         res_data['bakername'] = baker.name
-    return render(request, 'baker/mypage_baker.html')
+    return render(request, 'baker/mypage_baker.html',res_data)
 
 
 def search(request):

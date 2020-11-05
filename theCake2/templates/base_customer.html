@@ -40,16 +40,20 @@
   <div class="collapse navbar-collapse" id="navbarCollapse">
     <ul class="navbar-nav mr-auto">
         <li class="nav-item">
-        <a class="nav-link text-nowrap" href="#">주문하기<span class="sr-only"></span></a>
+<!--        <a class="nav-link text-nowrap" href="#">주문하기<span class="sr-only"></span></a>-->
+                    <a class="nav-link text-nowrap" href="/customer/main">주문하기</a>
+
         </li>
         <li class="nav-item">
-        <a class="nav-link text-nowrap" href="#">주문내역조회<span class="sr-only"></span></a>
+<!--        <a class="nav-link text-nowrap" href="#">주문내역조회<span class="sr-only"></span></a>-->
+                    <a class="nav-link text-nowrap" href="/customer/orderList">주문내역조회</a>
+
         </li>
         <li class="nav-item">
-        <a class="nav-link text-nowrap" href="#">마이페이지<span class="sr-only"></span></a>
+        <a class="nav-link text-nowrap" href="/customer/mypage">마이 페이지</a>
         </li>
         <li class="nav-item">
-        <a class="nav-link text-nowrap" href="#">로그아웃</a>
+        <a class="nav-link text-nowrap" href="/customer/logout">로그아웃</a>
         </li>
     </ul>
 
@@ -64,7 +68,7 @@
 </div>
 <!-- 반응형 설정해야함 -->
 <div class="pb-3 name">
-    <p>Welcome for {{customername}}회원님</p>
+    <p>Welcome for {{customername}} 회원님</p>
 </div>
 
 

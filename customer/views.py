@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from home.models import Orderer, Order, Store, Baker, Review, Option, DetailedOption, Cake, checkOrderer
 from django.contrib.auth.models import User
 from django.contrib import auth
@@ -11,11 +11,13 @@ from django.utils.http import urlsafe_base64_decode,urlsafe_base64_encode
 from django.core.mail import EmailMessage
 from django.utils.encoding import force_bytes,force_text
 from django.views.decorators.csrf import csrf_exempt
+from baker.forms import CakeForm,StoreForm
+
 
 def temp(request):
-    return render(request, 'customer/showStores.html')
+    return render(request, 'customer/showCakes.html')
 
-def temp2(request):
+def showStores2(request):
     search_key1 = request.GET['search_key1']
     search_key2 = request.GET['search_key2']
     search_key3 = request.GET['search_key3']
@@ -137,8 +139,8 @@ def login(request):
                 if check_password(password,orderer.password):
                     request.session['user']=orderer.userID
 
-                    return render(request,'customer/main_customer.html')  ####여기가 안됨
-                    #return redirect('/customer/main')
+                    #return render(request,'customer/main_customer.html')  ####여기가 안됨
+                    return redirect('/customer/main')
                 else:
                     #res_data['error'] = "비밀번호가 틀렸습니다."
                     res_data['error'] = "아이디/비밀번호 오류"
@@ -154,23 +156,190 @@ def login(request):
 
 # # login에 성공하면 main_customer.html으로 이동!
 def main_customer(request):
-    return render(request, 'customer/main_customer.html')
+    res_data = {}
+    user_id = request.session.get('user')
+
+    if user_id:
+        customer = Orderer.objects.get(pk=user_id)
+        res_data['customername'] = customer.name
+        if request.method == 'GET':
+            #print("get")
+
+            return render(request, 'customer/main_customer.html',res_data)
+        elif request.method == 'POST':
+            request.session['sido'] = request.POST.get('sido', None)
+            request.session['sigungu'] = request.POST.get('sigungu', None)
+            request.session['dong'] = request.POST.get('dong', None)
+
+            #날짜도 받도록 해야함
+            #print(request.session.get('sido'))
+            #print("post")
+            #return redirect('/customer/stores', res_data)
+            #print("sido: "+request.session.get('sido'))
+            #print("sigungu: " + request.session.get('sigungu'))
+            # if request.session.get('sigungu'):
+            #     print("exist")
+            # else:
+            #     print("not exist")
+            #return HttpResponse(request.session.get('sido')+" "+request.session.get('sigungu')+" "+request.session.get('dong'))
+            #return HttpResponse(user_id)
+            return redirect('/customer/main/stores', res_data)
+
+    else:
+        if request.method == "GET":
+            res_data['comment'] = "잘못된 접근입니다. 로그인을 해주세요!"
+            return render(request, 'customer/inappropriateApproach.html', res_data)
+        elif request.method == "POST":
+            return redirect('/customer/login')
+
+    #return render(request, 'customer/main_customer.html')
+
+
+def showStores(request):
+    res_data = {}
+    user_id = request.session.get('user')
+    if user_id:
+
+        customer = Orderer.objects.get(pk=user_id)
+        res_data['customername'] = customer.name
+        # sido = request.session.get('sido')
+        # gungu = request.session.get('gungu')
+        # dong = request.session.get('dong')
+
+        sido = request.GET['sido']
+        sigugun = request.GET['sigugun']
+        dong = request.GET['dong']
+        date = request.GET['date']
+        res_data = {'sido': sido, 'sigugun': sigugun, 'dong': dong,
+                   'date': date}
+        if sido:
+
+            if sigugun:
+
+                if dong:
+
+                    store_list = Store.objects.filter(daum_sido=sido, daum_sigungu=sigugun, daum_dong=dong)
+                    print(store_list)
+                else:
+                    store_list = Store.objects.filter(daum_sido=sido, daum_sigungu=sigugun)
+            else:
+                store_list = Store.objects.filter(daum_sido=sido)
+        # else:             #선택된 가게가 없는 데 넘어온 경우..
+        #     return HttpResponse(user_id)
+
+        res_data['store_list'] = store_list
+
+        # return render(request, 'customer/showStores.html', res_data)
+        return render(request, 'customer/stores.html', res_data)
+        # return render(request,'customer/showStores2.html',res_data)
+
+
+    else:
+        if request.method == "GET":
+            res_data['comment'] = "잘못된 접근입니다. 로그인을 해주세요!"
+            return render(request, 'customer/inappropriateApproach.html', res_data)
+        elif request.method == "POST":
+            return redirect('/customer/login')
+
+    #return render(request,'customer/showStores.html')
+
+
+def storeInfo(request,pk):
+    res_data = {}
+    user_id = request.session.get('user')
+
+    if user_id:
+        customer = Orderer.objects.get(pk=user_id)
+        res_data['customername'] = customer.name
+        storeobject = get_object_or_404(Store,pk=pk)
+
+        if request.method == "GET":
+            storeform = StoreForm(instance=storeobject)
+            # cakeform = CakeForm()
+            res_data['store'] = storeform
+
+            store_list = Store.objects.filter(pk=pk)
+            res_data['store_list'] = store_list
+            cake_list = Cake.objects.filter(crn=storeobject.businessID)
+            res_data['cake_list'] = cake_list
+
+            # return render(request, 'customer/showStores.html', res_data)
+            return render(request,'customer/showCakes.html',res_data)
+        elif request.method == "POST":
+            ## 케이크 가게가 마음에 들어서 주문하러 기
+            return render(request,'customer/showCakes.html',res_data)
+
+
+            return render(request, 'customer/inappropriateApproach.html', res_data)
+        elif request.method == "POST":
+            return redirect('/customer/login')
+
+
+    else:
+        if request.method == "GET":
+            res_data['comment'] = "잘못된 접근입니다. 로그인을 해주세요!"
+            return render(request, 'customer/inappropriateApproach.html', res_data)
+        elif request.method == "POST":
+            return redirect('/customer/login')
+
+def cakeOrder(request,pk1):
+    res_data = {}
+    user_id = request.session.get('user')
+
+    if user_id:
+        customer = Orderer.objects.get(pk=user_id)
+        res_data['customername'] = customer.name
+
+    return render(request, 'customer/orderlist_customer.html', res_data)
+    #   주문화면
 
 def testing(request):
 
     return render(request,'customer/test.html')
 
 def orderlist(request):
-    return render(request, 'customer/orderlist_customer.html')
+    res_data = {}
+    user_id = request.session.get('user')
+
+    if user_id:
+        customer = Orderer.objects.get(pk=user_id)
+        res_data['customername'] = customer.name
+
+    return render(request, 'customer/orderlist_customer.html',res_data)
 
 
 def mypage(request):
-    return render(request, 'customer/mypage_customer.html')
+    res_data = {}
+    user_id = request.session.get('user')
+
+    if user_id:
+        customer = Orderer.objects.get(pk=user_id)
+        res_data['customername'] = customer.name
+
+    return render(request, 'customer/mypage_customer.html',res_data)
 
 
 def logout(request):
-    if request.method == "POST":
+    res_data = {}
+
+    if request.method == "GET":
         if request.session['user']:
-            del(request.session['user'])
-            return redirect('/customer/login')
+            user_id = request.session.get('user')
+            customer = Orderer.objects.get(pk=user_id)
+            del (request.session['user'])
+            res_data['comment'] = customer.name + " 님의 계정이 성공적으로 로그아웃되었습니다!"
+            return render(request, 'customer/logout_customer.html', res_data)
+        else:
+            return redirect('/customer/inappropriateApproach')
+    elif request.method == "POST":
+        return redirect('/')
+
+
+
+def wrongApproach(request):
+    if request.method == "GET":
+        res_data = {}
+        res_data['comment'] = "잘못된 접근입니다."
+        return render(request, 'customer/inappropriateApproach.html',res_data)
+    elif request.method == "POST":
         return redirect('/')

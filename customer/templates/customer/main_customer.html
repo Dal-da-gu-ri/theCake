@@ -113,13 +113,13 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
         <script>
             $('#search_button').click(function(){
-                var search_key1 = $('#sido').val()
-                var search_key2 = $('#sigugun').val()
-                var search_key3 = $('#dong').val()
-                var search_key4 = $('#date').val()
+                var sido = $('#sido').val()
+                var sigugun = $('#sigugun').val()
+                var dong = $('#dong').val()
+                var date = $('#date').val()
                 $.ajax({
-                    url:'{% url 'customer:temp2' %}',
-                    data : { 'search_key1':search_key1, 'search_key2':search_key2, 'search_key3':search_key3, 'search_key4':search_key4 },
+                    url:'{% url 'customer:showStores' %}',
+                    data : { 'sido':sido, 'sigugun':sigugun, 'dong':dong, 'date':date },
                     success:function(data){
                         $('#data_stores').html(data)
                     }

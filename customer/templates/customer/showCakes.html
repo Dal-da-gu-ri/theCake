@@ -14,15 +14,23 @@
 <div class="row">
 
 <!--    가게 정보-->
+          {% for store in store_list %}
+
 <div class="form-group col-md-3 bg-light">
-    {{store.storeImg}}
+<!--    {{store.storeImg}}-->
+                    <img class="embed-responsive-item" src="/media/{{store.storeImg}}" alt="store image">
+
     {{store.storeName}}
-    {{store.storeAbout}}
+    {{store.aboutStore}}
     {{store.storeContact}}
-    {{store.storeAddress}}
-    d
-    d
+    {{store.location}}
+    {{store.pickUpOpen}}
+        {{store.pickUpClose}}
+
+<!--    {{store}}-->
 </div>
+          {% endfor %}
+
 <hr width="1" size="500">
 <div class="form-group col-md-9">
 
@@ -43,7 +51,7 @@
                 <img class="embed-responsive-item" src="/media/{{cake.cakeImg}}" alt="cake image">
             </a>
             <div class="edit_text">
-              <a href="{% url 'baker:cake_edit' cake.pk %}">Edit</a>
+<!--              <a href="{% url 'customer:cakeOrder' cake.pk %}">주문하기</a>-->
             </div>
 <!--              -->
 <!--            <a href="#">-->
@@ -69,14 +77,14 @@
 <!--                <span>가능</span>-->
                 <span class="mini_text">{{cake.mini}}</span>
               </div>
-              <hr>
+<!--              <hr>-->
             </div>
             <div class="d-flex justify-content-center">
-              <!--<form method = "POST" action = "#" >-->
-<!--                  {% csrf_token %}-->
-<!--                  <input type="hidden" name="_method" value="delete" />-->
-                  <button class="delete_btn" onclick="location.href='{% url 'baker:cake_delete' cake.pk %}'">Delete</button>
-<!--              </form>-->
+              <form method = "POST" action = "#" >
+                  {% csrf_token %}
+                  <input type="hidden" name="_method" value="order" />
+                  <button class="order_btn" onclick="location.href='{% url 'customer:cakeOrder' cake.pk %}'">주문하기</button>
+              </form>
             </div>
           </div>
         </div>
