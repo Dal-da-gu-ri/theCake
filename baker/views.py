@@ -43,6 +43,42 @@ def join(request):
         passwordbaker = request.POST.get('password_baker',None)
         phoneNumbaker = request.POST.get('phoneNum_baker',None)
         res_data = {}
+        baker = Baker(
+            #businessID=crnNum,
+            userID=userid,
+            email=emailbaker,
+            name=namebaker,
+            phoneNum=phoneNumbaker,
+            password=make_password(passwordbaker)
+        )
+        baker.save()
+
+        # store = Store(
+        #     businessID=crnNum
+        # )
+        # store.save()
+        current_site = get_current_site(request)
+        message = messageSend(current_site.domain,
+                              urlsafe_base64_encode(force_bytes(baker.pk)).encode().decode(),
+                              account_activation_token.make_token(baker))
+        mail_subject = "[The Cake] 회원가입 인증 메일입니다."
+        user_email = baker.email
+        email = EmailMessage(mail_subject, message, to=[user_email])
+        email.send()
+        res_data['comment'] = user_email + " 로 이메일이 발송되었습니다. \n\n인증을 완료해주세요 :)"
+        return render(request, 'baker/userEmailSent.html', res_data)
+
+def join2(request):
+    #global bsID, emailBaker
+    if request.method == "GET":
+        return render(request, 'baker/join_baker.html')
+    elif request.method == "POST":
+        userid = request.POST.get('userid',None)
+        namebaker = request.POST.get('name_baker',None)
+        emailbaker = request.POST.get('email_baker',None)
+        passwordbaker = request.POST.get('password_baker',None)
+        phoneNumbaker = request.POST.get('phoneNum_baker',None)
+        res_data = {}
         try:
             curBaker = checkBaker.objects.get(userid = userid)
             crnNum = curBaker.businessCRN
@@ -315,7 +351,7 @@ def myCakes(request):
             res_data['comment'] = "잘못된 접근입니다. 로그인을 해주세요!"
             return render(request, 'baker/inappropriateApproach.html', res_data)
         elif request.method == "POST":
-            return redirect('/')
+            return redirect('/baker/login')
 
 def cake_add(request):
     res_data = {}
