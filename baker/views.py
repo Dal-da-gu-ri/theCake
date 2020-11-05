@@ -156,35 +156,37 @@ def isID(request):
     res_data = {}
     try:
         baker = Baker.objects.get(userid=bakerid)
-        res_data['msg'] = "이미 존재"
+        res_data['msg'] = "fail"
         return JsonResponse(res_data)
 
     except Baker.DoesNotExist:
-        res_data['msg'] = "사용 가능"
+        res_data['msg'] = "pass"
         return JsonResponse(res_data)
+
 
 def isEmail(request):
     emailbaker = request.POST.get('email_baker', None)
     res_data = {}
     try:
         baker = Baker.objects.get(email=emailbaker)
-        res_data['msg'] = "이미 존재"
+        res_data['msg'] = "fail"
         return JsonResponse(res_data)
 
     except Baker.DoesNotExist:
-        res_data['msg'] = "사용 가능"
+        res_data['msg'] = "pass"
         return JsonResponse(res_data)
+
 
 def isCRN(request):
     crn = request.POST.get('businessID', None)
     res_data = {}
     try:
         baker = Baker.objects.get(businessID=crn)
-        res_data['msg'] = "이미 존재"
+        res_data['msg'] = "fail"
         return JsonResponse(res_data)
 
     except Baker.DoesNotExist:
-        res_data['msg'] = "사용 가능"
+        res_data['msg'] = "pass"
         return JsonResponse(res_data)
 
 
