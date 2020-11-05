@@ -4,12 +4,10 @@
 {% block content %}
 
     <link rel="stylesheet" href="/static/css/main_customer.css">
-
- <!-- 위치 선택을 위한 jquery -->
+    <link rel="stylesheet" href="/static/css/myCakes.css">
     <script src="https://code.jquery.com/jquery-latest.min.js" type="application/javascript"></script>
     <script type="application/javascript" src="/static/js/hangjungdong3.js"></script>
 
-    <!-- -------------------------contents-------------------------- -->
     <div class="row">
         <p class="pt-3 pl-4 path">주문하기</p>
     </div>
@@ -82,13 +80,9 @@
 
 
   <div>
-      <form>
-        <!-- 날짜, 위치 다 -->
+      <fieldset>
         <div class="form-group">
-          <!-- 위치 -->
           <div class="row flex-nowrap justify-content-right align-items-center pt-5 form">
-          <!-- <div class="selectbox_location"> -->
-<!--              <hr>-->
             <label class="text-nowrap" style="padding-right:70px">위치</label>
             <select id="sido" class="location_select">
               <option value="">시/ 도 선택</option>
@@ -101,7 +95,6 @@
             </select>
           </div>
 
-          <!-- 날짜 -->
           <div class="row flex-nowrap justify-content-right align-items-center pt-3 form">
               <label class="text-nowrap" for="date" style="padding-right:70px" min="2020-10-19">날짜</label>
               <input id="date" type="date">
@@ -110,11 +103,31 @@
             <br>
           <p id="selectbox_letter">※ 날짜와 위치를 모두 선택해주세요.</p>
             <br>
-            <a href="#" class="btn btn-secondary button" style="float: right;">확인</a>
-<!--        <button type="submit" class="btn btn-primary" style="float: right;">확인</button>-->
+            <button type="submit" id="search_button" class="btn btn-secondary button" style="float: right;">확인</button>
         </div>
-      </form>
+      </fieldset>
     </div>
+<div id="data_stores">
+
+</div>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+        <script>
+            $('#search_button').click(function(){
+                var search_key1 = $('#sido').val()
+                var search_key2 = $('#sigugun').val()
+                var search_key3 = $('#dong').val()
+                var search_key4 = $('#date').val()
+                $.ajax({
+                    url:'{% url 'customer:temp2' %}',
+                    data : { 'search_key1':search_key1, 'search_key2':search_key2, 'search_key3':search_key3, 'search_key4':search_key4 },
+                    success:function(data){
+                        $('#data_stores').html(data)
+                    }
+
+                })
+            })
+        </script>
+
 <style>
     #date {
   width: 200px;

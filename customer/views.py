@@ -10,10 +10,21 @@ from django.contrib.sites.shortcuts import get_current_site
 from django.utils.http import urlsafe_base64_decode,urlsafe_base64_encode
 from django.core.mail import EmailMessage
 from django.utils.encoding import force_bytes,force_text
+from django.views.decorators.csrf import csrf_exempt
 
 def temp(request):
     return render(request, 'customer/showStores.html')
 
+def temp2(request):
+    search_key1 = request.GET['search_key1']
+    search_key2 = request.GET['search_key2']
+    search_key3 = request.GET['search_key3']
+    search_key4 = request.GET['search_key4']
+    context = { 'search_key1':search_key1, 'search_key2':search_key2, 'search_key3':search_key3, 'search_key4':search_key4 }
+    print(context)
+    return render(request,'customer/showStores2.html',context)
+
+@csrf_exempt
 def main(request):
     return render(request, 'customer/main_customer.html')
 
