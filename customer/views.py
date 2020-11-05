@@ -224,8 +224,9 @@ def showStores(request):
                     store_list = Store.objects.filter(daum_sido=sido, daum_sigungu=sigugun)
             else:
                 store_list = Store.objects.filter(daum_sido=sido)
-        # else:             #선택된 가게가 없는 데 넘어온 경우..
-        #     return HttpResponse(user_id)
+        else:             #선택된 가게가 없는 데 넘어온 경우..
+            res_data['error'] = "조회된 가게가 없습니다."
+             # return HttpResponse(user_id)
 
         res_data['store_list'] = store_list
 
