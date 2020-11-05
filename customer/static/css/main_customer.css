@@ -7,11 +7,13 @@
 .container{
 }
 */
+
 #date {
   width: 200px;
   padding: .8em .5em;
   border: 1px solid #999;
   font-family: inherit;
+  background: #ffffff;
   border-radius: 0px;
 }
 
@@ -49,15 +51,7 @@ select::-ms-expand {
     font-size: 15px;
     margin: 4px 0px;
 }
-/*
-select {
--moz-appearance: none;
--webkit-appearance: none;
-appearance: none;
-text-indent: 1px;
-text-overflow: ”;
-}
-*/
+
 #selectbox_letter {
     color:#838383;
     font-size:15px;
@@ -69,28 +63,52 @@ text-overflow: ”;
     margin: 5% 20%;
 }
 
+#store_name{
+    text-align: center;
+    font-size: 1.3em;
+    color: black;
+}
 
-/*
-.form {
-    position: absolute;
-    top:50%
-    left:50%
-    width:100%
-    margin-top:-0.5em;
-    margin-left:-50%;
-    text-align:center;
+#select_btn{
+    transition:.15s ease;
+    border: 1px solid #cf8484;
+    background-color:white;
+    color: #cc5f5f;
+    width: 90%;
+    height: 1.7em;
+    border-radius: 2px;
 }
-*/
-/*
- * Footer
- */
-/* .blog-footer {
-  padding: 2.5rem 0;
-  color: #999;
-  text-align: center;
-  background-color: #f9f9f9;
-  border-top: .05rem solid #e5e5e5;
+
+#select_btn:hover {
+    background-color: #cf8484;
+    color: white;
 }
-.blog-footer p:last-child {
-  margin-bottom: 0;
-} */
+
+
+
+
+.bd-placeholder-img {
+    font-size: 1.125rem;
+    text-anchor: middle;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+@media (min-width: 768px) {
+    .bd-placeholder-img-lg {
+      font-size: 3.5rem;
+    }
+}
+
+.card{
+    border: 1px solid #8e8e8e;
+}
+
+.card-body{
+    font-size: 0.9em;
+    background-color: #f5efef;
+    padding: 1rem;
+}
+

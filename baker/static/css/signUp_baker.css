@@ -1,31 +1,56 @@
 .form-signup {
-  width: 100%;
-  max-width: 480px;
-  padding: 15px;
-  margin: auto;
-}
+    width: 100%;
+    max-width: 480px;
+    padding: 15px;
+    margin: auto;
+  }
 
-.form-signup .form-control {
-  position: relative;
-  box-sizing: border-box;
-  height: auto;
-  padding: 10px;
-  font-size: 15px;
-  width: 270px;
-}
-.form-signup .form-control:focus {
-  z-index: 2;
-}
-.form-signup input[type="email"] {
-  margin-bottom: -1x;
-}
-.form-signup input[type="password"] {
-  margin-bottom: 0px;
-}
-#btn-email{margin-left: 42px; font-size: 14px;}
-#email_success{color: blue; margin-bottom: 0px; margin-left: 43px; font-size: 13px;}
-#email_fail{color: red; margin-bottom: 0px; margin-left: 43px; font-size: 13px;}
+  .form-signup .form-control {
+    position: relative;
+    box-sizing: border-box;
+    height: auto;
+    padding: 10px;
+    font-size: 15px;
+    width: 270px;
+  }
+  .form-signup .form-control:focus {
+    z-index: 2;
+  }
+  .form-signup input[type="email"] {
+    margin-bottom: -1x;
+  }
+  .form-signup input[type="password"] {
+    margin-bottom: 0px;
+  }
 
-#btn-businessID{margin-left: 31px; font-size: 14px;}
-#businessID_success{color: blue; margin-bottom: 0px; margin-left: 35px; font-size: 13px;}
-#businessID_fail{color: red; margin-bottom: 0px; margin-left: 35px; font-size: 13px;}
+  .error_space{
+    margin-bottom: 0;
+  }
+
+  .error{
+    font-size: 0.85em;
+    color: rgb(224, 45, 45);
+    height: 1em;
+    line-height: 1em;
+    text-align: center;
+  }
+
+  .right{
+    font-size: 0.85em;
+    color: rgb(71, 71, 212);
+    height: 1em;
+    line-height: 1em;
+    text-align: center;
+  }
+
+  .form-group {
+    margin-top: 0em;
+  }
+
+  #btn-email{margin-left: 42px; font-size: 14px;}
+  #email_success{color: blue; margin-bottom: 0px; margin-left: 43px; font-size: 13px;}
+  #email_fail{color: red; margin-bottom: 0px; margin-left: 43px; font-size: 13px;}
+
+  #btn-businessID{margin-left: 31px; font-size: 14px;}
+  #businessID_success{color: blue; margin-bottom: 0px; margin-left: 35px; font-size: 13px;}
+  #businessID_fail{color: red; margin-bottom: 0px; margin-left: 35px; font-size: 13px;}

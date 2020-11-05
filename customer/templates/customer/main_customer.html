@@ -4,9 +4,9 @@
 {% block content %}
 
     <link rel="stylesheet" href="/static/css/main_customer.css">
-    <link rel="stylesheet" href="/static/css/myCakes.css">
     <script src="https://code.jquery.com/jquery-latest.min.js" type="application/javascript"></script>
     <script type="application/javascript" src="/static/js/hangjungdong3.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
 
     <div class="row">
         <p class="pt-3 pl-4 path">주문하기</p>
@@ -78,7 +78,6 @@
     }
     </script>
 
-
   <div>
       <fieldset>
         <div class="form-group">
@@ -103,14 +102,13 @@
             <br>
           <p id="selectbox_letter">※ 날짜와 위치를 모두 선택해주세요.</p>
             <br>
-            <button type="submit" id="search_button" class="btn btn-secondary button" style="float: right;">확인</button>
+            <button type="submit" id="search_button" class="btn btn-sm btn-secondary button" style="float: right;">확인</button>
         </div>
       </fieldset>
     </div>
-<div id="data_stores">
+    <div id="data_stores">
 
-</div>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+    </div>
         <script>
             $('#search_button').click(function(){
                 var sido = $('#sido').val()
@@ -123,73 +121,64 @@
                     success:function(data){
                         $('#data_stores').html(data)
                     }
-
                 })
+<!--                $('#selectbox_letter').hide();-->
+<!--                $('#search_button').hide();-->
             })
         </script>
 
-<style>
-    #date {
-  width: 200px;
-  padding: .8em .5em;
-  border: 1px solid #999;
-  font-family: inherit;
-  background: #ffffff;
-  border-radius: 0px;
-}
 
-input[type=date]::-ms-clear {
-  display: none;
-}
+<!--<style>-->
+<!--#date {-->
+<!--  width: 200px;-->
+<!--  padding: .8em .5em;-->
+<!--  border: 1px solid #999;-->
+<!--  font-family: inherit;-->
+<!--  background: #ffffff;-->
+<!--  border-radius: 0px;-->
+<!--}-->
 
-.location_select {
-  width: 200px;
-  padding: .8em .5em;
-  border: 1px solid #999;
-  font-family: inherit;
-  background: url(https://farm1.staticflickr.com/379/19928272501_4ef877c265_t.jpg) no-repeat 95% 50%;
-  border-radius: 0px;
-  /* 네이티브 모형 감추기 */
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  appearance: none;
-  margin-right: 30px;
-}
+<!--input[type=date]::-ms-clear {-->
+<!--  display: none;-->
+<!--}-->
 
-/* 네이티브 화살표 숨기기 */
-select::-ms-expand {
-    display: none;
-}
+<!--.location_select {-->
+<!--  width: 200px;-->
+<!--  padding: .8em .5em;-->
+<!--  border: 1px solid #999;-->
+<!--  font-family: inherit;-->
+<!--  background: url(https://farm1.staticflickr.com/379/19928272501_4ef877c265_t.jpg) no-repeat 95% 50%;-->
+<!--  border-radius: 0px;-->
+<!--  -webkit-appearance: none;-->
+<!--  -moz-appearance: none;-->
+<!--  appearance: none;-->
+<!--  margin-right: 30px;-->
+<!--}-->
 
-.button {
-    background-color: #b5b5b5;
-    border:none;
-    color:white;
-    padding: 9px 43px;
-    text-align: center;
-    text-decoration:none;
-    display: inline-block;
-    font-size: 15px;
-    margin: 4px 0px;
-}
-/*
-select {
--moz-appearance: none;
--webkit-appearance: none;
-appearance: none;
-text-indent: 1px;
-text-overflow: ”;
-}
-*/
-#selectbox_letter {
-    color:#838383;
-    font-size:15px;
-    text-align: right;
-}
+<!--select::-ms-expand {-->
+<!--    display: none;-->
+<!--}-->
 
-.form-group {
-    /*position: relative;*/
-    margin: 5% 20%;
-}
-</style>
+<!--.button {-->
+<!--    background-color: #b5b5b5;-->
+<!--    border:none;-->
+<!--    color:white;-->
+<!--    padding: 9px 43px;-->
+<!--    text-align: center;-->
+<!--    text-decoration:none;-->
+<!--    display: inline-block;-->
+<!--    font-size: 15px;-->
+<!--    margin: 4px 0px;-->
+<!--}-->
+
+<!--#selectbox_letter {-->
+<!--    color:#838383;-->
+<!--    font-size:15px;-->
+<!--    text-align: right;-->
+<!--}-->
+
+<!--.form-group {-->
+<!--    margin: 5% 20%;-->
+<!--}-->
+<!--</style>-->
 {% endblock %}
