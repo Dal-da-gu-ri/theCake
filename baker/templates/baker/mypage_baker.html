@@ -1,7 +1,209 @@
-{% extends 'base_baker.html' %}
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+  <meta name="viewport"
+        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  <link rel="stylesheet" href="/static/css/base_baker.css">
+    <link rel="stylesheet" href="/static/css/signUp_baker.css">
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous"></script>
+  <title>::마이페이지::</title>
+<style>
+    .content{
+    width: 100%;
+    height: 15%;
+    line-height: 25%;
+    margin-top: -16px;
+    background-color: rgb(255, 247, 233);
+    }
+</style>
+</head>
+<body>
+    <div class="container">
+<header class="blog-header px-13">
+ <nav class="navbar navbar-expand-md navbar-light fixed-top bg-light ">
 
-{% block content %}
-  <div class="row">
-        <p class="pt-3 pl-4 path">마이페이지</p>
+     <img class=navbar-brand src="/static/img/logo_baker.png" alt="logo_baker" width="50">
+
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarCollapse">
+    <ul class="navbar-nav mr-auto">
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="/baker/manageStore/enrollStore" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">가게 관리</a>
+          <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <a class="dropdown-item" href="/baker/manageStore/enrollStore">가게 등록</a>
+            <a class="dropdown-item" href="/baker/manageStore/opendays">가게 영업일 관리</a>
+            <a class="dropdown-item" href="/baker/manageStore/storeReview">가게 평점 확인</a>
+          </div>
+        </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="dropdown09" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">케이크 관리</a>
+          <div class="dropdown-menu" aria-labelledby="dropdown09">
+            <a class="dropdown-item" href="/baker/manageCake/myCakes">내 케이크</a>
+            <a class="dropdown-item" href="/baker/manageCake/options">케이크 옵션 관리</a>
+          </div>
+        </li>
+      <li class="nav-item">
+        <a class="nav-link text-nowrap" href="/baker/manageOrder">주문 관리<span class="sr-only"></span></a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link text-nowrap" href="/baker/mypage">마이 페이지</a>
+      </li>
+    <li class="nav-item">
+        <a class="nav-link text-nowrap" href="/baker/logout">로그아웃</a>
+      </li>
+    </ul>
+
+    <!-- <form class="form-inline mt-2 mt-md-0">
+      <input class="form-control mr-sm-2" type="text" placeholder="매장명" aria-label="Search">
+      <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+    </form> -->
+
   </div>
-{% endblock %}
+  </nav>
+
+
+</header>
+<div class="text-center">
+    <form method = "POST" class="form-signup">
+     <img class="mb-4" src="/static/img/logo_baker.png" alt="logo_baker" width="141" height="120">
+     {% csrf_token %}
+     <div class="row mt-5">
+        <div class="col-12">
+            {{error}}
+        </div>
+    </div>
+    <div class="form-inline form-group">
+      <label for="userid" class="col-sm-4 control-label">아이디</label>
+      <input
+      type="text"
+      class="form-control"
+      placeholder="기입하였던 아이디를 입력하세요."
+      id="userid"
+      name="userid"
+      readonly
+      required>
+      <!-- 이 name 값으로 정보가 전달된다 -->
+    </div>
+
+    <div class="form-inline form-group">
+      <label for="name_baker" class="col-sm-4 control-label">성명</label>
+      <input
+      type="text"
+      class="form-control"
+      id="name_baker"
+      placeholder="이름을 입력해주세요."
+      name="name_baker"
+      required
+      readonly>
+      <!-- 이 name 값으로 정보가 전달된다 -->
+
+    </div>
+
+    <div class="form-inline form-group">
+      <label for="email_baker" class="col-sm-4 control-label">이메일</label>
+      <input
+      type="email"
+      class="form-control"
+      id="email_baker"
+      placeholder="이메일을 입력해주세요."
+      name="email_baker"
+      required
+      readonly>
+    </div>
+<!--여기 수정되어야 함-->
+<!--check_email이 참이면 사용가능한 이메일입니다.-->
+<!--check_email이 거짓이면 중복되는 이메일입니다.-->
+<!--     <script>-->
+<!--        $(function(){-->
+<!--            $("#email_success").hide();-->
+<!--            $("#email_fail").hide();-->
+
+<!--            $("#btn-email").click(function(){-->
+<!--                if ({{baker.checkEmail}}==TRUE){-->
+<!--                    $("#email_success").show();-->
+<!--                    $("#email_fail").hide();-->
+<!--                }-->
+<!--                else{-->
+<!--                    $("#email_success").hide();-->
+<!--                    $("#email_fail").show();-->
+<!--                }-->
+<!--            });-->
+
+<!--        })-->
+<!--     </script>-->
+
+
+
+
+    <div class="form-inline form-group">
+      <label for="password_baker" class="col-sm-4 control-label">새로운 비밀번호</label>
+      <input type="password"
+      class="form-control"
+      id="password_baker"
+      placeholder="8자리 이상, 대소문자 포함"
+      name= "password_baker"
+      minlength="8"
+      required>
+    </div>
+
+    <div class="form-inline form-group">
+      <label for="re-password_baker" class="col-sm-4 control-label" >비밀번호 확인</label>
+      <input type="password"
+      class="form-control"
+      id="re-password_baker"
+      placeholder="비밀번호 재입력"
+      name= "re-password_baker"
+      required>
+    </div>
+     <div class="alert alert-success" id="alert-success1">비밀번호가 일치합니다.</div>
+     <div class="alert alert-danger" id="alert-danger1">비밀번호가 일치하지 않습니다.</div>
+
+
+    <div class="form-inline form-group">
+      <label for="phoneNum_baker" class="col-sm-4 control-label" >휴대전화</label>
+      <input
+      type="tel"
+      class="form-control"
+      id="phoneNum_baker"
+      placeholder="예) 010-1234-5678"
+      pattern="(010)-\d{3,4}-\d{4}"
+      name="phoneNum_baker"
+      required
+      readonly>
+    </div>
+    <button type="submit" id="submit" class="btn btn-lg btn-secondary btn-block">회원정보 수정</button>
+ </form>
+</div>
+</div>
+</body>
+</html>
+<script type="text/javascript">
+    $(function () {
+        $("#alert-success1").hide();
+        $("#alert-danger1").hide();
+        $("#submit").attr("disabled", "disabled");
+
+            $("input").keyup(function() {
+            var pwd1=$("#password_baker").val();
+            var pwd2=$("#re-password_baker").val();
+
+
+            if (pwd1 != "" || pwd2 != "") {
+                if (pwd1 == pwd2) {
+                    $("#alert-success1").show();
+                    $("#alert-danger1").hide();
+                    $("#submit").removeAttr("disabled");
+                } else {
+                    $("#alert-success1").hide();
+                    $("#alert-danger1").show();
+                }
+            }
+        });
+    });
+</script>

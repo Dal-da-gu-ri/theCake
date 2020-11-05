@@ -12,7 +12,7 @@ from django.core.mail import EmailMessage
 from django.utils.encoding import force_bytes,force_text
 
 def temp(request):
-    return render(request, 'customer/showCakes.html')
+    return render(request, 'customer/showStores.html')
 
 def main(request):
     return render(request, 'customer/main_customer.html')
