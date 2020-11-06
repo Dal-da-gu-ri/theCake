@@ -97,7 +97,7 @@
     /*background-color: #903838;*/
     color: white;
   }
-
+/*
   .delete_btn{
     transition:.15s ease;
     border: 1px solid #cf8484;
@@ -112,3 +112,8 @@
     background-color: #cf8484;
     color: white;
   }
+ */
+
+ #delete:hover {
+    opacity: 0.6;
+ }
