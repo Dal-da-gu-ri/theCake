@@ -32,7 +32,8 @@
                </div>
             </div>
 
-            <form method = "POST" class="resetPw" onsubmit="return chkPW()">
+            <form action="{% url 'baker:changePw' %}" method = "POST" class="resetPw" onsubmit="return chkPW()">
+                {% csrf_token %}
                 <div id="newPw" class="a_content" style="margin-top: 4em;">
                     <div style="border: 2px dashed #bcbcbc;">
                         <div class="ml-5 mt-3 mb-4">
@@ -101,7 +102,7 @@
         var pw = $('#password_baker').val();
 
         $.ajax({
-            url: {% url 'baker:changePw'%},
+            url: {% url 'baker:checkPw'%},
             data: {"pw": pw},
             method: "POST",
             dataType: "json"
