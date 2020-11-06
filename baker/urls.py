@@ -14,6 +14,11 @@ urlpatterns = [
     path('signUp/join/emailcheck/', views.isEmail, name='isEmail_baker'),
     path('signUp/join/crncheck/', views.isCRN, name='isCRN_baker'),
 
+    # 마이페이지
+    path('myPage/editMyInfo', ),
+    path('myPage/changePw', ),
+
+
     #path('signUp/join/emailSent/',views.join, name='emailSent_baker'),
     path('activate/<str:uid64>/<str:token>/', views.activate, name='activate'),
     path('inappropriateApproach/',views.wrongApproach,name='wrongApproach'),
