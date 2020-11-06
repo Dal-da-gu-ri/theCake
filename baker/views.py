@@ -648,7 +648,12 @@ def checkPw(request):
         baker = Baker.objects.get(pk=user_id)
         res_data['bakername'] = baker.name
 
-        pw = request.GET['pw']
+        if 'pw' in request.GET:
+            pw = request.GET['pw']
+        else:
+            pw = False
+
+        # pw = request.GET['pw']
         if check_password(pw,baker.password):
             res_data['result'] = 'success'
         else:
