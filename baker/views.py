@@ -319,7 +319,7 @@ def opendays(request):
         res_data['bakername'] = baker.name
         daysobject = OpenDays()
         if request.method == "POST":
-            daysform = OpenDaysForm(request.POST,request.FILES)
+            daysform = OpenDaysForm(request.POST)
 
             if daysform.is_valid():
                 daysobject.businessID = baker.businessID
@@ -340,9 +340,8 @@ def opendays(request):
                     return redirect('/baker/inappropriateApproach')
 
         else:
-            #cakeobject = Cake.objects.get(cakeName=baker.businessID)
-            #cakeform = CakeForm(instance=cakeobject)
-            daysform = OpenDaysForm()
+            daysobject = OpenDays.objects.get(businessID=baker.businessID)
+            daysform = OpenDaysForm(instance=daysobject)
             res_data['opendays'] = daysform
             return render(request, 'baker/temp.html', res_data) # 나중에 opendays.html으로 바꿔야함
 
