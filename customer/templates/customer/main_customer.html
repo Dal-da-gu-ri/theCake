@@ -95,8 +95,8 @@
           </div>
 
           <div class="row flex-nowrap justify-content-right align-items-center pt-3 form">
-              <label class="text-nowrap" for="date" style="padding-right:70px" min="2020-10-19">날짜</label>
-              <input id="date" type="date">
+              <label class="text-nowrap" for="date" style="padding-right:70px;">날짜</label>
+              <input id="date" type="date" name="date">
           </div>
             <br>
             <br>
@@ -122,11 +122,13 @@
                         $('#data_stores').html(data)
                     }
                 })
-<!--                $('#selectbox_letter').hide();-->
-<!--                $('#search_button').hide();-->
             })
         </script>
-
+<script>
+    var date = new Date();
+    minDate = date.toISOString().split('T')[0];
+    document.getElementsByName("date")[0].setAttribute('min', minDate);
+</script>
 
 <!--<style>-->
 <!--#date {-->

@@ -8,7 +8,7 @@ urlpatterns = [
     path('search/id', views.idsearch, name='id'),
     path('search/pw', views.pwsearch, name='pw'),
     path('signUp/crnCheck/', views.crnCheck, name='crnCheck'),
-    path('signUp/join/', views.join, name='join_baker'),
+    path('signUp/join/', views.join2, name='join_baker'),
 
     path('signUp/join/idcheck/',views.isID,name='isID_baker'),
     path('signUp/join/emailcheck/', views.isEmail, name='isEmail_baker'),
