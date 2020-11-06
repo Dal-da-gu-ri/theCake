@@ -317,47 +317,34 @@ def opendays(request):
     if user_id:
         baker = Baker.objects.get(pk=user_id)
         res_data['bakername'] = baker.name
-        daysobject = openDays()
+        daysobject = OpenDays()
         if request.method == "POST":
             daysform = OpenDaysForm(request.POST,request.FILES)
-            # store = openDays.objects.get(pk=baker.businessID)
 
-            # if daysform.is_valid():
-            #     daysobject.businessID = baker.
-            #     cakeobject.crn = store.businessID
-            #     cakeobject.cakeName = daysform.cleaned_data['monday']
-            #     cakeobject.cakeImg = daysform.cleaned_data['tuesday']
-            #     cakeobject.cakePrice = daysform.cleaned_data['thursday']
-            #     cakeobject.mini = daysform.cleaned_data['friday']
-            #
-            #     if Cake.objects.filter(cakeName=cakeobject.cakeName, crn=cakeobject.crn).exists():
-            #         cakeform = CakeForm()
-            #         res_data['cake'] = cakeform
-            #         res_data['error'] = "이미 등록된 케이크 이름입니다."
-            #         return render(request, 'baker/cake_add.html', res_data)
-            #     else:
-            #         cakeobject.save()
-            #         # return redirect('/baker/manageCake/myCakes')
-            #         res_data['cake'] = cakeform
-            #         # res_data['name'] = cakeobject.cakeImg
-            #         # return render(request, 'baker/myCakes2.html', res_data)
-            #         return redirect('/baker/manageCake/myCakes', res_data)
-            #
-            #
-            # else:
-            #         print(cakeform.errors)
-            #         """cakeform = CakeForm()
-            #         res_data['cake'] = cakeform
-            #         res_data['error'] = "이미 등록된 케이크 이름입니다."
-            #         return render(request, 'baker/cake_add.html', res_data)"""
-            #         return redirect('/baker/inappropriateApproach')
+            if daysform.is_valid():
+                daysobject.businessID = baker.businessID
+                daysobject.monday = daysform.cleaned_data['monday']
+                daysobject.tuesday = daysform.cleaned_data['tuesday']
+                daysobject.wednesday = daysform.cleaned_data['wednesday']
+                daysobject.thursday = daysform.cleaned_data['thursday']
+                daysobject.friday = daysform.cleaned_data['friday']
+                daysobject.saturday = daysform.cleaned_data['saturday']
+                daysobject.sunday = daysform.cleaned_data['sunday']
+
+                daysobject.save()
+                res_data['opendays'] = daysform
+
+                return redirect('/baker/manageStore/opendays/', res_data)
+
+            else:
+                    return redirect('/baker/inappropriateApproach')
 
         else:
             #cakeobject = Cake.objects.get(cakeName=baker.businessID)
             #cakeform = CakeForm(instance=cakeobject)
-            cakeform = CakeForm()
-            res_data['cake'] = cakeform
-            return render(request, 'baker/cake_add.html', res_data)
+            daysform = OpenDaysForm()
+            res_data['opendays'] = daysform
+            return render(request, 'baker/temp.html', res_data) # 나중에 opendays.html으로 바꿔야함
 
 
     return render(request, 'baker/opendays.html')
