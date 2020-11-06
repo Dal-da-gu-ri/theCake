@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from home.models import Orderer, Order, Store, Baker, Review, Option, DetailedOption, Cake, checkBaker, openDays
+from home.models import Orderer, Order, Store, Baker, Review, Option, DetailedOption, Cake, checkBaker, OpenDays
 from django.contrib.auth.models import User
 from django.contrib import auth
 from django.contrib.auth.hashers import make_password, check_password
@@ -567,7 +567,6 @@ def idsearch(request):
             res_data['result'] = "등록되지 않은 이메일입니다."
             return render(request, 'baker/idpw_search_baker.html',res_data)
             #return redirect('/baker/search', res_data)
-
 
 def pwsearch(request):
         print("here")
