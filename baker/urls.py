@@ -16,7 +16,8 @@ urlpatterns = [
 
     # 마이페이지
     path('myPage/editMyInfo/',views.editInfo,name='editInfo'),
-    path('myPage/changePw/',views.changePw,name='changePw'),
+    path('myPage/checkPw/', views.checkPw, name='checkPw'),
+    path('myPage/checkPw/changePw/',views.changePw,name='changePw'),
 
 
     #path('signUp/join/emailSent/',views.join, name='emailSent_baker'),
