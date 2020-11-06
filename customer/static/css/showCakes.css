@@ -8,6 +8,7 @@
     color: #434343;
     border: 2px solid #d8d8d8;
     border-radius: 4px;
+    background-color: white;
 }
 
 #storeInfo {
@@ -49,7 +50,13 @@
       font-size: 3.5rem;
     }
 }
-
+/*
+@media (max-width: 310px) {
+    body{
+        font-size: 0.8em;
+    }
+}
+*/
 .card{
     border: 1px solid #8e8e8e;
 }
@@ -57,8 +64,8 @@
 .card-body{
     font-size: 0.9em;
     background-color: #f5efef;
-    padding-top: 0.8rem !important;
-    padding-bottom: 0.8rem !important;
+    padding-top: 0.3rem !important;
+    padding-bottom: 0.3rem !important;
 }
 
 #order_btn{
