@@ -20,7 +20,7 @@
 
 
 <body class="text-center">
- <form method = "POST" class="form-signup">
+ <form method = "POST" class="form-signup" onsubmit="return chkPW()">
      <img class="mb-4" src="/static/img/logo_baker.png" alt="logo_baker" width="141" height="120">
      {% csrf_token %}
      <div class="row mt-5">
@@ -120,7 +120,7 @@ check_businessID이 참이면 유효한 사업자등록번호입니다.
      </script>
 
 check_businessID이 거짓이면 유효하지 않는 사업자등록번호입니다.-->
-    <button type="submit" id="submit" class="btn btn-lg btn-secondary btn-block" onclick="chkPW()">SIGN UP</button>
+    <button type="submit" id="submit" class="btn btn-lg btn-secondary btn-block">SIGN UP</button>
  </form>
 </body>
 </html>
