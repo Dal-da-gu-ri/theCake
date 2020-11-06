@@ -15,8 +15,8 @@ urlpatterns = [
     path('signUp/join/crncheck/', views.isCRN, name='isCRN_baker'),
 
     # 마이페이지
-    path('myPage/editMyInfo', ),
-    path('myPage/changePw', ),
+    path('myPage/editMyInfo/',views.editInfo,name='editInfo'),
+    path('myPage/changePw/',views.changePw,name='changePw'),
 
 
     #path('signUp/join/emailSent/',views.join, name='emailSent_baker'),
@@ -36,8 +36,13 @@ urlpatterns = [
     path('manageCake/options/', views.options, name='options_baker'),
     path('manageCake/myCakes/cakeEdit/<int:pk>/delete', views.cake_delete, name='cake_delete'),
 
+
+
     # 주문 관리
     path('manageOrder/', views.manageOrder, name='manageOrder_baker'),
 
-    path('mypage/', views.mypage, name='mypage_baker')
+    path('mypage/', views.mypage, name='mypage_baker'),
+
+    path('calender/', views.calender, name='calender')
+
 ]

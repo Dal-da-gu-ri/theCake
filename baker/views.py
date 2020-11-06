@@ -29,6 +29,9 @@ from .create_password import passwordMaker
 from django.http import HttpResponse, JsonResponse
 # Create your views here.
 
+def calender(request):
+    return render(request,'baker/my_diary.html')
+
 def temp(request):
     return render(request, 'baker/temp.html')
 
@@ -588,7 +591,23 @@ def pwsearch1(request):
 """
 
 
+def editInfo(request):
+    res_data = {}
+    user_id = request.session.get('user')
 
+    if user_id:
+        baker = Baker.objects.get(pk=user_id)
+        res_data['bakername'] = baker.name
+    return render(request,'baker/editMyInfo.html',res_data)
+
+def changePw(request):
+    res_data = {}
+    user_id = request.session.get('user')
+
+    if user_id:
+        baker = Baker.objects.get(pk=user_id)
+        res_data['bakername'] = baker.name
+    return render(request,'baker/changePw.html',res_data)
 
 
 def logout(request):
