@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css2?family=Nanum+Gothic&display=swap');
 html, body, div, span, applet, object, iframe,
 h1, h2, h3, h4, h5, h6, p, blockquote, pre,
 a, abbr, acronym, address, big, cite, code,
@@ -31,7 +32,7 @@ body {
     display: flex;
     -ms-flex-align: center;
 	line-height: 1;
-	font-family : DX경필명조B;
+	font-family : 'Nanum Gothic', sans-serif;
 	height:100%;
 }
 ol, ul {
@@ -70,7 +71,6 @@ body {
   background-color: #fffcfa;
 }
 */
-@font-face{
-    font-family: DX경필명조B;
-    src: url('/static/DXKPMB-KSCpc-EUC-H.ttf');
+*{
+    font-family: 'Nanum Gothic', sans-serif;
 }

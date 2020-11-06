@@ -101,6 +101,19 @@ class Store(models.Model):
         verbose_name = '가게'
         verbose_name_plural = '가게'
 
+class openDays(Store):
+    monday = models.IntegerField(max_length=10,verbose_name="월요일 주문가능 수량",null=True,default="",blank=True)
+    tuesday = models.IntegerField(max_length=10,verbose_name="화요일 주문가능 수량",null=True,default="",blank=True)
+    wednesday = models.IntegerField(max_length=10,verbose_name="수요일 주문가능 수량",null=True,default="",blank=True)
+    thursday = models.IntegerField(max_length=10,verbose_name="목요일 주문가능 수량",null=True,default="",blank=True)
+    friday = models.IntegerField(max_length=10,verbose_name="금요일 주문가능 수량",null=True,default="",blank=True)
+    saturday = models.IntegerField(max_length=10,verbose_name="토요일 주문가능 수량",null=True,default="",blank=True)
+    sunday = models.IntegerField(max_length=10,verbose_name="일요일 주문가능 수량",null=True,default="",blank=True)
+
+    class Meta:
+        db_table = 'openDays'
+        verbose_name = '주문가능 수량'
+        verbose_name_plural = '주문가능 수량'
 
 class Order(models.Model):
     MONTHS ={
