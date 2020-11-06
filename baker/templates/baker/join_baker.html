@@ -63,37 +63,13 @@
       name="email_baker"
       required>
     </div>
-<!--여기 수정되어야 함-->
-<!--check_email이 참이면 사용가능한 이메일입니다.-->
-<!--check_email이 거짓이면 중복되는 이메일입니다.-->
-<!--     <script>-->
-<!--        $(function(){-->
-<!--            $("#email_success").hide();-->
-<!--            $("#email_fail").hide();-->
-
-<!--            $("#btn-email").click(function(){-->
-<!--                if ({{baker.checkEmail}}==TRUE){-->
-<!--                    $("#email_success").show();-->
-<!--                    $("#email_fail").hide();-->
-<!--                }-->
-<!--                else{-->
-<!--                    $("#email_success").hide();-->
-<!--                    $("#email_fail").show();-->
-<!--                }-->
-<!--            });-->
-
-<!--        })-->
-<!--     </script>-->
-
-
-
 
     <div class="form-inline form-group">
       <label for="password_baker" class="col-sm-4 control-label">비밀번호</label>
       <input type="password"
       class="form-control"
       id="password_baker"
-      placeholder="8자리 이상, 대소문자 포함"
+      placeholder="영문, 숫자, 특수문자 중 2가지 이상을 혼합하여 8~20자로 입력해주세요"
       name= "password_baker"
       minlength="8"
       required>
@@ -144,7 +120,7 @@ check_businessID이 참이면 유효한 사업자등록번호입니다.
      </script>
 
 check_businessID이 거짓이면 유효하지 않는 사업자등록번호입니다.-->
-    <button type="submit" id="submit" class="btn btn-lg btn-secondary btn-block">SIGN UP</button>
+    <button type="submit" id="submit" class="btn btn-lg btn-secondary btn-block" onclick="chkPW()">SIGN UP</button>
  </form>
 </body>
 </html>
@@ -172,4 +148,28 @@ check_businessID이 거짓이면 유효하지 않는 사업자등록번호입니
             }
         });
     });
+</script>
+
+<script>
+    function chkPW(){
+
+ var pw = $("#password_baker").val();
+ var num = pw.search(/[0-9]/g);
+ var eng = pw.search(/[a-z]/ig);
+ var spe = pw.search(/[`~!@@#$%^&*|₩₩₩'₩";:₩/?]/gi);
+
+ if(pw.length < 8 || pw.length > 20){
+  alert("비밀번호를 8자리 ~ 20자리 이내로 입력해주세요.");
+  return false;
+ }else if(pw.search(/\s/) != -1){
+  alert("비밀번호는 공백 없이 입력해주세요.");
+  return false;
+ }else if( (num < 0 && eng < 0) || (eng < 0 && spe < 0) || (spe < 0 && num < 0) ){
+  alert("영문,숫자, 특수문자 중 2가지 이상을 혼합하여 입력해주세요.");
+  return false;
+ }else {
+	console.log("통과");
+ }
+
+}
 </script>
