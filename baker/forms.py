@@ -1,5 +1,5 @@
 from django import forms
-from home.models import Store, Baker, Cake, DetailedOption
+from home.models import Store, Baker, Cake, DetailedOption, OpenDays
 
 class StoreForm(forms.ModelForm):
     class Meta:
@@ -90,6 +90,55 @@ class CakeForm(forms.ModelForm):
                 }
             ),
             'mini': forms.RadioSelect()
+        }
+
+class OpenDaysForm(forms.ModelForm):
+    class Meta:
+        model = OpenDays
+        fields = ['monday','tuesday','wednesday','thursday','friday','saturday','sunday']
+        widgets = {
+            'monday': forms.NumberInput(
+                attrs={
+                    'class': 'form-control',
+                    'placeholder': '월요일 주문가능수량'
+                }
+            ),
+            'tuesday': forms.NumberInput(
+                attrs={
+                    'class': 'form-control',
+                    'placeholder': '화요일 주문가능수량'
+                }
+            ),
+            'wednesday': forms.NumberInput(
+                attrs={
+                    'class': 'form-control',
+                    'placeholder': '수요일 주문가능수량'
+                }
+            ),
+            'thursday': forms.NumberInput(
+                attrs={
+                    'class': 'form-control',
+                    'placeholder': '목요일 주문가능수량'
+                }
+            ),
+            'friday': forms.NumberInput(
+                attrs={
+                    'class': 'form-control',
+                    'placeholder': '금요일 주문가능수량'
+                }
+            ),
+            'saturday': forms.NumberInput(
+                attrs={
+                    'class': 'form-control',
+                    'placeholder': '토요일 주문가능수량'
+                }
+            ),
+            'sunday': forms.NumberInput(
+                attrs={
+                    'class': 'form-control',
+                    'placeholder': '일요일 주문가능수량'
+                }
+            )
         }
 
 class DetailedOptionForm(forms.ModelForm):

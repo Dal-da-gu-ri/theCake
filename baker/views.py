@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from home.models import Orderer, Order, Store, Baker, Review, Option, DetailedOption, Cake, checkBaker
+from home.models import Orderer, Order, Store, Baker, Review, Option, DetailedOption, Cake, checkBaker, OpenDays
 from django.contrib.auth.models import User
 from django.contrib import auth
 from django.contrib.auth.hashers import make_password, check_password
@@ -15,16 +15,12 @@ from django.contrib.sites.shortcuts import get_current_site
 from django.utils.http import urlsafe_base64_decode,urlsafe_base64_encode
 from django.core.mail import EmailMessage
 from django.utils.encoding import force_bytes,force_text
-from .forms import CakeForm,StoreForm
+from .forms import CakeForm,StoreForm,OpenDaysForm
 
 from .create_password import passwordMaker
 
 #make_password(str) : 이 함수에 넣어준 문자열을 암호화합니다. (hashing)
 #check_password(a,b) : a,b가 일치하는지 확인, 반환합니다.
-
-################################
-# 이메일 인증 백엔드 구역이래요!!!! #
-################################
 
 from django.http import HttpResponse, JsonResponse
 # Create your views here.
@@ -253,11 +249,6 @@ def wrongApproach(request):
     elif request.method == "POST":
         return redirect('/')
 
-
-
-def valid(request): #사업자번호확인 -> join
-    return HttpResponse("Valid page!")
-
 def enrollStore(request):
     res_data = {}
     user_id = request.session.get('user')
@@ -326,6 +317,49 @@ def opendays(request):
     if user_id:
         baker = Baker.objects.get(pk=user_id)
         res_data['bakername'] = baker.name
+        daysobject = openDays()
+        if request.method == "POST":
+            daysform = OpenDaysForm(request.POST,request.FILES)
+            # store = openDays.objects.get(pk=baker.businessID)
+
+            # if daysform.is_valid():
+            #     daysobject.businessID = baker.
+            #     cakeobject.crn = store.businessID
+            #     cakeobject.cakeName = daysform.cleaned_data['monday']
+            #     cakeobject.cakeImg = daysform.cleaned_data['tuesday']
+            #     cakeobject.cakePrice = daysform.cleaned_data['thursday']
+            #     cakeobject.mini = daysform.cleaned_data['friday']
+            #
+            #     if Cake.objects.filter(cakeName=cakeobject.cakeName, crn=cakeobject.crn).exists():
+            #         cakeform = CakeForm()
+            #         res_data['cake'] = cakeform
+            #         res_data['error'] = "이미 등록된 케이크 이름입니다."
+            #         return render(request, 'baker/cake_add.html', res_data)
+            #     else:
+            #         cakeobject.save()
+            #         # return redirect('/baker/manageCake/myCakes')
+            #         res_data['cake'] = cakeform
+            #         # res_data['name'] = cakeobject.cakeImg
+            #         # return render(request, 'baker/myCakes2.html', res_data)
+            #         return redirect('/baker/manageCake/myCakes', res_data)
+            #
+            #
+            # else:
+            #         print(cakeform.errors)
+            #         """cakeform = CakeForm()
+            #         res_data['cake'] = cakeform
+            #         res_data['error'] = "이미 등록된 케이크 이름입니다."
+            #         return render(request, 'baker/cake_add.html', res_data)"""
+            #         return redirect('/baker/inappropriateApproach')
+
+        else:
+            #cakeobject = Cake.objects.get(cakeName=baker.businessID)
+            #cakeform = CakeForm(instance=cakeobject)
+            cakeform = CakeForm()
+            res_data['cake'] = cakeform
+            return render(request, 'baker/cake_add.html', res_data)
+
+
     return render(request, 'baker/opendays.html')
 
 def storeReview(request):
@@ -534,7 +568,6 @@ def idsearch(request):
             return render(request, 'baker/idpw_search_baker.html',res_data)
             #return redirect('/baker/search', res_data)
 
-
 def pwsearch(request):
         print("here")
         userid = request.POST.get('userid')
@@ -607,7 +640,43 @@ def changePw(request):
     if user_id:
         baker = Baker.objects.get(pk=user_id)
         res_data['bakername'] = baker.name
-    return render(request,'baker/changePw.html',res_data)
+
+        passwordbaker = request.POST.get('new_pw_baker', None)
+        baker.password = make_password(passwordbaker)
+        baker.save()
+
+        return render(request,'baker/changePw.html',res_data)
+
+    else:
+        if request.method == "GET":
+            res_data['comment'] = "잘못된 접근입니다. 로그인을 해주세요!"
+            return render(request, 'baker/inappropriateApproach.html', res_data)
+        elif request.method == "POST":
+            return redirect('/')
+
+def checkPw(request):
+    res_data = {}
+    user_id = request.session.get('user')
+
+    if user_id:
+        baker = Baker.objects.get(pk=user_id)
+        res_data['bakername'] = baker.name
+
+        pw = request.GET['pw']
+        if check_password(pw,baker.password):
+            res_data['result'] = 'success'
+        else:
+            res_data['result'] = 'fail'
+
+        return render(request,'baker/changePw.html',res_data)
+
+    else:
+        if request.method == "GET":
+            res_data['comment'] = "잘못된 접근입니다. 로그인을 해주세요!"
+            return render(request, 'baker/inappropriateApproach.html', res_data)
+        elif request.method == "POST":
+            return redirect('/')
+
 
 
 def logout(request):
