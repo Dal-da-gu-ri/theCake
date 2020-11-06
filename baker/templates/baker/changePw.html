@@ -103,14 +103,14 @@
 
         $.ajax({
             url: {% url 'baker:checkPw'%},
-            data: {"pw": pw},
+            data: {'pw': pw},
             method: "POST",
-            dataType: "json"
+            dataType: "json",
              success: function(data){
                 if(data.result == "success"){
                     alert("확인되었습니다.");
                     document.getElementById('password_baker').readOnly = true;
-                    $(#pw_submit').attr('disabled', 'disabled');
+                    $('#pw_submit').attr('disabled', 'disabled');
                     $('#newPw').show();
                 }
                 else if(data.result == "fail"){
