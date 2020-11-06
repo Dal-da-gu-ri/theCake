@@ -643,7 +643,7 @@ def changePw(request):
 def checkPw(request):
     res_data = {}
     user_id = request.session.get('user')
-
+    print("Hello")
     if user_id:
         baker = Baker.objects.get(pk=user_id)
         res_data['bakername'] = baker.name
@@ -659,6 +659,8 @@ def checkPw(request):
         else:
             res_data['result'] = 'fail'
 
+
+        print(res_data['result'])
         return render(request,'baker/changePw.html',res_data)
 
     else:

@@ -116,6 +116,46 @@ class OpenDays(models.Model):
         verbose_name = '주문가능 수량'
         verbose_name_plural = '주문가능 수량'
 
+class DailyAmout(models.Model):
+    businessID = models.CharField(max_length=10, verbose_name="사업자 등록번호", blank=False, primary_key=True, default="")
+    day1 = models.IntegerField(verbose_name="1일 수량",null=False,default=0,blank=False)
+    day2 = models.IntegerField(verbose_name="2일 수량",null=False,default=0,blank=False)
+    day3 = models.IntegerField(verbose_name="3일 수량",null=False,default=0,blank=False)
+    day4 = models.IntegerField(verbose_name="4일 수량",null=False,default=0,blank=False)
+    day5 = models.IntegerField(verbose_name="5일 수량",null=False,default=0,blank=False)
+    day6 = models.IntegerField(verbose_name="6일 수량",null=False,default=0,blank=False)
+    day7 = models.IntegerField(verbose_name="7일 수량",null=False,default=0,blank=False)
+    day8 = models.IntegerField(verbose_name="8일 수량",null=False,default=0,blank=False)
+    day9 = models.IntegerField(verbose_name="9일 수량",null=False,default=0,blank=False)
+    day10 = models.IntegerField(verbose_name="10일 수량",null=False,default=0,blank=False)
+    day11 = models.IntegerField(verbose_name="11일 수량",null=False,default=0,blank=False)
+    day12 = models.IntegerField(verbose_name="12일 수량",null=False,default=0,blank=False)
+    day13 = models.IntegerField(verbose_name="13일 수량",null=False,default=0,blank=False)
+    day14 = models.IntegerField(verbose_name="14일 수량",null=False,default=0,blank=False)
+    day15 = models.IntegerField(verbose_name="15일 수량",null=False,default=0,blank=False)
+    day16 = models.IntegerField(verbose_name="16일 수량",null=False,default=0,blank=False)
+    day17 = models.IntegerField(verbose_name="17일 수량",null=False,default=0,blank=False)
+    day18 = models.IntegerField(verbose_name="18일 수량",null=False,default=0,blank=False)
+    day19 = models.IntegerField(verbose_name="19일 수량",null=False,default=0,blank=False)
+    day20 = models.IntegerField(verbose_name="20일 수량",null=False,default=0,blank=False)
+    day21 = models.IntegerField(verbose_name="21일 수량",null=False,default=0,blank=False)
+    day22 = models.IntegerField(verbose_name="22일 수량",null=False,default=0,blank=False)
+    day23 = models.IntegerField(verbose_name="23일 수량",null=False,default=0,blank=False)
+    day24 = models.IntegerField(verbose_name="24일 수량",null=False,default=0,blank=False)
+    day25 = models.IntegerField(verbose_name="25일 수량",null=False,default=0,blank=False)
+    day26 = models.IntegerField(verbose_name="26일 수량",null=False,default=0,blank=False)
+    day27 = models.IntegerField(verbose_name="27일 수량",null=False,default=0,blank=False)
+    day28 = models.IntegerField(verbose_name="28일 수량",null=False,default=0,blank=False)
+    day29 = models.IntegerField(verbose_name="29일 수량",null=False,default=0,blank=False)
+    day30 = models.IntegerField(verbose_name="30일 수량",null=False,default=0,blank=False)
+    day31 = models.IntegerField(verbose_name="31일 수량",null=False,default=0,blank=False)
+
+    class Meta:
+        db_table = 'dailyOrderAmount'
+        verbose_name = '일자별 주문가능수량'
+        verbose_name_plural = '일자별 주문가능 수량'
+
+
 class Order(models.Model):
     MONTHS ={
         ('Jan', '1월'), ('Feb', '2월'), ('Mar', '3월'), ('Apr', '4월'), ('May', '5월'), ('Jun', '6월'),
