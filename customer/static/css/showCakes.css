@@ -1,0 +1,77 @@
+#storeName{
+    text-align: center;
+    font-size: 1.2em;
+    color: #434343;
+}
+
+#store_intro{
+    color: #434343;
+    border: 2px solid #d8d8d8;
+    border-radius: 4px;
+}
+
+#storeInfo {
+    font-size: 0.85em;
+}
+
+#select_btn{
+    transition:.15s ease;
+    border: 1px solid #cf8484;
+    background-color:white;
+    color: #cc5f5f;
+    width: 90%;
+    height: 1.7em;
+    border-radius: 2px;
+}
+
+#select_btn:hover {
+    background-color: #cf8484;
+    color: white;
+}
+/*
+.gray{
+    color:#929292;
+}
+*/
+
+
+.bd-placeholder-img {
+    font-size: 1.125rem;
+    text-anchor: middle;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+@media (min-width: 768px) {
+    .bd-placeholder-img-lg {
+      font-size: 3.5rem;
+    }
+}
+
+.card{
+    border: 1px solid #8e8e8e;
+}
+
+.card-body{
+    font-size: 0.9em;
+    background-color: #f5efef;
+    padding-top: 0.8rem !important;
+    padding-bottom: 0.8rem !important;
+}
+
+#order_btn{
+    transition:.15s ease;
+    border: 1px solid #cf8484;
+    background-color:white;
+    color: #cc5f5f;
+    width: 100%;
+    height: 1.7em;
+    border-radius: 2px;
+}
+
+#order_btn:hover {
+    background-color: #cf8484;
+    color: white;
+}

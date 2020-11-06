@@ -30,13 +30,13 @@ body {
     <div class="container">
         <div class="row row-eq-height justify-content-around mt-3" style="height:20%">
             <div class="col-10 col-sm-5 col-md-4" style="border: 1px solid red;">
-                <div class="d-block" style="border: 1px solid green;">
-                    <!-- 가게로고 -->
+                <div class="d-block justify-content-center" style="border: 1px solid green;">
+                <!-- 가게로고 -->
                     <div class="d-inline-block" style="border: 1px solid purple;">
                         <img src="/media/{{store.storeImg}}" alt="store image" width="40">
                     </div>
-                    <!-- 가게명 -->
-                    <div class="d-inline-block" id="storeName" style="border: 1px solid orange;">
+                <!-- 가게명 -->
+                    <div class="d-inline-block" id="storeName">
                         {{store.storeName}}
                     </div>
                 </div>
@@ -102,29 +102,12 @@ body {
       {% for cake in cake_list %}
       <div class="col-lg-3 col-md-4 col-sm-6 col-6">
         <div class="card mb-3">
-            <div class="row no-gutters">
-              <div class="col-4">
-                <img src="images/card-image.png" alt="" class="card-img" />
-              </div>
-              <div class="col-8">
-                <div class="card-body">
-                  <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam egestas sed sem ut malesuada.</p>
-                </div>
-              </div>
-            </div>
-
-
-
-
-
-
-
           <div class="image-block card-img-top embed-responsive embed-responsive-1by1">
             <img class="embed-responsive-item" src="/media/{{cake.cakeImg}}" alt="cake image">
           </div>
           <div class="card-body">
-            <div class="pt-1" style="text-align: center;">
-                <p class="card-text" >{{cake.cakeName}}</p>
+            <div class="pt-1">
+                <p class="card-text" style="text-align: center;">{{cake.cakeName}}</p>
               <div class="d-flex justify-content-around row ">
                 <span class="card-text gray">가격 (1호 기준)</span>
                 <span>{{cake.cakePrice}}원</span>
