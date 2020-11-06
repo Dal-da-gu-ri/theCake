@@ -103,13 +103,13 @@
             method: "POST",
             dataType: "json"
              success: function(data){
-                if(data.result == "exist"){
+                if(data.result == "success"){
                     alert("확인되었습니다.");
                     document.getElementById('password_baker').readOnly = true;
                     $(#pw_submit').attr('disabled', 'disabled');
                     $('#newPw').show();
                 }
-                else{
+                else if(data.result == "fail"){
                     alert("비밀번호가 존재하지 않습니다.");
                 }
              }
