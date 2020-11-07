@@ -1,0 +1,223 @@
+@import url('https://fonts.googleapis.com/css2?family=Nanum+Gothic&display=swap');
+/*----------------------------------main------------------------------*/		
+*{font-family: 'Sunflower', sans-serif;}
+.clearfix::after {
+	content: "";
+	clear: both;
+	display: table;
+}
+.header_wrap {
+	height: 56px;
+	font-family: 'Nanum Gothic', sans-serif;
+}
+.logo, .menu_content {
+	float: left;
+}
+.logo {
+	width: 180px;
+	height: 80px;
+	font-size: 35pt;
+	padding-left: 140px;
+	padding-top: 2px;
+	color: #AE5E1A;
+}
+.menu {
+	float: right;
+	width: 550px;
+}
+.menu_content {
+	width: 770px;
+	height: 40px;
+	float: right;
+	/*opacity: 0.8;*/
+	font-weight: 600;
+	font-size: 14pt;
+	padding-top: 16px;
+	padding-right: 20px;
+}
+.mydiary, .pick, .exchange, .setup, .logout {
+	float: left;
+	margin-left: 56px;
+}
+.main_wrap {
+	padding-top: 75px;
+	padding-left: 140px;
+	padding-right: 140px;
+	background-color: #F7F7F7;
+}
+.footer_wrap {
+	width: 100%;
+	text-align: center;
+	font-family: 'Nanum Gothic', sans-serif;
+	background-color: #F7F7F7;
+}
+.footer_c {
+	font-size: 10pt;
+	color: #c8c8c8;
+}
+
+.main_footer_wrap{
+	background-color: #F7F7F7;
+}
+
+.menu_highlight{
+  font-weight: bold;
+  font-size: 33px;
+}
+/*----------------------------------new_main------------------------------*/
+.header_background_wrap{
+  position: fixed;
+  left: 0;
+  right: 0;
+  top: 0;
+  height: 56px;
+  background-color: white;
+}
+.new_header_wrap {
+  height: 56px;
+  width: 80%;
+  margin: auto;
+  font-family: 'Nanum Gothic', sans-serif;
+  position: fixed;
+  left: 0;
+  right: 0;
+  top: 0;
+}
+.new_logo{
+  float: left;
+  width: 15%;
+  font-size: 35pt;
+  color: #AE5E1A;
+  padding-top: 5px;
+}
+.blank_div{
+  float: left;
+  width: 30%;
+  border: solid 2px white;
+}
+.new_menu{
+  float: left;
+  width: 55%;
+  height: 56px;
+  font-size: 14pt;
+  font-weight: 500;
+}
+.new_write, .new_mydiary, .new_pick, .new_exchange, .new_setup, .new_logout {
+  float: left;
+  margin-left: 6.36%;
+  margin-top: 2.5%;
+}
+.calendar{
+  border: double rgb(185, 0, 0);
+  border-radius: 5px;
+}
+.calendar_prev{
+  text-align: center;
+  background-color: #fffff0;
+  border-right-color: #fffff0;
+  border-top-left-radius: 7px;
+}
+.calendar_year_month{
+  text-align: center;
+  height: 150px;
+  background-color: #fffff0;
+  border-right-color: #fffff0;
+  font-size: 40px;
+}
+.calendar_next{
+  text-align: center;
+  background-color: #fffff0;
+  border-right: solid white;
+}
+.main_calendar {
+  border-collapse: collapse;
+  width:100%;
+}
+.calendar_weekday{
+  text-align: center;
+  border-right-color: #f7f7f7;
+}
+.main_calendar tr:nth-child(1){
+  border-top: solid #fffff0;
+  border-bottom-color: #fffff0;
+}
+.main_calendar tr:nth-child(2){
+  border-bottom-color: #f7f7f7;
+  height: 60px;
+  font-size: 22px;
+}
+.main_calendar tr:nth-child(3){
+  background-color: #eee;
+  border-bottom-color: #eee;
+  border-right-color: #eee;
+  text-align: center;
+  font-size: 23px;
+  height: 100px;
+  vertical-align: top;
+}
+.main_calendar tr:nth-child(4){
+  background-color: #eee;
+  border-bottom-color: #eee;
+  border-right-color: #eee;
+  text-align: center;
+  font-size: 23px;
+  height: 100px;
+  vertical-align: top;
+}
+.main_calendar tr:nth-child(5){
+  background-color: #eee;
+  border-bottom-color: #eee;
+  border-right-color: #eee;
+  text-align: center;
+  font-size: 23px;
+  height: 100px;
+  vertical-align: top;
+}
+.main_calendar tr:nth-child(6){
+  background-color: #eee;
+  border-bottom-color: #eee;
+  border-right-color: #eee;
+  text-align: center;
+  font-size: 23px;
+  height: 100px;
+  vertical-align: top;
+}
+.main_calendar tr:nth-child(7){
+  background-color: #eee;
+  border-right-color: #eee;
+  border-bottom: solid #eee;
+  text-align: center;
+  font-size: 23px;
+  height: 100px;
+  vertical-align: top;
+}
+.main_calendar tr:nth-child(8){
+  background-color: #eee;
+  border-right-color: #eee;
+  border-bottom: solid #eee;
+  text-align: center;
+  font-size: 23px;
+  height: 100px;
+  vertical-align: top;
+}
+
+
+.main_calendar td:nth-child(1){
+  border-left: double white;
+}
+.main_calendar td:nth-child(7){
+  border-right: double white;
+}
+.calendar_cell{
+  background-color: #B90000;
+  width: 20%;
+  margin: auto;
+  border-radius: 30px;
+  color: white;
+}
+.calendar_label{
+  font-size: 40px;
+}
+.calendar_a_tag_example{
+  font-size: 16px;
+}
