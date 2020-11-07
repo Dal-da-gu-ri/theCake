@@ -10,140 +10,121 @@ def setDailyAmounts(businessID,sunday,monday,tuesday,wednesday,thursday,friday,s
     try:
         dailyobject = DailyAmount.objects.get(businessID=businessID)
 
-        if yoil == 0:  # 일요일
+        if yoil == 0:  # 월요일
             if date % 7 == 0:
-                set1, set2, set3, set4, set5, set6, set7 = monday,tuesday,wednesday,thursday,friday,saturday,sunday
-
-            elif date % 7 == 1:
-                set1, set2, set3, set4, set5, set6, set7 = sunday, monday,tuesday,wednesday,thursday,friday,saturday
-
-            elif date % 7 == 2:
-                set1, set2, set3, set4, set5, set6, set7 = saturday,sunday, monday,tuesday,wednesday,thursday,friday
-
-            elif date % 7 == 3:
-                set1, set2, set3, set4, set5, set6, set7 = friday,saturday,sunday, monday,tuesday,wednesday,thursday
-
-            elif date % 7 == 4:
-                set1, set2, set3, set4, set5, set6, set7 = thursday,friday,saturday,sunday, monday,tuesday,wednesday
-
-            elif date % 7 == 5:
-                set1, set2, set3, set4, set5, set6, set7 = wednesday,thursday,friday,saturday,sunday, monday,tuesday
-
-            elif date % 7 == 6:
                 set1, set2, set3, set4, set5, set6, set7 = tuesday,wednesday,thursday,friday,saturday,sunday, monday
 
-        elif yoil == 1:  # 월요일
+            elif date % 7 == 1:
+                set1, set2, set3, set4, set5, set6, set7 = monday,tuesday,wednesday,thursday,friday,saturday,sunday
+
+            elif date % 7 == 2:
+                set1, set2, set3, set4, set5, set6, set7 = sunday, monday,tuesday,wednesday,thursday,friday,saturday
+
+            elif date % 7 == 3:
+                set1, set2, set3, set4, set5, set6, set7 = saturday,sunday, monday,tuesday,wednesday,thursday,friday
+
+            elif date % 7 == 4:
+                set1, set2, set3, set4, set5, set6, set7 = friday,saturday,sunday, monday,tuesday,wednesday,thursday
+
+            elif date % 7 == 5:
+                set1, set2, set3, set4, set5, set6, set7 = thursday,friday,saturday,sunday, monday,tuesday,wednesday
+
+            elif date % 7 == 6:
+                set1, set2, set3, set4, set5, set6, set7 = wednesday,thursday,friday,saturday,sunday, monday,tuesday
+
+        elif yoil == 1:  # 화요일
             if date % 7 == 1:
-                set1, set2, set3, set4, set5, set6, set7 = monday,tuesday,wednesday,thursday,friday,saturday,sunday
-
-            elif date % 7 == 2:
-                set1, set2, set3, set4, set5, set6, set7 = sunday, monday,tuesday,wednesday,thursday,friday,saturday
-
-            elif date % 7 == 3:
-                set1, set2, set3, set4, set5, set6, set7 = saturday,sunday, monday,tuesday,wednesday,thursday,friday
-
-            elif date % 7 == 4:
-                set1, set2, set3, set4, set5, set6, set7 = friday,saturday,sunday, monday,tuesday,wednesday,thursday
-
-            elif date % 7 == 5:
-                set1, set2, set3, set4, set5, set6, set7 = thursday,friday,saturday,sunday, monday,tuesday,wednesday
-
-            elif date % 7 == 6:
-                set1, set2, set3, set4, set5, set6, set7 = wednesday,thursday,friday,saturday,sunday, monday,tuesday
-
-            elif date % 7 == 0:
                 set1, set2, set3, set4, set5, set6, set7 = tuesday,wednesday,thursday,friday,saturday,sunday, monday
 
-        elif yoil == 2:  # 화요일
+            elif date % 7 == 2:
+                set1, set2, set3, set4, set5, set6, set7 = monday,tuesday,wednesday,thursday,friday,saturday,sunday
+
+            elif date % 7 == 3:
+                set1, set2, set3, set4, set5, set6, set7 = sunday, monday,tuesday,wednesday,thursday,friday,saturday
+
+            elif date % 7 == 4:
+                set1, set2, set3, set4, set5, set6, set7 = saturday,sunday, monday,tuesday,wednesday,thursday,friday
+
+            elif date % 7 == 5:
+                set1, set2, set3, set4, set5, set6, set7 = friday,saturday,sunday, monday,tuesday,wednesday,thursday
+
+            elif date % 7 == 6:
+                set1, set2, set3, set4, set5, set6, set7 = thursday,friday,saturday,sunday, monday,tuesday,wednesday
+
+            elif date % 7 == 0:
+                set1, set2, set3, set4, set5, set6, set7 = wednesday,thursday,friday,saturday,sunday, monday,tuesday
+
+        elif yoil == 2:  # 수요일
             if date % 7 == 2:
-                set1, set2, set3, set4, set5, set6, set7 = monday, tuesday, wednesday, thursday, friday, saturday, sunday
-
-            elif date % 7 == 3:
-                set1, set2, set3, set4, set5, set6, set7 = sunday, monday, tuesday, wednesday, thursday, friday, saturday
-
-            elif date % 7 == 4:
-                set1, set2, set3, set4, set5, set6, set7 = saturday, sunday, monday, tuesday, wednesday, thursday, friday
-
-            elif date % 7 == 5:
-                set1, set2, set3, set4, set5, set6, set7 = friday, saturday, sunday, monday, tuesday, wednesday, thursday
-
-            elif date % 7 == 6:
-                set1, set2, set3, set4, set5, set6, set7 = thursday, friday, saturday, sunday, monday, tuesday, wednesday
-
-            elif date % 7 == 0:
-                set1, set2, set3, set4, set5, set6, set7 = wednesday, thursday, friday, saturday, sunday, monday, tuesday
-
-            elif date % 7 == 1:
                 set1, set2, set3, set4, set5, set6, set7 = tuesday, wednesday, thursday, friday, saturday, sunday, monday
 
-        elif yoil == 3:  # 화요일
+            elif date % 7 == 3:
+                set1, set2, set3, set4, set5, set6, set7 = monday, tuesday, wednesday, thursday, friday, saturday, sunday
+
+            elif date % 7 == 4:
+                set1, set2, set3, set4, set5, set6, set7 = sunday, monday, tuesday, wednesday, thursday, friday, saturday
+
+            elif date % 7 == 5:
+                set1, set2, set3, set4, set5, set6, set7 = saturday, sunday, monday, tuesday, wednesday, thursday, friday
+
+            elif date % 7 == 6:
+                set1, set2, set3, set4, set5, set6, set7 = friday, saturday, sunday, monday, tuesday, wednesday, thursday
+
+            elif date % 7 == 0:
+                set1, set2, set3, set4, set5, set6, set7 = thursday, friday, saturday, sunday, monday, tuesday, wednesday
+
+            elif date % 7 == 1:
+                set1, set2, set3, set4, set5, set6, set7 = wednesday, thursday, friday, saturday, sunday, monday, tuesday
+
+        elif yoil == 3:  # 목요일
             if date % 7 == 3:
-                set1, set2, set3, set4, set5, set6, set7 = monday, tuesday, wednesday, thursday, friday, saturday, sunday
-
-            elif date % 7 == 4:
-                set1, set2, set3, set4, set5, set6, set7 = sunday, monday, tuesday, wednesday, thursday, friday, saturday
-
-            elif date % 7 == 5:
-                set1, set2, set3, set4, set5, set6, set7 = saturday, sunday, monday, tuesday, wednesday, thursday, friday
-
-            elif date % 7 == 6:
-                set1, set2, set3, set4, set5, set6, set7 = friday, saturday, sunday, monday, tuesday, wednesday, thursday
-
-            elif date % 7 == 0:
-                set1, set2, set3, set4, set5, set6, set7 = thursday, friday, saturday, sunday, monday, tuesday, wednesday
-
-            elif date % 7 == 1:
-                set1, set2, set3, set4, set5, set6, set7 = wednesday, thursday, friday, saturday, sunday, monday, tuesday
-
-            elif date % 7 == 2:
                 set1, set2, set3, set4, set5, set6, set7 = tuesday, wednesday, thursday, friday, saturday, sunday, monday
 
-        elif yoil == 4:  # 수요일
+            elif date % 7 == 4:
+                set1, set2, set3, set4, set5, set6, set7 = monday, tuesday, wednesday, thursday, friday, saturday, sunday
+
+            elif date % 7 == 5:
+                set1, set2, set3, set4, set5, set6, set7 = sunday, monday, tuesday, wednesday, thursday, friday, saturday
+
+            elif date % 7 == 6:
+                set1, set2, set3, set4, set5, set6, set7 = saturday, sunday, monday, tuesday, wednesday, thursday, friday
+
+            elif date % 7 == 0:
+                set1, set2, set3, set4, set5, set6, set7 = friday, saturday, sunday, monday, tuesday, wednesday, thursday
+
+            elif date % 7 == 1:
+                set1, set2, set3, set4, set5, set6, set7 = thursday, friday, saturday, sunday, monday, tuesday, wednesday
+
+            elif date % 7 == 2:
+                set1, set2, set3, set4, set5, set6, set7 = wednesday, thursday, friday, saturday, sunday, monday, tuesday
+
+        elif yoil == 4:  # 금요일
             if date % 7 == 4:
-                set1, set2, set3, set4, set5, set6, set7 = monday, tuesday, wednesday, thursday, friday, saturday, sunday
+                set1, set2, set3, set4, set5, set6, set7 = tuesday, wednesday, thursday, friday, saturday, sunday, monday
 
             elif date % 7 == 5:
                 set1, set2, set3, set4, set5, set6, set7 = sunday, monday, tuesday, wednesday, thursday, friday, saturday
 
             elif date % 7 == 6:
-                set1, set2, set3, set4, set5, set6, set7 = saturday, sunday, monday, tuesday, wednesday, thursday, friday
+                set1, set2, set3, set4, set5, set6, set7 = sunday, monday, tuesday, wednesday, thursday, friday, saturday
 
             elif date % 7 == 0:
-                set1, set2, set3, set4, set5, set6, set7 = friday, saturday, sunday, monday, tuesday, wednesday, thursday
+                set1, set2, set3, set4, set5, set6, set7 = saturday, sunday, monday, tuesday, wednesday, thursday, friday
 
             elif date % 7 == 1:
-                set1, set2, set3, set4, set5, set6, set7 = thursday, friday, saturday, sunday, monday, tuesday, wednesday
+                set1, set2, set3, set4, set5, set6, set7 = friday, saturday, sunday, monday, tuesday, wednesday, thursday
 
             elif date % 7 == 2:
-                set1, set2, set3, set4, set5, set6, set7 = wednesday, thursday, friday, saturday, sunday, monday, tuesday
+                set1, set2, set3, set4, set5, set6, set7 = thursday, friday, saturday, sunday, monday, tuesday, wednesday
 
             elif date % 7 == 3:
-                set1, set2, set3, set4, set5, set6, set7 = tuesday, wednesday, thursday, friday, saturday, sunday, monday
+                set1, set2, set3, set4, set5, set6, set7 = wednesday, thursday, friday, saturday, sunday, monday, tuesday
 
-        elif yoil == 5:  # 목요일
+        elif yoil == 5:  # 토요일
             if date % 7 == 5:
-                set1, set2, set3, set4, set5, set6, set7 = monday, tuesday, wednesday, thursday, friday, saturday, sunday
+                set1, set2, set3, set4, set5, set6, set7 = tuesday, wednesday, thursday, friday, saturday, sunday, monday
 
             elif date % 7 == 6:
-                set1, set2, set3, set4, set5, set6, set7 = sunday, monday, tuesday, wednesday, thursday, friday, saturday
-
-            elif date % 7 == 0:
-                set1, set2, set3, set4, set5, set6, set7 = saturday, sunday, monday, tuesday, wednesday, thursday, friday
-
-            elif date % 7 == 1:
-                set1, set2, set3, set4, set5, set6, set7 = friday, saturday, sunday, monday, tuesday, wednesday, thursday
-
-            elif date % 7 == 2:
-                set1, set2, set3, set4, set5, set6, set7 = thursday, friday, saturday, sunday, monday, tuesday, wednesday
-
-            elif date % 7 == 3:
-                set1, set2, set3, set4, set5, set6, set7 = wednesday, thursday, friday, saturday, sunday, monday, tuesday
-
-            elif date % 7 == 4:
-                set1, set2, set3, set4, set5, set6, set7 = tuesday, wednesday, thursday, friday, saturday, sunday, monday
-
-        elif yoil == 6:  # 금요일
-            if date % 7 == 6:
                 set1, set2, set3, set4, set5, set6, set7 = monday, tuesday, wednesday, thursday, friday, saturday, sunday
 
             elif date % 7 == 0:
@@ -161,8 +142,27 @@ def setDailyAmounts(businessID,sunday,monday,tuesday,wednesday,thursday,friday,s
             elif date % 7 == 4:
                 set1, set2, set3, set4, set5, set6, set7 = wednesday, thursday, friday, saturday, sunday, monday, tuesday
 
-            elif date % 7 == 5:
+        elif yoil == 6:  # 일요일
+            if date % 7 == 6:
                 set1, set2, set3, set4, set5, set6, set7 = tuesday, wednesday, thursday, friday, saturday, sunday, monday
+
+            elif date % 7 == 0:
+                set1, set2, set3, set4, set5, set6, set7 = monday, tuesday, wednesday, thursday, friday, saturday, sunday
+
+            elif date % 7 == 1:
+                set1, set2, set3, set4, set5, set6, set7 = sunday, monday, tuesday, wednesday, thursday, friday, saturday
+
+            elif date % 7 == 2:
+                set1, set2, set3, set4, set5, set6, set7 = saturday, sunday, monday, tuesday, wednesday, thursday, friday
+
+            elif date % 7 == 3:
+                set1, set2, set3, set4, set5, set6, set7 = friday, saturday, sunday, monday, tuesday, wednesday, thursday
+
+            elif date % 7 == 4:
+                set1, set2, set3, set4, set5, set6, set7 = thursday, friday, saturday, sunday, monday, tuesday, wednesday
+
+            elif date % 7 == 5:
+                set1, set2, set3, set4, set5, set6, set7 = wednesday, thursday, friday, saturday, sunday, monday, tuesday
 
         dailyobject.day1 = set1
         dailyobject.day8 = set1
