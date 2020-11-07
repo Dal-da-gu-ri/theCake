@@ -1,0 +1,349 @@
+{% extends 'base_baker.html' %}
+{% block title %} ::일자별 수량 관리:: {% endblock %}
+{% block content %}
+<link rel="stylesheet" type="text/css" href="/static/css/style.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous">
+<link href="https://fonts.googleapis.com/css2?family=Nanum+Gothic&display=swap" rel="stylesheet">
+<style>
+    *{font-family:'Nanum Gothic', sans-serif;}
+</style>
+
+<div>
+                <div id="day1">
+                    {{dailyform.day1}}
+                </div>
+                <div id="day2">
+                    {{dailyform.day2}}
+                </div>
+                <div id="day3">
+                    {{dailyform.day3}}
+                </div>
+                <div id="day4">
+                    {{dailyform.day4}}
+                </div>
+                <div id="day5">
+                    {{dailyform.day5}}
+                </div>
+                <div id="day6">
+                    {{dailyform.day6}}
+                </div>
+                <div id="day7">
+                    {{dailyform.day7}}
+                </div>
+                <div id="day8">
+                    {{dailyform.day8}}
+                </div>
+                <div id="day9">
+                    {{dailyform.day9}}
+                </div>
+                <div id="day10">
+                    {{dailyform.day10}}
+                </div>
+                 <div id="day11">
+                    {{dailyform.day11}}
+                </div>
+                <div id="day12">
+                    {{dailyform.day12}}
+                </div>
+                <div id="day13">
+                    {{dailyform.day13}}
+                </div>
+                <div id="day14">
+                    {{dailyform.day14}}
+                </div>
+                <div id="day15">
+                    {{dailyform.day15}}
+                </div>
+                <div id="day16">
+                    {{dailyform.day16}}
+                </div>
+                <div id="day17">
+                    {{dailyform.day17}}
+                </div>
+                <div id="day18">
+                    {{dailyform.day18}}
+                </div>
+                <div id="day19">
+                    {{dailyform.day19}}
+                </div>
+                <div id="day20">
+                    {{dailyform.day20}}
+                </div>
+                <div id="day21">
+                    {{dailyform.day21}}
+                </div>
+                <div id="day22">
+                    {{dailyform.day22}}
+                </div>
+                <div id="day23">
+                    {{dailyform.day23}}
+                </div>
+                <div id="day24">
+                    {{dailyform.day24}}
+                </div>
+                <div id="day25">
+                    {{dailyform.day25}}
+                </div>
+                <div id="day26">
+                    {{dailyform.day26}}
+                </div>
+                <div id="day27">
+                    {{dailyform.day27}}
+                </div>
+                <div id="day28">
+                    {{dailyform.day28}}
+                </div>
+                <div id="day29">
+                    {{dailyform.day29}}
+                </div>
+                <div id="day30">
+                    {{dailyform.day30}}
+                </div>
+</div>
+        <main>
+            <div class="main_wrap">
+                <div class="calendar">
+                    <table class = "main_calendar" id = "tab">
+                        <tr>
+                            <td class="calendar_prev" id="prev"><label class="calendar_label" onclick="prevmonth()"><</td>
+                            <td class="calendar_year_month" id="Ymd"colspan="5"></td>
+                            <td class="calendar_next" id="next"><label class="calendar_label" onclick="nextmonth()">></td>
+                        </tr>
+                        <tr class="calendar_weekday">
+                            <td class="week_sun">일</td>
+                            <td class="week_mon">월</td>
+                            <td class="week_tue">화</td>
+                            <td class="week_wed">수</td>
+                            <td class="week_thu">목</td>
+                            <td class="week_fri">금</td>
+                            <td class="week_sat">토</td>
+                        </tr>
+                    </table>
+                    <script type="text/javascript">
+                        present();
+                    </script>
+                </div>
+            </div>
+        </main>
+
+
+<script language="javascript">
+    var date = new Date();
+    var today = new Date();
+    var year = today.getFullYear();
+    var month = today.getMonth();
+    var day = today.getDay();
+    month += 1;
+    function dayy(year, month){ //월의 일수를 구함
+        switch(month){
+            case 1: case 3: case 5: case 7: case 8: case 10: case 12:
+            return 31;
+
+            case 4: case 6: case 9: case 11:
+            return 30;
+
+            case 2:
+            if(((year%400)==0||(year%4)==0&&(year%100)!=0)){
+                return 29;
+            }
+            else{
+                return 28;
+            }
+        }
+    }
+    function prevmonth(){ //이전 월로 가는 함수
+        var ymda = document.getElementById("prev");
+        var yg = document.getElementById("Ymd");
+        month--; //month를 계속 감소시켜준다
+        if(month < 1){ // month가 1보다 작아지면
+            month = 12; // month를 12로 만들어줌
+            year -= 1; //year를 1 감소시켜준다
+        }
+
+        if(date.getMonth()==0){
+            if(year<date.getFullYear()){
+                alert("현재 시점에서 이전 달은 보여지지 않습니다!");
+                month=date.getMonth()+1;
+                year=date.getFullYear();
+            }
+        }
+        else{
+            if(month<=date.getMonth())
+                alert("현재 시점에서 이전 달은 보여지지 않습니다!");
+                month=date.getMonth()+1;
+        }
+        var ymda = year + "년" +" "+ (month)+"월";
+        present();
+    }
+    function nextmonth(){  //다음 월로 가는 함수
+        var ymda = document.getElementById("next");
+        var yg = document.getElementById("Ymd");
+        month++; //month 를 계속 증가시켜줌
+        if(month > 12){ //만약 month가 12를 넘어가면
+            month = 1; // month를 1로 만듦
+            year += 1; //year을 1 증가시켜준다
+        }
+        if(date.getMonth()==10){ //이번 달이 11월이면,
+            if(year>date.getFullYear())
+                alert("현재 시점에서 다음 달까지만 보여집니다!");
+                month=12;
+                year=date.getFullYear();
+        }
+        else if(date.getMonth()==11){ //이번 달이 12월이면,
+            if(year>date.getFullYear()&&month>1)
+                alert("현재 시점에서 다음 달까지만 보여집니다!");
+                month=1;
+                year=date.getFullYear()+1;
+        }
+        else{
+            if(month>date.getMonth()+2)
+                alert("현재 시점에서 다음 달까지만 보여집니다!");
+                month=date.getMonth()+2;
+        }
+        var ymda = year + "년" +" "+ month+"월";
+        present(); //present()함수를 호출하여 다시 찍어줌
+    }
+    function present(){
+        var start = new Date(year, month-1, 1);
+        var ymda = document.getElementById("Ymd");
+        var Tab = document.getElementById("tab");
+        var day1 = document.getElementById('day1').innerHTML;
+        var day2 = document.getElementById('day2').innerHTML;
+<!--        var day3 = document.getElementById('day3').innerHTML;-->
+<!--        var day4 = document.getElementById('day4').innerHTML;-->
+<!--        var day5 = document.getElementById('day5').innerHTML;-->
+<!--        var day6 = document.getElementById('day6').innerHTML;-->
+<!--        var day7 = document.getElementById('day7').innerHTML;-->
+<!--        var day8 = document.getElementById('day8').innerHTML;-->
+<!--        var day9 = document.getElementById('day9').innerHTML;-->
+<!--        var day10 = document.getElementById('day10').innerHTML;-->
+<!--        var day11 = document.getElementById('day11').innerHTML;-->
+<!--        var day12 = document.getElementById('day12').innerHTML;-->
+<!--        var day13 = document.getElementById('day13').innerHTML;-->
+<!--        var day14 = document.getElementById('day14').innerHTML;-->
+<!--        var day15 = document.getElementById('day15').innerHTML;-->
+<!--        var day16 = document.getElementById('day16').innerHTML;-->
+<!--        var day17 = document.getElementById('day17').innerHTML;-->
+<!--        var day18 = document.getElementById('day18').innerHTML;-->
+<!--        var day19 = document.getElementById('day19').innerHTML;-->
+<!--        var day20 = document.getElementById('day20').innerHTML;-->
+<!--        var day21 = document.getElementById('day21').innerHTML;-->
+<!--        var day22 = document.getElementById('day22').innerHTML;-->
+<!--        var day23 = document.getElementById('day23').innerHTML;-->
+<!--        var day24 = document.getElementById('day24').innerHTML;-->
+<!--        var day25 = document.getElementById('day25').innerHTML;-->
+<!--        var day26 = document.getElementById('day26').innerHTML;-->
+<!--        var day27 = document.getElementById('day27').innerHTML;-->
+<!--        var day28 = document.getElementById('day28').innerHTML;-->
+<!--        var day29 = document.getElementById('day29').innerHTML;-->
+<!--        var day30 = document.getElementById('day30').innerHTML;-->
+<!--        var day31 = document.getElementById('day31').innerHTML;-->
+<!--        var day32 = document.getElementById('day32').innerHTML;-->
+<!--        var day33 = document.getElementById('day33').innerHTML;-->
+<!--        var day34 = document.getElementById('day34').innerHTML;-->
+<!--        var day35 = document.getElementById('day35').innerHTML;-->
+<!--        var day36 = document.getElementById('day36').innerHTML;-->
+<!--        var day37 = document.getElementById('day37').innerHTML;-->
+<!--        var day38 = document.getElementById('day38').innerHTML;-->
+<!--        var day39 = document.getElementById('day39').innerHTML;-->
+<!--        var day40 = document.getElementById('day40').innerHTML;-->
+<!--        var day41 = document.getElementById('day41').innerHTML;-->
+<!--        var day42 = document.getElementById('day42').innerHTML;-->
+<!--        var day43 = document.getElementById('day43').innerHTML;-->
+<!--        var day44 = document.getElementById('day44').innerHTML;-->
+<!--        var day45 = document.getElementById('day45').innerHTML;-->
+<!--        var day46 = document.getElementById('day46').innerHTML;-->
+<!--        var day47 = document.getElementById('day47').innerHTML;-->
+<!--        var day48 = document.getElementById('day48').innerHTML;-->
+<!--        var day49 = document.getElementById('day49').innerHTML;-->
+<!--        var day50 = document.getElementById('day50').innerHTML;-->
+<!--        var day51 = document.getElementById('day51').innerHTML;-->
+<!--        var day52 = document.getElementById('day52').innerHTML;-->
+<!--        var day53 = document.getElementById('day53').innerHTML;-->
+<!--        var day54 = document.getElementById('day54').innerHTML;-->
+<!--        var day55 = document.getElementById('day55').innerHTML;-->
+<!--        var day56 = document.getElementById('day56').innerHTML;-->
+<!--        var day57 = document.getElementById('day57').innerHTML;-->
+<!--        var day58 = document.getElementById('day58').innerHTML;-->
+<!--        var day59 = document.getElementById('day59').innerHTML;-->
+<!--        var day60 = document.getElementById('day60').innerHTML;-->
+<!--        var day61 = document.getElementById('day61').innerHTML;-->
+<!--        var day62 = document.getElementById('day62').innerHTML;-->
+
+        var row = null;
+        var cnt = 0;
+        var row_count = 1;
+        var ym = year + "년" +" "+ (month)+"월";
+        ymda.innerHTML = ym;
+        while(tab.rows.length >2){     //테이블의 행의 길이가 2보다 크면 테이블의 행 제거함.
+            tab.deleteRow(tab.rows.length -1);
+        }
+        row = Tab.insertRow();
+        for(var j = 0; j<start.getDay(); j++){ //달력의 시작 일 구함
+            cell = row.insertCell();
+            cnt+=1;
+        }
+        for(var i = 1; i<= dayy(year, month); i++){ //달력 일수만큼 찍어줌
+            var cell = row.insertCell();
+            if(date.getMonth()==0 || date.getMonth()==2 || date.getMonth()==4 || date.getMonth()==7 || date.getMonth()==9){
+
+            }
+            else if(date.getMonth()==1 || date.getMonth()==3 || date.getMonth()==5 || date.getMonth()==8 || date.getMonth()==10){
+                if(year == date.getFullYear() && month-1 == date.getMonth() && i == date.getDate()){
+                    cell.innerHTML = "<div class='calendar_cell'>"+i+"</div>";
+                }
+                else if(year == date.getFullYear() && month-1 == date.getMonth()){
+                    if(i == 1){cell.innerHTML = "<div>"+i+"</div>"+"<a class='calendar_a_tag_example'>"+day1+"</a>";}
+                    else if(i == 2){cell.innerHTML = "<div>"+i+"</div>"+"<a class='calendar_a_tag_example'>"+day2+"</a>";}
+                    else if(i == 3){cell.innerHTML = "<div>"+i+"</div>"+"<a class='calendar_a_tag_example'>"+day3+"</a>";}
+                    else if(i == 4){cell.innerHTML = "<div>"+i+"</div>"+"<a class='calendar_a_tag_example'>"+day4+"</a>";}
+                    else if(i == 5){cell.innerHTML = "<div>"+i+"</div>"+"<a class='calendar_a_tag_example'>"+day5+"</a>";}
+                    else if(i == 6){cell.innerHTML = "<div>"+i+"</div>"+"<a class='calendar_a_tag_example'>"+day6+"</a>";}
+                    else if(i == 7){cell.innerHTML = "<div>"+i+"</div>"+"<a class='calendar_a_tag_example'>"+day7+"</a>";}
+                    else if(i == 8){cell.innerHTML = "<div>"+i+"</div>"+"<a class='calendar_a_tag_example'>"+day8+"</a>";}
+                    else if(i == 9){cell.innerHTML = "<div>"+i+"</div>"+"<a class='calendar_a_tag_example'>"+day9+"</a>";}
+                    else if(i == 10){cell.innerHTML = "<div>"+i+"</div>"+"<a class='calendar_a_tag_example'>"+da10+"</a>";}
+                    else if(i == 11){cell.innerHTML = "<div>"+i+"</div>"+"<a class='calendar_a_tag_example'>"+day11+"</a>";}
+                    else if(i == 12){cell.innerHTML = "<div>"+i+"</div>"+"<a class='calendar_a_tag_example'>"+day12+"</a>";}
+                    else if(i == 13){cell.innerHTML = "<div>"+i+"</div>"+"<a class='calendar_a_tag_example'>"+day13+"</a>";}
+                    else if(i == 14){cell.innerHTML = "<div>"+i+"</div>"+"<a class='calendar_a_tag_example'>"+day14+"</a>";}
+                    else if(i == 15){cell.innerHTML = "<div>"+i+"</div>"+"<a class='calendar_a_tag_example'>"+day15+"</a>";}
+                    else if(i == 16){cell.innerHTML = "<div>"+i+"</div>"+"<a class='calendar_a_tag_example'>"+day16+"</a>";}
+                    else if(i == 17){cell.innerHTML = "<div>"+i+"</div>"+"<a class='calendar_a_tag_example'>"+day17+"</a>";}
+                    else if(i == 18){cell.innerHTML = "<div>"+i+"</div>"+"<a class='calendar_a_tag_example'>"+day18+"</a>";}
+                    else if(i == 19){cell.innerHTML = "<div>"+i+"</div>"+"<a class='calendar_a_tag_example'>"+day19+"</a>";}
+                    else if(i == 20){cell.innerHTML = "<div>"+i+"</div>"+"<a class='calendar_a_tag_example'>"+day20+"</a>";}
+                    else if(i == 21){cell.innerHTML = "<div>"+i+"</div>"+"<a class='calendar_a_tag_example'>"+day21+"</a>";}
+                    else if(i == 22){cell.innerHTML = "<div>"+i+"</div>"+"<a class='calendar_a_tag_example'>"+day22+"</a>";}
+                    else if(i == 23){cell.innerHTML = "<div>"+i+"</div>"+"<a class='calendar_a_tag_example'>"+day23+"</a>";}
+                    else if(i == 24){cell.innerHTML = "<div>"+i+"</div>"+"<a class='calendar_a_tag_example'>"+day24+"</a>";}
+                    else if(i == 25){cell.innerHTML = "<div>"+i+"</div>"+"<a class='calendar_a_tag_example'>"+day25+"</a>";}
+                    else if(i == 26){cell.innerHTML = "<div>"+i+"</div>"+"<a class='calendar_a_tag_example'>"+day26+"</a>";}
+                    else if(i == 27){cell.innerHTML = "<div>"+i+"</div>"+"<a class='calendar_a_tag_example'>"+day27+"</a>";}
+                    else if(i == 28){cell.innerHTML = "<div>"+i+"</div>"+"<a class='calendar_a_tag_example'>"+day28+"</a>";}
+                    else if(i == 29){cell.innerHTML = "<div>"+i+"</div>"+"<a class='calendar_a_tag_example'>"+day29+"</a>";}
+                    else if(i == 30){cell.innerHTML = "<div>"+i+"</div>"+"<a class='calendar_a_tag_example'>"+day30+"</a>";}
+                }
+                else if(year == date.getFullYear() && month-2 == date.getMonth() && i == 1){
+                    cell.innerHTML = "<div>"+i+"</div>"+"<a class='calendar_a_tag_example'>"+day2+"</a>";
+                }
+
+                else{
+
+                    cell.innerHTML = "<div>"+i+"</div>"
+                }
+            }
+            cnt += 1;
+
+            if(cnt%7 ==0){ //cnt가 7이면 행을 늘려줌
+                row = tab.insertRow();
+                row_count += 1;
+            }
+
+        }
+        for(var k = 0; k < row_count*7 - cnt; k++){
+            cell = row.insertCell();
+        }
+    }
+</script>
+{% endblock %}
