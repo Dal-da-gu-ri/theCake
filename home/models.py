@@ -182,7 +182,7 @@ class DailyAmount(models.Model):
     day62 = models.IntegerField(verbose_name="62일 수량", null=False, default=0, blank=False)
 
     class Meta:
-        db_table = 'dailyOrderAmount'
+        db_table = 'dailyAmount'
         verbose_name = '일자별 주문가능수량'
         verbose_name_plural = '일자별 주문가능 수량'
 

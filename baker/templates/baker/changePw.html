@@ -102,7 +102,7 @@
         var pw = $('#password_baker').val();
 
         $.ajax({
-            url: {% url 'baker:checkPw'%},
+            url: '{% url 'baker:checkPw' %}',
             data: {'pw': pw},
             method: "POST",
             dataType: "json",

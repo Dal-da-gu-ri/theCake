@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from home.models import Orderer, Order, Store, Baker, Review, Option, DetailedOption, Cake, checkBaker, OpenDays
+from home.models import *
 from django.contrib.auth.models import User
 from django.contrib import auth
 from django.contrib.auth.hashers import make_password, check_password
@@ -15,21 +15,19 @@ from django.contrib.sites.shortcuts import get_current_site
 from django.utils.http import urlsafe_base64_decode,urlsafe_base64_encode
 from django.core.mail import EmailMessage
 from django.utils.encoding import force_bytes,force_text
-from .forms import CakeForm,StoreForm,OpenDaysForm
+from .forms import *
+from datetime import datetime
 
 from .create_password import passwordMaker
 
+from .dailyamounts import setDailyAmounts
 #make_password(str) : 이 함수에 넣어준 문자열을 암호화합니다. (hashing)
 #check_password(a,b) : a,b가 일치하는지 확인, 반환합니다.
 
 from django.http import HttpResponse, JsonResponse
 # Create your views here.
 
-def calender(request):
-    return render(request,'baker/my_diary.html')
-
-def temp(request):
-    return render(request, 'baker/temp.html')
+### 회원가입 및 로그인
 
 def join(request):
     #global bsID, emailBaker
@@ -119,7 +117,6 @@ def join2(request):
             res_data['error'] = "등록되지 않은 아이디입니다."
             return render(request, 'baker/join_baker.html', res_data)
 
-
 def login(request):
     if request.method=="GET":
         return render(request,'baker/login_baker.html')
@@ -184,8 +181,6 @@ def crnCheck(request):
                 res_data['error'] = "유효하지 않은 사업자등록번호입니다."
                 return render(request, 'baker/crnCheck.html', res_data)
 
-
-
 def isID(request):
     bakerid = request.POST.get('userid', None)
     res_data = {}
@@ -197,7 +192,6 @@ def isID(request):
     except Baker.DoesNotExist:
         res_data['msg'] = "pass"
         return JsonResponse(res_data)
-
 
 def isEmail(request):
     emailbaker = request.POST.get('email_baker', None)
@@ -211,7 +205,6 @@ def isEmail(request):
         res_data['msg'] = "pass"
         return JsonResponse(res_data)
 
-
 def isCRN(request):
     crn = request.POST.get('businessID', None)
     res_data = {}
@@ -223,7 +216,6 @@ def isCRN(request):
     except Baker.DoesNotExist:
         res_data['msg'] = "pass"
         return JsonResponse(res_data)
-
 
 def activate(request,uid64, token):
     res_data = {}
@@ -307,9 +299,6 @@ def enrollStore(request):
         elif request.method == "POST":
             return redirect('/')
 
-# 가게 관리
-
-
 def opendays(request):
     res_data = {}
     user_id = request.session.get('user')
@@ -318,9 +307,10 @@ def opendays(request):
         baker = Baker.objects.get(pk=user_id)
         res_data['bakername'] = baker.name
         daysobject = OpenDays()
+        # dailyobject = DailyAmount()
         if request.method == "POST":
             daysform = OpenDaysForm(request.POST)
-
+            # dailyform = DailyAmountForm(request.POST)
             if daysform.is_valid():
                 daysobject.businessID = baker.businessID
                 daysobject.monday = daysform.cleaned_data['monday']
@@ -330,11 +320,30 @@ def opendays(request):
                 daysobject.friday = daysform.cleaned_data['friday']
                 daysobject.saturday = daysform.cleaned_data['saturday']
                 daysobject.sunday = daysform.cleaned_data['sunday']
-
                 daysobject.save()
                 res_data['opendays'] = daysform
 
-                return redirect('/baker/manageStore/opendays/', res_data)
+                setDailyAmounts(baker.businessID,daysobject.sunday,daysobject.monday,daysobject.tuesday,daysobject.wednesday,
+                                daysobject.thursday,daysobject.friday,daysobject.saturday)
+                # try:
+                #     dailyobject = DailyAmount.objects.get(businessID=baker.businessID)
+                #
+                #     if yoil == 0:  # 일요일
+                #         if date % 7 == 0:
+                #             dailyobject.day7 = daysobject.sunday
+                #             dailyobject.day14 = daysobject.sunday
+                #             dailyobject.day21 = daysobject.sunday
+                #             dailyobject.day28 = daysobject.sunday
+                #         elif date % 7 == 1:
+                #             dailyobject.day1 = daysobject.sunday
+                #
+                #     #return render(request, 'baker/join_baker.html', res_data)
+                # except DailyAmount.DoesNotExist:
+                #     dailyobject = DailyAmount(
+                #
+                #     )
+                #     dailyobject.save()
+                return redirect('/baker/manageStore/weekhandle/', res_data)
 
             else:
                     return redirect('/baker/inappropriateApproach')
@@ -343,10 +352,126 @@ def opendays(request):
             daysobject = OpenDays.objects.get(businessID=baker.businessID)
             daysform = OpenDaysForm(instance=daysobject)
             res_data['opendays'] = daysform
-            return render(request, 'baker/temp.html', res_data) # 나중에 opendays.html으로 바꿔야함
 
+            # dailyobject = DailyAmount.objects.get(businessID=baker.businessID)
+            # dailyform = DailyAmountForm(instance=dailyobject)
+            # res_data['dailyform'] = dailyform
+            return render(request, 'baker/weekhandle.html', res_data) # 나중에 opendays.html으로 바꿔야함
 
-    return render(request, 'baker/opendays.html')
+    else:
+        if request.method == "GET":
+            res_data['comment'] = "잘못된 접근입니다. 로그인을 해주세요!"
+            return render(request, 'baker/inappropriateApproach.html', res_data)
+        elif request.method == "POST":
+            return redirect('/')
+
+def dailyamountsetting(request):
+    res_data = {}
+    user_id = request.session.get('user')
+
+    if user_id:
+        baker = Baker.objects.get(pk=user_id)
+        res_data['bakername'] = baker.name
+        # daysobject = OpenDays()
+        dailyobject = DailyAmount()
+        if request.method == "POST":
+            # daysform = OpenDaysForm(request.POST)
+            dailyform = DailyAmountForm(request.POST)
+            if dailyform.is_valid():
+                dailyobject.businessID = baker.businessID
+                dailyobject.day1 = dailyform.cleaned_data['day1']
+                dailyobject.day2 = dailyform.cleaned_data['day2']
+                dailyobject.day3 = dailyform.cleaned_data['day3']
+                dailyobject.day4 = dailyform.cleaned_data['day4']
+                dailyobject.day5 = dailyform.cleaned_data['day5']
+                dailyobject.day6 = dailyform.cleaned_data['day6']
+                dailyobject.day7 = dailyform.cleaned_data['day7']
+                dailyobject.day8 = dailyform.cleaned_data['day8']
+                dailyobject.day9 = dailyform.cleaned_data['day9']
+                dailyobject.day10 = dailyform.cleaned_data['day10']
+                dailyobject.day11 = dailyform.cleaned_data['day11']
+                dailyobject.day12 = dailyform.cleaned_data['day12']
+                dailyobject.day13 = dailyform.cleaned_data['day13']
+                dailyobject.day14 = dailyform.cleaned_data['day14']
+                dailyobject.day15 = dailyform.cleaned_data['day15']
+                dailyobject.day16 = dailyform.cleaned_data['day16']
+                dailyobject.day17 = dailyform.cleaned_data['day17']
+                dailyobject.day18 = dailyform.cleaned_data['day18']
+                dailyobject.day19 = dailyform.cleaned_data['day19']
+                dailyobject.day20 = dailyform.cleaned_data['day20']
+                dailyobject.day21 = dailyform.cleaned_data['day21']
+                dailyobject.day22 = dailyform.cleaned_data['day22']
+                dailyobject.day23 = dailyform.cleaned_data['day23']
+                dailyobject.day24 = dailyform.cleaned_data['day24']
+                dailyobject.day25 = dailyform.cleaned_data['day25']
+                dailyobject.day26 = dailyform.cleaned_data['day26']
+                dailyobject.day27 = dailyform.cleaned_data['day27']
+                dailyobject.day28 = dailyform.cleaned_data['day28']
+                dailyobject.day29 = dailyform.cleaned_data['day29']
+                dailyobject.day30 = dailyform.cleaned_data['day30']
+                dailyobject.day31 = dailyform.cleaned_data['day31']
+                dailyobject.day32 = dailyform.cleaned_data['day32']
+                dailyobject.day33 = dailyform.cleaned_data['day33']
+                dailyobject.day34 = dailyform.cleaned_data['day34']
+                dailyobject.day35 = dailyform.cleaned_data['day35']
+                dailyobject.day36 = dailyform.cleaned_data['day36']
+                dailyobject.day37 = dailyform.cleaned_data['day37']
+                dailyobject.day38 = dailyform.cleaned_data['day38']
+                dailyobject.day39 = dailyform.cleaned_data['day39']
+                dailyobject.day40 = dailyform.cleaned_data['day40']
+                dailyobject.day41 = dailyform.cleaned_data['day41']
+                dailyobject.day42 = dailyform.cleaned_data['day42']
+                dailyobject.day43 = dailyform.cleaned_data['day43']
+                dailyobject.day44 = dailyform.cleaned_data['day44']
+                dailyobject.day45 = dailyform.cleaned_data['day45']
+                dailyobject.day46 = dailyform.cleaned_data['day46']
+                dailyobject.day47 = dailyform.cleaned_data['day47']
+                dailyobject.day48 = dailyform.cleaned_data['day48']
+                dailyobject.day49 = dailyform.cleaned_data['day49']
+                dailyobject.day50 = dailyform.cleaned_data['day50']
+                dailyobject.day51 = dailyform.cleaned_data['day51']
+                dailyobject.day52 = dailyform.cleaned_data['day52']
+                dailyobject.day53 = dailyform.cleaned_data['day53']
+                dailyobject.day54 = dailyform.cleaned_data['day54']
+                dailyobject.day55 = dailyform.cleaned_data['day55']
+                dailyobject.day56 = dailyform.cleaned_data['day56']
+                dailyobject.day57 = dailyform.cleaned_data['day57']
+                dailyobject.day58 = dailyform.cleaned_data['day58']
+                dailyobject.day59 = dailyform.cleaned_data['day59']
+                dailyobject.day60 = dailyform.cleaned_data['day60']
+                dailyobject.day61 = dailyform.cleaned_data['day61']
+                dailyobject.day62 = dailyform.cleaned_data['day62']
+
+                dailyobject.save()
+                res_data['dailyform'] = dailyform
+
+                return redirect('/baker/manageStore/datehandle/', res_data)
+
+            else:
+                return redirect('/baker/inappropriateApproach')
+
+        else:
+            # daysobject = OpenDays.objects.get(businessID=baker.businessID)
+            # daysform = OpenDaysForm(instance=daysobject)
+            # res_data['opendays'] = daysform
+
+            # dailyobject = DailyAmount.objects.filter(businessID=baker.businessID)
+            try:
+                dailyobject = DailyAmount.objects.get(businessID=baker.businessID)
+                dailyform = DailyAmountForm(instance=dailyobject)
+            except DailyAmount.DoesNotExist:
+                dailyobject=DailyAmount()
+                dailyform = DailyAmountForm(instance=dailyobject)
+            # dailyform = DailyAmountForm()
+            res_data['dailyform'] = dailyform
+            return render(request, 'baker/dayhandle.html', res_data)  # 나중에 opendays.html으로 바꿔야함
+
+    else:
+        if request.method == "GET":
+            res_data['comment'] = "잘못된 접근입니다. 로그인을 해주세요!"
+            return render(request, 'baker/inappropriateApproach.html', res_data)
+        elif request.method == "POST":
+            return redirect('/')
 
 def storeReview(request):
     res_data = {}
@@ -370,7 +495,6 @@ def myCakes(request):
         return render(request, 'baker/myCakes.html',res_data)
     else:
         if request.method == "GET":
-            res_data = {}
             res_data['comment'] = "잘못된 접근입니다. 로그인을 해주세요!"
             return render(request, 'baker/inappropriateApproach.html', res_data)
         elif request.method == "POST":
@@ -427,7 +551,6 @@ def cake_add(request):
 
     else:
         if request.method == "GET":
-            res_data = {}
             res_data['comment'] = "잘못된 접근입니다. 로그인을 해주세요!"
             return render(request, 'baker/inappropriateApproach.html', res_data)
         elif request.method == "POST":
@@ -495,12 +618,10 @@ def cake_delete(request,pk):
 
     else:
         if request.method == "GET":
-            res_data = {}
             res_data['comment'] = "잘못된 접근입니다. 로그인을 해주세요!"
             return render(request, 'baker/inappropriateApproach.html', res_data)
         elif request.method == "POST":
             return redirect('/')
-
 
 def options(request):
     res_data = {}
@@ -530,9 +651,7 @@ def mypage(request):
         res_data['bakername'] = baker.name
     return render(request, 'baker/mypage_baker.html',res_data)
 
-
 def search(request):
-
     return render(request, 'baker/idpw_search_baker.html')
 
 def idsearch(request):
@@ -669,8 +788,6 @@ def checkPw(request):
             return render(request, 'baker/inappropriateApproach.html', res_data)
         elif request.method == "POST":
             return redirect('/')
-
-
 
 def logout(request):
     res_data = {}

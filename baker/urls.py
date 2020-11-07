@@ -26,9 +26,10 @@ urlpatterns = [
     path('logout/',views.logout, name='logout_baker'),
     # 가게 관리
     path('manageStore/enrollStore/', views.enrollStore, name='enrollStore_baker'),
-    path('manageStore/opendays/', views.opendays, name='opendays_baker'),
+    path('manageStore/weekhandle/', views.opendays, name='opendays_baker'),
+    path('manageStore/datehandle/', views.dailyamountsetting, name='dailyamountsetting'),
     path('manageStore/storeReview/', views.storeReview, name='storeReview_baker'),
-    path('temp/', views.temp, name='temp'),
+    # path('temp/', views.temp, name='temp'),
     # 케이크 관리
     path('manageCake/myCakes/', views.myCakes, name='myCakes_baker'),
     # 하나의 케이크에 해당하는 정보를 불러오는 path도 있어야함.(뷰 함수는 id같은 pk로 정보가져오는 함수)
@@ -44,6 +45,5 @@ urlpatterns = [
 
     path('mypage/', views.mypage, name='mypage_baker'),
 
-    path('calender/', views.calender, name='calender')
 
 ]
