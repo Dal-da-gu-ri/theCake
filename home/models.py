@@ -116,8 +116,11 @@ class OpenDays(models.Model):
         verbose_name = '주문가능 수량'
         verbose_name_plural = '주문가능 수량'
 
-class DailyAmout(models.Model):
+class DailyAmount(models.Model):
     businessID = models.CharField(max_length=10, verbose_name="사업자 등록번호", blank=False, primary_key=True, default="")
+    initial = models.IntegerField(verbose_name="초기값",null=False,default=0,blank=False)
+    year = models.IntegerField(verbose_name="년",null=False,default=2020,blank=False)
+    month = models.IntegerField(verbose_name="월",null=False,default=0,blank=False)
     day1 = models.IntegerField(verbose_name="1일 수량",null=False,default=0,blank=False)
     day2 = models.IntegerField(verbose_name="2일 수량",null=False,default=0,blank=False)
     day3 = models.IntegerField(verbose_name="3일 수량",null=False,default=0,blank=False)
