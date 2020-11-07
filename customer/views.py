@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from home.models import Orderer, Order, Store, Baker, Review, Option, DetailedOption, Cake, checkOrderer
+from home.models import *
 from django.contrib.auth.models import User
 from django.contrib import auth
 from django.contrib.auth.hashers import make_password, check_password
@@ -11,8 +11,8 @@ from django.utils.http import urlsafe_base64_decode,urlsafe_base64_encode
 from django.core.mail import EmailMessage
 from django.utils.encoding import force_bytes,force_text
 from django.views.decorators.csrf import csrf_exempt
-from baker.forms import CakeForm,StoreForm
-
+from baker.forms import *
+from .mappingdate import mappingDate
 
 def temp(request):
     return render(request, 'customer/showCakes.html')
@@ -23,7 +23,7 @@ def showStores2(request):
     search_key3 = request.GET['search_key3']
     search_key4 = request.GET['search_key4']
     context = { 'search_key1':search_key1, 'search_key2':search_key2, 'search_key3':search_key3, 'search_key4':search_key4 }
-    print(context)
+    # print(context)
     return render(request,'customer/showStores2.html',context)
 
 @csrf_exempt
@@ -170,6 +170,7 @@ def main_customer(request):
             request.session['sido'] = request.POST.get('sido', None)
             request.session['sigungu'] = request.POST.get('sigungu', None)
             request.session['dong'] = request.POST.get('dong', None)
+            # request.session['date'] = request.POST.get('date', None)
 
             #날짜도 받도록 해야함
             #print(request.session.get('sido'))
@@ -183,6 +184,8 @@ def main_customer(request):
             #     print("not exist")
             #return HttpResponse(request.session.get('sido')+" "+request.session.get('sigungu')+" "+request.session.get('dong'))
             #return HttpResponse(user_id)
+
+            # print(request.session.get['date'])
             return redirect('/customer/main/stores', res_data)
 
     else:
@@ -212,18 +215,40 @@ def showStores(request):
         date = request.GET['date']
         res_data = {'sido': sido, 'sigugun': sigugun, 'dong': dong,
                    'date': date}
+        orderdate = request.GET['date']
+        ordermonth = int(orderdate[5])*10+int(orderdate[6])
+        orderday = int(orderdate[8])*10+int(orderdate[9])
+        # print(orderdate[4])
+        store_list=[]
+
         if sido:
 
             if sigugun:
 
                 if dong:
 
-                    store_list = Store.objects.filter(daum_sido=sido, daum_sigungu=sigugun, daum_dong=dong)
-                    print(store_list)
+                    # store_list = Store.objects.filter(daum_sido=sido, daum_sigungu=sigugun, daum_dong=dong)
+
+                    stores = Store.objects.filter(daum_sido=sido, daum_sigungu=sigugun, daum_dong=dong)
+                    for store in stores:
+                        if mappingDate(store,ordermonth,orderday) ==True: # 주문가능한 수량이 있을경우
+                            storeobject = Store.objects.get(businessID = store)
+                            store_list.append(storeobject)
+                    # print(store_list)
+
                 else:
-                    store_list = Store.objects.filter(daum_sido=sido, daum_sigungu=sigugun)
+                    stores = Store.objects.filter(daum_sido=sido, daum_sigungu=sigugun)
+                    for store in stores:
+                        if mappingDate(store,ordermonth,orderday) ==True: # 주문가능한 수량이 있을경우
+                            storeobject = Store.objects.get(businessID = store)
+                            store_list.append(storeobject)
             else:
-                store_list = Store.objects.filter(daum_sido=sido)
+                stores = Store.objects.filter(daum_sido=sido)
+                for store in stores:
+                    if mappingDate(store, ordermonth, orderday) == True:  # 주문가능한 수량이 있을경우
+                        storeobject = Store.objects.get(businessID=store)
+                        store_list.append(storeobject)
+
         else:             #선택된 가게가 없는 데 넘어온 경우..
             res_data['error'] = "조회된 가게가 없습니다."
              # return HttpResponse(user_id)
