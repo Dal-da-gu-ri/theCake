@@ -52,13 +52,18 @@ label {
 }
 
 #submit{
-    padding: 0px 0px;
+    padding: 0 !important;
 }
 
 form {
     margin-top: 50px;
 }
+
 canvas {
-background-color: black;
-margin: 0px;
+    background-color: black;
+    margin: 0px;
+}
+
+#storeInfo{
+    border: 2px dashed red;
 }
