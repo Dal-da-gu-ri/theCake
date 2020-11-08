@@ -580,6 +580,8 @@
             {{dailyform.day62}}
         </div>
 </div>
+<form method="POST">
+    {% csrf_token %}
         <div class="main_wrap">
             <div class="calendar">
                 <table class = "main_calendar" id ="tab">
@@ -603,10 +605,9 @@
                 </script>
             </div>
         </div>
-    </main>
 <div class="text-center" style="width:100%">
         <button type='submit' id="submit" class="btn btn-secondary" style="width: 120px; height: 35px;">등록</button>
 </div>
-
+</form>
 
 {% endblock %}
