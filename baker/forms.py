@@ -4,7 +4,7 @@ from home.models import *
 class BakerForm(forms.ModelForm):
     class Meta:
         model = Baker
-        fields = ['userID','businessID','name','phoneNum','password']
+        fields = ['userID', 'name', 'phoneNum']
         widgets = {
             'userID':forms.TextInput(
                 attrs={'class':'form-control',
@@ -24,7 +24,8 @@ class BakerForm(forms.ModelForm):
             'phoneNum': forms.TextInput(
                 attrs={'class': 'form-control',
                        'id': 'phoneNum',
-                       'placeholder': '예) 010-1234-5678'}
+                       'placeholder': '예) 010-1234-5678',
+                       'pattern': "(010)-\d{3,4}-\d{4}"}
             ),
             # 'password': forms.PasswordInput(
             #     attrs={'class': 'form-control',

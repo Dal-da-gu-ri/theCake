@@ -55,8 +55,8 @@
         <input type="password"
       class="form-control"
       id="password_baker"
-      placeholder="비밀번호 재입력"
-      name= "re-password_baker"
+      placeholder="비밀번호"
+      name= "password_baker"
       required>
     </div>
 
@@ -132,11 +132,9 @@ check_businessID이 거짓이면 유효하지 않는 사업자등록번호입니
     function chkPW(){
 
  var pw = $("#password_baker").val();
- var phone = $("#phoneNum_baker").val();
  var num = pw.search(/[0-9]/g);
  var eng = pw.search(/[a-z]/ig);
  var spe = pw.search(/[`~!@@#$%^&*|₩₩₩'₩";:₩/?]/gi);
- var phoneCHK = phone.search(/^\d{3}-\d{3,4}-\d{4}$/);
  if(pw.length < 8 || pw.length > 20){
   alert("비밀번호를 8자리 ~ 20자리 이내로 입력해주세요.");
   return false;
@@ -149,10 +147,5 @@ check_businessID이 거짓이면 유효하지 않는 사업자등록번호입니
  }else {
 	console.log("통과");
  }
- if (phoneCHK<0){
-    alert("올바른 휴대전화 형식으로 입력해주세요. 예) 010-1234-5678");
-    return false;
- }
-
 }
 </script>
