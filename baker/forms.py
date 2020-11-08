@@ -757,8 +757,7 @@ class OptionForm(forms.ModelForm):
         widgets = {
             'optionName' : forms.TextInput(
                 attrs={
-                    'class': 'form-control',
-                    'placeholder': '옵션 이름'
+                    'placeholder': '옵션명(10자리 이하)'
                 }
             ),
             'isNecessary' : forms.CheckboxInput,
@@ -773,14 +772,12 @@ class DetailedOptionForm(forms.ModelForm):
         widgets = {
             'detailName' : forms.TextInput(
                 attrs={
-                    'class': 'form-control',
-                    'placeholder': '옵션 상세 이름'
+                    'placeholder': '세부항목(10자리 이하)'
                 }
             ),
             'pricing' : forms.TextInput(
                 attrs={
-                    'class': 'form-control',
-                    'placeholder': '추가 금액'
+                    'placeholder': '숫자만 입력해주세요.'
                 }
             )
         }

@@ -113,8 +113,9 @@
         text-decoration: none;
         display: inline-block;
         margin: 1px;
-        padding-top: 5px;
-        padding-bottom: 5px;
+        padding-top: 7px;
+        padding-bottom: 7px;
+        font-size: 1.1em;
     }
 
     .addDetail_btn:hover{
@@ -130,58 +131,6 @@
 
     .addDetail_btn:active {
         background-color: #a192ff;
-    }
-
-    .deleteOption_btn{
-        background-color: white;
-        border: 1px solid #ff6e6e;
-        border-radius: .2rem;
-        color: #ff6e6e;
-        text-align: center;
-        text-decoration: none;
-        display: inline-block;
-        margin: 1px;
-        padding-top: 5px;
-        padding-bottom: 5px;
-    }
-
-    .deleteOption_btn:hover{
-        background-color: #ffa3a3;
-        border: 1px solid #ffa3a3;
-        color: white;
-        transition: 0.15s;
-    }
-
-    .deleteOption_btn:focus {
-        outline: none;
-    }
-
-    .deleteOption_btn:active {
-        background-color: #ff8f8f;
-    }
-
-    .deleteDetail_btn{
-        border: none;
-        background-color: transparent;
-    }
-
-    .deleteDetail_btn:focus {
-        outline: none;
-    }
-
-    .deleteDetail_btn > img {
-        opacity: 0.6;
-        background-color: white;
-    }
-
-    .deleteDetail_btn > img:hover {
-        opacity: 0.8;
-        transition: 0.15s;
-        background-color: #e9e7e7;
-    }
-
-    .deleteDetail_btn > img:active {
-        background-color: #d2d2d2;
     }
 
 <!--    .margin_left {-->
@@ -221,6 +170,7 @@
         border-bottom: 1px solid gray;
         width: 50%;
     }
+
 </style>
 
 
@@ -249,9 +199,6 @@
                     <div>
                         <!-- 세부항목 추가 button -->
                         <button type="button" class="addDetail_btn ml-3" onclick="addDetail()">세부항목 추가</button>
-                        <!-- 옵션삭제 button -->
-                        <button type="button" class="deleteOption_btn" onclick="deleteOption()">옵션 삭제</button>
-                        <!-- <button type="button" class="deleteOption_btn">옵션 삭제</button>-->
                     </div>
                 </div>
             </td>
