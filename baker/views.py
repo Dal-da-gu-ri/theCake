@@ -915,7 +915,7 @@ def option_add(request):
         baker = Baker.objects.get(pk=user_id)
         res_data['bakername'] = baker.name
         if request.method == "GET":
-            return render(request, 'baker/checkPw.html',res_data)
+            return render(request, 'baker/option_add.html',res_data)
         elif request.method == "POST":
             if check_password(request.POST.get('password_baker'), baker.password):
                 return redirect('/baker/myPage/editMyInfo/changePw',res_data)
@@ -938,7 +938,7 @@ def option_edit(request):
         baker = Baker.objects.get(pk=user_id)
         res_data['bakername'] = baker.name
         if request.method == "GET":
-            return render(request, 'baker/checkPw.html',res_data)
+            return render(request, 'baker/option_edit.html',res_data)
         elif request.method == "POST":
             if check_password(request.POST.get('password_baker'), baker.password):
                 return redirect('/baker/myPage/editMyInfo/changePw',res_data)
