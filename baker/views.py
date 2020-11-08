@@ -528,7 +528,6 @@ def myCakes(request):
     if user_id:
         baker = Baker.objects.get(pk=user_id)
         res_data['bakername'] = baker.name
-        #cake_list = Cake.objects.all()
         cake_list = Cake.objects.filter(crn=baker.businessID)
         res_data['cake_list']= cake_list
         return render(request, 'baker/myCakes.html',res_data)
@@ -571,8 +570,6 @@ def cake_add(request):
                     # res_data['name'] = cakeobject.cakeImg
                     # return render(request, 'baker/myCakes2.html', res_data)
                     return redirect('/baker/manageCake/myCakes', res_data)
-
-
             else:
                     print(cakeform.errors)
                     """cakeform = CakeForm()
@@ -617,12 +614,22 @@ def cake_edit(request,pk):
                 cakeobject.save()
                 res_data['name'] = cakeobject.cakeImg
                 #return render(request, 'baker/myCakes.html', res_data)
-                return redirect('/baker/manageCake/myCakes', res_data)
-            else:
-                    print(cakeform.errors)
+
+                if Cake.objects.filter(cakeName=cakeobject.cakeName, crn=cakeobject.crn).exists():
                     cakeform = CakeForm()
                     res_data['cake'] = cakeform
                     res_data['error'] = "이미 등록된 케이크 이름입니다."
+                    return render(request, 'baker/cake_add.html', res_data)
+                else:
+                    cakeobject.save()
+                    res_data['cake'] = cakeform
+                    return redirect('/baker/manageCake/myCakes', res_data)
+                # return redirect('/baker/manageCake/myCakes', res_data)
+            else:
+                    # print(cakeform.errors)
+                    cakeform = CakeForm()
+                    res_data['cake'] = cakeform
+                    # res_data['error'] = "이미 등록된 케이크 이름입니다."
                     return render(request, 'baker/cake_add.html', res_data)
                     #return redirect('/baker/inappropriateApproach')
 
@@ -652,9 +659,6 @@ def cake_delete(request,pk):
         cakeobject = get_object_or_404(Cake, pk=pk)
         cakeobject.delete()
         return redirect('/baker/manageCake/myCakes', res_data)
-
-
-
     else:
         if request.method == "GET":
             res_data['comment'] = "잘못된 접근입니다. 로그인을 해주세요!"
@@ -939,7 +943,7 @@ def option_add(request):
                 if Option.objects.filter(optionName=optionobject.optionName, businessID=optionobject.businessID).exists():
                     optionform = OptionForm()
                     res_data['option'] = optionform
-                    res_data['error'] = "이미 등록된 케이크 이름입니다."
+                    res_data['error'] = "이미 등록된 옵 이름입니다."
                     return render(request, 'baker/option_add.html', res_data)
                 else:
                     optionobject.save()
@@ -986,7 +990,7 @@ def option_edit(request,pk):
             else:
                     optionform = OptionForm()
                     res_data['option'] = optionform
-                    res_data['error'] = "이미 등록된 케이크 이름입니다."
+                    res_data['error'] = "이미 등록된 옵션 이름입니다."
                     return render(request, 'baker/option_add.html', res_data)
 
         else:
