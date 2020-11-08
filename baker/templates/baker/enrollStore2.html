@@ -10,25 +10,6 @@
     <!-- 가게 썸네일 등록 -->
 
 <style>
-    .location_select{
-      width: 180px;
-      padding: .3em .5em;
-      border: 1px solid #999;
-      font-family: inherit;
-      background: url(https://farm1.staticflickr.com/379/19928272501_4ef877c265_t.jpg) no-repeat 95% 50%;
-      border-radius: 0px;
-      /* 네이티브 모형 감추기 */
-      -webkit-appearance: none;
-      -moz-appearance: none;
-      appearance: none;
-      margin-right: 30px;
-        display: block;
-    }
-
-    /* 네이티브 화살표 숨기기 */
-    select::-ms-expand {
-        display: none;
-    }
     .sido, .sigugun, .dong{
         padding: 10px;
     }
@@ -41,13 +22,6 @@
 
     .form-group{
         word-break:keep-all;
-    }
-
-    @import url('https://fonts.googleapis.com/css2?family=Nanum+Gothic&display=swap');
-
-    *{
-      box-sizing : border-box;
-      font-family : DX경필명조B;
     }
 
     body {
@@ -63,11 +37,6 @@
     input[type="file"] {
         position: relative;
         margin-left: 50px;
-    }
-    canvas{
-        position: relative;
-        margin-left: 20px;
-        margin-top: 0px;
     }
 
     .form-group{
@@ -119,12 +88,6 @@
     form {
         margin-top: 50px;
     }
-
-    canvas {
-        background-color: black;
-        margin: 0px;
-    }
-
 </style>
 
 
@@ -138,6 +101,13 @@
             </div>
             <br>
             {{store.storeImg}}
+<!--            {% if store.instance.image %}-->
+<!--            {{ store.instance.storeImg.url }}-->
+<!--            {% endif %}-->
+<!--            <img class="embed-responsive-item" src="{{store.storeImg.value.url}}" alt="store_profile2">-->
+            {{store.storeImg.value.url}}
+            {{store.storeImg.value.path}}
+<!--            {{store.storeImg.value.href}}-->
 
         </div>
         <div id="storeInfo" class="form-group col-8 col-sm-8 ">
