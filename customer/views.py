@@ -12,6 +12,7 @@ from django.core.mail import EmailMessage
 from django.utils.encoding import force_bytes,force_text
 from django.views.decorators.csrf import csrf_exempt
 from baker.forms import *
+from customer.forms import *
 from .mappingdate import mappingDate
 
 def temp(request):
@@ -31,49 +32,55 @@ def main(request):
     return render(request, 'customer/main_customer.html')
 
 def join(request):
-    #global bsID, emailBaker
+    res_data = {}
+
     if request.method == "GET":
-        return render(request, 'customer/join_customer.html')
+        customerform = OrdererForm()
+        res_data['customer'] = customerform
+
+        return render(request, 'customer/join_customer.html', res_data)
     elif request.method == "POST":
-        userID = request.POST.get('ID_customer',None)
-        namecustomer = request.POST.get('name_customer',None)
-        emailcustomer = request.POST.get('email_customer',None)
-        passwordcustomer = request.POST.get('password_customer',None)
-        phoneNumcustomer = request.POST.get('phoneNum_customer',None)
-        res_data = {}
-        try:
-            curCustomer = checkOrderer.objects.get(userid = userID)
-            customerid = curCustomer.userid
+        customerform = OrdererForm(request.POST)
+        if customerform.is_valid():  # 유효성 검사
 
             try:
-                newCustomer = Orderer.objects.get(userID=customerid)
-                res_data['error'] = "이미 가입된 계정입니다."
+                curCustomer = checkOrderer.objects.get(userid=customerform.cleaned_data['userID'])
+                # crnNum = curBaker.businessCRN
+
+                try:
+                    newCustomer = Orderer.objects.get(userID = customerform.cleaned_data['userID'])
+                    res_data['error'] = "이미 가입된 계정입니다."
+                    return render(request, 'customer/join_customer.html', res_data)
+
+                except Orderer.DoesNotExist:
+
+                    customerobject = Orderer(
+                        userID = customerform.cleaned_data['userID'],
+                        email = request.POST.get('email_customer',None),
+                        name = customerform.cleaned_data['name'],
+                        phoneNum = customerform.cleaned_data['phoneNum'],
+                        password = make_password(request.POST.get('password_customer',None))
+                    )
+
+                    customerobject.save()
+                    # res_data['baker']=bakerform
+                    current_site = get_current_site(request)
+                    message = messageSend(current_site.domain,
+                                          urlsafe_base64_encode(force_bytes(customerobject.pk)).encode().decode(),
+                                          account_activation_token.make_token(customerobject))
+                    mail_subject = "[The Cake] 회원가입 인증 메일입니다."
+                    user_email = customerobject.email
+                    email = EmailMessage(mail_subject, message, to=[user_email])
+                    email.send()
+                    res_data['comment'] = user_email + " 로 이메일이 발송되었습니다. \n\n인증을 완료해주세요 :)"
+                    return render(request, 'customer/userEmailSent.html', res_data)
+
+            except checkOrderer.DoesNotExist:
+                res_data['error'] = "등록되지 않은 아이디입니다."
                 return render(request, 'customer/join_customer.html', res_data)
-            except Orderer.DoesNotExist:
-                customer = Orderer(
-                    userID = userID,
-                    email = emailcustomer,
-                    name = namecustomer,
-                    phoneNum = phoneNumcustomer,
-                    password = make_password(passwordcustomer)
-                )
-                customer.save()
-                current_site = get_current_site(request)
-                message = messageSend(current_site.domain,
-                                      urlsafe_base64_encode(force_bytes(customer.pk)).encode().decode(),
-                                      account_activation_token.make_token(customer))
-                mail_subject = "[The Cake] 회원가입 인증 메일입니다."
-                user_email = customer.email
-                email = EmailMessage(mail_subject, message, to=[user_email])
-                email.send()
-                res_data['comment'] = user_email + " 로 이메일이 발송되었습니다. \n\n인증을 완료해주세요 :)"
-                return render(request, 'customer/userEmailSent.html', res_data)
-                #return redirect('/customer/login')
-                #return render(request, 'fuser/login.html')
-        except checkOrderer.DoesNotExist:
-            # comment = None
-            res_data['error'] = "등록되지 않은 아이디입니다."
-            return render(request, 'customer/join_customer.html', res_data)
+        else:
+            # print(storeform.errors)
+            return redirect('/baker/inappropriateApproach')
 
 def useridCheck(request):
     #global bsID

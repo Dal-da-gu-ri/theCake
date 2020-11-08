@@ -156,7 +156,7 @@ def join(request):
                     res_data['comment'] = user_email + " 로 이메일이 발송되었습니다. \n\n인증을 완료해주세요 :)"
                     return render(request, 'baker/userEmailSent.html', res_data)
 
-            except checkBaker.DoesNotExits:
+            except checkBaker.DoesNotExist:
                 res_data['error'] = "등록되지 않은 아이디입니다."
                 return render(request, 'baker/join_baker.html', res_data)
         else:
@@ -829,7 +829,7 @@ def checkPw(request):
         res_data['bakername'] = baker.name
 
         if request.method == "GET":
-            return render(request, 'baker/checkPw.html')
+            return render(request, 'baker/checkPw.html',res_data)
         elif request.method == "POST":
             if baker.password == request.POST.get('password'):
                 return redirect('/baker/myPage/editMyInfo/',res_data)
