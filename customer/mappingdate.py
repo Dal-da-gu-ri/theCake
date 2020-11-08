@@ -51,7 +51,7 @@ def mappingDate(businessID,month, date):
             if storeAmount.day14 > 0:
                 available = True
         elif date == 15:
-            if storeAmount.day16 > 0:
+            if storeAmount.day15 > 0:
                 available = True
         elif date == 16:
             if storeAmount.day16 > 0:

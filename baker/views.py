@@ -446,38 +446,38 @@ def dailyamountsetting(request):
                 dailyobject.day28 = dailyform.cleaned_data['day28']
                 dailyobject.day29 = dailyform.cleaned_data['day29']
                 dailyobject.day30 = dailyform.cleaned_data['day30']
-                dailyobject.day31 = dailyform.cleaned_data['day31']
-                dailyobject.day32 = dailyform.cleaned_data['day32']
-                dailyobject.day33 = dailyform.cleaned_data['day33']
-                dailyobject.day34 = dailyform.cleaned_data['day34']
-                dailyobject.day35 = dailyform.cleaned_data['day35']
-                dailyobject.day36 = dailyform.cleaned_data['day36']
-                dailyobject.day37 = dailyform.cleaned_data['day37']
-                dailyobject.day38 = dailyform.cleaned_data['day38']
-                dailyobject.day39 = dailyform.cleaned_data['day39']
-                dailyobject.day40 = dailyform.cleaned_data['day40']
-                dailyobject.day41 = dailyform.cleaned_data['day41']
-                dailyobject.day42 = dailyform.cleaned_data['day42']
-                dailyobject.day43 = dailyform.cleaned_data['day43']
-                dailyobject.day44 = dailyform.cleaned_data['day44']
-                dailyobject.day45 = dailyform.cleaned_data['day45']
-                dailyobject.day46 = dailyform.cleaned_data['day46']
-                dailyobject.day47 = dailyform.cleaned_data['day47']
-                dailyobject.day48 = dailyform.cleaned_data['day48']
-                dailyobject.day49 = dailyform.cleaned_data['day49']
-                dailyobject.day50 = dailyform.cleaned_data['day50']
-                dailyobject.day51 = dailyform.cleaned_data['day51']
-                dailyobject.day52 = dailyform.cleaned_data['day52']
-                dailyobject.day53 = dailyform.cleaned_data['day53']
-                dailyobject.day54 = dailyform.cleaned_data['day54']
-                dailyobject.day55 = dailyform.cleaned_data['day55']
-                dailyobject.day56 = dailyform.cleaned_data['day56']
-                dailyobject.day57 = dailyform.cleaned_data['day57']
-                dailyobject.day58 = dailyform.cleaned_data['day58']
-                dailyobject.day59 = dailyform.cleaned_data['day59']
-                dailyobject.day60 = dailyform.cleaned_data['day60']
-                dailyobject.day61 = dailyform.cleaned_data['day61']
-                dailyobject.day62 = dailyform.cleaned_data['day62']
+                # dailyobject.day31 = dailyform.cleaned_data['day31']
+                # dailyobject.day32 = dailyform.cleaned_data['day32']
+                # dailyobject.day33 = dailyform.cleaned_data['day33']
+                # dailyobject.day34 = dailyform.cleaned_data['day34']
+                # dailyobject.day35 = dailyform.cleaned_data['day35']
+                # dailyobject.day36 = dailyform.cleaned_data['day36']
+                # dailyobject.day37 = dailyform.cleaned_data['day37']
+                # dailyobject.day38 = dailyform.cleaned_data['day38']
+                # dailyobject.day39 = dailyform.cleaned_data['day39']
+                # dailyobject.day40 = dailyform.cleaned_data['day40']
+                # dailyobject.day41 = dailyform.cleaned_data['day41']
+                # dailyobject.day42 = dailyform.cleaned_data['day42']
+                # dailyobject.day43 = dailyform.cleaned_data['day43']
+                # dailyobject.day44 = dailyform.cleaned_data['day44']
+                # dailyobject.day45 = dailyform.cleaned_data['day45']
+                # dailyobject.day46 = dailyform.cleaned_data['day46']
+                # dailyobject.day47 = dailyform.cleaned_data['day47']
+                # dailyobject.day48 = dailyform.cleaned_data['day48']
+                # dailyobject.day49 = dailyform.cleaned_data['day49']
+                # dailyobject.day50 = dailyform.cleaned_data['day50']
+                # dailyobject.day51 = dailyform.cleaned_data['day51']
+                # dailyobject.day52 = dailyform.cleaned_data['day52']
+                # dailyobject.day53 = dailyform.cleaned_data['day53']
+                # dailyobject.day54 = dailyform.cleaned_data['day54']
+                # dailyobject.day55 = dailyform.cleaned_data['day55']
+                # dailyobject.day56 = dailyform.cleaned_data['day56']
+                # dailyobject.day57 = dailyform.cleaned_data['day57']
+                # dailyobject.day58 = dailyform.cleaned_data['day58']
+                # dailyobject.day59 = dailyform.cleaned_data['day59']
+                # dailyobject.day60 = dailyform.cleaned_data['day60']
+                # dailyobject.day61 = dailyform.cleaned_data['day61']
+                # dailyobject.day62 = dailyform.cleaned_data['day62']
 
                 dailyobject.save()
                 res_data['dailyform'] = dailyform
@@ -503,7 +503,7 @@ def dailyamountsetting(request):
                 dailyform = DailyAmountForm(instance=dailyobject)
             # dailyform = DailyAmountForm()
             res_data['dailyform'] = dailyform
-            return render(request, 'baker/dayhandle.html', res_data)  # 나중에 opendays.html으로 바꿔야함
+            return render(request, 'baker/dayhandle2.html', res_data)  # 나중에 opendays.html으로 바꿔야함
 
     else:
         if request.method == "GET":
@@ -545,7 +545,6 @@ def cake_add(request):
     if user_id:
         baker = Baker.objects.get(pk=user_id)
         res_data['bakername'] = baker.name
-        #cakeobject = Cake()
         if request.method == "POST":
             cakeform = CakeForm(request.POST,request.FILES)
             store = Store.objects.get(pk=baker.businessID)
@@ -565,22 +564,13 @@ def cake_add(request):
                     return render(request, 'baker/cake_add.html', res_data)
                 else:
                     cakeobject.save()
-                    # return redirect('/baker/manageCake/myCakes')
                     res_data['cake'] = cakeform
-                    # res_data['name'] = cakeobject.cakeImg
-                    # return render(request, 'baker/myCakes2.html', res_data)
                     return redirect('/baker/manageCake/myCakes', res_data)
             else:
                     print(cakeform.errors)
-                    """cakeform = CakeForm()
-                    res_data['cake'] = cakeform
-                    res_data['error'] = "이미 등록된 케이크 이름입니다."
-                    return render(request, 'baker/cake_add.html', res_data)"""
                     return redirect('/baker/inappropriateApproach')
 
         else:
-            #cakeobject = Cake.objects.get(cakeName=baker.businessID)
-            #cakeform = CakeForm(instance=cakeobject)
             cakeform = CakeForm()
             res_data['cake'] = cakeform
             return render(request, 'baker/cake_add.html', res_data)
@@ -591,6 +581,12 @@ def cake_add(request):
             return render(request, 'baker/inappropriateApproach.html', res_data)
         elif request.method == "POST":
             return redirect('/')
+
+
+"""cakeform = CakeForm()
+res_data['cake'] = cakeform
+res_data['error'] = "이미 등록된 케이크 이름입니다."
+return render(request, 'baker/cake_add.html', res_data)"""
 
 def cake_edit(request,pk):
     res_data = {}
