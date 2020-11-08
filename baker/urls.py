@@ -44,7 +44,6 @@ urlpatterns = [
     # 주문 관리
     path('manageOrder/', views.manageOrder, name='manageOrder_baker'),
 
-    path('mypage/', views.mypage, name='mypage_baker'),
 
 
 ]

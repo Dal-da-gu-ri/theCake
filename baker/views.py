@@ -691,15 +691,6 @@ def manageOrder(request):
         res_data['bakername'] = baker.name
     return render(request, 'baker/manageOrder.html',res_data)
 
-def mypage(request):
-    res_data = {}
-    user_id = request.session.get('user')
-
-    if user_id:
-        baker = Baker.objects.get(pk=user_id)
-        res_data['bakername'] = baker.name
-    return render(request, 'baker/mypage_baker.html',res_data)
-
 def search(request):
     return render(request, 'baker/idpw_search_baker.html')
 
@@ -776,66 +767,6 @@ def pwsearch1(request):
             return redirect('/baker/search', res_data)
             #return render(request, 'baker/idpw_search_baker.html',res_data)
 """
-
-
-def editInfo(request):
-    res_data = {}
-    user_id = request.session.get('user')
-
-    if user_id:
-        baker = Baker.objects.get(pk=user_id)
-        res_data['bakername'] = baker.name
-    return render(request,'baker/changePw.html',res_data)
-
-def changeAccountInfo(request):
-    res_data = {}
-    user_id = request.session.get('user')
-
-    if user_id:
-        baker = Baker.objects.get(pk=user_id)
-        res_data['bakername'] = baker.name
-        # bakerobject = Baker()
-        if request.method == 'POST':
-            bakerform = BakerForm(request.POST)
-            if bakerform.is_valid():  # 유효성 검사
-
-                # userID = bakerform.cleaned_data['userID'],
-                # email = bakerform.cleaned_data['email'],
-                baker.name = bakerform.cleaned_data['name']
-                baker.phoneNum = bakerform.cleaned_data['phoneNum']
-                baker.password = make_password(request.POST.get('password_baker',None))
-
-                baker.save()
-                # res_data['baker'] = bakerform
-                res_data={
-                    'baker':bakerform,
-                    'userID':baker.userID,
-                    'email_baker':baker.email
-                }
-                # res_data['name'] = storeobject.storeImg
-                return render(request, 'baker/changePw.html', res_data)
-            else:
-                return redirect('/baker/inappropriateApproach')
-
-        else:
-            baker = Baker.objects.get(businessID=baker.businessID)
-            bakerform = BakerForm(instance=baker)
-            # storeform = StoreForm()
-            # res_data['baker'] = bakerform
-            res_data = {
-                'baker': bakerform,
-                'userID': baker.userID,
-                'email_baker': baker.email
-            }
-            return render(request, 'baker/changePw.html', res_data)
-
-    else:
-        if request.method == "GET":
-            res_data = {}
-            res_data['comment'] = "잘못된 접근입니다. 로그인을 해주세요!"
-            return render(request, 'baker/inappropriateApproach.html', res_data)
-        elif request.method == "POST":
-            return redirect('/')
 
 def checkPw(request):
     res_data = {}
