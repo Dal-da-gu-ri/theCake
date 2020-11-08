@@ -799,7 +799,12 @@ def changeAccountInfo(request):
                 baker.password = make_password(request.POST.get('password_baker',None))
 
                 baker.save()
-                res_data['baker'] = bakerform
+                # res_data['baker'] = bakerform
+                res_data={
+                    'baker':bakerform,
+                    'userID':baker.userID,
+                    'email_baker':baker.email
+                }
                 # res_data['name'] = storeobject.storeImg
                 return render(request, 'baker/editMyInfo.html', res_data)
             else:
@@ -809,8 +814,12 @@ def changeAccountInfo(request):
             baker = Baker.objects.get(businessID=baker.businessID)
             bakerform = BakerForm(instance=baker)
             # storeform = StoreForm()
-            res_data['baker'] = bakerform
-
+            # res_data['baker'] = bakerform
+            res_data = {
+                'baker': bakerform,
+                'userID': baker.userID,
+                'email_baker': baker.email
+            }
             return render(request, 'baker/editMyInfo.html', res_data)
 
     else:
