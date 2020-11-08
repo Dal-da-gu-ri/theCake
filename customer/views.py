@@ -229,8 +229,13 @@ def showStores(request):
         isStore = False
 
         if day:
+            orderyear = int(orderdate[0])*1000+int(orderdate[1])*100+int(orderdate[2])*10+int(orderdate[3])
             ordermonth = int(orderdate[5]) * 10 + int(orderdate[6])
             orderday = int(orderdate[8]) * 10 + int(orderdate[9])
+            request.session['selectedYear'] = orderyear
+            request.session['selectedMonth'] = ordermonth
+            request.session['selectedDay'] = orderday
+
             if sido:
                 if sigugun:
                     if dong:
@@ -318,7 +323,11 @@ def storeInfo(request,pk):
             res_data['store_list'] = store_list
             cake_list = Cake.objects.filter(crn=storeobject.businessID)
             res_data['cake_list'] = cake_list
+            res_data['selectedYear']=request.session.get('selectedYear')
+            res_data['selectedMonth']=request.session.get('selectedMonth')
+            res_data['selectedDay']=request.session.get('selectedDay')
 
+            print(res_data)
             # return render(request, 'customer/showStores.html', res_data)
             return render(request,'customer/showCakes.html',res_data)
         elif request.method == "POST":
