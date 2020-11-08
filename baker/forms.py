@@ -769,7 +769,7 @@ class OptionForm(forms.ModelForm):
 class DetailedOptionForm(forms.ModelForm):
     class Meta:
         model = DetailedOption
-        fields = ['detailName', 'pricing']
+        fields = ['optionName', 'detailName', 'pricing']
         widgets = {
             'detailName' : forms.TextInput(
                 attrs={
