@@ -137,7 +137,7 @@ def join(request):
                     bakerobject = Baker(
                         businessID = curBaker.businessCRN,
                         userID = bakerform.cleaned_data['userID'],
-                        email = bakerform.cleaned_data['email'],
+                        email = request.POST.get('email_baker',None),
                         name = bakerform.cleaned_data['name'],
                         phoneNum = bakerform.cleaned_data['phoneNum'],
                         password = make_password(bakerform.cleaned_data['password'])
