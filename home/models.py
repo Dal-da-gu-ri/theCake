@@ -103,13 +103,13 @@ class Store(models.Model):
 
 class OpenDays(models.Model):
     businessID = models.CharField(max_length=10, verbose_name="사업자 등록번호", blank=False, primary_key=True, default="")
-    monday = models.IntegerField(verbose_name="월요일 주문가능 수량",null=True,default="",blank=True)
-    tuesday = models.IntegerField(verbose_name="화요일 주문가능 수량",null=True,default="",blank=True)
-    wednesday = models.IntegerField(verbose_name="수요일 주문가능 수량",null=True,default="",blank=True)
-    thursday = models.IntegerField(verbose_name="목요일 주문가능 수량",null=True,default="",blank=True)
-    friday = models.IntegerField(verbose_name="금요일 주문가능 수량",null=True,default="",blank=True)
-    saturday = models.IntegerField(verbose_name="토요일 주문가능 수량",null=True,default="",blank=True)
-    sunday = models.IntegerField(verbose_name="일요일 주문가능 수량",null=True,default="",blank=True)
+    monday = models.IntegerField(verbose_name="월요일 주문가능 수량",null=True,default=0,blank=True)
+    tuesday = models.IntegerField(verbose_name="화요일 주문가능 수량",null=True,default=0,blank=True)
+    wednesday = models.IntegerField(verbose_name="수요일 주문가능 수량",null=True,default=0,blank=True)
+    thursday = models.IntegerField(verbose_name="목요일 주문가능 수량",null=True,default=0,blank=True)
+    friday = models.IntegerField(verbose_name="금요일 주문가능 수량",null=True,default=0,blank=True)
+    saturday = models.IntegerField(verbose_name="토요일 주문가능 수량",null=True,default=0,blank=True)
+    sunday = models.IntegerField(verbose_name="일요일 주문가능 수량",null=True,default=0,blank=True)
 
     class Meta:
         db_table = 'openDays'
