@@ -29,7 +29,7 @@ from django.http import HttpResponse, JsonResponse
 
 ### 회원가입 및 로그인
 
-def join(request):
+def join3(request):
     #global bsID, emailBaker
     if request.method == "GET":
         return render(request, 'baker/join_baker.html')
@@ -116,6 +116,60 @@ def join2(request):
             # comment = None
             res_data['error'] = "등록되지 않은 아이디입니다."
             return render(request, 'baker/join_baker.html', res_data)
+
+def join(request):
+    res_data={}
+    if request.method == 'POST':
+        bakerform = BakerForm(request.POST)  # ,instance=request.user  ,request.FILES, data
+        if bakerform.is_valid():  # 유효성 검사
+
+            try:
+                curBaker = checkBaker.objects.get(userid=bakerform.cleaned_data['userID'])
+                crnNum = curBaker.businessCRN
+
+                try:
+                    newBaker = Baker.objects.get(userID = bakerform.cleaned_data['userID'])
+                    res_data['error'] = "이미 가입된 계정입니다."
+                    return render(request, 'baker/join_baker.html', res_data)
+
+                except Baker.DoesNotExist:
+
+                    bakerobject = Baker(
+                        businessID = curBaker.businessCRN,
+                        userID = bakerform.cleaned_data['userID'],
+                        email = bakerform.cleaned_data['email'],
+                        name = bakerform.cleaned_data['name'],
+                        phoneNum = bakerform.cleaned_data['phoneNum'],
+                        password = make_password(bakerform.cleaned_data['password'])
+                    )
+
+                    bakerobject.save()
+                    # res_data['baker']=bakerform
+                    current_site = get_current_site(request)
+                    message = messageSend(current_site.domain,
+                                          urlsafe_base64_encode(force_bytes(bakerobject.pk)).encode().decode(),
+                                          account_activation_token.make_token(bakerobject))
+                    mail_subject = "[The Cake] 회원가입 인증 메일입니다."
+                    user_email = bakerobject.email
+                    email = EmailMessage(mail_subject, message, to=[user_email])
+                    email.send()
+                    res_data['comment'] = user_email + " 로 이메일이 발송되었습니다. \n\n인증을 완료해주세요 :)"
+                    return render(request, 'baker/userEmailSent.html', res_data)
+
+            except checkBaker.DoesNotExits:
+                res_data['error'] = "등록되지 않은 아이디입니다."
+                return render(request, 'baker/join_baker.html', res_data)
+        else:
+            # print(storeform.errors)
+            return redirect('/baker/inappropriateApproach')
+
+    else:
+        # bakerobject = Baker.objects.get(businessID=baker.businessID)
+        bakerform = BakerForm()
+        # storeform = StoreForm()
+        res_data['baker'] = bakerform
+
+        return render(request, 'baker/enrollStore2.html', res_data)
 
 def login(request):
     if request.method=="GET":
@@ -325,24 +379,6 @@ def opendays(request):
 
                 setDailyAmounts(baker.businessID,daysobject.sunday,daysobject.monday,daysobject.tuesday,daysobject.wednesday,
                                 daysobject.thursday,daysobject.friday,daysobject.saturday)
-                # try:
-                #     dailyobject = DailyAmount.objects.get(businessID=baker.businessID)
-                #
-                #     if yoil == 0:  # 일요일
-                #         if date % 7 == 0:
-                #             dailyobject.day7 = daysobject.sunday
-                #             dailyobject.day14 = daysobject.sunday
-                #             dailyobject.day21 = daysobject.sunday
-                #             dailyobject.day28 = daysobject.sunday
-                #         elif date % 7 == 1:
-                #             dailyobject.day1 = daysobject.sunday
-                #
-                #     #return render(request, 'baker/join_baker.html', res_data)
-                # except DailyAmount.DoesNotExist:
-                #     dailyobject = DailyAmount(
-                #
-                #     )
-                #     dailyobject.save()
                 return redirect('/baker/manageStore/weekhandle/', res_data)
 
             else:
@@ -738,22 +774,42 @@ def editInfo(request):
         res_data['bakername'] = baker.name
     return render(request,'baker/editMyInfo.html',res_data)
 
-def changePw(request):
+def changeAccountInfo(request):
     res_data = {}
     user_id = request.session.get('user')
 
     if user_id:
         baker = Baker.objects.get(pk=user_id)
         res_data['bakername'] = baker.name
+        # bakerobject = Baker()
+        if request.method == 'POST':
+            bakerform = BakerForm(request.POST)
+            if bakerform.is_valid():  # 유효성 검사
 
-        passwordbaker = request.POST.get('new_pw_baker', None)
-        baker.password = make_password(passwordbaker)
-        baker.save()
+                # userID = bakerform.cleaned_data['userID'],
+                # email = bakerform.cleaned_data['email'],
+                baker.name = bakerform.cleaned_data['name']
+                baker.phoneNum = bakerform.cleaned_data['phoneNum']
+                baker.password = make_password(bakerform.cleaned_data['password'])
 
-        return render(request,'baker/changePw.html',res_data)
+                baker.save()
+                res_data['baker'] = bakerform
+                # res_data['name'] = storeobject.storeImg
+                return render(request, 'baker/editMyInfo.html', res_data)
+            else:
+                return redirect('/baker/inappropriateApproach')
+
+        else:
+            baker = Baker.objects.get(businessID=baker.businessID)
+            bakerform = BakerForm(instance=baker)
+            # storeform = StoreForm()
+            res_data['baker'] = bakerform
+
+            return render(request, 'baker/editMyInfo.html', res_data)
 
     else:
         if request.method == "GET":
+            res_data = {}
             res_data['comment'] = "잘못된 접근입니다. 로그인을 해주세요!"
             return render(request, 'baker/inappropriateApproach.html', res_data)
         elif request.method == "POST":
@@ -762,25 +818,19 @@ def changePw(request):
 def checkPw(request):
     res_data = {}
     user_id = request.session.get('user')
-    print("Hello")
     if user_id:
         baker = Baker.objects.get(pk=user_id)
         res_data['bakername'] = baker.name
 
-        if 'pw' in request.GET:
-            pw = request.GET['pw']
-        else:
-            pw = False
+        if request.method == "GET":
+            return render(request, 'baker/checkPw.html')
+        elif request.method == "POST":
+            if baker.password == request.POST.get('password'):
+                return redirect('/baker/myPage/editMyInfo/',res_data)
+            else:
+                res_data['error'] = "비밀번호가 틀렸습니다."
+                return render(request,'baker/checkPw.html',res_data)
 
-        # pw = request.GET['pw']
-        if check_password(pw,baker.password):
-            res_data['result'] = 'success'
-        else:
-            res_data['result'] = 'fail'
-
-
-        print(res_data['result'])
-        return render(request,'baker/changePw.html',res_data)
 
     else:
         if request.method == "GET":
