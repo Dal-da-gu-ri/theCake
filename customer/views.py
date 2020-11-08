@@ -219,49 +219,72 @@ def showStores(request):
         sido = request.GET['sido']
         sigugun = request.GET['sigugun']
         dong = request.GET['dong']
-        date = request.GET['date']
-        res_data = {'sido': sido, 'sigugun': sigugun, 'dong': dong,
-                   'date': date}
+        day = request.GET['date']
+        res_data = {'sido': sido, 'sigugun': sigugun, 'dong': dong, 'date': day}
         orderdate = request.GET['date']
-        ordermonth = int(orderdate[5])*10+int(orderdate[6])
-        orderday = int(orderdate[8])*10+int(orderdate[9])
+        # ordermonth = int(orderdate[5])*10+int(orderdate[6])
+        # orderday = int(orderdate[8])*10+int(orderdate[9])
         # print(orderdate[4])
         store_list=[]
+        isStore = False
 
-        if sido:
+        if day:
+            ordermonth = int(orderdate[5]) * 10 + int(orderdate[6])
+            orderday = int(orderdate[8]) * 10 + int(orderdate[9])
+            if sido:
+                if sigugun:
+                    if dong:
+                        # store_list = Store.objects.filter(daum_sido=sido, daum_sigungu=sigugun, daum_dong=dong)
 
-            if sigugun:
+                        stores = Store.objects.filter(daum_sido=sido, daum_sigungu=sigugun, daum_dong=dong)
+                        for store in stores:
+                            if mappingDate(store,ordermonth,orderday) ==True: # 주문가능한 수량이 있을경우
+                                storeobject = Store.objects.get(businessID = store)
+                                store_list.append(storeobject)
+                                isStore = True
 
-                if dong:
+                        if isStore == True:
+                            res_data['happy'] = "조회된 가게 있음."
+                        else:
+                            res_data['error'] = "조회된 가게가 없습니다."
 
-                    # store_list = Store.objects.filter(daum_sido=sido, daum_sigungu=sigugun, daum_dong=dong)
+                        # print(store_list)
 
-                    stores = Store.objects.filter(daum_sido=sido, daum_sigungu=sigugun, daum_dong=dong)
-                    for store in stores:
-                        if mappingDate(store,ordermonth,orderday) ==True: # 주문가능한 수량이 있을경우
-                            storeobject = Store.objects.get(businessID = store)
-                            store_list.append(storeobject)
-                    # print(store_list)
+                    else:
+                        stores = Store.objects.filter(daum_sido=sido, daum_sigungu=sigugun)
+                        for store in stores:
+                            if mappingDate(store,ordermonth,orderday) ==True: # 주문가능한 수량이 있을경우
+                                storeobject = Store.objects.get(businessID = store)
+                                store_list.append(storeobject)
+                                isStore = True
+
+                        if isStore == True:
+                            res_data['happy'] = "조회된 가게 있음."
+                        else:
+                            res_data['error'] = "조회된 가게가 없습니다."
 
                 else:
-                    stores = Store.objects.filter(daum_sido=sido, daum_sigungu=sigugun)
+                    stores = Store.objects.filter(daum_sido=sido)
                     for store in stores:
-                        if mappingDate(store,ordermonth,orderday) ==True: # 주문가능한 수량이 있을경우
-                            storeobject = Store.objects.get(businessID = store)
+                        if mappingDate(store, ordermonth, orderday) == True:  # 주문가능한 수량이 있을경우
+                            storeobject = Store.objects.get(businessID=store)
                             store_list.append(storeobject)
-            else:
-                stores = Store.objects.filter(daum_sido=sido)
-                for store in stores:
-                    if mappingDate(store, ordermonth, orderday) == True:  # 주문가능한 수량이 있을경우
-                        storeobject = Store.objects.get(businessID=store)
-                        store_list.append(storeobject)
+                            isStore = True
+
+                    if isStore==True:
+                        res_data['happy']="조회된 가게 있음."
+                    else:
+                        res_data['error'] = "조회된 가게가 없습니다."
+
 
         else:             #선택된 가게가 없는 데 넘어온 경우..
-            res_data['error'] = "조회된 가게가 없습니다."
+            res_data['error'] = "날짜를 선택해주세요."
              # return HttpResponse(user_id)
 
         res_data['store_list'] = store_list
 
+
+        # print(isStore)
         # return render(request, 'customer/showStores.html', res_data)
         return render(request, 'customer/stores.html', res_data)
         # return render(request,'customer/showStores2.html',res_data)
