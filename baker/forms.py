@@ -183,316 +183,317 @@ class DailyAmountForm(forms.ModelForm):
         widgets = {
             'day1': forms.NumberInput(
                 attrs={
-                    'class': "text-center form-group col-md-8 mt-3"
+                    'class': "text-center form-group col-12 col-md-10 mt-3"
                 }
             ),
             'day2': forms.NumberInput(
                 attrs={
-                    'class': "text-center form-group col-md-8 mt-3"
+                    'class': "text-center form-group col-12 col-md-10 mt-3"
                 }
             ),
             'day3': forms.NumberInput(
                 attrs={
-                    'class': "text-center form-group col-md-8 mt-3"
+                    'class': "text-center form-group col-12 col-md-10 mt-3"
                 }
             ),
             'day4': forms.NumberInput(
                 attrs={
-                    'class': "text-center form-group col-md-8 mt-3"
+                    'class': "text-center form-group col-12 col-md-10 mt-3"
                 }
             ),
             'day5': forms.NumberInput(
                 attrs={
-                    'class': "text-center form-group col-md-8 mt-3"
+                    'class': "text-center form-group col-12 col-md-10 mt-3"
                 }
             ),
             'day6': forms.NumberInput(
                 attrs={
-                    'class': "text-center form-group col-md-8 mt-3"
+                    'class': "text-center form-group col-12 col-md-10 mt-3"
                 }
             ),
             'day7': forms.NumberInput(
                 attrs={
-                    'class': "text-center form-group col-md-8 mt-3"
+                    'class': "text-center form-group col-12 col-md-10 mt-3"
                 }
             ),
             'day8': forms.NumberInput(
                 attrs={
-                    'class': "text-center form-group col-md-8 mt-3"
+                    'class': "text-center form-group col-12 col-md-10 mt-3"
                 }
             ),
             'day9': forms.NumberInput(
                 attrs={
-                    'class': "text-center form-group col-md-8 mt-3"
+                    'class': "text-center form-group col-12 col-md-10 mt-3"
                 }
             ),
             'day10': forms.NumberInput(
                 attrs={
-                    'class': "text-center form-group col-md-8 mt-3"
+                    'class': "text-center form-group col-12 col-md-10 mt-3"
                 }
             ),
             'day11': forms.NumberInput(
                 attrs={
-                    'class': "text-center form-group col-md-8 mt-3"
+                    'class': "text-center form-group col-12 col-md-10 mt-3"
                 }
             ),
             'day12': forms.NumberInput(
                 attrs={
-                    'class': "text-center form-group col-md-8 mt-3"
+                    'class': "text-center form-group col-12 col-md-10 mt-3"
                 }
             ),
             'day13': forms.NumberInput(
                 attrs={
-                    'class': "text-center form-group col-md-8 mt-3"
+                    'class': "text-center form-group col-12 col-md-10 mt-3"
                 }
             ),
             'day14': forms.NumberInput(
                 attrs={
-                    'class': "text-center form-group col-md-8 mt-3"
+                    'class': "text-center form-group col-12 col-md-10 mt-3"
                 }
             ),
             'day15': forms.NumberInput(
                 attrs={
-                    'class': "text-center form-group col-md-8 mt-3"
+                    'class': "text-center form-group col-12 col-md-10 mt-3"
                 }
             ),
             'day16': forms.NumberInput(
                 attrs={
-                    'class': "text-center form-group col-md-8 mt-3"
+                    'class': "text-center form-group col-12 col-md-10 mt-3"
                 }
             ),
             'day17': forms.NumberInput(
                 attrs={
-                    'class': "text-center form-group col-md-8 mt-3"
+                    'class': "text-center form-group col-12 col-md-10 mt-3"
                 }
             ),
             'day18': forms.NumberInput(
                 attrs={
-                    'class': "text-center form-group col-md-8 mt-3"
+                    'class': "text-center form-group col-12 col-md-10 mt-3"
                 }
             ),
             'day19': forms.NumberInput(
                 attrs={
-                    'class': "text-center form-group col-md-8 mt-3"
+                    'class': "text-center form-group col-12 col-md-10 mt-3"
                 }
             ),
             'day20': forms.NumberInput(
                 attrs={
-                    'class': "text-center form-group col-md-8 mt-3"
+                    'class': "text-center form-group col-12 col-md-10 mt-3"
                 }
             ),
             'day21': forms.NumberInput(
                 attrs={
-                    'class': "text-center form-group col-md-8 mt-3"
+                    'class': "text-center form-group col-12 col-md-10 mt-3"
                 }
             ),
             'day22': forms.NumberInput(
                 attrs={
-                    'class': "text-center form-group col-md-8 mt-3"
+                    'class': "text-center form-group col-12 col-md-10 mt-3"
                 }
             ),
             'day23': forms.NumberInput(
                 attrs={
-                    'class': "text-center form-group col-md-8 mt-3"
+                    'class': "text-center form-group col-12 col-md-10 mt-3"
                 }
             ),
             'day24': forms.NumberInput(
                 attrs={
-                    'class': "text-center form-group col-md-8 mt-3"
+                    'class': "text-center form-group col-12 col-md-10 mt-3"
                 }
             ),
             'day25': forms.NumberInput(
                 attrs={
-                    'class': "text-center form-group col-md-8 mt-3"
+                    'class': "text-center form-group col-12 col-md-10 mt-3"
                 }
             ),
             'day26': forms.NumberInput(
                 attrs={
-                    'class': "text-center form-group col-md-8 mt-3"
+                    'class': "text-center form-group col-12 col-md-10 mt-3"
                 }
             ),
             'day27': forms.NumberInput(
                 attrs={
-                    'class': "text-center form-group col-md-8 mt-3"
+                    'class': "text-center form-group col-12 col-md-10 mt-3"
                 }
             ),
             'day28': forms.NumberInput(
                 attrs={
-                    'class': "text-center form-group col-md-8 mt-3"
+                    'class': "text-center form-group col-12 col-md-10 mt-3"
                 }
             ),
             'day29': forms.NumberInput(
                 attrs={
-                    'class': "text-center form-group col-md-8 mt-3"
+                    'class': "text-center form-group col-12 col-md-10 mt-3"
                 }
             ),
             'day30': forms.NumberInput(
                 attrs={
-                    'class': "text-center form-group col-md-8 mt-3"
+                    'class': "text-center form-group col-12 col-md-10 mt-3"
                 }
             ),
             'day31': forms.NumberInput(
                 attrs={
-                    'class': "text-center form-group col-md-8 mt-3"
+                    'class': "text-center form-group col-12 col-md-10 mt-3"
                 }
             ),
             'day32': forms.NumberInput(
                 attrs={
-                    'class': "text-center form-group col-md-8 mt-3"
+                    'class': "text-center form-group col-12 col-md-10 mt-3"
                 }
             ),
             'day33': forms.NumberInput(
                 attrs={
-                    'class': "text-center form-group col-md-8 mt-3"
+                    'class': "text-center form-group col-12 col-md-10 mt-3"
                 }
             ),
             'day34': forms.NumberInput(
                 attrs={
-                    'class': "text-center form-group col-md-8 mt-3"
+                    'class': "text-center form-group col-12 col-md-10 mt-3"
                 }
             ),
             'day35': forms.NumberInput(
                 attrs={
-                    'class': "text-center form-group col-md-8 mt-3"
+                    'class': "text-center form-group col-12 col-md-10 mt-3"
                 }
             ),
             'day36': forms.NumberInput(
                 attrs={
-                    'class': "text-center form-group col-md-8 mt-3"
+                    'class': "text-center form-group col-12 col-md-10 mt-3"
                 }
             ),
             'day37': forms.NumberInput(
                 attrs={
-                    'class': "text-center form-group col-md-8 mt-3"
+                    'class': "text-center form-group col-12 col-md-10 mt-3"
                 }
             ),
             'day38': forms.NumberInput(
                 attrs={
-                    'class': "text-center form-group col-md-8 mt-3"
+                    'class': "text-center form-group col-12 col-md-10 mt-3"
                 }
             ),
             'day39': forms.NumberInput(
                 attrs={
-                    'class': "text-center form-group col-md-8 mt-3"
+                    'class': "text-center form-group col-12 col-md-10 mt-3"
                 }
             ),
             'day40': forms.NumberInput(
                 attrs={
-                    'class': "text-center form-group col-md-8 mt-3"
+                    'class': "text-center form-group col-12 col-md-10 mt-3"
                 }
             ),
             'day41': forms.NumberInput(
                 attrs={
-                    'class': "text-center form-group col-md-8 mt-3"
+                    'class': "text-center form-group col-12 col-md-10 mt-3"
                 }
             ),
             'day42': forms.NumberInput(
                 attrs={
-                    'class': "text-center form-group col-md-8 mt-3"
+                    'class': "text-center form-group col-12 col-md-10 mt-3"
                 }
             ),
             'day43': forms.NumberInput(
                 attrs={
-                    'class': "text-center form-group col-md-8 mt-3"
+                    'class': "text-center form-group col-12 col-md-10 mt-3"
                 }
             ),
             'day44': forms.NumberInput(
                 attrs={
-                    'class': "text-center form-group col-md-8 mt-3"
+                    'class': "text-center form-group col-12 col-md-10 mt-3"
                 }
             ),
             'day45': forms.NumberInput(
                 attrs={
-                    'class': "text-center form-group col-md-8 mt-3"
+                    'class': "text-center form-group col-12 col-md-10 mt-3"
                 }
             ),
             'day46': forms.NumberInput(
                 attrs={
-                    'class': "text-center form-group col-md-8 mt-3"
+                    'class': "text-center form-group col-12 col-md-10 mt-3"
                 }
             ),
             'day47': forms.NumberInput(
                 attrs={
-                    'class': "text-center form-group col-md-8 mt-3"
+                    'class': "text-center form-group col-12 col-md-10 mt-3"
                 }
             ),
             'day48': forms.NumberInput(
                 attrs={
-                    'class': "text-center form-group col-md-8 mt-3"
+                    'class': "text-center form-group col-12 col-md-10 mt-3"
                 }
             ),
             'day49': forms.NumberInput(
                 attrs={
-                    'class': "text-center form-group col-md-8 mt-3"
+                    'class': "text-center form-group col-12 col-md-10 mt-3"
                 }
             ),
             'day50': forms.NumberInput(
                 attrs={
-                    'class': "text-center form-group col-md-8 mt-3"
+                    'class': "text-center form-group col-12 col-md-10 mt-3"
                 }
             ),
             'day51': forms.NumberInput(
                 attrs={
-                    'class': "text-center form-group col-md-8 mt-3"
+                    'class': "text-center form-group col-12 col-md-10 mt-3"
                 }
             ),
             'day52': forms.NumberInput(
                 attrs={
-                    'class': "text-center form-group col-md-8 mt-3"
+                    'class': "text-center form-group col-12 col-md-10 mt-3"
                 }
             ),
             'day53': forms.NumberInput(
                 attrs={
-                    'class': "text-center form-group col-md-8 mt-3"
+                    'class': "text-center form-group col-12 col-md-10 mt-3"
                 }
             ),
             'day54': forms.NumberInput(
                 attrs={
-                    'class': "text-center form-group col-md-8 mt-3"
+                    'class': "text-center form-group col-12 col-md-10 mt-3"
                 }
             ),
             'day55': forms.NumberInput(
                 attrs={
-                    'class': "text-center form-group col-md-8 mt-3"
+                    'class': "text-center form-group col-12 col-md-10 mt-3"
                 }
             ),
             'day56': forms.NumberInput(
                 attrs={
-                    'class': "text-center form-group col-md-8 mt-3"
+                    'class': "text-center form-group col-12 col-md-10 mt-3"
                 }
             ),
             'day57': forms.NumberInput(
                 attrs={
-                    'class': "text-center form-group col-md-8 mt-3"
+                    'class': "text-center form-group col-12 col-md-10 mt-3"
                 }
             ),
             'day58': forms.NumberInput(
                 attrs={
-                    'class': "text-center form-group col-md-8 mt-3"
+                    'class': "text-center form-group col-12 col-md-10 mt-3"
                 }
             ),
             'day59': forms.NumberInput(
                 attrs={
-                    'class': "text-center form-group col-md-8 mt-3"
+                    'class': "text-center form-group col-12 col-md-10 mt-3"
                 }
             ),
             'day60': forms.NumberInput(
                 attrs={
-                    'class': "text-center form-group col-md-8 mt-3"
+                    'class': "text-center form-group col-12 col-md-10 mt-3"
                 }
             ),
             'day61': forms.NumberInput(
                 attrs={
-                    'class': "text-center form-group col-md-8 mt-3"
+                    'class': "text-center form-group col-12 col-md-10 mt-3"
                 }
             ),
             'day62': forms.NumberInput(
                 attrs={
-                    'class': "text-center form-group col-md-8 mt-3"
+                    'class': "text-center form-group col-12 col-md-10 mt-3"
                 }
             )
 
         }
+    
 
 class OptionForm(forms.ModelForm):
     class Meta:
