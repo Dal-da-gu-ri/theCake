@@ -15,8 +15,9 @@ urlpatterns = [
     path('signUp/join/crncheck/', views.isCRN, name='isCRN_baker'),
 
     # 마이페이지
-    path('myPage/editMyInfo/',views.changeAccountInfo,name='editInfo'),
+    # path('myPage/editMyInfo/',views.changeAccountInfo,name='editInfo'),
     path('myPage/editMyInfo/checkPw', views.checkPw, name='checkPw'),
+    path('myPage/editMyInfo/changePw', views.changePw, name='changePw'),
     # path('myPage/checkPw/changePw/',views.changePw,name='changePw'),
 
 

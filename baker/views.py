@@ -65,7 +65,7 @@ def join3(request):
         res_data['comment'] = user_email + " 로 이메일이 발송되었습니다. \n\n인증을 완료해주세요 :)"
         return render(request, 'baker/userEmailSent.html', res_data)
 
-def join2(request):
+def join(request):
     #global bsID, emailBaker
     if request.method == "GET":
         return render(request, 'baker/join_baker.html')
@@ -115,7 +115,7 @@ def join2(request):
             res_data['error'] = "등록되지 않은 아이디입니다."
             return render(request, 'baker/join_baker.html', res_data)
 
-def join(request):
+def join2(request):
     res_data={}
     if request.method == 'POST':
         bakerform = BakerForm(request.POST)  # ,instance=request.user  ,request.FILES, data
@@ -495,6 +495,7 @@ def dailyamountsetting(request):
                 return redirect('/baker/manageStore/datehandle/', res_data)
 
             else:
+                print(dailyform)
                 return redirect('/baker/inappropriateApproach')
 
         else:
@@ -851,6 +852,28 @@ def checkPw(request):
                 res_data['result'] = "비밀번호가 틀렸습니다."
                 print(res_data)
                 return render(request,'baker/checkPw.html',res_data)
+
+    else:
+        if request.method == "GET":
+            res_data['comment'] = "잘못된 접근입니다. 로그인을 해주세요!"
+            return render(request, 'baker/inappropriateApproach.html', res_data)
+        elif request.method == "POST":
+            return redirect('/')
+
+
+def changePw(request):
+    res_data = {}
+    user_id = request.session.get('user')
+    if user_id:
+        baker = Baker.objects.get(pk=user_id)
+        res_data['bakername'] = baker.name
+        if request.method == "GET":
+            return render(request, 'baker/changePw.html',res_data)
+        elif request.method == "POST":
+            newpassword = request.POST.get('password_baker')
+            baker.password=make_password(newpassword)
+            res_data['success']="성공적으로 비밀번호가 변경되었습니다."
+            return redirect('/baker/myPage/editMyInfo/', res_data)
 
     else:
         if request.method == "GET":
