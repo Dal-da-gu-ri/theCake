@@ -222,19 +222,18 @@ def showStores(request):
         day = request.GET['date']
         res_data = {'sido': sido, 'sigugun': sigugun, 'dong': dong, 'date': day}
         orderdate = request.GET['date']
-        ordermonth = int(orderdate[5])*10+int(orderdate[6])
-        orderday = int(orderdate[8])*10+int(orderdate[9])
+        # ordermonth = int(orderdate[5])*10+int(orderdate[6])
+        # orderday = int(orderdate[8])*10+int(orderdate[9])
         # print(orderdate[4])
         store_list=[]
         isStore = False
 
         if day:
+            ordermonth = int(orderdate[5]) * 10 + int(orderdate[6])
+            orderday = int(orderdate[8]) * 10 + int(orderdate[9])
             if sido:
-
                 if sigugun:
-
                     if dong:
-
                         # store_list = Store.objects.filter(daum_sido=sido, daum_sigungu=sigugun, daum_dong=dong)
 
                         stores = Store.objects.filter(daum_sido=sido, daum_sigungu=sigugun, daum_dong=dong)
@@ -285,7 +284,7 @@ def showStores(request):
         res_data['store_list'] = store_list
 
 
-        print(res_data)
+        # print(isStore)
         # return render(request, 'customer/showStores.html', res_data)
         return render(request, 'customer/stores.html', res_data)
         # return render(request,'customer/showStores2.html',res_data)
