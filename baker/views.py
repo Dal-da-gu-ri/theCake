@@ -907,7 +907,9 @@ def options(request):
         res_data['bakername'] = baker.name
         #cake_list = Cake.objects.all()
         option_list = Option.objects.filter(businessID=baker.businessID)
+        detail_list = DetailedOption.objects.filter(businessID=baker.businessID)
         res_data['option_list']= option_list
+        res_data['detail_list']=detail_list
         return render(request, 'baker/options.html',res_data)
     else:
         if request.method == "GET":
@@ -939,7 +941,7 @@ def option_add(request):
                 if Option.objects.filter(optionName=optionobject.optionName, businessID=optionobject.businessID).exists():
                     optionform = OptionForm()
                     res_data['option'] = optionform
-                    res_data['error'] = "이미 등록된 옵 이름입니다."
+                    res_data['error'] = "이미 등록된 옵션 이름입니다."
                     return render(request, 'baker/option_add.html', res_data)
                 else:
                     optionobject.save()
