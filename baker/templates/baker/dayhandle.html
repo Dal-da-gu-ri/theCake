@@ -7,6 +7,25 @@
 <style>
     *{font-family:'Nanum Gothic', sans-serif;}
     .main_wrap{margin-top: 4px;padding-top: 30px;padding-bottom: 30px;margin-bottom: 4px;}
+    .main_calendar tr:nth-child(1){
+        height: 20px;
+        border-top: solid #fffff0;
+        border-bottom-color: #fffff0;
+    }
+    .main_calendar tr:nth-child(2){
+        border-bottom-color: #f7f7f7;
+        height: 30px;
+        font-size: 20px;
+    }
+    .calendar_label{font-size: 30px;}
+    .calendar_year_month{font-size: 30px;}
+    .main_calendar tr:nth-child(3){font-size: 18px;}
+    .main_calendar tr:nth-child(4){font-size: 18px;}
+    .main_calendar tr:nth-child(5){font-size: 18px;}
+    .main_calendar tr:nth-child(6){font-size: 18px;}
+    .main_calendar tr:nth-child(7){font-size: 18px;}
+    .main_calendar td:nth-child(1){color: red;}
+    .main_calendar td:nth-child(7){color: blue;}
 </style>
 
 <script language="javascript">
@@ -512,9 +531,9 @@
                 <div class="calendar">
                     <table class = "main_calendar" id = "tab">
                         <tr>
-                            <td class="calendar_prev" id="prev"><label class="calendar_label" onclick="prevmonth()"><</td>
+                            <td class="calendar_prev" id="prev"><label class="calendar_label" onclick="prevmonth()" style="color:black;"><</td>
                             <td class="calendar_year_month" id="Ymd" colspan="5"></td>
-                            <td class="calendar_next" id="next"><label class="calendar_label" onclick="nextmonth()">></td>
+                            <td class="calendar_next" id="next"><label class="calendar_label" onclick="nextmonth()" style="color:black;">></td>
                         </tr>
                         <tr class="calendar_weekday">
                             <td class="week_sun">일</td>
