@@ -4,26 +4,31 @@ from home.models import *
 class BakerForm(forms.ModelForm):
     class Meta:
         model = Baker
-        fields = ['userID','businessID','email','name','phoneNum','password']
+        fields = ['userID','businessID','name','phoneNum','password']
         widgets = {
             'userID':forms.TextInput(
                 attrs={'class':'form-control',
+                       'id': 'userID',
                        'placeholder':'기입하였던 아이디를 입력하세요'}
             ),
-            'email': forms.EmailField(
-                attrs={'class': 'form-control',
-                       'placeholder': '이메일'}
-            ),
+            # 'email': forms.EmailField(
+            #     attrs={'class': 'form-control',
+            #            'id': 'email',
+            #            'placeholder': '이메일'}
+            # ),
             'name': forms.TextInput(
                 attrs={'class': 'form-control',
+                       'id': 'name',
                        'placeholder': '성명'}
             ),
             'phoneNum': forms.TextInput(
                 attrs={'class': 'form-control',
+                       'id': 'phoneNum',
                        'placeholder': '예) 010-1234-5678'}
             ),
             'password': forms.PasswordInput(
                 attrs={'class': 'form-control',
+                       'id': 'password',
                        'placeholder': '비밀번호'}
             )
 
