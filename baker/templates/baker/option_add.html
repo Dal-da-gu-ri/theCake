@@ -209,19 +209,15 @@
                 <div class="mt-2 mb-3">
                     <span class="ml-3 mr-1">색상판</span>
                     {{option.withColor}}
-<!--                    <input type="checkbox" class="color_check" name="color_check" value="색상판" style="font-size: 0.8em;">-->
                     <span class="ml-4 mr-1">이미지 업로드</span>
                     {{option.withImage}}
-<!--                    <input type="checkbox" class="img_check" name="img_check" value="이미지 업로드" style="font-size: 0.8em;">-->
                 </div>
                 <div id="detail">
-                    <div id="detail_obj" class="row text-nowrap align-items-center ml-1 my-2">
+                    <div id="detail_obj" class="text-nowrap d-flex align-items-center ml-1 my-2">
                         <!-- 세부항목 이름 input -->
                         <span class="ml-1 mr-3">종류</span>{{detail.detailName}}
-<!--                        <input type="text" name="detailName" placeholder="세부항목(10자리 이하)" maxlength="10" size="23" required>-->
                         <!-- 세부항목 추가금액 input -->
                         <span class="ml-3 mr-3">추가금액</span>{{detail.pricing}}
-<!--                        <input type="number" name="extraCost" placeholder="숫자만 입력해주세요." required>-->
                         <!-- 세부항목 삭제 button -->
                         <span class="img">
                             <a class="deleteDetail_btn ml-2">

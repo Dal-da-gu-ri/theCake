@@ -229,6 +229,12 @@
         border-bottom: 1px solid gray;
         width: 50%;
     }
+
+    .detailContent{
+        font-size: 1.1em;
+        padding: 0.6em !important;
+    }
+
 </style>
 
 
@@ -295,9 +301,9 @@
                             <!-- 이 안에 추가정보 가져오면 됨 -->
                             {% for detail in detail_list %}
                             {% if detail.optionName == option.optionName %}
-                            <tr class="detail_content">
-                                <th>{{detail.detailName}}</th>
-                                <th>{{detail.pricing}}</th>
+                            <tr class="detail_content" >
+                                <th class="text-nowrap detailContent">{{detail.detailName}}</th>
+                                <th class="text-nowrap detailContent">{{detail.pricing}}</th>
                             </tr>
                             {% endif %}
                             {% endfor %}
