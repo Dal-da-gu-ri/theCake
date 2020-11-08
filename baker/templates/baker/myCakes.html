@@ -3,7 +3,125 @@
 {% block content %}
 <!--<p>케이크 관리 -> 내 케이크 페이지 입니다.</p>-->
 
-<link rel="stylesheet" href="/static/css/myCakes.css">
+<!--<link rel="stylesheet" href="/static/css/myCakes.css">-->
+
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Nanum+Gothic&display=swap');
+  .bd-placeholder-img {
+    font-size: 1.125rem;
+    text-anchor: middle;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+  }
+
+  @media (min-width: 768px) {
+    .bd-placeholder-img-lg {
+      font-size: 3.5rem;
+    }
+  }
+
+    /* .vp_text{
+    font-size: 4vw;
+  } */
+
+  .inline_block{
+    display: inline-block;
+  }
+
+  .underline{
+    text-decoration: underline;
+  }
+
+  .card{
+    border: 1px solid #c2c2c2;
+  }
+
+  .card-body{
+    font-size: 0.9em;
+    background-color: #f5efef;
+    padding: 1rem;
+  }
+  /* font-size: 4vw; */
+
+  .card-text{
+    color:#929292;
+  }
+
+  .image-block{
+    position: relative;
+  }
+
+  .image-block img {
+    /* filter: grayscale(100%); */
+    /* opacity: 1; */
+    transition:.5s ease;
+    /* vertical-align: middle; */
+  }
+
+  .edit_text{
+    transition:.15s ease;
+    opacity: 0;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    /* color: #000000; */
+    font-size: 1.3em;
+    position: absolute;
+    text-align: center;
+  }
+
+  .edit_text>a{
+    text-decoration:none;
+    color: black;
+  }
+
+  .image-block:hover img{
+    opacity: 0.6;
+  }
+
+  .image-block:hover .edit_text{
+    opacity: 1;
+  }
+
+  .gray{
+    color:#929292;
+  }
+
+  .add_btn {
+        background-color: #b8b8b8;
+        border: 1px solid #b8b8b8;
+        border-radius: .2rem;
+        color: white;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        margin: 1px;
+        padding-top: 5px;
+        padding-bottom: 5px;
+        width: 120px;
+        height: 1.9em;
+    }
+
+    .add_btn:hover {
+        background-color: #a7a7a7;
+        transition: 0.15s;
+    }
+
+    .add_btn:focus {
+        outline: none;
+    }
+
+    .add_btn:active {
+        background-color: #969393;
+    }
+
+  #delete:hover {
+    opacity: 0.6;
+  }
+
+</style>
 
 
 <div style="font-size: 0.9rem;">
