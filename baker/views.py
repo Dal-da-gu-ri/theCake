@@ -392,13 +392,13 @@ def opendays(request):
             # daysobject = OpenDays.objects.get(businessID=baker.businessID)
             # daysform = OpenDaysForm(instance=daysobject)
             # res_data['opendays'] = daysform
-
+            # print("in")
             try:
                 daysobject = OpenDays.objects.get(businessID=baker.businessID)
-                daysform = DailyAmountForm(instance=daysobject)
+                daysform = OpenDaysForm(instance=daysobject)
             except OpenDays.DoesNotExist:
                 daysobject=OpenDays()
-                daysform = DailyAmountForm(instance=daysobject)
+                daysform = OpenDaysForm(instance=daysobject)
             res_data['opendays'] = daysform
             # dailyobject = DailyAmount.objects.get(businessID=baker.businessID)
             # dailyform = DailyAmountForm(instance=dailyobject)
@@ -422,7 +422,7 @@ def dailyamountsetting(request):
         # daysobject = OpenDays()
         dailyobject = DailyAmount()
         if request.method == "POST":
-            # daysform = OpenDaysForm(request.POST)
+            print("heree")
             dailyform = DailyAmountForm(request.POST)
             if dailyform.is_valid():
                 dailyobject.businessID = baker.businessID
@@ -498,6 +498,7 @@ def dailyamountsetting(request):
                 return redirect('/baker/inappropriateApproach')
 
         else:
+            print("heree2")
             # daysobject = OpenDays.objects.get(businessID=baker.businessID)
             # daysform = OpenDaysForm(instance=daysobject)
             # res_data['opendays'] = daysform
