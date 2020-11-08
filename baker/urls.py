@@ -36,8 +36,10 @@ urlpatterns = [
     # 하나의 케이크에 해당하는 정보를 불러오는 path도 있어야함.(뷰 함수는 id같은 pk로 정보가져오는 함수)
     path('manageCake/myCakes/cakeAdd/', views.cake_add, name='cake_add'),
     path('manageCake/myCakes/cakeEdit/<int:pk>/', views.cake_edit, name='cake_edit'),
-    path('manageCake/options/', views.options, name='options_baker'),
     path('manageCake/myCakes/cakeEdit/<int:pk>/delete', views.cake_delete, name='cake_delete'),
+    path('manageCake/options/', views.options, name='options_baker'),
+    path('manageCake/options/optionAdd/', views.option_add, name='option_add'),
+    path('manageCake/options/optionEdit/', views.option_edit, name='option_edit'),
 
 
 
