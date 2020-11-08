@@ -956,6 +956,8 @@ def option_add(request):
         else:
             optionform = OptionForm()
             res_data['option'] = optionform
+            detailform = DetailedOptionForm()
+            res_data['detail'] = detailform
             return render(request, 'baker/option_add.html', res_data)
 
     else:
@@ -992,6 +994,8 @@ def option_edit(request,pk):
         else:
             optionform = OptionForm(instance=optionobject)
             res_data['option'] = optionform
+            detailform = DetailedOptionForm()
+            res_data['detail'] = detailform
             return render(request, 'baker/option_add.html', res_data)
 
     else:
