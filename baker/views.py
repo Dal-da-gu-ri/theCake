@@ -296,15 +296,12 @@ def wrongApproach(request):
 def enrollStore(request):
     res_data = {}
     user_id = request.session.get('user')
-    #store = StoreForm()
-    #return HttpResponse(user_id)
-
     if user_id:
         baker = Baker.objects.get(pk=user_id)
         res_data['bakername'] = baker.name
         storeobject = Store()
         if request.method == 'POST':
-            storeform = StoreForm(request.POST, request.FILES) #,instance=request.user  ,request.FILES, data
+            storeform = StoreForm(request.POST, request.FILES)
             if storeform.is_valid(): #유효성 검사
                     storeobject.businessID = baker.businessID
                     storeobject.manager = baker
@@ -318,13 +315,9 @@ def enrollStore(request):
                     storeobject.address2 = storeform.cleaned_data['address2']
                     storeobject.address3 = storeform.cleaned_data['address3']
                     storeobject.location = storeform.cleaned_data['address1'] + " "+storeform.cleaned_data['address2']
-                    #storeobject.sido = storeform.cleaned_data['sido']
-                    #storeobject.sigugun = storeform.cleaned_data['sigugun']
-                    #storeobject.dong = storeform.cleaned_data['dong']
                     storeobject.daum_sido = request.POST.get('daum_sido',None)
                     storeobject.daum_sigungu = request.POST.get('daum_sigungu',None)
                     storeobject.daum_dong = request.POST.get('daum_dong',None)
-
                     storeobject.storeImg = storeform.cleaned_data['storeImg']
 
                     storeobject.save()
@@ -336,9 +329,6 @@ def enrollStore(request):
                     return redirect('/baker/inappropriateApproach')
 
         else:
-            # storeobject = Store.objects.get(businessID=baker.businessID)
-            # storeform = StoreForm(instance=storeobject)
-            #storeform = StoreForm()
             try:
                 storeobject = Store.objects.get(businessID=baker.businessID)
                 storeform = StoreForm(instance=storeobject)
@@ -908,21 +898,65 @@ def logout(request):
     elif request.method == "POST":
         return redirect('/')
 
-def option_add(request):
+
+def options(request):
     res_data = {}
     user_id = request.session.get('user')
     if user_id:
         baker = Baker.objects.get(pk=user_id)
         res_data['bakername'] = baker.name
+        #cake_list = Cake.objects.all()
+        option_list = Option.objects.filter(businessID=baker.businessID)
+        res_data['option_list']= option_list
+        return render(request, 'baker/options.html',res_data)
+    else:
         if request.method == "GET":
-            return render(request, 'baker/option_add.html',res_data)
+            res_data['comment'] = "잘못된 접근입니다. 로그인을 해주세요!"
+            return render(request, 'baker/inappropriateApproach.html', res_data)
         elif request.method == "POST":
-            if check_password(request.POST.get('password_baker'), baker.password):
-                return redirect('/baker/myPage/editMyInfo/changePw',res_data)
+            return redirect('/baker/login')
+
+def option_add(request):
+    res_data = {}
+    user_id = request.session.get('user')
+
+    if user_id:
+        baker = Baker.objects.get(pk=user_id)
+        res_data['bakername'] = baker.name
+        #cakeobject = Cake()
+        if request.method == "POST":
+            optionform = OptionForm(request.POST)
+            # store = Store.objects.get(pk=baker.businessID)
+
+            if optionform.is_valid():
+                optionobject = optionform.save(commit=False)
+                optionobject.businessID = baker.businessID
+                optionobject.optionName = optionform.cleaned_data['optionName']
+                optionobject.isNecessary = optionform.cleaned_data['isNecessary']
+                optionobject.withImage = optionform.cleaned_data['withImage']
+                optionobject.withColor = optionform.cleaned_data['withColor']
+
+                if Option.objects.filter(optionName=optionobject.optionName, businessID=optionobject.businessID).exists():
+                    optionform = OptionForm()
+                    res_data['option'] = optionform
+                    res_data['error'] = "이미 등록된 케이크 이름입니다."
+                    return render(request, 'baker/option_add.html', res_data)
+                else:
+                    optionobject.save()
+                    # return redirect('/baker/manageCake/myCakes')
+                    res_data['option'] = optionform
+                    # res_data['name'] = cakeobject.cakeImg
+                    # return render(request, 'baker/myCakes2.html', res_data)
+                    return redirect('/baker/manageCake/options', res_data)
+
+
             else:
-                res_data['result'] = "비밀번호가 틀렸습니다."
-                print(res_data)
-                return render(request,'baker/checkPw.html',res_data)
+                    return redirect('/baker/inappropriateApproach')
+
+        else:
+            optionform = OptionForm()
+            res_data['option'] = optionform
+            return render(request, 'baker/option_add.html', res_data)
 
     else:
         if request.method == "GET":
@@ -931,21 +965,54 @@ def option_add(request):
         elif request.method == "POST":
             return redirect('/')
 
-def option_edit(request):
+
+def option_edit(request,pk):
     res_data = {}
     user_id = request.session.get('user')
+
     if user_id:
         baker = Baker.objects.get(pk=user_id)
         res_data['bakername'] = baker.name
-        if request.method == "GET":
-            return render(request, 'baker/option_edit.html',res_data)
-        elif request.method == "POST":
-            if check_password(request.POST.get('password_baker'), baker.password):
-                return redirect('/baker/myPage/editMyInfo/changePw',res_data)
+        optionobject = get_object_or_404(Option,pk=pk)
+        if request.method == "POST":
+            optionform = OptionForm(request.POST,instance=optionobject)
+
+            if optionform.is_valid():
+
+                optionobject = optionform.save()
+                res_data['option'] = optionform
+                optionobject.save()
+                return redirect('/baker/manageCake/options', res_data)
             else:
-                res_data['result'] = "비밀번호가 틀렸습니다."
-                print(res_data)
-                return render(request,'baker/checkPw.html',res_data)
+                    optionform = OptionForm()
+                    res_data['option'] = optionform
+                    res_data['error'] = "이미 등록된 케이크 이름입니다."
+                    return render(request, 'baker/option_add.html', res_data)
+
+        else:
+            optionform = OptionForm(instance=optionobject)
+            res_data['option'] = optionform
+            return render(request, 'baker/option_add.html', res_data)
+
+    else:
+        if request.method == "GET":
+            res_data = {}
+            res_data['comment'] = "잘못된 접근입니다. 로그인을 해주세요!"
+            return render(request, 'baker/inappropriateApproach.html', res_data)
+        elif request.method == "POST":
+            return redirect('/')
+
+
+def option_delete(request,pk):
+    res_data = {}
+    user_id = request.session.get('user')
+
+    if user_id:
+        baker = Baker.objects.get(pk=user_id)
+        res_data['bakername'] = baker.name
+        optionobject = get_object_or_404(Option, pk=pk)
+        optionobject.delete()
+        return redirect('/baker/manageCake/options', res_data)
 
     else:
         if request.method == "GET":
