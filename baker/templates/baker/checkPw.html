@@ -5,9 +5,16 @@
         <p class="pt-3 pl-4 path">마이페이지 > 비밀번호 확인</p>
     </div>
 <div class="a_layer">
+
         <div class="a_layer_inner">
         <div class="a_content">
-<!--                        <div class="d-flex justify-content-around align-items-center">-->
+    <div class="row mt-5">
+        <div class="col-12">
+            {{error}}
+        </div>
+    </div>
+<form method = "POST" class="form-signup">
+    {% csrf_token %}
                <div class="form-inline form-group">
                   <label for="password_baker" class="col-sm-4 control-label">현재 비밀번호</label>
                   <input type="password"
@@ -15,37 +22,17 @@
                   id="password_baker"
                   placeholder="현재 비밀번호를 입력해주세요."
                   name= "password_baker"
-                  minlength="8"
                   required>
                    <div class="ml-4">
-                       <button id="pw_submit" class="btn btn-secondary btn-block">확인</button>
+                       <button type="submit" id="pw_submit" class="btn btn-secondary btn-block">확인</button>
                    </div>
                </div>
+</form>
             </div>
         </div>
 </div>
 <script>
-    $('#pw_submit').click(function(){
-        var pw = $('#password_baker').val();
-
-        $.ajax({
-            url: '{% url 'baker:checkPw' %}',
-            data: {'pw': pw},
-            success: function(data){
-                if(data.result == "success"){
-                    alert("확인되었습니다.");
-                    document.getElementById('password_baker').readOnly = true;
-                    $('#pw_submit').attr('disabled', 'disabled');
-                    $('#newPw').show();
-                }
-                else if(data.result == "fail"){
-                    alert("비밀번호가 존재하지 않습니다.");
-                }
-             }
-             error: function(data){
-                alert("에러발생");
-             }
-        })
-    })
+    if('{{result}}'!="")
+        alert('{{ result }}');
 </script>
 {% endblock %}
