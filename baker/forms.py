@@ -26,11 +26,11 @@ class BakerForm(forms.ModelForm):
                        'id': 'phoneNum',
                        'placeholder': '예) 010-1234-5678'}
             ),
-            'password': forms.PasswordInput(
-                attrs={'class': 'form-control',
-                       'id': 'password',
-                       'placeholder': '비밀번호'}
-            )
+            # 'password': forms.PasswordInput(
+            #     attrs={'class': 'form-control',
+            #            'id': 'password',
+            #            'placeholder': '비밀번호'}
+            # )
 
         }
 

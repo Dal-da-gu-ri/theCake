@@ -34,30 +34,34 @@
     </div>
 
     <div class="form-inline form-group">
-      <label for="email_baker" class="col-sm-4 control-label">이메일</label>
-      <input
-      type="email"
-      class="form-control"
-      id="email_baker"
-      placeholder="이메일을 입력해주세요."
-      name="email_baker"
-      required>
+      <label class="col-sm-4 control-label">성명</label>
+        {{baker.name}}
       <!-- 이 name 값으로 정보가 전달된다 -->
 
     </div>
 
     <div class="form-inline form-group">
-      <label class="col-sm-4 control-label">이메일</label>
-        {{baker.email}}
+      <label for="email_baker" class="col-sm-4 control-label">이메일</label>
+      <input type="email"
+             class="form-control"
+             id="email_baker"
+             placeholder="이메일을 입력해주세요."
+             name="email_baker"
+             required>
     </div>
 
     <div class="form-inline form-group">
-      <label class="col-sm-4 control-label">비밀번호</label>
-        {{baker.password}}
+      <label for="password_baker" class="col-sm-4 control-label">비밀번호</label>
+        <input type="password"
+      class="form-control"
+      id="password_baker"
+      placeholder="비밀번호 재입력"
+      name= "re-password_baker"
+      required>
     </div>
 
     <div class="form-inline form-group">
-      <label class="col-sm-4 control-label" >비밀번호 확인</label>
+      <label for="re-password_baker" class="col-sm-4 control-label" >비밀번호 확인</label>
       <input type="password"
       class="form-control"
       id="re-password_baker"
@@ -147,6 +151,7 @@ check_businessID이 거짓이면 유효하지 않는 사업자등록번호입니
  }
  if (phoneCHK<0){
     alert("올바른 휴대전화 형식으로 입력해주세요. 예) 010-1234-5678");
+    return false;
  }
 
 }
