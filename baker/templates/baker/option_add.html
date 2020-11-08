@@ -231,43 +231,50 @@
 </div>
 
 <table id="table" class="mt-5 mb-2">
-    <!--옵션 추가에서 씀-->
-     <tr id="option_row">
-            <td class="option text-nowrap" rowspan="2">옵션</td> <!--가운데정렬 왜 나만 안돼-->
+    <form method = "POST" action = "#">
+    {% csrf_token %}
+        <!-- 옵션 추가에서 씀 -->
+         <tr id="option_row">
+            <td class="option text-nowrap" rowspan="2">옵션</td>
             <td class="optionInfo text-nowrap">
                 <div class="d-flex justify-content-between align-items-center">
                     <div>
                         <!-- 옵션명 input -->
-                        <input type="text" name="optionName" placeholder="옵션명(10자리 이하)" maxlength="10" size="27" required>
+                        {{option.optionName}}
+<!--                        <input type="text" name="optionName" placeholder="옵션명(10자리 이하)" maxlength="10" size="27" required>-->
                         <!-- 필수옵션입니다 checkbox -->
-                        <span class="ml-3 mr-1 requiredOption">필수옵션입니까?</span> <input type="checkbox" class="isRequired" name="isRequired" value="필수옵션입니까" style="font-size: 0.8em;">
+                        <span class="ml-3 mr-1 requiredOption">필수옵션입니까?</span>{{option.isNecessary}}
+<!--                        <input type="checkbox" class="isRequired" name="isRequired" value="필수옵션입니까" style="font-size: 0.8em;">-->
                     </div>
                     <div>
                         <!-- 세부항목 추가 button -->
                         <button type="button" class="addDetail_btn ml-3" onclick="addDetail()">세부항목 추가</button>
                         <!-- 옵션삭제 button -->
                         <button type="button" class="deleteOption_btn" onclick="deleteOption()">옵션 삭제</button>
-<!--                        <button type="button" class="deleteOption_btn">옵션 삭제</button>-->
+                        <!-- <button type="button" class="deleteOption_btn">옵션 삭제</button>-->
                     </div>
                 </div>
             </td>
         </tr>
 
-
         <tr id="detail_row">
             <td class="detailInfo">
-                <!-- 동적으로 세부항목 추가 가능해야 -->
                 <div class="mt-2 mb-3">
-                    <span class="ml-3 mr-1">색상판</span> <input type="checkbox" class="color_check" name="color_check" value="색상판" style="font-size: 0.8em;">
-                    <span class="ml-4 mr-1">이미지 업로드</span> <input type="checkbox" class="img_check" name="img_check" value="이미지 업로드" style="font-size: 0.8em;">
+                    <span class="ml-3 mr-1">색상판</span>
+                    {{option.withColor}}
+<!--                    <input type="checkbox" class="color_check" name="color_check" value="색상판" style="font-size: 0.8em;">-->
+                    <span class="ml-4 mr-1">이미지 업로드</span>
+                    {{option.withImage}}
+<!--                    <input type="checkbox" class="img_check" name="img_check" value="이미지 업로드" style="font-size: 0.8em;">-->
                 </div>
-                <!-- 이게 기본 -->
                 <div id="detail">
                     <div id="detail_obj" class="row text-nowrap align-items-center ml-1 my-2">
                         <!-- 세부항목 이름 input -->
-                        <span class="ml-1 mr-3">종류</span><input type="text" name="detailName" placeholder="세부항목(10자리 이하)" maxlength="10" size="23" required>
+                        <span class="ml-1 mr-3">종류</span>{{detail.detailName}}
+<!--                        <input type="text" name="detailName" placeholder="세부항목(10자리 이하)" maxlength="10" size="23" required>-->
                         <!-- 세부항목 추가금액 input -->
-                        <span class="ml-3 mr-3">추가금액</span><input type="number" name="extraCost" placeholder="숫자만 입력해주세요." required>
+                        <span class="ml-3 mr-3">추가금액</span>{{detail.pricing}}
+<!--                        <input type="number" name="extraCost" placeholder="숫자만 입력해주세요." required>-->
                         <!-- 세부항목 삭제 button -->
                         <span class="img">
                             <a class="deleteDetail_btn ml-2">
@@ -278,6 +285,7 @@
                 </div>
             </td>
         </tr>
+    </form>
 </table>
 
 <!-- 적용 버튼 -->
