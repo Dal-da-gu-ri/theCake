@@ -41,13 +41,12 @@
       name="businessID"
       required>
     </div>
-    <div class="row mt-5">
-        <div class="col-12">
-            {{error}}
-        </div>
-    </div>
     <button type='submit' id="submit" class="btn btn-lg btn-secondary btn-block">사업자 번호 인증하기</button>
  </form>
 
 </body>
 </html>
+<script>
+    if('{{error}}'!="")
+        alert('{{ error }}');
+</script>

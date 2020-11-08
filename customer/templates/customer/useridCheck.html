@@ -77,13 +77,12 @@ body {
       name="email_customer"
       required>
     </div>
-    <div class="row mt-5">
-        <div class="col-12">
-            {{error}}
-        </div>
-    </div>
     <button type='submit' id="submit" class="btn btn-lg btn-secondary btn-block">아이디 사용가능여부 확인하기</button>
  </form>
 
 </body>
 </html>
+<script>
+    if('{{error}}'!="")
+        alert('{{ error }}');
+</script>

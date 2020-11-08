@@ -836,16 +836,15 @@ def checkPw(request):
     if user_id:
         baker = Baker.objects.get(pk=user_id)
         res_data['bakername'] = baker.name
-
         if request.method == "GET":
             return render(request, 'baker/checkPw.html',res_data)
         elif request.method == "POST":
-            if baker.password == request.POST.get('password'):
+            if check_password(request.POST.get('password_baker'), baker.password):
                 return redirect('/baker/myPage/editMyInfo/',res_data)
             else:
-                res_data['error'] = "비밀번호가 틀렸습니다."
+                res_data['result'] = "비밀번호가 틀렸습니다."
+                print(res_data)
                 return render(request,'baker/checkPw.html',res_data)
-
 
     else:
         if request.method == "GET":

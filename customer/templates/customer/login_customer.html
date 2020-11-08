@@ -64,11 +64,7 @@ body {
 
     <form method="POST" class="form-signin">
         <img class="mb-4" src="/static/img/logo_customer.png" alt="logo_customer" width="141" height="120">
-            <div class="row mt-5">
-                <div class="col-12">
-                    {{error}}
-                </div>
-            </div>
+
         {% csrf_token %}
 
         <input type="text" id="ID_customer" class="form-control" name="ID_customer" placeholder="ID" required>
@@ -84,3 +80,7 @@ body {
 
 </body>
 </html>
+<script>
+    if('{{error}}'!="")
+        alert('{{ error }}');
+</script>

@@ -1,31 +1,84 @@
 {% extends 'base_baker.html' %}
 {% block title %} ::일자별 수량 관리:: {% endblock %}
 {% block content %}
-<link rel="stylesheet" type="text/css" href="/static/css/style.css">
+<!--<link rel="stylesheet" type="text/css" href="/static/css/style.css">-->
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous">
 <link href="https://fonts.googleapis.com/css2?family=Nanum+Gothic&display=swap" rel="stylesheet">
 <style>
     *{font-family:'Nanum Gothic', sans-serif;}
-    .main_wrap{margin-top: 4px;padding-top: 30px;padding-bottom: 30px;margin-bottom: 4px;}
-    .main_calendar tr:nth-child(1){
-        height: 20px;
-        border-top: solid #fffff0;
-        border-bottom-color: #fffff0;
+
+    @import url('https://fonts.googleapis.com/css2?family=Nanum+Gothic&display=swap');
+
+    .calendar{
+      width: 100%;
+      border: double #bf7f7f;
+      border-radius: 3px;
     }
-    .main_calendar tr:nth-child(2){
-        border-bottom-color: #f7f7f7;
-        height: 30px;
-        font-size: 20px;
+
+    #calendar_header{
+      text-align: center;
+      background-color: #f7f1f1cb;
+      height: 20px;
+      border-bottom: 2px solid #bf7f7f;
     }
-    .calendar_label{font-size: 30px;}
-    .calendar_year_month{font-size: 30px;}
-    .main_calendar tr:nth-child(3){font-size: 18px;}
-    .main_calendar tr:nth-child(4){font-size: 18px;}
-    .main_calendar tr:nth-child(5){font-size: 18px;}
-    .main_calendar tr:nth-child(6){font-size: 18px;}
-    .main_calendar tr:nth-child(7){font-size: 18px;}
-    .main_calendar td:nth-child(1){color: red;}
-    .main_calendar td:nth-child(7){color: blue;}
+
+    .calendar_prev, .calendar_next{
+        font-size: 1.5em;
+    }
+
+    .calendar_year_month{
+      height: 90px;
+      font-size: 1.3em;
+    }
+
+    .main_calendar {
+      border-collapse: collapse;
+      width:100%;
+    }
+
+    #calendar_weekday{
+      vertical-align: middle;
+      text-align: center;
+      height: 30px;
+      font-size: 1.1em;
+      border-bottom: double #bf7f7f;
+    }
+
+    .main_wrap {
+        padding: 6% 6%;
+    }
+
+    .main_calendar td:nth-child(1){color: #ff6e6e;}
+    .main_calendar td:nth-child(7){color: #705bfc;}
+
+    .main_calendar tr:not(:nth-child(1)):not(:nth-child(2)){
+      font-size: 15px;
+      text-align: center;
+      height: 90px;
+      vertical-align: top;
+      background-color: #f9f9f9cd;
+    }
+
+    .main_calendar tr:not(:nth-child(1)):not(:nth-child(2)):not(:last-child)>td{
+        font-size:15px;
+        border-bottom: double #bf7f7f;
+    }
+
+     .main_calendar tr:not(:nth-child(1))>td:not(:last-child){
+        border-right: 1px solid #bf7f7f;
+    }
+
+    .main_calendar tr:not(:nth-child(1)):not(:nth-child(2))>td>div{
+        margin-left: 10%;
+        float: left;
+    }
+
+    td{
+        display: table-cell !important;
+        vertical-align:middle !important;
+    }
+
+
 </style>
 
 <script language="javascript">
@@ -188,137 +241,137 @@
             var cell = row.insertCell();
             if(date.getMonth()==0 || date.getMonth()==2 || date.getMonth()==4 || date.getMonth()==7 || date.getMonth()==9){
                 if(year == date.getFullYear() && month-1 == date.getMonth()){
-                    if(i == 1){cell.innerHTML = "<div>"+i+"</div>"+"<a class='calendar_a_tag_example'>"+day1+"</a>";}
-                    else if(i == 2){cell.innerHTML = "<div>"+i+"</div>"+"<a class='calendar_a_tag_example'>"+day2+"</a>";}
-                    else if(i == 3){cell.innerHTML = "<div>"+i+"</div>"+"<a class='calendar_a_tag_example'>"+day3+"</a>";}
-                    else if(i == 4){cell.innerHTML = "<div>"+i+"</div>"+"<a class='calendar_a_tag_example'>"+day4+"</a>";}
-                    else if(i == 5){cell.innerHTML = "<div>"+i+"</div>"+"<a class='calendar_a_tag_example'>"+day5+"</a>";}
-                    else if(i == 6){cell.innerHTML = "<div>"+i+"</div>"+"<a class='calendar_a_tag_example'>"+day6+"</a>";}
-                    else if(i == 7){cell.innerHTML = "<div>"+i+"</div>"+"<a class='calendar_a_tag_example'>"+day7+"</a>";}
-                    else if(i == 8){cell.innerHTML = "<div>"+i+"</div>"+"<a class='calendar_a_tag_example'>"+day8+"</a>";}
-                    else if(i == 9){cell.innerHTML = "<div>"+i+"</div>"+"<a class='calendar_a_tag_example'>"+day9+"</a>";}
-                    else if(i == 10){cell.innerHTML = "<div>"+i+"</div>"+"<a class='calendar_a_tag_example'>"+day10+"</a>";}
-                    else if(i == 11){cell.innerHTML = "<div>"+i+"</div>"+"<a class='calendar_a_tag_example'>"+day11+"</a>";}
-                    else if(i == 12){cell.innerHTML = "<div>"+i+"</div>"+"<a class='calendar_a_tag_example'>"+day12+"</a>";}
-                    else if(i == 13){cell.innerHTML = "<div>"+i+"</div>"+"<a class='calendar_a_tag_example'>"+day13+"</a>";}
-                    else if(i == 14){cell.innerHTML = "<div>"+i+"</div>"+"<a class='calendar_a_tag_example'>"+day14+"</a>";}
-                    else if(i == 15){cell.innerHTML = "<div>"+i+"</div>"+"<a class='calendar_a_tag_example'>"+day15+"</a>";}
-                    else if(i == 16){cell.innerHTML = "<div>"+i+"</div>"+"<a class='calendar_a_tag_example'>"+day16+"</a>";}
-                    else if(i == 17){cell.innerHTML = "<div>"+i+"</div>"+"<a class='calendar_a_tag_example'>"+day17+"</a>";}
-                    else if(i == 18){cell.innerHTML = "<div>"+i+"</div>"+"<a class='calendar_a_tag_example'>"+day18+"</a>";}
-                    else if(i == 19){cell.innerHTML = "<div>"+i+"</div>"+"<a class='calendar_a_tag_example'>"+day19+"</a>";}
-                    else if(i == 20){cell.innerHTML = "<div>"+i+"</div>"+"<a class='calendar_a_tag_example'>"+day20+"</a>";}
-                    else if(i == 21){cell.innerHTML = "<div>"+i+"</div>"+"<a class='calendar_a_tag_example'>"+day21+"</a>";}
-                    else if(i == 22){cell.innerHTML = "<div>"+i+"</div>"+"<a class='calendar_a_tag_example'>"+day22+"</a>";}
-                    else if(i == 23){cell.innerHTML = "<div>"+i+"</div>"+"<a class='calendar_a_tag_example'>"+day23+"</a>";}
-                    else if(i == 24){cell.innerHTML = "<div>"+i+"</div>"+"<a class='calendar_a_tag_example'>"+day24+"</a>";}
-                    else if(i == 25){cell.innerHTML = "<div>"+i+"</div>"+"<a class='calendar_a_tag_example'>"+day25+"</a>";}
-                    else if(i == 26){cell.innerHTML = "<div>"+i+"</div>"+"<a class='calendar_a_tag_example'>"+day26+"</a>";}
-                    else if(i == 27){cell.innerHTML = "<div>"+i+"</div>"+"<a class='calendar_a_tag_example'>"+day27+"</a>";}
-                    else if(i == 28){cell.innerHTML = "<div>"+i+"</div>"+"<a class='calendar_a_tag_example'>"+day28+"</a>";}
-                    else if(i == 29){cell.innerHTML = "<div>"+i+"</div>"+"<a class='calendar_a_tag_example'>"+day29+"</a>";}
-                    else if(i == 30){cell.innerHTML = "<div>"+i+"</div>"+"<a class='calendar_a_tag_example'>"+day30+"</a>";}
-                    else if(i == 31){cell.innerHTML = "<div>"+i+"</div>"+"<a class='calendar_a_tag_example'>"+day31+"</a>";}
+                    if(i == 1){cell.innerHTML = "<div>"+i+"</div>"+"<a>"+day1+"</a>";}
+                    else if(i == 2){cell.innerHTML = "<div>"+i+"</div>"+"<a>"+day2+"</a>";}
+                    else if(i == 3){cell.innerHTML = "<div>"+i+"</div>"+"<a>"+day3+"</a>";}
+                    else if(i == 4){cell.innerHTML = "<div>"+i+"</div>"+"<a>"+day4+"</a>";}
+                    else if(i == 5){cell.innerHTML = "<div>"+i+"</div>"+"<a>"+day5+"</a>";}
+                    else if(i == 6){cell.innerHTML = "<div>"+i+"</div>"+"<a>"+day6+"</a>";}
+                    else if(i == 7){cell.innerHTML = "<div>"+i+"</div>"+"<a>"+day7+"</a>";}
+                    else if(i == 8){cell.innerHTML = "<div>"+i+"</div>"+"<a>"+day8+"</a>";}
+                    else if(i == 9){cell.innerHTML = "<div>"+i+"</div>"+"<a>"+day9+"</a>";}
+                    else if(i == 10){cell.innerHTML = "<div>"+i+"</div>"+"<a>"+day10+"</a>";}
+                    else if(i == 11){cell.innerHTML = "<div>"+i+"</div>"+"<a>"+day11+"</a>";}
+                    else if(i == 12){cell.innerHTML = "<div>"+i+"</div>"+"<a>"+day12+"</a>";}
+                    else if(i == 13){cell.innerHTML = "<div>"+i+"</div>"+"<a>"+day13+"</a>";}
+                    else if(i == 14){cell.innerHTML = "<div>"+i+"</div>"+"<a>"+day14+"</a>";}
+                    else if(i == 15){cell.innerHTML = "<div>"+i+"</div>"+"<a>"+day15+"</a>";}
+                    else if(i == 16){cell.innerHTML = "<div>"+i+"</div>"+"<a>"+day16+"</a>";}
+                    else if(i == 17){cell.innerHTML = "<div>"+i+"</div>"+"<a>"+day17+"</a>";}
+                    else if(i == 18){cell.innerHTML = "<div>"+i+"</div>"+"<a>"+day18+"</a>";}
+                    else if(i == 19){cell.innerHTML = "<div>"+i+"</div>"+"<a>"+day19+"</a>";}
+                    else if(i == 20){cell.innerHTML = "<div>"+i+"</div>"+"<a>"+day20+"</a>";}
+                    else if(i == 21){cell.innerHTML = "<div>"+i+"</div>"+"<a>"+day21+"</a>";}
+                    else if(i == 22){cell.innerHTML = "<div>"+i+"</div>"+"<a>"+day22+"</a>";}
+                    else if(i == 23){cell.innerHTML = "<div>"+i+"</div>"+"<a>"+day23+"</a>";}
+                    else if(i == 24){cell.innerHTML = "<div>"+i+"</div>"+"<a>"+day24+"</a>";}
+                    else if(i == 25){cell.innerHTML = "<div>"+i+"</div>"+"<a>"+day25+"</a>";}
+                    else if(i == 26){cell.innerHTML = "<div>"+i+"</div>"+"<a>"+day26+"</a>";}
+                    else if(i == 27){cell.innerHTML = "<div>"+i+"</div>"+"<a>"+day27+"</a>";}
+                    else if(i == 28){cell.innerHTML = "<div>"+i+"</div>"+"<a>"+day28+"</a>";}
+                    else if(i == 29){cell.innerHTML = "<div>"+i+"</div>"+"<a>"+day29+"</a>";}
+                    else if(i == 30){cell.innerHTML = "<div>"+i+"</div>"+"<a>"+day30+"</a>";}
+                    else if(i == 31){cell.innerHTML = "<div>"+i+"</div>"+"<a>"+day31+"</a>";}
                 }
                 else if(year == date.getFullYear() && month-2 == date.getMonth()){
-                    if(i == 1){cell.innerHTML = "<div>"+i+"</div>"+"<a class='calendar_a_tag_example'>"+day32+"</a>";}
-                    else if(i == 2){cell.innerHTML = "<div>"+i+"</div>"+"<a class='calendar_a_tag_example'>"+day33+"</a>";}
-                    else if(i == 3){cell.innerHTML = "<div>"+i+"</div>"+"<a class='calendar_a_tag_example'>"+day34+"</a>";}
-                    else if(i == 4){cell.innerHTML = "<div>"+i+"</div>"+"<a class='calendar_a_tag_example'>"+day35+"</a>";}
-                    else if(i == 5){cell.innerHTML = "<div>"+i+"</div>"+"<a class='calendar_a_tag_example'>"+day36+"</a>";}
-                    else if(i == 6){cell.innerHTML = "<div>"+i+"</div>"+"<a class='calendar_a_tag_example'>"+day37+"</a>";}
-                    else if(i == 7){cell.innerHTML = "<div>"+i+"</div>"+"<a class='calendar_a_tag_example'>"+day38+"</a>";}
-                    else if(i == 8){cell.innerHTML = "<div>"+i+"</div>"+"<a class='calendar_a_tag_example'>"+day39+"</a>";}
-                    else if(i == 9){cell.innerHTML = "<div>"+i+"</div>"+"<a class='calendar_a_tag_example'>"+day40+"</a>";}
-                    else if(i == 10){cell.innerHTML = "<div>"+i+"</div>"+"<a class='calendar_a_tag_example'>"+day41+"</a>";}
-                    else if(i == 11){cell.innerHTML = "<div>"+i+"</div>"+"<a class='calendar_a_tag_example'>"+day42+"</a>";}
-                    else if(i == 12){cell.innerHTML = "<div>"+i+"</div>"+"<a class='calendar_a_tag_example'>"+day43+"</a>";}
-                    else if(i == 13){cell.innerHTML = "<div>"+i+"</div>"+"<a class='calendar_a_tag_example'>"+day44+"</a>";}
-                    else if(i == 14){cell.innerHTML = "<div>"+i+"</div>"+"<a class='calendar_a_tag_example'>"+day45+"</a>";}
-                    else if(i == 15){cell.innerHTML = "<div>"+i+"</div>"+"<a class='calendar_a_tag_example'>"+day46+"</a>";}
-                    else if(i == 16){cell.innerHTML = "<div>"+i+"</div>"+"<a class='calendar_a_tag_example'>"+day47+"</a>";}
-                    else if(i == 17){cell.innerHTML = "<div>"+i+"</div>"+"<a class='calendar_a_tag_example'>"+day48+"</a>";}
-                    else if(i == 18){cell.innerHTML = "<div>"+i+"</div>"+"<a class='calendar_a_tag_example'>"+day49+"</a>";}
-                    else if(i == 19){cell.innerHTML = "<div>"+i+"</div>"+"<a class='calendar_a_tag_example'>"+day50+"</a>";}
-                    else if(i == 20){cell.innerHTML = "<div>"+i+"</div>"+"<a class='calendar_a_tag_example'>"+day51+"</a>";}
-                    else if(i == 21){cell.innerHTML = "<div>"+i+"</div>"+"<a class='calendar_a_tag_example'>"+day52+"</a>";}
-                    else if(i == 22){cell.innerHTML = "<div>"+i+"</div>"+"<a class='calendar_a_tag_example'>"+day53+"</a>";}
-                    else if(i == 23){cell.innerHTML = "<div>"+i+"</div>"+"<a class='calendar_a_tag_example'>"+day54+"</a>";}
-                    else if(i == 24){cell.innerHTML = "<div>"+i+"</div>"+"<a class='calendar_a_tag_example'>"+day55+"</a>";}
-                    else if(i == 25){cell.innerHTML = "<div>"+i+"</div>"+"<a class='calendar_a_tag_example'>"+day56+"</a>";}
-                    else if(i == 26){cell.innerHTML = "<div>"+i+"</div>"+"<a class='calendar_a_tag_example'>"+day57+"</a>";}
-                    else if(i == 27){cell.innerHTML = "<div>"+i+"</div>"+"<a class='calendar_a_tag_example'>"+day58+"</a>";}
-                    else if(i == 28){cell.innerHTML = "<div>"+i+"</div>"+"<a class='calendar_a_tag_example'>"+day59+"</a>";}
-                    else if(i == 29){cell.innerHTML = "<div>"+i+"</div>"+"<a class='calendar_a_tag_example'>"+day60+"</a>";}
-                    else if(i == 30){cell.innerHTML = "<div>"+i+"</div>"+"<a class='calendar_a_tag_example'>"+day61+"</a>";}
+                    if(i == 1){cell.innerHTML = "<div>"+i+"</div>"+"<a>"+day32+"</a>";}
+                    else if(i == 2){cell.innerHTML = "<div>"+i+"</div>"+"<a>"+day33+"</a>";}
+                    else if(i == 3){cell.innerHTML = "<div>"+i+"</div>"+"<a>"+day34+"</a>";}
+                    else if(i == 4){cell.innerHTML = "<div>"+i+"</div>"+"<a>"+day35+"</a>";}
+                    else if(i == 5){cell.innerHTML = "<div>"+i+"</div>"+"<a>"+day36+"</a>";}
+                    else if(i == 6){cell.innerHTML = "<div>"+i+"</div>"+"<a>"+day37+"</a>";}
+                    else if(i == 7){cell.innerHTML = "<div>"+i+"</div>"+"<a>"+day38+"</a>";}
+                    else if(i == 8){cell.innerHTML = "<div>"+i+"</div>"+"<a>"+day39+"</a>";}
+                    else if(i == 9){cell.innerHTML = "<div>"+i+"</div>"+"<a>"+day40+"</a>";}
+                    else if(i == 10){cell.innerHTML = "<div>"+i+"</div>"+"<a>"+day41+"</a>";}
+                    else if(i == 11){cell.innerHTML = "<div>"+i+"</div>"+"<a>"+day42+"</a>";}
+                    else if(i == 12){cell.innerHTML = "<div>"+i+"</div>"+"<a>"+day43+"</a>";}
+                    else if(i == 13){cell.innerHTML = "<div>"+i+"</div>"+"<a>"+day44+"</a>";}
+                    else if(i == 14){cell.innerHTML = "<div>"+i+"</div>"+"<a>"+day45+"</a>";}
+                    else if(i == 15){cell.innerHTML = "<div>"+i+"</div>"+"<a>"+day46+"</a>";}
+                    else if(i == 16){cell.innerHTML = "<div>"+i+"</div>"+"<a>"+day47+"</a>";}
+                    else if(i == 17){cell.innerHTML = "<div>"+i+"</div>"+"<a>"+day48+"</a>";}
+                    else if(i == 18){cell.innerHTML = "<div>"+i+"</div>"+"<a>"+day49+"</a>";}
+                    else if(i == 19){cell.innerHTML = "<div>"+i+"</div>"+"<a>"+day50+"</a>";}
+                    else if(i == 20){cell.innerHTML = "<div>"+i+"</div>"+"<a>"+day51+"</a>";}
+                    else if(i == 21){cell.innerHTML = "<div>"+i+"</div>"+"<a>"+day52+"</a>";}
+                    else if(i == 22){cell.innerHTML = "<div>"+i+"</div>"+"<a>"+day53+"</a>";}
+                    else if(i == 23){cell.innerHTML = "<div>"+i+"</div>"+"<a>"+day54+"</a>";}
+                    else if(i == 24){cell.innerHTML = "<div>"+i+"</div>"+"<a>"+day55+"</a>";}
+                    else if(i == 25){cell.innerHTML = "<div>"+i+"</div>"+"<a>"+day56+"</a>";}
+                    else if(i == 26){cell.innerHTML = "<div>"+i+"</div>"+"<a>"+day57+"</a>";}
+                    else if(i == 27){cell.innerHTML = "<div>"+i+"</div>"+"<a>"+day58+"</a>";}
+                    else if(i == 28){cell.innerHTML = "<div>"+i+"</div>"+"<a>"+day59+"</a>";}
+                    else if(i == 29){cell.innerHTML = "<div>"+i+"</div>"+"<a>"+day60+"</a>";}
+                    else if(i == 30){cell.innerHTML = "<div>"+i+"</div>"+"<a>"+day61+"</a>";}
                 }
 
             }
             else if(date.getMonth()==1 || date.getMonth()==3 || date.getMonth()==5 || date.getMonth()==8 || date.getMonth()==10){
                 if(year == date.getFullYear() && month-1 == date.getMonth()){
-                    if(i == 1){cell.innerHTML = "<div>"+i+"</div>"+"<a class='calendar_a_tag_example'>"+day1+"</a>";}
-                    else if(i == 2){cell.innerHTML = "<div>"+i+"</div>"+"<a class='calendar_a_tag_example'>"+day2+"</a>";}
-                    else if(i == 3){cell.innerHTML = "<div>"+i+"</div>"+"<a class='calendar_a_tag_example'>"+day3+"</a>";}
-                    else if(i == 4){cell.innerHTML = "<div>"+i+"</div>"+"<a class='calendar_a_tag_example'>"+day4+"</a>";}
-                    else if(i == 5){cell.innerHTML = "<div>"+i+"</div>"+"<a class='calendar_a_tag_example'>"+day5+"</a>";}
-                    else if(i == 6){cell.innerHTML = "<div>"+i+"</div>"+"<a class='calendar_a_tag_example'>"+day6+"</a>";}
-                    else if(i == 7){cell.innerHTML = "<div>"+i+"</div>"+"<a class='calendar_a_tag_example'>"+day7+"</a>";}
-                    else if(i == 8){cell.innerHTML = "<div>"+i+"</div>"+"<a class='calendar_a_tag_example'>"+day8+"</a>";}
-                    else if(i == 9){cell.innerHTML = "<div>"+i+"</div>"+"<a class='calendar_a_tag_example'>"+day9+"</a>";}
-                    else if(i == 10){cell.innerHTML = "<div>"+i+"</div>"+"<a class='calendar_a_tag_example'>"+day10+"</a>";}
-                    else if(i == 11){cell.innerHTML = "<div>"+i+"</div>"+"<a class='calendar_a_tag_example'>"+day11+"</a>";}
-                    else if(i == 12){cell.innerHTML = "<div>"+i+"</div>"+"<a class='calendar_a_tag_example'>"+day12+"</a>";}
-                    else if(i == 13){cell.innerHTML = "<div>"+i+"</div>"+"<a class='calendar_a_tag_example'>"+day13+"</a>";}
-                    else if(i == 14){cell.innerHTML = "<div>"+i+"</div>"+"<a class='calendar_a_tag_example'>"+day14+"</a>";}
-                    else if(i == 15){cell.innerHTML = "<div>"+i+"</div>"+"<a class='calendar_a_tag_example'>"+day15+"</a>";}
-                    else if(i == 16){cell.innerHTML = "<div>"+i+"</div>"+"<a class='calendar_a_tag_example'>"+day16+"</a>";}
-                    else if(i == 17){cell.innerHTML = "<div>"+i+"</div>"+"<a class='calendar_a_tag_example'>"+day17+"</a>";}
-                    else if(i == 18){cell.innerHTML = "<div>"+i+"</div>"+"<a class='calendar_a_tag_example'>"+day18+"</a>";}
-                    else if(i == 19){cell.innerHTML = "<div>"+i+"</div>"+"<a class='calendar_a_tag_example'>"+day19+"</a>";}
-                    else if(i == 20){cell.innerHTML = "<div>"+i+"</div>"+"<a class='calendar_a_tag_example'>"+day20+"</a>";}
-                    else if(i == 21){cell.innerHTML = "<div>"+i+"</div>"+"<a class='calendar_a_tag_example'>"+day21+"</a>";}
-                    else if(i == 22){cell.innerHTML = "<div>"+i+"</div>"+"<a class='calendar_a_tag_example'>"+day22+"</a>";}
-                    else if(i == 23){cell.innerHTML = "<div>"+i+"</div>"+"<a class='calendar_a_tag_example'>"+day23+"</a>";}
-                    else if(i == 24){cell.innerHTML = "<div>"+i+"</div>"+"<a class='calendar_a_tag_example'>"+day24+"</a>";}
-                    else if(i == 25){cell.innerHTML = "<div>"+i+"</div>"+"<a class='calendar_a_tag_example'>"+day25+"</a>";}
-                    else if(i == 26){cell.innerHTML = "<div>"+i+"</div>"+"<a class='calendar_a_tag_example'>"+day26+"</a>";}
-                    else if(i == 27){cell.innerHTML = "<div>"+i+"</div>"+"<a class='calendar_a_tag_example'>"+day27+"</a>";}
-                    else if(i == 28){cell.innerHTML = "<div>"+i+"</div>"+"<a class='calendar_a_tag_example'>"+day28+"</a>";}
-                    else if(i == 29){cell.innerHTML = "<div>"+i+"</div>"+"<a class='calendar_a_tag_example'>"+day29+"</a>";}
-                    else if(i == 30){cell.innerHTML = "<div>"+i+"</div>"+"<a class='calendar_a_tag_example'>"+day30+"</a>";}
+                    if(i == 1){cell.innerHTML = "<div>"+i+"</div>"+"<a>"+day1+"</a>";}
+                    else if(i == 2){cell.innerHTML = "<div>"+i+"</div>"+"<a>"+day2+"</a>";}
+                    else if(i == 3){cell.innerHTML = "<div>"+i+"</div>"+"<a>"+day3+"</a>";}
+                    else if(i == 4){cell.innerHTML = "<div>"+i+"</div>"+"<a>"+day4+"</a>";}
+                    else if(i == 5){cell.innerHTML = "<div>"+i+"</div>"+"<a>"+day5+"</a>";}
+                    else if(i == 6){cell.innerHTML = "<div>"+i+"</div>"+"<a>"+day6+"</a>";}
+                    else if(i == 7){cell.innerHTML = "<div>"+i+"</div>"+"<a>"+day7+"</a>";}
+                    else if(i == 8){cell.innerHTML = "<div>"+i+"</div>"+"<a>"+day8+"</a>";}
+                    else if(i == 9){cell.innerHTML = "<div>"+i+"</div>"+"<a>"+day9+"</a>";}
+                    else if(i == 10){cell.innerHTML = "<div>"+i+"</div>"+"<a>"+day10+"</a>";}
+                    else if(i == 11){cell.innerHTML = "<div>"+i+"</div>"+"<a>"+day11+"</a>";}
+                    else if(i == 12){cell.innerHTML = "<div>"+i+"</div>"+"<a>"+day12+"</a>";}
+                    else if(i == 13){cell.innerHTML = "<div>"+i+"</div>"+"<a>"+day13+"</a>";}
+                    else if(i == 14){cell.innerHTML = "<div>"+i+"</div>"+"<a>"+day14+"</a>";}
+                    else if(i == 15){cell.innerHTML = "<div>"+i+"</div>"+"<a>"+day15+"</a>";}
+                    else if(i == 16){cell.innerHTML = "<div>"+i+"</div>"+"<a>"+day16+"</a>";}
+                    else if(i == 17){cell.innerHTML = "<div>"+i+"</div>"+"<a>"+day17+"</a>";}
+                    else if(i == 18){cell.innerHTML = "<div>"+i+"</div>"+"<a>"+day18+"</a>";}
+                    else if(i == 19){cell.innerHTML = "<div>"+i+"</div>"+"<a>"+day19+"</a>";}
+                    else if(i == 20){cell.innerHTML = "<div>"+i+"</div>"+"<a>"+day20+"</a>";}
+                    else if(i == 21){cell.innerHTML = "<div>"+i+"</div>"+"<a>"+day21+"</a>";}
+                    else if(i == 22){cell.innerHTML = "<div>"+i+"</div>"+"<a>"+day22+"</a>";}
+                    else if(i == 23){cell.innerHTML = "<div>"+i+"</div>"+"<a>"+day23+"</a>";}
+                    else if(i == 24){cell.innerHTML = "<div>"+i+"</div>"+"<a>"+day24+"</a>";}
+                    else if(i == 25){cell.innerHTML = "<div>"+i+"</div>"+"<a>"+day25+"</a>";}
+                    else if(i == 26){cell.innerHTML = "<div>"+i+"</div>"+"<a>"+day26+"</a>";}
+                    else if(i == 27){cell.innerHTML = "<div>"+i+"</div>"+"<a>"+day27+"</a>";}
+                    else if(i == 28){cell.innerHTML = "<div>"+i+"</div>"+"<a>"+day28+"</a>";}
+                    else if(i == 29){cell.innerHTML = "<div>"+i+"</div>"+"<a>"+day29+"</a>";}
+                    else if(i == 30){cell.innerHTML = "<div>"+i+"</div>"+"<a>"+day30+"</a>";}
                 }
                 else if(year == date.getFullYear() && month-2 == date.getMonth()){
-                    if(i == 1){cell.innerHTML = "<div>"+i+"</div>"+"<a class='calendar_a_tag_example'>"+day31+"</a>";}
-                    else if(i == 2){cell.innerHTML = "<div>"+i+"</div>"+"<a class='calendar_a_tag_example'>"+day32+"</a>";}
-                    else if(i == 3){cell.innerHTML = "<div>"+i+"</div>"+"<a class='calendar_a_tag_example'>"+day33+"</a>";}
-                    else if(i == 4){cell.innerHTML = "<div>"+i+"</div>"+"<a class='calendar_a_tag_example'>"+day34+"</a>";}
-                    else if(i == 5){cell.innerHTML = "<div>"+i+"</div>"+"<a class='calendar_a_tag_example'>"+day35+"</a>";}
-                    else if(i == 6){cell.innerHTML = "<div>"+i+"</div>"+"<a class='calendar_a_tag_example'>"+day36+"</a>";}
-                    else if(i == 7){cell.innerHTML = "<div>"+i+"</div>"+"<a class='calendar_a_tag_example'>"+day37+"</a>";}
-                    else if(i == 8){cell.innerHTML = "<div>"+i+"</div>"+"<a class='calendar_a_tag_example'>"+day38+"</a>";}
-                    else if(i == 9){cell.innerHTML = "<div>"+i+"</div>"+"<a class='calendar_a_tag_example'>"+day39+"</a>";}
-                    else if(i == 10){cell.innerHTML = "<div>"+i+"</div>"+"<a class='calendar_a_tag_example'>"+day40+"</a>";}
-                    else if(i == 11){cell.innerHTML = "<div>"+i+"</div>"+"<a class='calendar_a_tag_example'>"+day41+"</a>";}
-                    else if(i == 12){cell.innerHTML = "<div>"+i+"</div>"+"<a class='calendar_a_tag_example'>"+day42+"</a>";}
-                    else if(i == 13){cell.innerHTML = "<div>"+i+"</div>"+"<a class='calendar_a_tag_example'>"+day43+"</a>";}
-                    else if(i == 14){cell.innerHTML = "<div>"+i+"</div>"+"<a class='calendar_a_tag_example'>"+day44+"</a>";}
-                    else if(i == 15){cell.innerHTML = "<div>"+i+"</div>"+"<a class='calendar_a_tag_example'>"+day45+"</a>";}
-                    else if(i == 16){cell.innerHTML = "<div>"+i+"</div>"+"<a class='calendar_a_tag_example'>"+day46+"</a>";}
-                    else if(i == 17){cell.innerHTML = "<div>"+i+"</div>"+"<a class='calendar_a_tag_example'>"+day47+"</a>";}
-                    else if(i == 18){cell.innerHTML = "<div>"+i+"</div>"+"<a class='calendar_a_tag_example'>"+day48+"</a>";}
-                    else if(i == 19){cell.innerHTML = "<div>"+i+"</div>"+"<a class='calendar_a_tag_example'>"+day49+"</a>";}
-                    else if(i == 20){cell.innerHTML = "<div>"+i+"</div>"+"<a class='calendar_a_tag_example'>"+day50+"</a>";}
-                    else if(i == 21){cell.innerHTML = "<div>"+i+"</div>"+"<a class='calendar_a_tag_example'>"+day51+"</a>";}
-                    else if(i == 22){cell.innerHTML = "<div>"+i+"</div>"+"<a class='calendar_a_tag_example'>"+day52+"</a>";}
-                    else if(i == 23){cell.innerHTML = "<div>"+i+"</div>"+"<a class='calendar_a_tag_example'>"+day53+"</a>";}
-                    else if(i == 24){cell.innerHTML = "<div>"+i+"</div>"+"<a class='calendar_a_tag_example'>"+day54+"</a>";}
-                    else if(i == 25){cell.innerHTML = "<div>"+i+"</div>"+"<a class='calendar_a_tag_example'>"+day55+"</a>";}
-                    else if(i == 26){cell.innerHTML = "<div>"+i+"</div>"+"<a class='calendar_a_tag_example'>"+day56+"</a>";}
-                    else if(i == 27){cell.innerHTML = "<div>"+i+"</div>"+"<a class='calendar_a_tag_example'>"+day57+"</a>";}
-                    else if(i == 28){cell.innerHTML = "<div>"+i+"</div>"+"<a class='calendar_a_tag_example'>"+day58+"</a>";}
-                    else if(i == 29){cell.innerHTML = "<div>"+i+"</div>"+"<a class='calendar_a_tag_example'>"+day59+"</a>";}
-                    else if(i == 30){cell.innerHTML = "<div>"+i+"</div>"+"<a class='calendar_a_tag_example'>"+day60+"</a>";}
-                    else if(i == 31){cell.innerHTML = "<div>"+i+"</div>"+"<a class='calendar_a_tag_example'>"+day61+"</a>";}
+                    if(i == 1){cell.innerHTML = "<div>"+i+"</div>"+"<a>"+day31+"</a>";}
+                    else if(i == 2){cell.innerHTML = "<div>"+i+"</div>"+"<a>"+day32+"</a>";}
+                    else if(i == 3){cell.innerHTML = "<div>"+i+"</div>"+"<a>"+day33+"</a>";}
+                    else if(i == 4){cell.innerHTML = "<div>"+i+"</div>"+"<a>"+day34+"</a>";}
+                    else if(i == 5){cell.innerHTML = "<div>"+i+"</div>"+"<a>"+day35+"</a>";}
+                    else if(i == 6){cell.innerHTML = "<div>"+i+"</div>"+"<a>"+day36+"</a>";}
+                    else if(i == 7){cell.innerHTML = "<div>"+i+"</div>"+"<a>"+day37+"</a>";}
+                    else if(i == 8){cell.innerHTML = "<div>"+i+"</div>"+"<a>"+day38+"</a>";}
+                    else if(i == 9){cell.innerHTML = "<div>"+i+"</div>"+"<a>"+day39+"</a>";}
+                    else if(i == 10){cell.innerHTML = "<div>"+i+"</div>"+"<a>"+day40+"</a>";}
+                    else if(i == 11){cell.innerHTML = "<div>"+i+"</div>"+"<a>"+day41+"</a>";}
+                    else if(i == 12){cell.innerHTML = "<div>"+i+"</div>"+"<a>"+day42+"</a>";}
+                    else if(i == 13){cell.innerHTML = "<div>"+i+"</div>"+"<a>"+day43+"</a>";}
+                    else if(i == 14){cell.innerHTML = "<div>"+i+"</div>"+"<a>"+day44+"</a>";}
+                    else if(i == 15){cell.innerHTML = "<div>"+i+"</div>"+"<a>"+day45+"</a>";}
+                    else if(i == 16){cell.innerHTML = "<div>"+i+"</div>"+"<a>"+day46+"</a>";}
+                    else if(i == 17){cell.innerHTML = "<div>"+i+"</div>"+"<a>"+day47+"</a>";}
+                    else if(i == 18){cell.innerHTML = "<div>"+i+"</div>"+"<a>"+day48+"</a>";}
+                    else if(i == 19){cell.innerHTML = "<div>"+i+"</div>"+"<a>"+day49+"</a>";}
+                    else if(i == 20){cell.innerHTML = "<div>"+i+"</div>"+"<a>"+day50+"</a>";}
+                    else if(i == 21){cell.innerHTML = "<div>"+i+"</div>"+"<a>"+day51+"</a>";}
+                    else if(i == 22){cell.innerHTML = "<div>"+i+"</div>"+"<a>"+day52+"</a>";}
+                    else if(i == 23){cell.innerHTML = "<div>"+i+"</div>"+"<a>"+day53+"</a>";}
+                    else if(i == 24){cell.innerHTML = "<div>"+i+"</div>"+"<a>"+day54+"</a>";}
+                    else if(i == 25){cell.innerHTML = "<div>"+i+"</div>"+"<a>"+day55+"</a>";}
+                    else if(i == 26){cell.innerHTML = "<div>"+i+"</div>"+"<a>"+day56+"</a>";}
+                    else if(i == 27){cell.innerHTML = "<div>"+i+"</div>"+"<a>"+day57+"</a>";}
+                    else if(i == 28){cell.innerHTML = "<div>"+i+"</div>"+"<a>"+day58+"</a>";}
+                    else if(i == 29){cell.innerHTML = "<div>"+i+"</div>"+"<a>"+day59+"</a>";}
+                    else if(i == 30){cell.innerHTML = "<div>"+i+"</div>"+"<a>"+day60+"</a>";}
+                    else if(i == 31){cell.innerHTML = "<div>"+i+"</div>"+"<a>"+day61+"</a>";}
                 }
 						}
 
@@ -339,221 +392,221 @@
         <p class="pt-3 pl-4 path">가게 관리 > 일자별 수량 관리</p>
 </div>
 <div hidden>
-                <div id="day1">
-                    {{dailyform.day1}}
-                </div>
-                <div id="day2">
-                    {{dailyform.day2}}
-                </div>
-                <div id="day3">
-                    {{dailyform.day3}}
-                </div>
-                <div id="day4">
-                    {{dailyform.day4}}
-                </div>
-                <div id="day5">
-                    {{dailyform.day5}}
-                </div>
-                <div id="day6">
-                    {{dailyform.day6}}
-                </div>
-                <div id="day7">
-                    {{dailyform.day7}}
-                </div>
-                <div id="day8">
-                    {{dailyform.day8}}
-                </div>
-                <div id="day9">
-                    {{dailyform.day9}}
-                </div>
-                <div id="day10">
-                    {{dailyform.day10}}
-                </div>
-                 <div id="day11">
-                    {{dailyform.day11}}
-                </div>
-                <div id="day12">
-                    {{dailyform.day12}}
-                </div>
-                <div id="day13">
-                    {{dailyform.day13}}
-                </div>
-                <div id="day14">
-                    {{dailyform.day14}}
-                </div>
-                <div id="day15">
-                    {{dailyform.day15}}
-                </div>
-                <div id="day16">
-                    {{dailyform.day16}}
-                </div>
-                <div id="day17">
-                    {{dailyform.day17}}
-                </div>
-                <div id="day18">
-                    {{dailyform.day18}}
-                </div>
-                <div id="day19">
-                    {{dailyform.day19}}
-                </div>
-                <div id="day20">
-                    {{dailyform.day20}}
-                </div>
-                <div id="day21">
-                    {{dailyform.day21}}
-                </div>
-                <div id="day22">
-                    {{dailyform.day22}}
-                </div>
-                <div id="day23">
-                    {{dailyform.day23}}
-                </div>
-                <div id="day24">
-                    {{dailyform.day24}}
-                </div>
-                <div id="day25">
-                    {{dailyform.day25}}
-                </div>
-                <div id="day26">
-                    {{dailyform.day26}}
-                </div>
-                <div id="day27">
-                    {{dailyform.day27}}
-                </div>
-                <div id="day28">
-                    {{dailyform.day28}}
-                </div>
-                <div id="day29">
-                    {{dailyform.day29}}
-                </div>
-                <div id="day30">
-                    {{dailyform.day30}}
-                </div>
-                <div id="day31">
-                    {{dailyform.day31}}
-                </div>
-                <div id="day32">
-                    {{dailyform.day32}}
-                </div>
-                <div id="day33">
-                    {{dailyform.day33}}
-                </div>
-                <div id="day34">
-                    {{dailyform.day34}}
-                </div>
-                <div id="day35">
-                    {{dailyform.day35}}
-                </div>
-                <div id="day36">
-                    {{dailyform.day36}}
-                </div>
-                <div id="day37">
-                    {{dailyform.day37}}
-                </div>
-                <div id="day38">
-                    {{dailyform.day38}}
-                </div>
-                <div id="day39">
-                    {{dailyform.day39}}
-                </div>
-                <div id="day40">
-                    {{dailyform.day40}}
-                </div>
+        <div id="day1">
+            {{dailyform.day1}}
+        </div>
+        <div id="day2">
+            {{dailyform.day2}}
+        </div>
+        <div id="day3">
+            {{dailyform.day3}}
+        </div>
+        <div id="day4">
+            {{dailyform.day4}}
+        </div>
+        <div id="day5">
+            {{dailyform.day5}}
+        </div>
+        <div id="day6">
+            {{dailyform.day6}}
+        </div>
+        <div id="day7">
+            {{dailyform.day7}}
+        </div>
+        <div id="day8">
+            {{dailyform.day8}}
+        </div>
+        <div id="day9">
+            {{dailyform.day9}}
+        </div>
+        <div id="day10">
+            {{dailyform.day10}}
+        </div>
+         <div id="day11">
+            {{dailyform.day11}}
+        </div>
+        <div id="day12">
+            {{dailyform.day12}}
+        </div>
+        <div id="day13">
+            {{dailyform.day13}}
+        </div>
+        <div id="day14">
+            {{dailyform.day14}}
+        </div>
+        <div id="day15">
+            {{dailyform.day15}}
+        </div>
+        <div id="day16">
+            {{dailyform.day16}}
+        </div>
+        <div id="day17">
+            {{dailyform.day17}}
+        </div>
+        <div id="day18">
+            {{dailyform.day18}}
+        </div>
+        <div id="day19">
+            {{dailyform.day19}}
+        </div>
+        <div id="day20">
+            {{dailyform.day20}}
+        </div>
+        <div id="day21">
+            {{dailyform.day21}}
+        </div>
+        <div id="day22">
+            {{dailyform.day22}}
+        </div>
+        <div id="day23">
+            {{dailyform.day23}}
+        </div>
+        <div id="day24">
+            {{dailyform.day24}}
+        </div>
+        <div id="day25">
+            {{dailyform.day25}}
+        </div>
+        <div id="day26">
+            {{dailyform.day26}}
+        </div>
+        <div id="day27">
+            {{dailyform.day27}}
+        </div>
+        <div id="day28">
+            {{dailyform.day28}}
+        </div>
+        <div id="day29">
+            {{dailyform.day29}}
+        </div>
+        <div id="day30">
+            {{dailyform.day30}}
+        </div>
+        <div id="day31">
+            {{dailyform.day31}}
+        </div>
+        <div id="day32">
+            {{dailyform.day32}}
+        </div>
+        <div id="day33">
+            {{dailyform.day33}}
+        </div>
+        <div id="day34">
+            {{dailyform.day34}}
+        </div>
+        <div id="day35">
+            {{dailyform.day35}}
+        </div>
+        <div id="day36">
+            {{dailyform.day36}}
+        </div>
+        <div id="day37">
+            {{dailyform.day37}}
+        </div>
+        <div id="day38">
+            {{dailyform.day38}}
+        </div>
+        <div id="day39">
+            {{dailyform.day39}}
+        </div>
+        <div id="day40">
+            {{dailyform.day40}}
+        </div>
 
-                <div id="day41">
-                    {{dailyform.day41}}
-                </div>
-                <div id="day42">
-                    {{dailyform.day42}}
-                </div>
-                <div id="day43">
-                    {{dailyform.day43}}
-                </div>
-                <div id="day44">
-                    {{dailyform.day44}}
-                </div>
-                <div id="day45">
-                    {{dailyform.day45}}
-                </div>
-                <div id="day46">
-                    {{dailyform.day46}}
-                </div>
-                <div id="day47">
-                    {{dailyform.day47}}
-                </div>
-                <div id="day48">
-                    {{dailyform.day48}}
-                </div>
-                <div id="day49">
-                    {{dailyform.day49}}
-                </div>
-                <div id="day50">
-                    {{dailyform.day50}}
-                </div>
-                <div id="day51">
-                    {{dailyform.day51}}
-                </div>
-                <div id="day52">
-                    {{dailyform.day52}}
-                </div>
-                <div id="day53">
-                    {{dailyform.day53}}
-                </div>
-                <div id="day54">
-                    {{dailyform.day54}}
-                </div>
-                <div id="day55">
-                    {{dailyform.day55}}
-                </div>
-                <div id="day56">
-                    {{dailyform.day56}}
-                </div>
-                <div id="day57">
-                    {{dailyform.day57}}
-                </div>
-                <div id="day58">
-                    {{dailyform.day58}}
-                </div>
-                <div id="day59">
-                    {{dailyform.day59}}
-                </div>
-                <div id="day60">
-                    {{dailyform.day60}}
-                </div>
-                <div id="day61">
-                    {{dailyform.day61}}
-                </div>
-                <div id="day62">
-                    {{dailyform.day62}}
-                </div>
+        <div id="day41">
+            {{dailyform.day41}}
+        </div>
+        <div id="day42">
+            {{dailyform.day42}}
+        </div>
+        <div id="day43">
+            {{dailyform.day43}}
+        </div>
+        <div id="day44">
+            {{dailyform.day44}}
+        </div>
+        <div id="day45">
+            {{dailyform.day45}}
+        </div>
+        <div id="day46">
+            {{dailyform.day46}}
+        </div>
+        <div id="day47">
+            {{dailyform.day47}}
+        </div>
+        <div id="day48">
+            {{dailyform.day48}}
+        </div>
+        <div id="day49">
+            {{dailyform.day49}}
+        </div>
+        <div id="day50">
+            {{dailyform.day50}}
+        </div>
+        <div id="day51">
+            {{dailyform.day51}}
+        </div>
+        <div id="day52">
+            {{dailyform.day52}}
+        </div>
+        <div id="day53">
+            {{dailyform.day53}}
+        </div>
+        <div id="day54">
+            {{dailyform.day54}}
+        </div>
+        <div id="day55">
+            {{dailyform.day55}}
+        </div>
+        <div id="day56">
+            {{dailyform.day56}}
+        </div>
+        <div id="day57">
+            {{dailyform.day57}}
+        </div>
+        <div id="day58">
+            {{dailyform.day58}}
+        </div>
+        <div id="day59">
+            {{dailyform.day59}}
+        </div>
+        <div id="day60">
+            {{dailyform.day60}}
+        </div>
+        <div id="day61">
+            {{dailyform.day61}}
+        </div>
+        <div id="day62">
+            {{dailyform.day62}}
+        </div>
 </div>
-            <div class="main_wrap">
-                <div class="calendar">
-                    <table class = "main_calendar" id = "tab">
-                        <tr>
-                            <td class="calendar_prev" id="prev"><label class="calendar_label" onclick="prevmonth()" style="color:black;"><</td>
-                            <td class="calendar_year_month" id="Ymd" colspan="5"></td>
-                            <td class="calendar_next" id="next"><label class="calendar_label" onclick="nextmonth()" style="color:black;">></td>
-                        </tr>
-                        <tr class="calendar_weekday">
-                            <td class="week_sun">일</td>
-                            <td class="week_mon">월</td>
-                            <td class="week_tue">화</td>
-                            <td class="week_wed">수</td>
-                            <td class="week_thu">목</td>
-                            <td class="week_fri">금</td>
-                            <td class="week_sat">토</td>
-                        </tr>
-                    </table>
-                    <script type="text/javascript">
-                        present();
-                    </script>
-                </div>
+        <div class="main_wrap">
+            <div class="calendar">
+                <table class = "main_calendar" id ="tab">
+                    <tr id="calendar_header">
+                        <td class="calendar_prev" id="prev"><label class="calendar_label" onclick="prevmonth()" style="color:black;"><</td>
+                        <td class="calendar_year_month" id="Ymd" colspan="5"></td>
+                        <td class="calendar_next" id="next"><label class="calendar_label" onclick="nextmonth()" style="color:black;">></td>
+                    </tr>
+                    <tr id="calendar_weekday">
+                        <td class="week_sun">일</td>
+                        <td class="week_mon">월</td>
+                        <td class="week_tue">화</td>
+                        <td class="week_wed">수</td>
+                        <td class="week_thu">목</td>
+                        <td class="week_fri">금</td>
+                        <td class="week_sat">토</td>
+                    </tr>
+                </table>
+                <script type="text/javascript">
+                    present();
+                </script>
             </div>
-        </main>
+        </div>
+    </main>
 <div class="text-center" style="width:100%">
         <button type='submit' id="submit" class="btn btn-secondary" style="width: 120px; height: 35px;">등록</button>
-    </div>
+</div>
 
 
 {% endblock %}

@@ -225,7 +225,6 @@
                         <button type="button" class="addDetail_btn ml-3" onclick="addDetail()">세부항목 추가</button>
                         <!-- 옵션삭제 button -->
                         <button type="button" class="deleteOption_btn" onclick="deleteOption()">옵션 삭제</button>
-<!--                        <button type="button" class="deleteOption_btn">옵션 삭제</button>-->
                     </div>
                 </div>
             </td>
@@ -286,79 +285,23 @@
     }
 </script>
 
-
 <!-- 옵션 삭제 -->
 <script type="text/javascript">
     function deleteOption(){
-        console.log($(this).length);
-        var _tr = $(this).closest("tr");
-<!--        var _tr2 = _tr.next("tr")-->
-        console.log(_tr.length);
-<!--        console.log(_tr2);-->
-<!--        _tr2.remove();-->
-        _tr.remove();
+        $('#table').append('<tr>' + option_row + '</tr>');
+        $('#table').append('<tr>' + detail_row + '</tr>');
+        <!-- 각 옵션마다 첫 번째 엑스 버튼 이미지가 없어야함 -->
+        $(this).closest('#detail_row").$('.img').hide();
     }
-
-
-
-
-
-
-
-<!--        var eventTarget = document.getElementsByClassName('deleteOption_btn');-->
-<!--        for(var i=0; i<eventTarget.length; i++) {-->
-<!--            eventTarget[i].addEventListener('click', function() {-->
-<!--                var parent = document.querySelector('#table')-->
-<!--                if(i>1){-->
-<!--                    console.log('해당 행을 삭제합니다.');-->
-<!--                    parent.removeChild(this.parentElement.parentElement.parentElement.parentElement)-->
-<!--                    parent.removeChild(this.parentElement.parentElement.parentElement.parentElement.nextSibling)-->
-<!--                    i&#45;&#45;-->
-<!--                }-->
-<!--                else{-->
-<!--                    console.log('마지막 옵션은 삭제 불가능합니다.');-->
-<!--                }-->
-<!--            });-->
-<!--        }-->
-
-
-
-<!--        var clickedBtn = this;-->
-<!--        if(clickedBtn){-->
-<!--             console.log(clickedBtn);-->
-<!--             $(clickedBtn).closest("tr").remove();-->
-<!--             clickedBtn = null; // not necessary-->
-<!--        }-->
-
-<!--        var _tr = $(this).closest('tr')-->
-<!--        var _tr2 = _tr.siblings();-->
-<!--        console.log(_tr);-->
-<!--        console.log(_tr2.length);-->
-<!--        console.log($(this));-->
-<!--        console.log(this);-->
-
-<!--        _tr.remove();-->
-<!--        _tr2.remove();-->
-
-
-<!--        console.log(this.parentElement.parentElement.parentElement.parentElement);-->
-<!--        var _tr = this.parentElement.parentElement.parentElement.parentElement;-->
-<!--        var _tr2 = this.parentElement.parentElement.parentElement.parentElement.nextSibling;-->
-<!--        _tr.remove();-->
-<!--        _tr2.remove();-->
-
 </script>
-
-
 
 <!-- 세부옵션 추가 -->
 <script type="text/javascript">
     var html_detail = document.getElementById('detail').innerHTML;
 
-    $('.addDetail_btn').on
     function addDetail(){
-<!--        $('#detail').append(html_detail);-->
-        $(this).closest('tr').find('#detail').first().append(html_detail);
+        $('#detail').append(html_detail);
+<!--        $(this).closest('#detail_row").closest("#detail").append(html_detail);-->
     }
 </script>
 
@@ -381,64 +324,4 @@
 <!--        </table>-->
 <!--        <input type="submit" value="제출">-->
 <!--    </form>-->
-
-
-
-<!--<tbody>-->
-<!--    <tr>-->
-<!--        <td>1</td>-->
-<!--        <td>John</td>-->
-<!--        <td class="text-center">-->
-<!--            <p data-placement="top" data-toggle="tooltip" title="Delete">-->
-<!--                <button class="btn btn-danger btn-xs deletebtn" data-title="Delete" data-toggle="modal" data-target="#deletemodal">-->
-<!--                    <span class="glyphicon glyphicon-trash"></span>-->
-<!--                </button>-->
-<!--            </p>-->
-<!--        </td>-->
-<!--    </tr>-->
-<!--    <tr>-->
-<!--        <td>2</td>-->
-<!--        <td>Mary</td>-->
-<!--        <td class="text-center">-->
-<!--            <p data-placement="top" data-toggle="tooltip" title="Delete">-->
-<!--                <button class="btn btn-danger btn-xs deletebtn"-->
-<!--                    data-title="Delete" data-toggle="modal"-->
-<!--                    data-target="#deletemodal">-->
-<!--                    <span class="glyphicon glyphicon-trash"></span>-->
-<!--                </button>-->
-<!--            </p>-->
-<!--        </td>-->
-<!--    </tr>-->
-<!--    <tr>-->
-<!--        <td>3</td>-->
-<!--        <td>Jane</td>-->
-<!--        <td class="text-center">-->
-<!--            <p data-placement="top" data-toggle="tooltip" title="Delete">-->
-<!--                <button class="btn btn-danger btn-xs deletebtn" data-title="Delete" data-toggle="modal" data-target="#deletemodal">-->
-<!--                    <span class="glyphicon glyphicon-trash"></span>-->
-<!--                </button>-->
-<!--            </p>-->
-<!--        </td>-->
-<!--    </tr>-->
-<!--</tbody>-->
-
-<!--$(function(){-->
-<!--     var clickedBtn = null;-->
-<!--     $(".deletebtn").click(function(){-->
-<!--       clickedBtn = this;-->
-
-<!--       // show the modal dialog-->
-<!--     });-->
-
-<!--     $("#confirmdeletebtn").click(function(){-->
-<!--       if(clickedBtn){ // make sure we have assigned a reference-->
-<!--         $(clickedBtn).closest("tr").remove();-->
-<!--         clickedBtn = null; // not necessary-->
-
-<!--         // close the modal dialog.-->
-<!--       }-->
-<!--     });-->
-
-<!--     // add listeners for the close and abort buttons of the modal dialog if not already handeled by bootstrap or whatever you're using.-->
-<!--});-->
 {% endblock %}
