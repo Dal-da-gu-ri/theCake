@@ -140,7 +140,7 @@ def join(request):
                         email = request.POST.get('email_baker',None),
                         name = bakerform.cleaned_data['name'],
                         phoneNum = bakerform.cleaned_data['phoneNum'],
-                        password = make_password(bakerform.cleaned_data['password'])
+                        password = make_password(request.POST.get('password_baker',None))
                     )
 
                     bakerobject.save()
@@ -169,7 +169,7 @@ def join(request):
         # storeform = StoreForm()
         res_data['baker'] = bakerform
 
-        return render(request, 'baker/enrollStore2.html', res_data)
+        return render(request, 'baker/join_baker.html', res_data)
 
 def login(request):
     if request.method=="GET":
@@ -790,7 +790,7 @@ def changeAccountInfo(request):
                 # email = bakerform.cleaned_data['email'],
                 baker.name = bakerform.cleaned_data['name']
                 baker.phoneNum = bakerform.cleaned_data['phoneNum']
-                baker.password = make_password(bakerform.cleaned_data['password'])
+                baker.password = make_password(request.POST.get('password_baker',None))
 
                 baker.save()
                 res_data['baker'] = bakerform
