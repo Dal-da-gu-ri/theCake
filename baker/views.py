@@ -338,9 +338,15 @@ def enrollStore(request):
                     return redirect('/baker/inappropriateApproach')
 
         else:
-            storeobject = Store.objects.get(businessID=baker.businessID)
-            storeform = StoreForm(instance=storeobject)
+            # storeobject = Store.objects.get(businessID=baker.businessID)
+            # storeform = StoreForm(instance=storeobject)
             #storeform = StoreForm()
+            try:
+                storeobject = Store.objects.get(businessID=baker.businessID)
+                storeform = StoreForm(instance=storeobject)
+            except Store.DoesNotExist:
+                storeobject=Store()
+                storeform = StoreForm(instance=storeobject)
             res_data['store'] = storeform
 
             return render(request, 'baker/enrollStore2.html', res_data)
