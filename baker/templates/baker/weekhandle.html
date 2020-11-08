@@ -1,16 +1,20 @@
 {% extends 'base_baker.html' %}
 {% block title %} ::요일별 수량 관리:: {% endblock %}
 {% block content %}
+
+   <div class="row">
+        <p class="pt-3 pl-4 path">가게 관리 > 요일별 수량 관리</p>
+   </div>
 <div class="container text-center">
         <div class="row row-eq-height justify-content-around mt-3">
-            <div class="col-10 col-sm-5 col-md-4" style="border: 1px solid red;">
-        <form method = "POST" onsubmit="return temp()">
+
+        <form method = "POST" onsubmit="return weekhandle_alert()">
             {% csrf_token %}
             <div class="form-row">
                 <div class="form-group col-md-6">
                     <label>월요일 주문가능 수량</label>
                 </div>
-                <div class="form-group col-md-2">
+                <div class="form-group col-md-3">
                     {{opendays.monday}}
                 </div>
             </div>
@@ -18,7 +22,7 @@
                 <div class="form-group col-md-6">
                     <label>화요일 주문가능 수량</label>
                 </div>
-                <div class="form-group col-md-2">
+                <div class="form-group col-md-3">
                     {{opendays.tuesday}}
                 </div>
             </div>
@@ -26,7 +30,7 @@
                 <div class="form-group col-md-6">
                     <label>수요일 주문가능 수량</label>
                 </div>
-                <div class="form-group col-md-2">
+                <div class="form-group col-md-3">
                     {{opendays.wednesday}}
                 </div>
             </div>
@@ -34,7 +38,7 @@
                 <div class="form-group col-md-6">
                     <label>목요일 주문가능 수량</label>
                 </div>
-                <div class="form-group col-md-2">
+                <div class="form-group col-md-3">
                     {{opendays.thursday}}
                 </div>
             </div>
@@ -42,7 +46,7 @@
                 <div class="form-group col-md-6">
                     <label>금요일 주문가능 수량</label>
                 </div>
-                <div class="form-group col-md-2">
+                <div class="form-group col-md-3">
                     {{opendays.friday}}
                 </div>
             </div>
@@ -50,7 +54,7 @@
                 <div class="form-group col-md-6">
                     <label>토요일 주문가능 수량</label>
                 </div>
-                <div class="form-group col-md-2">
+                <div class="form-group col-md-3">
                     {{opendays.saturday}}
                 </div>
             </div>
@@ -58,13 +62,26 @@
                 <div class="form-group col-md-6">
                     <label>일요일 주문가능 수량</label>
                 </div>
-                <div class="form-group col-md-2">
+                <div class="form-group col-md-3">
                     {{opendays.sunday}}
                 </div>
             </div>
-        <button type="submit"> submit </button>
+        <div class="text-center" style="width:100%">
+        <button type='submit' id="submit" class="btn btn-secondary" style="width: 120px; height: 35px;">등록</button>
+        </div>
         </form>
-    </div>
+
  </div>
 </div>
+
+<script>
+    function weekhandle_alert(){
+        var result = confirm("정말 고치실건가요? 고치시면 영업일은 초기화됩니다.");
+        if(result){
+            return true;
+        }else{
+            return false;
+        }
+    }
+</script>
 {% endblock %}

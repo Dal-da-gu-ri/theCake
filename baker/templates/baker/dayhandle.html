@@ -6,6 +6,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Nanum+Gothic&display=swap" rel="stylesheet">
 <style>
     *{font-family:'Nanum Gothic', sans-serif;}
+    .main_wrap{margin-top: 4px;padding-top: 30px;padding-bottom: 30px;margin-bottom: 4px;}
 </style>
 
 <script language="javascript">
@@ -167,10 +168,7 @@
         for(var i = 1; i<= dayy(year, month); i++){ //달력 일수만큼 찍어줌
             var cell = row.insertCell();
             if(date.getMonth()==0 || date.getMonth()==2 || date.getMonth()==4 || date.getMonth()==7 || date.getMonth()==9){
-                if(year == date.getFullYear() && month-1 == date.getMonth() && i == date.getDate()){
-                    cell.innerHTML = "<div class='calendar_cell'>"+i+"</div>";
-                }
-                else if(year == date.getFullYear() && month-1 == date.getMonth()){
+                if(year == date.getFullYear() && month-1 == date.getMonth()){
                     if(i == 1){cell.innerHTML = "<div>"+i+"</div>"+"<a class='calendar_a_tag_example'>"+day1+"</a>";}
                     else if(i == 2){cell.innerHTML = "<div>"+i+"</div>"+"<a class='calendar_a_tag_example'>"+day2+"</a>";}
                     else if(i == 3){cell.innerHTML = "<div>"+i+"</div>"+"<a class='calendar_a_tag_example'>"+day3+"</a>";}
@@ -238,10 +236,7 @@
 
             }
             else if(date.getMonth()==1 || date.getMonth()==3 || date.getMonth()==5 || date.getMonth()==8 || date.getMonth()==10){
-                if(year == date.getFullYear() && month-1 == date.getMonth() && i == date.getDate()){
-                    cell.innerHTML = "<div class='calendar_cell'>"+i+"</div>";
-                }
-                else if(year == date.getFullYear() && month-1 == date.getMonth()){
+                if(year == date.getFullYear() && month-1 == date.getMonth()){
                     if(i == 1){cell.innerHTML = "<div>"+i+"</div>"+"<a class='calendar_a_tag_example'>"+day1+"</a>";}
                     else if(i == 2){cell.innerHTML = "<div>"+i+"</div>"+"<a class='calendar_a_tag_example'>"+day2+"</a>";}
                     else if(i == 3){cell.innerHTML = "<div>"+i+"</div>"+"<a class='calendar_a_tag_example'>"+day3+"</a>";}
@@ -321,7 +316,9 @@
         }
     }
 </script>
-
+<div class="row">
+        <p class="pt-3 pl-4 path">가게 관리 > 일자별 수량 관리</p>
+</div>
 <div hidden>
                 <div id="day1">
                     {{dailyform.day1}}
@@ -535,7 +532,7 @@
                 </div>
             </div>
         </main>
-<div class="row text-center" style="width:100%">
+<div class="text-center" style="width:100%">
         <button type='submit' id="submit" class="btn btn-secondary" style="width: 120px; height: 35px;">등록</button>
     </div>
 
