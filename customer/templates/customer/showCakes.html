@@ -9,10 +9,9 @@ body {
     padding-top: 4.5rem;
     background-color: #fffcfa;
     box-sizing : border-box;
-    font-family : DX경필명조B;
+<!--    font-family : DX경필명조B;-->
 }
 
-@import url('https://fonts.googleapis.com/css2?family=Nanum+Gothic&display=swap');
 #storeName{
     text-align: center;
     font-size: 1.2em;
@@ -115,25 +114,27 @@ body {
   </div>
 </div>
     <div class="row">
-    <div class="container">
+    <div class="container justify-content-around">
         <div class="row row-eq-height justify-content-around mt-3" style="height:20%">
-            <div class="col-10 col-sm-5 col-md-4" style="border: 1px solid red;">
-                <div class="d-block justify-content-center" style="border: 1px solid green;">
-                <!-- 가게로고 -->
-                    <div class="d-inline-block" style="border: 1px solid purple;">
+            <div class="col-6 col-sm-6 col-md-5 align-items-center">
+                <div class="d-flex justify-content-center align-items-center text-nowrap" style="padding: 0.1em 1.5em;  border-radius: 2px; background-color: #c1c1c1; width:100%">
+                    <!-- 가게로고 -->
+                    <div class="d-inline-block">
                         <img src="/media/{{store.storeImg}}" alt="store image" width="40">
                     </div>
-                <!-- 가게명 -->
-                    <div class="d-inline-block" id="storeName">
+                    <!-- 가게명 -->
+                    <div class="d-inline-block ml-4" id="storeName" style="font-weight: bold; color: white;">
                         {{store.storeName}}
                     </div>
                 </div>
-                <div class="d-block justify-content-center" style="border: 1px solid green;">
-                <!-- 선택한 픽업날짜 -->
-
+                <div class="d-flex justify-content-center text-nowrap" style="padding: 0.2em 1.5em; border: 2px solid #c1c1c1; border-radius: 2px; background-color: white; width:100%">
+                    <div class="d-inline-block" style="color: gray">
+                    <!-- 선택한 픽업날짜 -->
+                        <span>픽업날짜:</span><span class="ml-3">{{selectedYear}}</span><span> / {{selectedMonth}}</span><span> / {{selectedDay}}</span>
+                    </div>
                 </div>
             </div>
-            <div class="col-10 col-sm-10 col-md-7" id="store_intro">
+            <div class="col-10 col-sm-10 col-md-6" id="store_intro">
                 <!-- 가게소개 -->
                 <div class="mt-3">
                     {{store.aboutStore}}
@@ -142,7 +143,7 @@ body {
                 <!-- 픽업시작시간, 픽업마감시간 -->
                 <div id="storeInfo">
                     <div>
-                         <span>픽업시간: </span>{{store.pickUpOpen}} <span>~</span>{{store.pickUpClose}}
+                         <span>픽업시간: </span>{{store.pickUpOpen}} <span>~ </span>{{store.pickUpClose}}
                     </div>
                     <!-- 가게위치 -->
                     <div>
