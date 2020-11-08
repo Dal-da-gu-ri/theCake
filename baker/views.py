@@ -110,8 +110,6 @@ def join2(request):
                 email.send()
                 res_data['comment'] = user_email+" 로 이메일이 발송되었습니다. \n\n인증을 완료해주세요 :)"
                 return render(request,'baker/userEmailSent.html',res_data)
-                #return redirect('/baker/login')
-                #return render(request, 'fuser/login.html')
         except checkBaker.DoesNotExist:
             # comment = None
             res_data['error'] = "등록되지 않은 아이디입니다."
@@ -391,10 +389,17 @@ def opendays(request):
                     return redirect('/baker/inappropriateApproach')
 
         else:
-            daysobject = OpenDays.objects.get(businessID=baker.businessID)
-            daysform = OpenDaysForm(instance=daysobject)
-            res_data['opendays'] = daysform
+            # daysobject = OpenDays.objects.get(businessID=baker.businessID)
+            # daysform = OpenDaysForm(instance=daysobject)
+            # res_data['opendays'] = daysform
 
+            try:
+                daysobject = OpenDays.objects.get(businessID=baker.businessID)
+                daysform = DailyAmountForm(instance=daysobject)
+            except OpenDays.DoesNotExist:
+                daysobject=OpenDays()
+                daysform = DailyAmountForm(instance=daysobject)
+            res_data['opendays'] = daysform
             # dailyobject = DailyAmount.objects.get(businessID=baker.businessID)
             # dailyform = DailyAmountForm(instance=dailyobject)
             # res_data['dailyform'] = dailyform

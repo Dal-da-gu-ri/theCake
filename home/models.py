@@ -228,25 +228,34 @@ class Review(models.Model):
         verbose_name = '리뷰'
         verbose_name_plural = '리뷰'
 
-class Option(Store):
+class Option(models.Model):
+    businessID = models.CharField(max_length=50, verbose_name='사업자 등록번호',null=True,blank=False)
     optionName = models.CharField(max_length=30,verbose_name='옵션명',null=True,blank=False,unique=True)
     isNecessary = models.BooleanField(default=False,verbose_name='필수 여부',null=True,blank=False)
     withColor = models.BooleanField(default=False,verbose_name='색상판 유무',null=True,blank=False)
     withImage = models.BooleanField(default=False,verbose_name='이미지추가 유무',null=True,blank=False)
 
     class Meta:
-        abstract = True
-
-
-class DetailedOption(Option):
-    detailName = models.CharField(max_length=50,verbose_name='옵션 세부항목명',null=True,blank=False)
-    pricing = models.IntegerField(verbose_name='추가 금액',null=True,blank=False)
-
-
-    class Meta:
         db_table = 'Options'
         verbose_name = '등록된 옵션'
         verbose_name_plural = '등록된 옵션'
+
+
+    # class Meta:
+    #     abstract = True
+
+
+class DetailedOption(models.Model):
+    businessID = models.CharField(max_length=50, verbose_name='사업자 등록번호', null=True, blank=False,default="")
+    optionName = models.CharField(max_length=30, verbose_name='옵션명', null=True, blank=False, unique=True,default="")
+    detailName = models.CharField(max_length=50,verbose_name='옵션 세부항목명',null=True,blank=False,default="")
+    pricing = models.IntegerField(verbose_name='추가 금액',null=True,blank=False,default="")
+
+
+    class Meta:
+        db_table = 'DetailedOptions'
+        verbose_name = '세부 옵션'
+        verbose_name_plural = '세부 옵션'
 
 class Cake(models.Model): #원래 Store상속받음
     crn = models.CharField(max_length=50, verbose_name='사업자 등록번호',null=True,blank=False)
