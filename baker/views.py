@@ -785,7 +785,7 @@ def editInfo(request):
     if user_id:
         baker = Baker.objects.get(pk=user_id)
         res_data['bakername'] = baker.name
-    return render(request,'baker/editMyInfo.html',res_data)
+    return render(request,'baker/changePw.html',res_data)
 
 def changeAccountInfo(request):
     res_data = {}
@@ -813,7 +813,7 @@ def changeAccountInfo(request):
                     'email_baker':baker.email
                 }
                 # res_data['name'] = storeobject.storeImg
-                return render(request, 'baker/editMyInfo.html', res_data)
+                return render(request, 'baker/changePw.html', res_data)
             else:
                 return redirect('/baker/inappropriateApproach')
 
@@ -827,7 +827,7 @@ def changeAccountInfo(request):
                 'userID': baker.userID,
                 'email_baker': baker.email
             }
-            return render(request, 'baker/editMyInfo.html', res_data)
+            return render(request, 'baker/changePw.html', res_data)
 
     else:
         if request.method == "GET":
@@ -847,7 +847,7 @@ def checkPw(request):
             return render(request, 'baker/checkPw.html',res_data)
         elif request.method == "POST":
             if check_password(request.POST.get('password_baker'), baker.password):
-                return redirect('/baker/myPage/editMyInfo/',res_data)
+                return redirect('/baker/myPage/editMyInfo/changePw',res_data)
             else:
                 res_data['result'] = "비밀번호가 틀렸습니다."
                 print(res_data)
@@ -866,14 +866,25 @@ def changePw(request):
     user_id = request.session.get('user')
     if user_id:
         baker = Baker.objects.get(pk=user_id)
-        res_data['bakername'] = baker.name
+        # res_data['bakername'] = baker.name
         if request.method == "GET":
+            res_data = {'userID': baker.userID,
+                        'email_baker': baker.email,
+                        'phoneNum_baker': baker.phoneNum,
+                        'bakername': baker.name
+                        }
             return render(request, 'baker/changePw.html',res_data)
         elif request.method == "POST":
             newpassword = request.POST.get('password_baker')
             baker.password=make_password(newpassword)
-            res_data['success']="성공적으로 비밀번호가 변경되었습니다."
-            return redirect('/baker/myPage/editMyInfo/', res_data)
+            baker.save()
+            res_data = {'userID': baker.userID,
+                        'email_baker': baker.email,
+                        'phoneNum_baker': baker.phoneNum,
+                        'bakername': baker.name
+                        }
+            print(res_data)
+            return redirect('/baker/myPage/editMyInfo/checkPw', res_data)
 
     else:
         if request.method == "GET":
