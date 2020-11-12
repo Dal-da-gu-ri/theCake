@@ -7,7 +7,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 	  <link rel="stylesheet" href="/static/css/login_customer.css">
-    <title>inappropriateApproach</title>
+    <title>::잘못된 접근입니다::</title>
 
     <style>
     *{
@@ -38,12 +38,30 @@
             }
 
         }
+        html,
+body {
+  height: 100%;
+}
+
+body {
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-align: center;
+  align-items: center;
+  padding-top: 40px;
+  padding-bottom: 40px;
+  background-color: #fffcfa;
+}
+    .form-signin {
+  width: 100%;
+  max-width: 330px;
+  padding: 15px;
+  margin: auto;
+}
     </style>
 </head>
 <body class="text-center">
-    <div class="container">
-        <div class="row d-flex justify-content-around">
-        <form method="POST" class="form-inappropriateApproach">
+        <form method="POST" class="form-signin">
             <img class="mb-4" src="/static/img/logo_customer.png" alt="logo_customer" width="141" height="120">
                  {% csrf_token %}
 
@@ -56,8 +74,5 @@
                 <button type='submit' id="submit" class="btn btn-lg btn-secondary btn-block">메인 화면으로 가기</button>
             </div>
         </form>
-    </div>
-
-    </div>
 </body>
 </html>

@@ -9,26 +9,44 @@
 	  <link rel="stylesheet" href="/static/css/login_baker.css">
     <title>userActivate</title>
     <style>
-    *{
-        font-family : DX경필명조B;
-    }
-    #submit{
-        padding: 10px 30px;
-    }
-    @media only screen and (max-width: 360px) {
-        .container {
-            font-size: 0.9em;
+        *{
+            font-family: 'Nanum Gothic', sans-serif;
         }
-        #submit {
-            font-size: 14px;
+        #submit{
+            padding: 10px 30px;
         }
-    }
+        @media only screen and (max-width: 360px) {
+            .container {
+                font-size: 0.9em;
+            }
+            #submit {
+                font-size: 14px;
+            }
+        }
+        html,
+        body {
+          height: 100%;
+        }
+
+        body {
+          display: -ms-flexbox;
+          display: flex;
+          -ms-flex-align: center;
+          align-items: center;
+          padding-top: 40px;
+          padding-bottom: 40px;
+          background-color: #fffcfa;
+        }
+        .form-signin {
+          width: 100%;
+          max-width: 330px;
+          padding: 15px;
+          margin: auto;
+        }
     </style>
 </head>
 <body class="text-center">
-    <div class="container">
-        <div class="row d-flex justify-content-around">
-            <form method="POST" class="form-userActivate">
+            <form method="POST" class="form-signin">
                 <img class="mb-4" src="/static/img/logo_baker.png" alt="logo_baker" width="141" height="120">
                      {% csrf_token %}
                 <div class="row mt-5">
@@ -38,7 +56,5 @@
                 </div>
                 <button type='submit' id="submit" class="btn btn-lg btn-secondary btn-block">로그인하러 가기</button>
             </form>
-        </div>
-    </div>
 </body>
 </html>
