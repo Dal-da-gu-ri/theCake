@@ -978,27 +978,39 @@ def option_edit(request,pk):
         baker = Baker.objects.get(pk=user_id)
         res_data['bakername'] = baker.name
         optionobject = get_object_or_404(Option,pk=pk)
+        # if DetailedOption.objects.filter(businessID=optionobject.businessID, optionName=optionobject.optionName):
+        #     detailobject = DetailedOption.objects.filter(businessID=optionobject.businessID,
+        #                                                  optionName=optionobject.optionName)
+        detailobject = get_object_or_404(DetailedOption,optionName = optionobject.optionName)
+
         if request.method == "POST":
             optionform = OptionForm(request.POST,instance=optionobject)
+            detailform = DetailedOptionForm(request.POST,instance=detailobject)
 
-            if optionform.is_valid():
+            if optionform.is_valid() and detailform.is_valid():
 
                 optionobject = optionform.save()
+                detailobject = detailform.save()
                 res_data['option'] = optionform
+                res_data['detail'] = detailform
+
                 optionobject.save()
+                detailobject.save()
                 return redirect('/baker/manageCake/options', res_data)
             else:
                     optionform = OptionForm()
                     res_data['option'] = optionform
                     res_data['error'] = "이미 등록된 옵션 이름입니다."
-                    return render(request, 'baker/option_add.html', res_data)
+                    # detail에 대한 오류가 발생할 수도 있음
+                    return render(request, 'baker/option_edit.html', res_data)
 
         else:
             optionform = OptionForm(instance=optionobject)
+            detailform = DetailedOptionForm(instance=detailobject)
+            # detailform = DetailedOptionForm()
             res_data['option'] = optionform
-            detailform = DetailedOptionForm()
             res_data['detail'] = detailform
-            return render(request, 'baker/option_add.html', res_data)
+            return render(request, 'baker/option_edit.html', res_data)
 
     else:
         if request.method == "GET":
@@ -1018,6 +1030,10 @@ def option_delete(request,pk):
         res_data['bakername'] = baker.name
         optionobject = get_object_or_404(Option, pk=pk)
         optionobject.delete()
+
+        if DetailedOption.objects.filter(businessID=optionobject.businessID,optionName = optionobject.optionName):
+            detailobject = DetailedOption.objects.filter(businessID=optionobject.businessID,optionName = optionobject.optionName)
+            detailobject.delete()
         return redirect('/baker/manageCake/options', res_data)
 
     else:

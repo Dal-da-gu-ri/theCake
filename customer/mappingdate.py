@@ -5,8 +5,6 @@ def mappingDate(businessID,month, date):
     available = False
     curmonth = datetime.today().month
     storeAmount = DailyAmount.objects.get(businessID=businessID)
-    # print(curmonth,month,date)
-
     if curmonth == month:
         if date == 1:
             if storeAmount.day1 > 0:
