@@ -1,6 +1,6 @@
 from django import forms
 from home.models import *
-
+from django.forms import modelformset_factory
 # class BakerForm(forms.ModelForm):
 #     class Meta:
 #         model = Baker
@@ -764,6 +764,25 @@ class OptionForm(forms.ModelForm):
             'withColor' : forms.CheckboxInput,
             'withImage' : forms.CheckboxInput
         }
+DetailedFormset = modelformset_factory(
+        DetailedOption,
+        fields = ('detailName', 'pricing',),
+        extra=1,
+        widgets={
+            'detailName': forms.TextInput(
+                attrs={
+                    'placeholder': '세부항목(10자리 이하)'
+                }
+            ),
+            'pricing': forms.TextInput(
+                attrs={
+                    'placeholder': '숫자만 입력해주세요.'
+                }
+            )
+        }
+    )
+
+
 
 class DetailedOptionForm(forms.ModelForm):
     class Meta:

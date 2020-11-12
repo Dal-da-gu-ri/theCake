@@ -928,38 +928,52 @@ def option_add(request):
         #cakeobject = Cake()
         if request.method == "POST":
             optionform = OptionForm(request.POST)
+            formset = DetailedFormset(request.POST)
             # store = Store.objects.get(pk=baker.businessID)
 
-            if optionform.is_valid():
-                optionobject = optionform.save(commit=False)
-                optionobject.businessID = baker.businessID
-                optionobject.optionName = optionform.cleaned_data['optionName']
-                optionobject.isNecessary = optionform.cleaned_data['isNecessary']
-                optionobject.withImage = optionform.cleaned_data['withImage']
-                optionobject.withColor = optionform.cleaned_data['withColor']
+            if optionform.is_valid() and formset.is_vaild():
+                option = optionform.save()
 
-                if Option.objects.filter(optionName=optionobject.optionName, businessID=optionobject.businessID).exists():
-                    optionform = OptionForm()
-                    res_data['option'] = optionform
-                    res_data['error'] = "이미 등록된 옵션 이름입니다."
-                    return render(request, 'baker/option_add.html', res_data)
-                else:
+                for form in formset:
+
+                    optionobject = form.save(commit=False)
+                    optionobject.businessID = baker.businessID
+                    optionobject.optionName = optionform.cleaned_data['optionName']
+                    optionobject.isNecessary = optionform.cleaned_data['isNecessary']
+                    optionobject.withImage = optionform.cleaned_data['withImage']
+                    optionobject.withColor = optionform.cleaned_data['withColor']
+
                     optionobject.save()
-                    # return redirect('/baker/manageCake/myCakes')
-                    res_data['option'] = optionform
-                    # res_data['name'] = cakeobject.cakeImg
-                    # return render(request, 'baker/myCakes2.html', res_data)
-                    return redirect('/baker/manageCake/options', res_data)
+
+                res_data['option'] = optionform
+                return redirect('/baker/manageCake/options', res_data)
+
+                # if Option.objects.filter(optionName=optionobject.optionName, businessID=optionobject.businessID).exists():
+                #     optionform = OptionForm()
+                #     res_data['option'] = optionform
+                #     res_data['error'] = "이미 등록된 옵션 이름입니다."
+                #     return render(request, 'baker/option_add.html', res_data)
+                # else:
+                #     optionobject.save()
+                #     # return redirect('/baker/manageCake/myCakes')
+                #     res_data['option'] = optionform
+                #     # res_data['name'] = cakeobject.cakeImg
+                #     # return render(request, 'baker/myCakes2.html', res_data)
+                #     return redirect('/baker/manageCake/options', res_data)
 
 
             else:
                     return redirect('/baker/inappropriateApproach')
 
         else:
-            optionform = OptionForm()
+            # optionform = OptionForm()
+            # res_data['option'] = optionform
+            # detailform = DetailedOptionForm()
+            # res_data['detail'] = detailform
+            optionform = OptionForm(request.POST)
+            formset = DetailedFormset(queryset = DetailedOption.objects.none())
             res_data['option'] = optionform
-            detailform = DetailedOptionForm()
-            res_data['detail'] = detailform
+            res_data['detail'] = formset
             return render(request, 'baker/option_add.html', res_data)
 
     else:
