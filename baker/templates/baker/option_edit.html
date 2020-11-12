@@ -190,6 +190,7 @@
 <form method = "POST" action = "#">
 {% csrf_token %}
 <table id="table" class="mt-5 mb-2">
+        {% for option in option_list %}
         <!-- 옵션 추가에서 씀 -->
          <tr id="option_row">
             <td class="option text-nowrap" rowspan="2">옵션</td>
@@ -221,6 +222,8 @@
                 </div>
                 <div id="detail">
                     <div class="detail_obj text-nowrap d-flex align-items-center ml-1 my-2">
+                        {% for detail in detail_list %}
+                        {% if detail.optionName == option.optionName %}
                         <!-- 세부항목 이름 input -->
                         <span class="ml-1 mr-3">종류</span>{{detail.detailName}}
                         <!-- 세부항목 추가금액 input -->
@@ -231,6 +234,8 @@
                                 <img src="/static/img/delete.png" alt="세부항목 삭제" width="21em" onclick="javascript:deleteDetail(this)">
                             </a>
                         </span>
+                        {% endif %}
+                        {% endfor %}
                     </div>
                 </div>
             </td>
