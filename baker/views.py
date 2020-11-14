@@ -645,7 +645,7 @@ def cake_edit(request,pk):
             return redirect('/')
 
 
-def cake_delete(request,pk):
+def cake_delete(request, pk):
     res_data = {}
     user_id = request.session.get('user')
 
@@ -671,7 +671,7 @@ def options(request):
         res_data['bakername'] = baker.name
     return render(request, 'baker/options.html')
 
-
+#주문관리
 def manageOrder(request):
     res_data = {}
     user_id = request.session.get('user')
@@ -680,6 +680,12 @@ def manageOrder(request):
         baker = Baker.objects.get(pk=user_id)
         res_data['bakername'] = baker.name
     return render(request, 'baker/manageOrder.html',res_data)
+
+def orderInfo(request, pk):
+    res_data = {}
+    user_id = request.session.get('user')
+
+    return render(request, 'baker/orderInfo.html', res_data)
 
 def mypage(request):
     res_data = {}

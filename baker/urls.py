@@ -43,8 +43,8 @@ urlpatterns = [
     path('manageCake/options/optionEdit/<int:pk>/delete', views.option_delete, name='option_delete'),
 
     # 주문 관리
-    path('manageOrder/', views.manageOrder, name='manageOrder_baker'),
-
+    path('manageOrder/', views.manageOrder, name='manageOrder'),
+    path('manageOrder/orderInfo/<int:pk>/', views.orderInfo, name='orderInfo')
 
 
 ]
