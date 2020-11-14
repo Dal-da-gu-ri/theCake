@@ -1,6 +1,48 @@
 {% extends 'base_baker.html' %}
-{% block title %} manageOrder {% endblock %}
-
+{% block title %} ::사장님의 주문 관리:: {% endblock %}
 {% block content %}
+<style>
+    .index .col-sm, .index .col-sm-3{
+        padding-top:1em;
+        padding-bottom:1em;
+        border: solid #a8abad;
+        background: #fff7e9;
+    }
+    .col-sm, .col-sm-3{
+        padding-top:1em;
+        padding-bottom:1em;
+        border: solid #a8abad;
+    }
+<!--    .col-sm:nth-child(2n-1) {-->
+<!--        padding-top:1em;-->
+<!--        padding-bottom:1em;-->
+<!--        background: #e9bbb9;-->
+<!--    }-->
+</style>
+  <div class="row">
+        <p class="pt-3 pl-4 path">주문 관리</p>
+  </div>
+<div class="container pt-4">
+    <div class="row justify-content-center text-center index">
+        <div class="col-sm">주문번호</div>
+        <div class="col-sm">주문자</div>
+        <div class="col-sm-3">주문내역</div>
+        <div class="col-sm">픽업 날짜</div>
+        <div class="col-sm">픽업 시간</div>
+        <div class="col-sm">처리 상태</div>
+    </div>
+{% for review in review_list %}
+<hr>
+    <div class="row justify-content-center text-center">
+        <div class="col-sm">{{order.orderNum}}</div>
+        <div class="col-sm">{{order.orderer}}</div>
+        <div class="col-sm-3"><a href="{% url 'baker:order_info' order.pk %}">{{review.taste}}</a></div>
+        <div class="col-sm">{{order.service}}</div>
+        <div class="col-sm">{{order.pickupDate}}</div>
+        <div class="col-sm">{{order.pickupTime}}</div>
+        <div class="col-sm">{{order.status}}</div>
+    </div>
 
+{% endfor %}
+</div>
 {% endblock %}
