@@ -252,7 +252,7 @@ class Option(models.Model):
 
 
 class DetailedOption(models.Model):
-    # businessID = models.CharField(max_length=50, verbose_name='사업자 등록번호', null=True, blank=False,default="")
+    businessID = models.CharField(max_length=50, verbose_name='사업자 등록번호', null=True, blank=False,default="")
     # optionName = models.CharField(max_length=30, verbose_name='옵션명', null=True, blank=False, unique=True,default="")
     option = models.ForeignKey(Option,related_name='details', on_delete=models.CASCADE, null=True)
     detailName = models.CharField(max_length=50,verbose_name='옵션 세부항목명',null=True,blank=False,default="")

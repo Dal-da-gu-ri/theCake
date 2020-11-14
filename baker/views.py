@@ -952,6 +952,7 @@ def option_add(request):
                     # so that `book` instance can be attached.
                     detail = form.save(commit=False)
                     detail.option = option
+                    detail.businessID = baker.businessID
                     detail.detailName = form.cleaned_data['detailName']
                     detail.pricing = form.cleaned_data['pricing']
                     detail.save()
@@ -968,76 +969,6 @@ def option_add(request):
 
 
 
-def option_add2(request):
-    res_data = {}
-    user_id = request.session.get('user')
-
-    if user_id:
-        baker = Baker.objects.get(pk=user_id)
-        res_data['bakername'] = baker.name
-        #cakeobject = Cake()
-        if request.method == "POST":
-            optionform = OptionForm(request.POST)
-            formset = DetailedFormset(request.POST)
-            # store = Store.objects.get(pk=baker.businessID)
-
-            if optionform.is_valid() and formset.is_valid():
-                optionobject = optionform.save(commit=False)
-                optionobject.businessID = baker.businessID
-                optionobject.optionName = optionform.cleaned_data['optionName']
-                optionobject.isNecessary = optionform.cleaned_data['isNecessary']
-                optionobject.withImage = optionform.cleaned_data['withImage']
-                optionobject.withColor = optionform.cleaned_data['withColor']
-                optionobject = optionform.save()
-                optionobject.save()
-                for detailform in formset:
-
-                    detailobject = detailform.save(commit=False)
-                    # detailobject.businessID = baker.businessID
-                    # detailobject.optionName = optionobject #optionform.cleaned_data['optionName']
-                    detailobject.detailName = detailform.cleaned_data['detailName']
-                    detailobject.pricing = detailform.cleaned_data['pricing']
-                    detailobject.save()
-
-                res_data['option'] = optionform
-                res_data['detail'] = detailform
-                return redirect('/baker/manageCake/options', res_data)
-
-                # if Option.objects.filter(optionName=optionobject.optionName, businessID=optionobject.businessID).exists():
-                #     optionform = OptionForm()
-                #     res_data['option'] = optionform
-                #     res_data['error'] = "이미 등록된 옵션 이름입니다."
-                #     return render(request, 'baker/option_add.html', res_data)
-                # else:
-                #     optionobject.save()
-                #     # return redirect('/baker/manageCake/myCakes')
-                #     res_data['option'] = optionform
-                #     # res_data['name'] = cakeobject.cakeImg
-                #     # return render(request, 'baker/myCakes2.html', res_data)
-                #     return redirect('/baker/manageCake/options', res_data)
-
-            else:
-                    return redirect('/baker/inappropriateApproach')
-
-        else:
-            # optionform = OptionForm()
-            # res_data['option'] = optionform
-            # detailform = DetailedOptionForm()
-            # res_data['detail'] = detailform
-            optionform = OptionForm(request.POST)
-            detailform = DetailedFormset(queryset = DetailedOption.objects.none())
-            res_data['option'] = optionform
-            res_data['detail'] = detailform
-            return render(request, 'baker/option_practice.html', res_data)
-
-    else:
-        if request.method == "GET":
-            res_data['comment'] = "잘못된 접근입니다. 로그인을 해주세요!"
-            return render(request, 'baker/inappropriateApproach.html', res_data)
-        elif request.method == "POST":
-            return redirect('/')
-
-
 def option_edit(request,pk):
     res_data = {}
     user_id = request.session.get('user')
@@ -1046,9 +977,9 @@ def option_edit(request,pk):
         baker = Baker.objects.get(pk=user_id)
         res_data['bakername'] = baker.name
         optionobject = get_object_or_404(Option,pk=pk)
-        # if DetailedOption.objects.filter(businessID=optionobject.businessID, optionName=optionobject.optionName):
-        #     detailobject = DetailedOption.objects.filter(businessID=optionobject.businessID,
-        #                                                  optionName=optionobject.optionName)
+        if DetailedOption.objects.filter(option = optionobject):
+            detailobject = DetailedOption.objects.filter(businessID=optionobject.businessID,
+                                                         optionName=optionobject.optionName)
         detailobject = get_object_or_404(DetailedOption,optionName = optionobject.optionName)
 
         if request.method == "POST":
