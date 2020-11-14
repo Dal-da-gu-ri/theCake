@@ -751,9 +751,16 @@ class DailyAmountForm(forms.ModelForm):
     
 
 class OptionForm(forms.ModelForm):
+
     class Meta:
         model = Option
         fields = ['optionName', 'isNecessary', 'withColor', 'withImage']
+        labels = {
+            'optionName': 'Option Name',
+            'isNecessary':'Necessary?',
+            'withColor':'Color?',
+            'withImage':'Image?'
+        }
         widgets = {
             'optionName' : forms.TextInput(
                 attrs={
@@ -764,41 +771,38 @@ class OptionForm(forms.ModelForm):
             'withColor' : forms.CheckboxInput,
             'withImage' : forms.CheckboxInput
         }
-DetailedFormset = modelformset_factory(DetailedOption,fields = ('detailName', 'pricing')
-                                       )
-# DetailedFormset = modelformset_factory(
-#         DetailedOption,
-#         fields = ('detailName', 'pricing',),
-#         extra=1,
-#         widgets={
-#             'detailName': forms.TextInput(
-#                 attrs={
-#                     'placeholder': '세부항목(10자리 이하)'
-#                 }
-#             ),
-#             'pricing': forms.TextInput(
-#                 attrs={
-#                     'placeholder': '숫자만 입력해주세요.'
-#                 }
-#             )
-#         }
-#     )
 
 
+# OptionFormset = formset_factory(BookForm)
+OptionFormset = modelformset_factory(
+    Option,
+    fields=['optionName', 'isNecessary', 'withColor', 'withImage'],
+extra=1,
+    widgets={
+        'optionName': forms.TextInput(
+            attrs={
+                'placeholder': '옵션명(10자리 이하)'
+            }
+        ),
+        'isNecessary': forms.CheckboxInput,
+        'withColor': forms.CheckboxInput,
+        'withImage': forms.CheckboxInput
+    }
+)
 
-class DetailedOptionForm(forms.ModelForm):
-    class Meta:
-        model = DetailedOption
-        fields = ['detailName', 'pricing']
-        widgets = {
-            'detailName' : forms.TextInput(
+DetailedOptionFormset = modelformset_factory(
+    DetailedOption,
+    fields=('detailName', 'pricing', ),
+    extra=1,
+    widgets={'detailName' : forms.TextInput(
                 attrs={
                     'placeholder': '세부항목(10자리 이하)'
                 }
             ),
-            'pricing' : forms.TextInput(
+            'pricing' : forms.NumberInput(
                 attrs={
                     'placeholder': '숫자만 입력해주세요.'
                 }
             )
-        }
+    }
+)

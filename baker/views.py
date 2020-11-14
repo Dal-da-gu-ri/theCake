@@ -907,9 +907,9 @@ def options(request):
         res_data['bakername'] = baker.name
         #cake_list = Cake.objects.all()
         option_list = Option.objects.filter(businessID=baker.businessID)
-        detail_list = DetailedOption.objects.filter(businessID=baker.businessID)
+        # detail_list = DetailedOption.objects.filter(businessID=baker.businessID)
         res_data['option_list']= option_list
-        res_data['detail_list']=detail_list
+        # res_data['detail_list']=detail_list
         return render(request, 'baker/options.html',res_data)
     else:
         if request.method == "GET":
@@ -918,7 +918,56 @@ def options(request):
         elif request.method == "POST":
             return redirect('/baker/login')
 
+
 def option_add(request):
+    res_data = {}
+    user_id = request.session.get('user')
+
+    if user_id:
+        baker = Baker.objects.get(pk=user_id)
+        res_data['bakername'] = baker.name
+
+        if request.method == 'GET':
+            optionform = OptionForm(request.GET or None)
+            formset = DetailedOptionFormset(queryset=DetailedOption.objects.none())
+            res_data['optionform']=optionform
+            res_data['formset']=formset
+            return render(request, 'baker/option_add2.html', res_data)
+        elif request.method == 'POST':
+            optionform = OptionForm(request.POST)
+            formset = DetailedOptionFormset(request.POST)
+            if optionform.is_valid() and formset.is_valid():
+                # first save this book, as its reference will be used in `Author`
+                option = optionform.save(commit=False)
+                option.businessID = baker.businessID
+                option.optionName = optionform.cleaned_data['optionName']
+                option.isNecessary = optionform.cleaned_data['isNecessary']
+                option.withImage = optionform.cleaned_data['withImage']
+                option.withColor = optionform.cleaned_data['withColor']
+                option = optionform.save()
+                option.save()
+                for form in formset:
+                    # so that `book` instance can be attached.
+                    detail = form.save(commit=False)
+                    detail.option = option
+                    detail.detailName = form.cleaned_data['detailName']
+                    detail.pricing = form.cleaned_data['pricing']
+                    detail.save()
+                return redirect('/baker/manageCake/options/',res_data)
+            else:
+                    return redirect('/baker/inappropriateApproach')
+
+    else:
+        if request.method == "GET":
+            res_data['comment'] = "잘못된 접근입니다. 로그인을 해주세요!"
+            return render(request, 'baker/inappropriateApproach.html', res_data)
+        elif request.method == "POST":
+            return redirect('/')
+
+
+
+
+def option_add2(request):
     res_data = {}
     user_id = request.session.get('user')
 
@@ -965,7 +1014,6 @@ def option_add(request):
                 #     # res_data['name'] = cakeobject.cakeImg
                 #     # return render(request, 'baker/myCakes2.html', res_data)
                 #     return redirect('/baker/manageCake/options', res_data)
-
 
             else:
                     return redirect('/baker/inappropriateApproach')

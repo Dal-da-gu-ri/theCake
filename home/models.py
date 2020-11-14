@@ -240,6 +240,12 @@ class Option(models.Model):
         verbose_name = '등록된 옵션'
         verbose_name_plural = '등록된 옵션'
 
+    def __str__(self):
+        return self.optionName
+
+    def get_details(self):
+        return ', '.join(self.details.all().values_list('detailName', flat=True))
+
 
     # class Meta:
     #     abstract = True
@@ -248,7 +254,7 @@ class Option(models.Model):
 class DetailedOption(models.Model):
     # businessID = models.CharField(max_length=50, verbose_name='사업자 등록번호', null=True, blank=False,default="")
     # optionName = models.CharField(max_length=30, verbose_name='옵션명', null=True, blank=False, unique=True,default="")
-    option = models.ForeignKey(Option,on_delete=models.CASCADE,default="")
+    option = models.ForeignKey(Option,related_name='details', on_delete=models.CASCADE, null=True)
     detailName = models.CharField(max_length=50,verbose_name='옵션 세부항목명',null=True,blank=False,default="")
     pricing = models.IntegerField(verbose_name='추가 금액',null=True,blank=False,default="")
 
@@ -257,6 +263,9 @@ class DetailedOption(models.Model):
         db_table = 'DetailedOptions'
         verbose_name = '세부 옵션'
         verbose_name_plural = '세부 옵션'
+
+    def __str__(self):
+        return self.detailName
 
 class Cake(models.Model): #원래 Store상속받음
     crn = models.CharField(max_length=50, verbose_name='사업자 등록번호',null=True,blank=False)
