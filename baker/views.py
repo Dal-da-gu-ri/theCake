@@ -928,24 +928,29 @@ def option_add(request):
         #cakeobject = Cake()
         if request.method == "POST":
             optionform = OptionForm(request.POST)
-            detail_formset = DetailedFormset(request.POST)
+            formset = DetailedFormset(request.POST)
             # store = Store.objects.get(pk=baker.businessID)
 
-            if optionform.is_valid() and detail_formset.is_vaild():
-                option = optionform.save()
+            if optionform.is_valid() and formset.is_valid():
+                optionobject = optionform.save(commit=False)
+                optionobject.businessID = baker.businessID
+                optionobject.optionName = optionform.cleaned_data['optionName']
+                optionobject.isNecessary = optionform.cleaned_data['isNecessary']
+                optionobject.withImage = optionform.cleaned_data['withImage']
+                optionobject.withColor = optionform.cleaned_data['withColor']
+                optionobject = optionform.save()
+                optionobject.save()
+                for detailform in formset:
 
-                for form in detail_formset:
-
-                    optionobject = form.save(commit=False)
-                    optionobject.businessID = baker.businessID
-                    optionobject.optionName = optionform.cleaned_data['optionName']
-                    optionobject.isNecessary = optionform.cleaned_data['isNecessary']
-                    optionobject.withImage = optionform.cleaned_data['withImage']
-                    optionobject.withColor = optionform.cleaned_data['withColor']
-
-                    optionobject.save()
+                    detailobject = detailform.save(commit=False)
+                    # detailobject.businessID = baker.businessID
+                    # detailobject.optionName = optionobject #optionform.cleaned_data['optionName']
+                    detailobject.detailName = detailform.cleaned_data['detailName']
+                    detailobject.pricing = detailform.cleaned_data['pricing']
+                    detailobject.save()
 
                 res_data['option'] = optionform
+                res_data['detail'] = detailform
                 return redirect('/baker/manageCake/options', res_data)
 
                 # if Option.objects.filter(optionName=optionobject.optionName, businessID=optionobject.businessID).exists():
@@ -971,10 +976,10 @@ def option_add(request):
             # detailform = DetailedOptionForm()
             # res_data['detail'] = detailform
             optionform = OptionForm(request.POST)
-            detail_formset = DetailedFormset(queryset=DetailedOption.objects.none())
+            detailform = DetailedFormset(queryset = DetailedOption.objects.none())
             res_data['option'] = optionform
-            res_data['detail'] = detail_formset
-            return render(request, 'baker/option_add.html', res_data)
+            res_data['detail'] = detailform
+            return render(request, 'baker/option_practice.html', res_data)
 
     else:
         if request.method == "GET":

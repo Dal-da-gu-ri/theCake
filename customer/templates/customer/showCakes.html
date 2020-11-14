@@ -205,11 +205,8 @@ body {
               </div>
             </div>
             <div class="d-flex justify-content-center pt-3">
-              <form method = "POST" action = "#" >
-                  {% csrf_token %}
 <!--                  <input type="hidden" name="_method" value="order" />-->
-                  <button id="order_btn" onclick="location.href='{% url 'customer:cakeOrder' cake.pk %}'">주문하기</button>
-              </form>
+                  <button id="order_btn" onclick="location.href='{% url 'customer:cakeOrder' crn=cake.crn cakepk=cake.pk %}'">주문하기</button>
             </div>
           </div>
         </div>
@@ -221,4 +218,12 @@ body {
 </div>
 </div>
 
+
+<script>
+$(function(){
+            $("#order_btn").on('click', function(){
+            console.log(pk)
+            })
+        })
+</script>
 {% endblock %}

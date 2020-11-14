@@ -764,30 +764,32 @@ class OptionForm(forms.ModelForm):
             'withColor' : forms.CheckboxInput,
             'withImage' : forms.CheckboxInput
         }
-DetailedFormset = modelformset_factory(
-        DetailedOption,
-        fields = ('detailName', 'pricing',),
-        extra=1,
-        widgets={
-            'detailName': forms.TextInput(
-                attrs={
-                    'placeholder': '세부항목(10자리 이하)'
-                }
-            ),
-            'pricing': forms.TextInput(
-                attrs={
-                    'placeholder': '숫자만 입력해주세요.'
-                }
-            )
-        }
-    )
+DetailedFormset = modelformset_factory(DetailedOption,fields = ('detailName', 'pricing')
+                                       )
+# DetailedFormset = modelformset_factory(
+#         DetailedOption,
+#         fields = ('detailName', 'pricing',),
+#         extra=1,
+#         widgets={
+#             'detailName': forms.TextInput(
+#                 attrs={
+#                     'placeholder': '세부항목(10자리 이하)'
+#                 }
+#             ),
+#             'pricing': forms.TextInput(
+#                 attrs={
+#                     'placeholder': '숫자만 입력해주세요.'
+#                 }
+#             )
+#         }
+#     )
 
 
 
 class DetailedOptionForm(forms.ModelForm):
     class Meta:
         model = DetailedOption
-        fields = ['optionName', 'detailName', 'pricing']
+        fields = ['detailName', 'pricing']
         widgets = {
             'detailName' : forms.TextInput(
                 attrs={

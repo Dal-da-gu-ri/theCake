@@ -327,7 +327,7 @@ def storeInfo(request,pk):
             res_data['selectedMonth']=request.session.get('selectedMonth')
             res_data['selectedDay']=request.session.get('selectedDay')
 
-            print(res_data)
+            # print(res_data)
             # return render(request, 'customer/showStores.html', res_data)
             return render(request,'customer/showCakes.html',res_data)
         elif request.method == "POST":
@@ -347,13 +347,17 @@ def storeInfo(request,pk):
         elif request.method == "POST":
             return redirect('/customer/login')
 
-def cakeOrder(request,pk1):
+def cakeOrder(request,crn,cakepk):
     res_data = {}
     user_id = request.session.get('user')
 
     if user_id:
         customer = Orderer.objects.get(pk=user_id)
         res_data['customername'] = customer.name
+
+    print("Hello")
+    print(crn)
+    print(cakepk)
 
     return render(request, 'customer/orderCake.html', res_data)
     #   주문화면
