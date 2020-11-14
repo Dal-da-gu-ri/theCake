@@ -103,6 +103,26 @@ body {
     background-color: #cd7d7d;
 }
 
+    #review{
+    float: right;
+    transition:.15s ease;
+    border: 1px solid #cf8484;
+    background-color:white;
+    color: #cc5f5f;
+    border-radius: 2px;
+    }
+
+    #review:hover {
+        background-color: #cf8484;
+        color: white;
+    }
+    #review:focus {
+    outline: none;
+    }
+
+    #review:active {
+    background-color: #cd7d7d;
+    }
 
 </style>
 
@@ -133,6 +153,7 @@ body {
                         <span>선택하신 픽업날짜</span><span class="ml-3">{{selectedYear}}</span><span> / {{selectedMonth}}</span><span> / {{selectedDay}}</span>
                     </div>
                 </div>
+                <button id="review" class="form-control text-center mt-2" style="width: 9em; padding: 3px; font-size: 0.8em;" onclick="location.href='{% url 'customer:showReview' store.pk %}'">리뷰 보러가기</button>
             </div>
             <div class="col-10 col-sm-10 col-md-6" id="store_intro">
                 <!-- 가게소개 -->

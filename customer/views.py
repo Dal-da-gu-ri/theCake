@@ -348,6 +348,12 @@ def storeInfo(request,pk):
         elif request.method == "POST":
             return redirect('/customer/login')
 
+def showReview(request, pk):
+    res_data = {}
+    user_id = request.session.get('user')
+
+    return render(request, 'customer/showReview.html', res_data)
+
 def cakeOrder(request,crn,cakepk):
     res_data = {}
     user_id = request.session.get('user')

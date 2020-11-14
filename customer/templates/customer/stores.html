@@ -1,3 +1,4 @@
+<!--store.reviewScore 추가해서 views.py에서 수정해야함.-->
 <style>
     .gray{
      color:#929292;
@@ -17,7 +18,8 @@
           <div class="card-body">
             <div class="pt-1">
                 <p class="card-text" id="store_name">{{store.storeName}}</p>
-                <div class="d-flex justify-content-around row pt-4">
+                <p class="d-flex justify-content-around row pt-3">{{store.reviewScore}}</p>
+                <div class="d-flex justify-content-around row pt-3">
 <!--                  가게위치 - 간단하게 ex) 인천 부평구 삼산동-->
                 <span class="card-text gray">{{store.daum_sido}} {{store.daum_sigungu}} {{store.daum_dong}}</span>
                 </div>
