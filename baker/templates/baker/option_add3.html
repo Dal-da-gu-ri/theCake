@@ -197,15 +197,15 @@
                 <div class="d-flex justify-content-between align-items-center">
                     <div>
                         <!-- 옵션명 input -->
-                        {{optionform.optionName}}
+                        {{option.optionName}}
 <!--                        <input type="text" name="optionName" placeholder="옵션명(10자리 이하)" maxlength="10" size="27" required>-->
                         <!-- 필수옵션입니다 checkbox -->
-                        <span class="ml-3 mr-1 requiredOption">필수옵션입니까?</span>{{optionform.isNecessary}}
+                        <span class="ml-3 mr-1 requiredOption">필수옵션입니까?</span>{{option.isNecessary}}
 <!--                        <input type="checkbox" class="isRequired" name="isRequired" value="필수옵션입니까" style="font-size: 0.8em;">-->
                     </div>
                     <div>
                         <!-- 세부항목 추가 button -->
-                        <button type="button" class="add-form-row addDetail_btn ml-3">세부항목 추가</button>
+                        <button type="button" class="addDetail_btn ml-3">세부항목 추가</button>
                     </div>
                 </div>
             </td>
@@ -215,10 +215,11 @@
             <td class="detailInfo">
                 <div class="mt-2 mb-3">
                     <span class="ml-3 mr-1">색상판</span>
-                    {{optionform.withColor}}
+                    {{option.withColor}}
                     <span class="ml-4 mr-1">이미지 업로드</span>
-                    {{optionform.withImage}}
+                    {{option.withImage}}
                 </div>
+
 <!--                <div id="detail">-->
 <!--                    <div class="detail_obj text-nowrap d-flex align-items-center ml-1 my-2">-->
 <!--                        &lt;!&ndash; 세부항목 이름 input &ndash;&gt;-->
@@ -233,24 +234,35 @@
 <!--                        </span>-->
 <!--                    </div>-->
 <!--                </div>-->
-                {{ formset.management_form }}
-                {% for form in formset %}
+<!--                {{detail_formset.management_form}}-->
+<!--                {% for detail in detail_formset.forms %}-->
                 <div id="detail">
-                    <div class="formRow detail_obj text-nowrap d-flex align-items-center ml-1 my-2">
+                    <div class="detail_obj text-nowrap d-flex align-items-center ml-1 my-2">
                         <!-- 세부항목 이름 input -->
-                        <span class="ml-1 mr-3">종류</span>{{form.detailName}}
+                        <span class="ml-1 mr-3">종류</span>{{detail.detailName}}
                         <!-- 세부항목 추가금액 input -->
-                        <span class="ml-3 mr-3">추가금액</span>{{form.pricing}}
+                        <span class="ml-3 mr-3">추가금액</span>{{detail.pricing}}
                         <!-- 세부항목 삭제 button -->
                         <span class="img">
-                            <a class="remove-form-row deleteDetail_btn ml-2">
-<!--                                <img src="/static/img/delete.png" alt="세부항목 삭제" width="21em" onclick="javascript:deleteDetail(this)">-->
-                                <img src="/static/img/delete.png" alt="세부항목 삭제" width="21em">
+                            <a class="deleteDetail_btn ml-2">
+                                <img src="/static/img/delete.png" alt="세부항목 삭제" width="21em" onclick="javascript:deleteDetail(this)">
+                            </a>
+                        </span>
+                    </div>
+                    <div class="detail_obj text-nowrap d-flex align-items-center ml-1 my-2">
+                        <!-- 세부항목 이름 input -->
+                        <span class="ml-1 mr-3">종류</span>{{detail.detailName}}
+                        <!-- 세부항목 추가금액 input -->
+                        <span class="ml-3 mr-3">추가금액</span>{{detail.pricing}}
+                        <!-- 세부항목 삭제 button -->
+                        <span class="img">
+                            <a class="deleteDetail_btn ml-2">
+                                <img src="/static/img/delete.png" alt="세부항목 삭제" width="21em" onclick="javascript:deleteDetail(this)">
                             </a>
                         </span>
                     </div>
                 </div>
-                {% endfor %}
+<!--                {% endfor %}-->
             </td>
         </tr>
 </table>
@@ -267,17 +279,17 @@
 <!-- 처음건 버튼이 존재하지 않음 -->
 <script type="text/javascript">
     $(document).ready(function(){
-<!--        $('.img').hide();-->
+        $('.img').hide();
     });
 </script>
 
 <!-- 세부항목 추가 -->
 <script type="text/javascript">
-<!--    $('#addDetail_btn').click(function() {-->
-<!--        var form_idx = $('#id_form-TOTAL_FORMS').val();-->
-<!--        $('#form_set').append($('#empty_form').html().replace(/__prefix__/g, form_idx));-->
-<!--        $('#id_form-TOTAL_FORMS').val(parseInt(form_idx) + 1);-->
-<!--    });-->
+    $('#addDetail_btn').click(function() {
+        var form_idx = $('#id_form-TOTAL_FORMS').val();
+        $('#form_set').append($('#empty_form').html().replace(/__prefix__/g, form_idx));
+        $('#id_form-TOTAL_FORMS').val(parseInt(form_idx) + 1);
+    });
 
 
 <!--    var html_detail = document.getElementById('detail').innerHTML;-->
@@ -292,96 +304,13 @@
 
 <!-- 세부항목 삭제 -->
 <script type="text/javascript">
-<!--    function deleteDetail(obj){-->
-<!--        var tr = obj.parentNode.parentNode;-->
-<!--        tr.parentNode.remove('.detail_obj');-->
-<!--    }-->
+    function deleteDetail(obj){
+        var tr = obj.parentNode.parentNode;
+        tr.parentNode.remove('.detail_obj');
+    }
 </script>
 
-<script type="text/javascript">
-    <!-- updateElementIndex(this, prefix, i);-->
-    function updateElementIndex(el, prefix, ndx) {
-        var id_regex = new RegExp('(' + prefix + '-\\d+)');
-        var replacement = prefix + '-' + ndx;
-        if ($(el).attr("for")) $(el).attr("for", $(el).attr("for").replace(id_regex, replacement));
-        if (el.id) el.id = el.id.replace(id_regex, replacement);
-        if (el.name) el.name = el.name.replace(id_regex, replacement);
-    }
 
-    <!-- cloneMore('.form-row:last', 'form'); -->
-    function cloneMore(selector, prefix) {
-    <!-- clone() : 가지고 있는 요소 뿐만 아니라 그 안에 포함된 자식요소가 자동으로 모두 복사, 데이터 및 기능까지 복사하기를 원할 경우 매개변수에 true -->
-        var newElement = $(selector).clone(true);
-        var total = $('#id_' + prefix + '-TOTAL_FORMS').val();
-        newElement.find(':input:not([type=button]):not([type=submit]):not([type=reset])').each(function() {
-    <!-- attr(인자1개) : 선택한 요소의 속성값을 가져옴 -->
-            var name = $(this).attr('name')
-            if(name) {
-                name = name.replace('-' + (total-1) + '-', '-' + total + '-');
-                var id = 'id_' + name;
-    <!-- val(인자가 있을 경우) : 선택한 양식의 값을 설정 -->
-                $(this).attr({'name': name, 'id': id}).val('').removeAttr('checked');
-            }
-        });
-        newElement.find('label').each(function() {
-            var forValue = $(this).attr('for');
-            if (forValue) {
-              forValue = forValue.replace('-' + (total-1) + '-', '-' + total + '-');
-              $(this).attr({'for': forValue});
-            }
-        });
-        total++;
-        $('#id_' + prefix + '-TOTAL_FORMS').val(total);
-    <!-- after(인자) : 선택한 요소 뒤에 새 요소를 추가 -->
-        $(selector).after(newElement);
-    <!-- '+'를 '-'로 바꿔줌 -->
-<!--        var conditionRow = $('.form-row:not(:last)');-->
-<!--        conditionRow.find('.btn.add-form-row')-->
-<!--        .removeClass('btn-success').addClass('btn-danger')-->
-<!--        .removeClass('add-form-row').addClass('remove-form-row')-->
-<!--        .html('-');-->
-    <!-- html() : HTML태그를 포함해서 선택한 요소 안의 내용을 가져옴, 또는 이전 내용을 지우고 새로운 내용을 넣음 -->
-
-        return false;
-    }
-
-    <!-- deleteForm('form', $(this)); -->
-    function deleteForm(prefix, btn) {
-        var total = parseInt($('#id_' + prefix + '-TOTAL_FORMS').val());
-    <!-- 우린 if 필요없음 (아예 delete버튼이 없음)-->
-        btn.closest('.formRow').remove();
-        var forms = $('.formRow');
-        $('#id_' + prefix + '-TOTAL_FORMS').val(forms.length);
-        for (var i=0, formCount=forms.length; i<formCount; i++) {
-            $(forms.get(i)).find(':input').each(function() {
-                updateElementIndex(this, prefix, i);
-            });
-        }
-<!--        if (total > 1){-->
-<!--            btn.closest('.form-row').remove();-->
-<!--            var forms = $('.form-row');-->
-<!--            $('#id_' + prefix + '-TOTAL_FORMS').val(forms.length);-->
-<!--            for (var i=0, formCount=forms.length; i<formCount; i++) {-->
-<!--                $(forms.get(i)).find(':input').each(function() {-->
-<!--                    updateElementIndex(this, prefix, i);-->
-<!--                });-->
-<!--            }-->
-<!--        }-->
-        return false;
-    }
-
-    $(document).on('click', '.add-form-row', function(e){
-        e.preventDefault();
-        cloneMore('.formRow:last', 'form');
-        return false;
-    });
-
-    $(document).on('click', '.remove-form-row', function(e){
-        e.preventDefault();
-        deleteForm('form', $(this));
-        return false;
-    });
-</script>
 
 
 {% endblock %}

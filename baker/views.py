@@ -932,7 +932,7 @@ def option_add(request):
             formset = DetailedOptionFormset(queryset=DetailedOption.objects.none())
             res_data['optionform']=optionform
             res_data['formset']=formset
-            return render(request, 'baker/option_add2.html', res_data)
+            return render(request, 'baker/option_add.html', res_data)
         elif request.method == 'POST':
             optionform = OptionForm(request.POST)
             formset = DetailedOptionFormset(request.POST)
@@ -963,7 +963,6 @@ def option_add(request):
             return render(request, 'baker/inappropriateApproach.html', res_data)
         elif request.method == "POST":
             return redirect('/')
-
 
 
 
