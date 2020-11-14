@@ -142,11 +142,11 @@ body {
                 <hr>
                 <!-- 픽업시작시간, 픽업마감시간 -->
                 <div id="storeInfo">
-                    <div>
+                    <div class="mb-2">
                          <span>픽업시간: </span>{{store.pickUpOpen}} <span>~ </span>{{store.pickUpClose}}
                     </div>
                     <!-- 가게위치 -->
-                    <div>
+                    <div class="mb-2">
                         <span>가게위치: </span>{{store.location}}
                     </div>
                     <!-- 전화번호 -->
@@ -193,7 +193,7 @@ body {
           </div>
           <div class="card-body">
             <div class="pt-1">
-                <p class="card-text" style="text-align: center;">{{cake.cakeName}}</p>
+                <p class="card-text pt-1" style="text-align: center;">{{cake.cakeName}}</p>
               <div class="d-flex justify-content-around row pt-3">
                 <span class="card-text gray">가격 (1호 기준)</span>
                 <span>{{cake.cakePrice}}원</span>
