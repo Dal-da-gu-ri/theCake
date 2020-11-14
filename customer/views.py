@@ -378,16 +378,70 @@ def orderlist(request):
     return render(request, 'customer/orderlist_customer.html',res_data)
 
 
-def mypage(request):
+# def mypage(request):
+#     res_data = {}
+#     user_id = request.session.get('user')
+#
+#     if user_id:
+#         customer = Orderer.objects.get(pk=user_id)
+#         res_data['customername'] = customer.name
+#
+#     return render(request, 'customer/mypage_customer.html',res_data)
+
+def checkPw(request):
     res_data = {}
     user_id = request.session.get('user')
-
     if user_id:
         customer = Orderer.objects.get(pk=user_id)
         res_data['customername'] = customer.name
+        if request.method == "GET":
+            return render(request, 'customer/checkPw.html',res_data)
+        elif request.method == "POST":
+            if check_password(request.POST.get('password_customer'), customer.password):
+                return redirect('/customer/myPage/editMyInfo/changePw',res_data)
+            else:
+                res_data['result'] = "비밀번호가 틀렸습니다."
+                print(res_data)
+                return render(request,'customer/checkPw.html',res_data)
 
-    return render(request, 'customer/mypage_customer.html',res_data)
+    else:
+        if request.method == "GET":
+            res_data['comment'] = "잘못된 접근입니다. 로그인을 해주세요!"
+            return render(request, 'customer/inappropriateApproach.html', res_data)
+        elif request.method == "POST":
+            return redirect('/')
 
+
+def changePw(request):
+    res_data = {}
+    user_id = request.session.get('user')
+    if user_id:
+        customer = Orderer.objects.get(pk=user_id)
+        if request.method == "GET":
+            res_data = {'userID': customer.userID,
+                        'email_customer': customer.email,
+                        'phoneNum_customer': customer.phoneNum,
+                        'customername': customer.name
+                        }
+            return render(request, 'customer/changePw.html',res_data)
+        elif request.method == "POST":
+            newpassword = request.POST.get('password_customer')
+            customer.password=make_password(newpassword)
+            customer.save()
+            res_data = {'userID': customer.userID,
+                        'email_customer': customer.email,
+                        'phoneNum_customer': customer.phoneNum,
+                        'customername': customer.name
+                        }
+            print(res_data)
+            return redirect('/customer/myPage/editMyInfo/checkPw', res_data)
+
+    else:
+        if request.method == "GET":
+            res_data['comment'] = "잘못된 접근입니다. 로그인을 해주세요!"
+            return render(request, 'customer/inappropriateApproach.html', res_data)
+        elif request.method == "POST":
+            return redirect('/')
 
 def logout(request):
     res_data = {}

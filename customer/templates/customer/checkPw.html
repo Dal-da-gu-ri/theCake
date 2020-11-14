@@ -1,4 +1,4 @@
-{% extends 'base_baker.html' %}
+{% extends 'base_customer.html' %}
 
 {% block content %}
 <div class="row">
@@ -8,12 +8,12 @@
 <form method = "POST" class="form-signup">
     {% csrf_token %}
                <div class="form-inline form-group">
-                  <label for="password_baker" class="col-sm-4 control-label">현재 비밀번호</label>
+                  <label for="password_customer" class="col-sm-4 control-label">현재 비밀번호</label>
                   <input type="password"
-                  class="col-lg-5 col-md-6 col-sm-6 form-control pw_baker"
-                  id="password_baker"
+                  class="col-lg-5 col-md-6 col-sm-6 form-control pw_customer"
+                  id="password_customer"
                   placeholder="현재 비밀번호를 입력해주세요."
-                  name= "password_baker"
+                  name= "password_customer"
                   required>
                    <div class="ml-4">
                        <button type="submit" id="pw_submit" class="btn btn-secondary btn-block">확인</button>
@@ -27,15 +27,15 @@
 </script>
 <!--<script>-->
 <!--    $('#pw_submit').click(function(){-->
-<!--        var pw = $('#password_baker').val();-->
+<!--        var pw = $('#password_customer').val();-->
 
 <!--&lt;!&ndash;        $.ajax({&ndash;&gt;-->
-<!--&lt;!&ndash;            url: '{% url 'baker:checkPw' %}',&ndash;&gt;-->
+<!--&lt;!&ndash;            url: '{% url 'customer:checkPw' %}',&ndash;&gt;-->
 <!--&lt;!&ndash;            data: {'pw': pw},&ndash;&gt;-->
 <!--&lt;!&ndash;            success: function(data){&ndash;&gt;-->
 <!--&lt;!&ndash;                if(data.result == "success"){&ndash;&gt;-->
 <!--&lt;!&ndash;                    alert("확인되었습니다.");&ndash;&gt;-->
-<!--&lt;!&ndash;                    document.getElementById('password_baker').readOnly = true;&ndash;&gt;-->
+<!--&lt;!&ndash;                    document.getElementById('password_customer').readOnly = true;&ndash;&gt;-->
 <!--&lt;!&ndash;                    $('#pw_submit').attr('disabled', 'disabled');&ndash;&gt;-->
 <!--&lt;!&ndash;                    $('#newPw').show();&ndash;&gt;-->
 <!--&lt;!&ndash;                }&ndash;&gt;-->

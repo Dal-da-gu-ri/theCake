@@ -51,8 +51,10 @@ urlpatterns = [
     # path('orderList/changeOrder', views.changeOrder, name='changeOrder_customer'),
 
     # 마이페이지
-    # (이메일(변경가능?), 비밀번호, 이름, 핸드폰번호,,)
-    path('mypage/', views.mypage, name='mypage_customer'),
+    # path('myPage/editMyInfo/',views.changeAccountInfo,name='editInfo'),
+    path('myPage/editMyInfo/checkPw', views.checkPw, name='checkPw'),
+    path('myPage/editMyInfo/changePw', views.changePw, name='changePw'),
+    # path('mypage/', views.mypage, name='mypage_customer'),
     path('inappropriateApproach/', views.wrongApproach, name='wrongApproach')
 
 ]
