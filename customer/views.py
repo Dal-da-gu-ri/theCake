@@ -355,7 +355,7 @@ def cakeOrder(request,pk1):
         customer = Orderer.objects.get(pk=user_id)
         res_data['customername'] = customer.name
 
-    return render(request, 'customer/orderlist_customer.html', res_data)
+    return render(request, 'customer/orderCake.html', res_data)
     #   주문화면
 
 def testing(request):

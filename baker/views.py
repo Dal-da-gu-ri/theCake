@@ -928,13 +928,13 @@ def option_add(request):
         #cakeobject = Cake()
         if request.method == "POST":
             optionform = OptionForm(request.POST)
-            formset = DetailedFormset(request.POST)
+            detail_formset = DetailedFormset(request.POST)
             # store = Store.objects.get(pk=baker.businessID)
 
-            if optionform.is_valid() and formset.is_vaild():
+            if optionform.is_valid() and detail_formset.is_vaild():
                 option = optionform.save()
 
-                for form in formset:
+                for form in detail_formset:
 
                     optionobject = form.save(commit=False)
                     optionobject.businessID = baker.businessID
@@ -971,9 +971,9 @@ def option_add(request):
             # detailform = DetailedOptionForm()
             # res_data['detail'] = detailform
             optionform = OptionForm(request.POST)
-            formset = DetailedFormset(queryset = DetailedOption.objects.none())
+            detail_formset = DetailedFormset(queryset=DetailedOption.objects.none())
             res_data['option'] = optionform
-            res_data['detail'] = formset
+            res_data['detail'] = detail_formset
             return render(request, 'baker/option_add.html', res_data)
 
     else:
