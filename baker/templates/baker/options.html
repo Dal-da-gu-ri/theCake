@@ -271,7 +271,14 @@
                     <div>
 <!--                        <span class="ml-5 mr-1 requiredOption"> 필수옵션입니다. </span>-->
                         <!-- 세부항목 추가 button -->
-                        <span class="optionalOption ml-3" style="font-weight:normal;">{{option.isNecessary}}</span>
+                        <span class="optionalOption ml-3" style="font-weight:normal;">
+                            {% if option.isNecessary == 1 %}
+                            필수옵션
+                            {% endif %}
+                            {% if option.isNecessary != 1 %}
+                            선택옵션
+                            {% endif %}
+                        </span>
                         <button type="button" class="addDetail_btn ml-3" onclick="addDetail()">옵션 수정</button>
                         <!-- 옵션삭제 button -->
                         <button type="button" class="deleteOption_btn">옵션 삭제</button>
@@ -285,9 +292,23 @@
                 <!-- 동적으로 세부항목 추가 가능해야 -->
                 <!-- 색상판, 이미지업로드 유무 (Ex. 색상판: 유, 이미지업로드: 무)-->
                 <div class="mt-2 mb-3">
-                    <span class="ml-2 mr-1">색상판:</span><span class="ml-2" style="font-weight: bold;">{{option.withColor}}</span>
+                    <span class="ml-2 mr-1">색상판:</span><span class="ml-2" style="font-weight: bold;">
+                    {% if option.withColor == 1 %}
+                            필요
+                            {% endif %}
+                            {% if option.withColor != 1 %}
+                            불필요
+                            {% endif %}
+                </span>
 <!--                    <span class="ml-3 mr-1">색상판</span> <input type="checkbox" class="color_check" name="color_check" value="색상판" style="font-size: 0.8em;" disabled>-->
-                    <span class="ml-4 mr-1">이미지 업로드:</span><span class="ml-2" style="font-weight: bold;">{{option.withImage}}</span>
+                    <span class="ml-4 mr-1">이미지 업로드:</span><span class="ml-2" style="font-weight: bold;">
+                    {% if option.withImage == 1 %}
+                            필요
+                            {% endif %}
+                            {% if option.withImage != 1 %}
+                            불필요
+                            {% endif %}
+                </span>
 <!--                    <span class="ml-4 mr-1">이미지 업로드</span> <input type="checkbox" class="img_check" name="img_check" value="이미지 업로드" style="font-size: 0.8em;" disabled>-->
                 </div>
                 <!-- 이게 기본 -->
@@ -300,7 +321,8 @@
                         <div id="detail_Info">
                             <!-- 이 안에 추가정보 가져오면 됨 -->
                             {% for detail in detail_list %}
-                            {% if detail.optionName == option.optionName %}
+                            {% if detail.option == option %}
+
                             <tr class="detail_content" >
                                 <th class="text-nowrap detailContent">{{detail.detailName}}</th>
                                 <th class="text-nowrap detailContent">{{detail.pricing}}</th>

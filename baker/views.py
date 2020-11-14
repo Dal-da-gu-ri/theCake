@@ -908,8 +908,10 @@ def options(request):
         #cake_list = Cake.objects.all()
         option_list = Option.objects.filter(businessID=baker.businessID)
         # detail_list = DetailedOption.objects.filter(businessID=baker.businessID)
+        detail_list = DetailedOption.objects.all()
+
         res_data['option_list']= option_list
-        # res_data['detail_list']=detail_list
+        res_data['detail_list']=detail_list
         return render(request, 'baker/options.html',res_data)
     else:
         if request.method == "GET":
