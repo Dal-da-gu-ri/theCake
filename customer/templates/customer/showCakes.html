@@ -1,7 +1,7 @@
 {% extends 'base_customer.html' %}
 
 {% block content %}
-<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
 
 <style>
 body {
@@ -194,11 +194,12 @@ body {
           <div class="card-body">
             <div class="pt-1">
                 <p class="card-text" style="text-align: center;">{{cake.cakeName}}</p>
-              <div class="d-flex justify-content-around row ">
+              <div class="d-flex justify-content-around row pt-3">
                 <span class="card-text gray">가격 (1호 기준)</span>
                 <span>{{cake.cakePrice}}원</span>
               </div>
 <!--              <hr>-->
+                <br>
               <div class="d-flex justify-content-around row">
                 <span class="card-text gray">미니사이즈</span>
                 <span class="mini_text">{{cake.mini}}</span>
