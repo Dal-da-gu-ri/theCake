@@ -977,38 +977,42 @@ def option_edit(request,pk):
         baker = Baker.objects.get(pk=user_id)
         res_data['bakername'] = baker.name
         optionobject = get_object_or_404(Option,pk=pk)
-        if DetailedOption.objects.filter(option = optionobject):
-            detailobject = DetailedOption.objects.filter(businessID=optionobject.businessID,
-                                                         optionName=optionobject.optionName)
-        detailobject = get_object_or_404(DetailedOption,optionName = optionobject.optionName)
+        if DetailedOption.objects.filter(option_id = optionobject.pk,businessID = baker.businessID):
+            detail_list = DetailedOption.objects.filter(option_id = optionobject.pk,businessID = baker.businessID)
+        # detailobject = get_object_or_404(DetailedOption,optionName = optionobject.optionName)
 
         if request.method == "POST":
             optionform = OptionForm(request.POST,instance=optionobject)
-            detailform = DetailedOptionForm(request.POST,instance=detailobject)
+            formset = DetailedOptionFormset(request.POST,instance=detail_list)
 
-            if optionform.is_valid() and detailform.is_valid():
+            if optionform.is_valid() and formset.is_valid():
 
                 optionobject = optionform.save()
-                detailobject = detailform.save()
-                res_data['option'] = optionform
-                res_data['detail'] = detailform
-
                 optionobject.save()
-                detailobject.save()
+
+                for form in formset:
+                    detail = form.save()
+                    detail.save()
+
+                res_data['option'] = optionform
+                res_data['detail'] = detail
+
+                # detailobject.save()
                 return redirect('/baker/manageCake/options', res_data)
             else:
-                    optionform = OptionForm()
-                    res_data['option'] = optionform
-                    res_data['error'] = "이미 등록된 옵션 이름입니다."
+                    # optionform = OptionForm()
+                    # res_data['option'] = optionform
+                    # res_data['error'] = "이미 등록된 옵션 이름입니다."
                     # detail에 대한 오류가 발생할 수도 있음
                     return render(request, 'baker/option_edit.html', res_data)
 
         else:
             optionform = OptionForm(instance=optionobject)
-            detailform = DetailedOptionForm(instance=detailobject)
+            if DetailedOption.objects.filter(option_id=optionobject.pk, businessID=baker.businessID):
+                detail_list = DetailedOption.objects.filter(option_id=optionobject.pk, businessID=baker.businessID)
             # detailform = DetailedOptionForm()
             res_data['option'] = optionform
-            res_data['detail'] = detailform
+            res_data['detail'] = detail_list
             return render(request, 'baker/option_edit.html', res_data)
 
     else:
@@ -1030,8 +1034,8 @@ def option_delete(request,pk):
         optionobject = get_object_or_404(Option, pk=pk)
         optionobject.delete()
 
-        if DetailedOption.objects.filter(businessID=optionobject.businessID,optionName = optionobject.optionName):
-            detailobject = DetailedOption.objects.filter(businessID=optionobject.businessID,optionName = optionobject.optionName)
+        if DetailedOption.objects.filter(option_id=optionobject.pk, businessID=baker.businessID):
+            detailobject = DetailedOption.objects.filter(option_id=optionobject.pk, businessID=baker.businessID)
             detailobject.delete()
         return redirect('/baker/manageCake/options', res_data)
 
