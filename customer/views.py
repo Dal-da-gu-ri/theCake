@@ -351,8 +351,24 @@ def storeInfo(request,pk):
 def showReview(request, pk):
     res_data = {}
     user_id = request.session.get('user')
+    if user_id:
+        customer = Orderer.objects.get(pk=user_id)
+        res_data['customername'] = customer.name
 
-    return render(request, 'customer/showReview.html', res_data)
+        if request.method == "GET":
+            review_list = Review.objects.filter(storeInfo=pk)
+            res_data['review_list'] = review_list
+            return render(request, 'customer/showReview.html', res_data)
+
+    else:
+        if request.method == "GET":
+            res_data['comment'] = "잘못된 접근입니다. 로그인을 해주세요!"
+            return render(request, 'baker/inappropriateApproach.html', res_data)
+        elif request.method == "POST":
+            return redirect('/')
+
+
+
 
 def cakeOrder(request,crn,cakepk):
     res_data = {}
@@ -463,6 +479,8 @@ def logout(request):
             return redirect('/customer/inappropriateApproach')
     elif request.method == "POST":
         return redirect('/')
+
+
 
 
 

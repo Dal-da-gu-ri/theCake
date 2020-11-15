@@ -193,7 +193,7 @@ class Order(models.Model):
         ('Jul', '7월'), ('Aug', '8월'), ('Sep', '9월'), ('Oct', '10월'), ('Nov', '11월'), ('Dec', '12월'),
     }
     orderNum = models.DateTimeField(auto_now_add=True,verbose_name='주문 번호',primary_key=True,blank=False)
-    orderer = models.ForeignKey(Orderer,on_delete=models.CASCADE)
+    orderer = models.CharField(max_length=20,verbose_name="주문자",null=True,blank=False)
     pickupDate = models.CharField(max_length=30,verbose_name='희망 수령일',null=True,blank=False)
     pickupTime = models.CharField(max_length=20,verbose_name='희망 픽업 시간',null=True,blank=False)
     businessID = models.CharField(max_length=50, verbose_name='사업자 등록번호',null=True,blank=False)
@@ -216,8 +216,10 @@ class Order(models.Model):
 
 class Review(models.Model):
     orderNum = models.CharField(max_length=20, verbose_name='주문 번호',primary_key=True) #random하게 하기
-    orderer = models.ForeignKey(Orderer,on_delete=models.CASCADE)
-    cakeStore = models.ForeignKey(Store,on_delete=models.CASCADE)
+    # orderer = models.ForeignKey(Orderer,on_delete=models.CASCADE)
+    # cakeStore = models.ForeignKey(Store,on_delete=models.CASCADE)
+    orderer = models.CharField(max_length=20,verbose_name="주문자",null=True,blank=False)
+    storeInfo = models.CharField(max_length=50, verbose_name='사업자 등록번호',null=True,blank=False)
     taste = models.IntegerField(verbose_name='맛 평점',null=True,blank=False)
     service = models.IntegerField(verbose_name='서비스 평점',null=True,blank=False)
     design = models.IntegerField(verbose_name='디자인 평점',null=True,blank=False)

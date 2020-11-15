@@ -1051,3 +1051,25 @@ def option_delete(request,pk):
             return render(request, 'baker/inappropriateApproach.html', res_data)
         elif request.method == "POST":
             return redirect('/')
+
+
+
+def storeReview(request):
+    res_data = {}
+    user_id = request.session.get('user')
+
+    if user_id:
+        baker = Baker.objects.get(pk=user_id)
+        res_data['bakername'] = baker.name
+        if request.method == "GET":
+            # print("hi")
+            review_list = Review.objects.filter(storeInfo=baker.businessID)
+            res_data['review_list'] = review_list
+            return render(request, 'baker/storeReview.html', res_data)
+
+    else:
+        if request.method == "GET":
+            res_data['comment'] = "잘못된 접근입니다. 로그인을 해주세요!"
+            return render(request, 'baker/inappropriateApproach.html', res_data)
+        elif request.method == "POST":
+            return redirect('/')
