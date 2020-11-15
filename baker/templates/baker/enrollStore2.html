@@ -3,7 +3,6 @@
 {% block content %}
 <!--daum 우편주소 api-->
 <script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
-<link rel="stylesheet" href="/static/css/enrollStore.css">
    <div class="row">
         <p class="pt-3 pl-4 path">가게 관리 > 가게 등록</p>
     </div>
@@ -13,15 +12,14 @@
     .sido, .sigugun, .dong{
         padding: 10px;
     }
-    #submit{
-    padding: 10px;
-    margin-top: 30px;
-    width: 10%;
-    margin-left: 45%;
-    }
 
-    .form-group{
-        word-break:keep-all;
+    #submit{
+    padding: 0;
+    margin-top: 30px;
+    width: 100%;
+    margin: auto;
+    width: 120px;
+    height: 35px;
     }
 
 <!--    body {-->
@@ -58,12 +56,17 @@
     .form-group .form-control:focus {
       z-index: 2;
     }
+
     #postcode_search{
     transition:.15s ease;
     border: 1px solid #cf8484;
     background-color:white;
     color: #cc5f5f;
     border-radius: 2px;
+    width: 9em;
+    margin: auto;
+    padding: 3px;
+    font-size: 0.8em;"
     }
     #postcode_search:hover {
         background-color: #cf8484;
@@ -72,19 +75,14 @@
     #postcode_search:focus {
     outline: none;
     }
-
     #postcode_search:active {
     background-color: #cd7d7d;
     }
+
     label {
         display:block;
         text-align: center;
     }
-
-    #submit{
-        padding: 0 !important;
-    }
-
     form {
         margin-top: 50px;
     }
@@ -110,12 +108,12 @@
 <!--            {{store.storeImg.value.href}}-->
 
         </div>
-        <div id="storeInfo" class="form-group col-8 col-sm-8 ">
+        <div id="storeInfo" class="form-group col-8 col-sm-8" style="border: 2px solid red;">
             <div class="form-row">
                 <div class="form-group col-4">
                     <label>가게 이름</label>
                 </div>
-                <div class="form-group col-2" style="align:center;">
+                <div class="form-group col-2">
                     {{ store.storeName }}
                 </div>
             </div>
@@ -123,7 +121,7 @@
             <div class="form-row">
                 <div class="form-group col-4">
                     <label>가게 위치</label><br>
-                    <input id="postcode_search" class="form-control text-center" style="width: 9em; margin-left: 5em; padding: 3px; font-size: 0.8em;" type="button" onclick="sample6_execDaumPostcode()" value="우편번호 찾기">
+                    <input id="postcode_search" class="form-control"  type="button" onclick="sample6_execDaumPostcode()" value="우편번호 찾기">
                 </div>
                <div class="form-group col-2" style="align:center;">
 <!--                <div class="d-flex justify-content-center">-->
@@ -176,8 +174,8 @@
         </div>
     </div>
 
-    <div class="row text-center" style="width:100%">
-        <button type='submit' id="submit" class="btn btn-secondary" style="width: 120px; height: 35px;">등록</button>
+    <div class="row mt-5">
+        <button type='submit' id="submit" class="btn btn-secondary">등록</button>
     </div>
 </form>
 
