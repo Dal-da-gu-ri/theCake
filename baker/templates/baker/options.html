@@ -271,17 +271,19 @@
                     <div>
 <!--                        <span class="ml-5 mr-1 requiredOption"> 필수옵션입니다. </span>-->
                         <!-- 세부항목 추가 button -->
-                        <span class="optionalOption ml-3" style="font-weight:normal;">
-                            {% if option.isNecessary == 1 %}
-                            필수옵션
-                            {% endif %}
-                            {% if option.isNecessary != 1 %}
-                            선택옵션
-                            {% endif %}
+                        {% if option.isNecessary == 1 %}
+                        <span class="optionalOption ml-3" style="font-weight:bold; color: red;">
+                            필수옵션입니다
                         </span>
-                        <button type="button" class="addDetail_btn ml-3" onclick="addDetail()">옵션 수정</button>
+                        {% endif %}
+                        {% if option.isNecessary != 1 %}
+                        <span class="optionalOption ml-3" style="font-weight:bold;">
+                            선택옵션입니다
+                        </span>
+                        {% endif %}
+                        <button type="button" class="addDetail_btn ml-3" onclick="location.href='{% url 'baker:option_edit' option.pk %}'">옵션 수정</button>
                         <!-- 옵션삭제 button -->
-                        <button type="button" class="deleteOption_btn">옵션 삭제</button>
+                        <button type="button" class="deleteOption_btn" onclick="location.href='{% url 'baker:option_delete' option.pk %}'">옵션 삭제</button>
 <!--                        <button type="button" class="deleteOption_btn">옵션 삭제</button>-->
                     </div>
                 </div>
@@ -293,21 +295,21 @@
                 <!-- 색상판, 이미지업로드 유무 (Ex. 색상판: 유, 이미지업로드: 무)-->
                 <div class="mt-2 mb-3">
                     <span class="ml-2 mr-1">색상판:</span><span class="ml-2" style="font-weight: bold;">
-                    {% if option.withColor == 1 %}
-                            필요
-                            {% endif %}
-                            {% if option.withColor != 1 %}
-                            불필요
-                            {% endif %}
+                        {% if option.withColor == 1 %}
+                        필요
+                        {% endif %}
+                        {% if option.withColor != 1 %}
+                        불필요
+                        {% endif %}
                 </span>
 <!--                    <span class="ml-3 mr-1">색상판</span> <input type="checkbox" class="color_check" name="color_check" value="색상판" style="font-size: 0.8em;" disabled>-->
                     <span class="ml-4 mr-1">이미지 업로드:</span><span class="ml-2" style="font-weight: bold;">
-                    {% if option.withImage == 1 %}
-                            필요
-                            {% endif %}
-                            {% if option.withImage != 1 %}
-                            불필요
-                            {% endif %}
+                        {% if option.withImage == 1 %}
+                        필요
+                        {% endif %}
+                        {% if option.withImage != 1 %}
+                        불필요
+                        {% endif %}
                 </span>
 <!--                    <span class="ml-4 mr-1">이미지 업로드</span> <input type="checkbox" class="img_check" name="img_check" value="이미지 업로드" style="font-size: 0.8em;" disabled>-->
                 </div>
@@ -364,61 +366,61 @@
 </script>
 
 
-<!-- 옵션 삭제 -->
-<script type="text/javascript">
-    function deleteOption(){
-        console.log($(this).length);
-        var _tr = $(this).closest("tr");
-<!--        var _tr2 = _tr.next("tr")-->
-        console.log(_tr.length);
-<!--        console.log(_tr2);-->
-<!--        _tr2.remove();-->
-        _tr.remove();
-    }
-
-
-<!--        var eventTarget = document.getElementsByClassName('deleteOption_btn');-->
-<!--        for(var i=0; i<eventTarget.length; i++) {-->
-<!--            eventTarget[i].addEventListener('click', function() {-->
-<!--                var parent = document.querySelector('#table')-->
-<!--                if(i>1){-->
-<!--                    console.log('해당 행을 삭제합니다.');-->
-<!--                    parent.removeChild(this.parentElement.parentElement.parentElement.parentElement)-->
-<!--                    parent.removeChild(this.parentElement.parentElement.parentElement.parentElement.nextSibling)-->
-<!--                    i&#45;&#45;-->
-<!--                }-->
-<!--                else{-->
-<!--                    console.log('마지막 옵션은 삭제 불가능합니다.');-->
-<!--                }-->
-<!--            });-->
-<!--        }-->
-
-
-
-<!--        var clickedBtn = this;-->
-<!--        if(clickedBtn){-->
-<!--             console.log(clickedBtn);-->
-<!--             $(clickedBtn).closest("tr").remove();-->
-<!--             clickedBtn = null; // not necessary-->
-<!--        }-->
-
-<!--        var _tr = $(this).closest('tr')-->
-<!--        var _tr2 = _tr.siblings();-->
-<!--        console.log(_tr);-->
-<!--        console.log(_tr2.length);-->
-<!--        console.log($(this));-->
-<!--        console.log(this);-->
-
+<!--&lt;!&ndash; 옵션 삭제 &ndash;&gt;-->
+<!--<script type="text/javascript">-->
+<!--    function deleteOption(){-->
+<!--        console.log($(this).length);-->
+<!--        var _tr = $(this).closest("tr");-->
+<!--&lt;!&ndash;        var _tr2 = _tr.next("tr")&ndash;&gt;-->
+<!--        console.log(_tr.length);-->
+<!--&lt;!&ndash;        console.log(_tr2);&ndash;&gt;-->
+<!--&lt;!&ndash;        _tr2.remove();&ndash;&gt;-->
 <!--        _tr.remove();-->
-<!--        _tr2.remove();-->
+<!--    }-->
 
 
-<!--        console.log(this.parentElement.parentElement.parentElement.parentElement);-->
-<!--        var _tr = this.parentElement.parentElement.parentElement.parentElement;-->
-<!--        var _tr2 = this.parentElement.parentElement.parentElement.parentElement.nextSibling;-->
-<!--        _tr.remove();-->
-<!--        _tr2.remove();-->
+<!--&lt;!&ndash;        var eventTarget = document.getElementsByClassName('deleteOption_btn');&ndash;&gt;-->
+<!--&lt;!&ndash;        for(var i=0; i<eventTarget.length; i++) {&ndash;&gt;-->
+<!--&lt;!&ndash;            eventTarget[i].addEventListener('click', function() {&ndash;&gt;-->
+<!--&lt;!&ndash;                var parent = document.querySelector('#table')&ndash;&gt;-->
+<!--&lt;!&ndash;                if(i>1){&ndash;&gt;-->
+<!--&lt;!&ndash;                    console.log('해당 행을 삭제합니다.');&ndash;&gt;-->
+<!--&lt;!&ndash;                    parent.removeChild(this.parentElement.parentElement.parentElement.parentElement)&ndash;&gt;-->
+<!--&lt;!&ndash;                    parent.removeChild(this.parentElement.parentElement.parentElement.parentElement.nextSibling)&ndash;&gt;-->
+<!--&lt;!&ndash;                    i&#45;&#45;&ndash;&gt;-->
+<!--&lt;!&ndash;                }&ndash;&gt;-->
+<!--&lt;!&ndash;                else{&ndash;&gt;-->
+<!--&lt;!&ndash;                    console.log('마지막 옵션은 삭제 불가능합니다.');&ndash;&gt;-->
+<!--&lt;!&ndash;                }&ndash;&gt;-->
+<!--&lt;!&ndash;            });&ndash;&gt;-->
+<!--&lt;!&ndash;        }&ndash;&gt;-->
 
-</script>
+
+
+<!--&lt;!&ndash;        var clickedBtn = this;&ndash;&gt;-->
+<!--&lt;!&ndash;        if(clickedBtn){&ndash;&gt;-->
+<!--&lt;!&ndash;             console.log(clickedBtn);&ndash;&gt;-->
+<!--&lt;!&ndash;             $(clickedBtn).closest("tr").remove();&ndash;&gt;-->
+<!--&lt;!&ndash;             clickedBtn = null; // not necessary&ndash;&gt;-->
+<!--&lt;!&ndash;        }&ndash;&gt;-->
+
+<!--&lt;!&ndash;        var _tr = $(this).closest('tr')&ndash;&gt;-->
+<!--&lt;!&ndash;        var _tr2 = _tr.siblings();&ndash;&gt;-->
+<!--&lt;!&ndash;        console.log(_tr);&ndash;&gt;-->
+<!--&lt;!&ndash;        console.log(_tr2.length);&ndash;&gt;-->
+<!--&lt;!&ndash;        console.log($(this));&ndash;&gt;-->
+<!--&lt;!&ndash;        console.log(this);&ndash;&gt;-->
+
+<!--&lt;!&ndash;        _tr.remove();&ndash;&gt;-->
+<!--&lt;!&ndash;        _tr2.remove();&ndash;&gt;-->
+
+
+<!--&lt;!&ndash;        console.log(this.parentElement.parentElement.parentElement.parentElement);&ndash;&gt;-->
+<!--&lt;!&ndash;        var _tr = this.parentElement.parentElement.parentElement.parentElement;&ndash;&gt;-->
+<!--&lt;!&ndash;        var _tr2 = this.parentElement.parentElement.parentElement.parentElement.nextSibling;&ndash;&gt;-->
+<!--&lt;!&ndash;        _tr.remove();&ndash;&gt;-->
+<!--&lt;!&ndash;        _tr2.remove();&ndash;&gt;-->
+
+<!--</script>-->
 
 {% endblock %}

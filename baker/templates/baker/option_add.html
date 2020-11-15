@@ -262,41 +262,12 @@
 </form>
 
 
-
-
 <!-- 처음건 버튼이 존재하지 않음 -->
-<script type="text/javascript">
-    $(document).ready(function(){
-<!--        $('.img').hide();-->
-    });
-</script>
-
-<!-- 세부항목 추가 -->
-<script type="text/javascript">
-<!--    $('#addDetail_btn').click(function() {-->
-<!--        var form_idx = $('#id_form-TOTAL_FORMS').val();-->
-<!--        $('#form_set').append($('#empty_form').html().replace(/__prefix__/g, form_idx));-->
-<!--        $('#id_form-TOTAL_FORMS').val(parseInt(form_idx) + 1);-->
+<!--<script type="text/javascript">-->
+<!--    $(document).ready(function(){-->
+<!--        $('.img:first()').hide();-->
 <!--    });-->
-
-
-<!--    var html_detail = document.getElementById('detail').innerHTML;-->
-
-<!--    function addDetail(e){-->
-<!--        e.preventDefault()-->
-
-
-<!--        $('#detail').append(html_detail);-->
-<!--    }-->
-</script>
-
-<!-- 세부항목 삭제 -->
-<script type="text/javascript">
-<!--    function deleteDetail(obj){-->
-<!--        var tr = obj.parentNode.parentNode;-->
-<!--        tr.parentNode.remove('.detail_obj');-->
-<!--    }-->
-</script>
+<!--</script>-->
 
 <script type="text/javascript">
     <!-- updateElementIndex(this, prefix, i);-->
@@ -334,13 +305,6 @@
         $('#id_' + prefix + '-TOTAL_FORMS').val(total);
     <!-- after(인자) : 선택한 요소 뒤에 새 요소를 추가 -->
         $(selector).after(newElement);
-    <!-- '+'를 '-'로 바꿔줌 -->
-<!--        var conditionRow = $('.form-row:not(:last)');-->
-<!--        conditionRow.find('.btn.add-form-row')-->
-<!--        .removeClass('btn-success').addClass('btn-danger')-->
-<!--        .removeClass('add-form-row').addClass('remove-form-row')-->
-<!--        .html('-');-->
-    <!-- html() : HTML태그를 포함해서 선택한 요소 안의 내용을 가져옴, 또는 이전 내용을 지우고 새로운 내용을 넣음 -->
 
         return false;
     }
@@ -349,28 +313,32 @@
     function deleteForm(prefix, btn) {
         var total = parseInt($('#id_' + prefix + '-TOTAL_FORMS').val());
     <!-- 우린 if 필요없음 (아예 delete버튼이 없음)-->
-        btn.closest('.formRow').remove();
-        var forms = $('.formRow');
-        $('#id_' + prefix + '-TOTAL_FORMS').val(forms.length);
-        for (var i=0, formCount=forms.length; i<formCount; i++) {
-            $(forms.get(i)).find(':input').each(function() {
-                updateElementIndex(this, prefix, i);
-            });
-        }
-<!--        if (total > 1){-->
-<!--            btn.closest('.form-row').remove();-->
-<!--            var forms = $('.form-row');-->
-<!--            $('#id_' + prefix + '-TOTAL_FORMS').val(forms.length);-->
-<!--            for (var i=0, formCount=forms.length; i<formCount; i++) {-->
-<!--                $(forms.get(i)).find(':input').each(function() {-->
-<!--                    updateElementIndex(this, prefix, i);-->
-<!--                });-->
-<!--            }-->
+<!--        btn.closest('.formRow').remove();-->
+<!--        var forms = $('.formRow');-->
+<!--        $('#id_' + prefix + '-TOTAL_FORMS').val(forms.length);-->
+<!--        for (var i=0, formCount=forms.length; i<formCount; i++) {-->
+<!--            $(forms.get(i)).find(':input').each(function() {-->
+<!--                updateElementIndex(this, prefix, i);-->
+<!--            });-->
 <!--        }-->
+        if (total > 1){
+            btn.closest('.formRow').remove();
+            var forms = $('.formRow');
+            $('#id_' + prefix + '-TOTAL_FORMS').val(forms.length);
+            for (var i=0, formCount=forms.length; i<formCount; i++) {
+                $(forms.get(i)).find(':input').each(function() {
+                    updateElementIndex(this, prefix, i);
+                });
+            }
+        }
+        else if (total == 1){
+            alert('세부옵션이 최소 1개 존재해야합니다.');
+        }
         return false;
     }
 
     $(document).on('click', '.add-form-row', function(e){
+<!--        $('.img:not(:first)').show();-->
         e.preventDefault();
         cloneMore('.formRow:last', 'form');
         return false;

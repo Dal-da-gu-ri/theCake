@@ -6,15 +6,13 @@
         <p class="pt-3 pl-4 path">케이크 관리 > 내 케이크 > 케이크 추가</p>
     </div>
 <style>
-    #submit{
-    padding: 10px;
+   #submit{
+    padding: 0;
     margin-top: 30px;
-    width: 10%;
-    margin-left: 45%;
-    }
-
-    .form-group{
-        word-break:keep-all;
+    width: 100%;
+    margin: auto;
+    width: 120px;
+    height: 35px;
     }
 
     body {
@@ -34,7 +32,7 @@
     .form-group{
       width: 100%;
       max-width: 900px;
-      padding: 0px;
+      padding: auto;
       margin: auto;
       word-break:keep-all;
     }
@@ -56,80 +54,129 @@
         text-align: center;
     }
 
-    #submit{
-        padding: 0 !important;
-    }
-
     form {
         margin-top: 50px;
     }
-    @media only screen and (max-width: 842px) {
-        label {
-            visibility:hidden;
-        }
-            .container {
-                font-size: 0.9em;
-            }
-            #submit {
-                width: 100px;
-                margin-left: 40%;
-            }
+
+    #cake_info{
+        margin-top:0;
     }
-    .form-group{
-        word-break:keep-all;
+
+    .dropdown-menu{
+        padding: 0;
     }
-    .container {margin-top:4em;}
+    #optionSelect li:not(:last-child){
+        border-bottom: 2px solid lightgray;
+    }
+
+    #optionSelect li{
+        padding-top: 7px;
+        padding-bottom: 7px;
+    }
+
+    #option_select_label{
+        width: 10em;
+    }
+    .option_select_btn{
+        color: #bababa;
+        background-color: white;
+        border-color: #9a9a9a;
+        padding: .35rem .75rem;
+    }
+<!--    button:launch{-->
+<!--        outline: none;-->
+<!--        border: none;-->
+<!--    }-->
+<!--    button:change{-->
+<!--        outline: none;-->
+<!--        border: none;-->
+<!--    }-->
+<!--    button:active{-->
+<!--        outline: none;-->
+<!--        border: none;-->
+<!--    }-->
+
+    .btn:disabled {
+        color: #9a9a9a;
+        opacity:1;
+    }
 </style>
 
 
 <form method = "POST" action = "#" enctype="multipart/form-data">
     {% csrf_token %}
-    <div class="form-row">
+    <div class="row justify-content-center">
         <div class="col-8 col-sm-4 mb-3">
             <div class="image-block embed-responsive embed-responsive-1by1">
                <img class="embed-responsive-item" src="/media/{{ cake.cakeImg.value }}">
                <img class="embed-responsive-item" src="{{cake.cakeImg.value.url}}">
             </div>
+            <br>
             {{ cake.cakeImg }}
         </div>
-        <div class="form-group col-md-6">
-            <div class="form-row">
-                <div class="form-group col-md-2">
+        <div id="cake_info" class="form-group col-8 col-sm-8">
+            <div class="form-row" style="border: 2px solid blue;">
+                <div class="form-group col-4 text-nowrap" style="border: 2px solid green;">
                     <label>케이크 이름</label>
                 </div>
-                <div class="form-group col-md-2">
+                <div class="form-group col-4" style="align:center;">
                     {{ cake.cakeName }}
                 </div>
             </div>
-<hr>
-    <div class="form-row">
-        <div class="form-group col-md-2">
-            <label>케이크 가격</label>
-        </div>
-        <div class="form-group col-md-2">
-          {{ cake.cakePrice }}
+            <hr>
+            <div class="form-row">
+                <div class="form-group col-4 text-nowrap">
+                    <label>케이크 가격</label>
+                </div>
+                <div class="form-group col-4">
+                  {{ cake.cakePrice }}
+                </div>
+            </div>
+            <hr>
+            <div class="row" style="border: 2px solid blue;">
+                <div class="form-group col-4 text-nowrap" style="border: 2px solid green;">
+                    <label>미니사이즈 가능 여부</label>
+                </div>
+                <div class="form-group col-4 text-nowrap">
+                  {{ cake.mini }}
+                </div>
+            </div>
+            <hr>
+            <div class="form-row">
+                <div class="form-group col-4 text-nowrap" style="border: 2px solid green;">
+                    <label>필요한 옵션 선택</label>
+                </div>
+                <div class="form-group col-4 text-nowrap">
+
+                    <div class="btn-group">
+                      <button type="button" id="option_select_label" class="option_select_btn btn" disabled>필요한 옵션 선택</button>
+                      <button type="button" class="option_select_btn btn dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <span class="sr-only">Toggle Dropdown</span>
+                      </button>
+                      <div class="dropdown-menu">
+                            <ul id="optionSelect">
+                                <!-- li 하나가 option 하나 -->
+                                <!-- for문 돌려서 하면 될 것 같음 -->
+                                <!-- form으로 input체크된거 확인해서 체크된 option을 cake에 넣어야 함 -->
+                                {% for option in option_list %}
+                                <li class="dropdown-item">{{option.name}}<input type="checkbox" name="chk1" id="chk1" class="ml-3"></li>
+<!--                                <li class="dropdown-item">체크리스트2<input type="checkbox" name="chk2" id="chk2" class="ml-3"></li>-->
+<!--                                <li class="dropdown-item">체크리스트3<input type="checkbox" name="chk3" id="chk3" class="ml-3"></li>-->
+                            </ul>
+                      </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
-<hr>
-    <div class="form-row">
-        <div class="form-group col-md-2">
-            <label>미니사이즈 가능 여부</label>
-        </div>
-        <div class="form-group col-md-2">
-          {{ cake.mini }}
-        </div>
+    <div class="row mt-5">
+        <button type='submit' id="submit" class="btn btn-secondary">등록</button>
     </div>
 
-    </div>
-    </div>
-    <div class="form-row">
-        <button type='submit' id="submit" class="btn btn-lg btn-secondary btn-block" onclick="">등록</button>
-    </div>
+</form>
 
- </form>
 
 <script>
-
   if('{{error}}'!="")
     alert('{{ error }}');
 </script>
