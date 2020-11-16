@@ -125,7 +125,7 @@
                     <table id="option_table">
                         {% for option in option_list %}
                         <tr>
-                            <td><input type="checkbox" value="{{option.pk}}" name="option" class="chk">{{option.optionName}}</input></td>
+                            <td><input type="checkbox" value="{{option.pk}}" name="option_selected[]" class="chk">{{option.optionName}}</input></td>
                         </tr>
                         {% endfor %}
 <!--                        <tr>-->
