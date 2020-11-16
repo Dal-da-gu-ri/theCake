@@ -4,24 +4,65 @@
    <div class="row">
         <p class="pt-3 pl-4 path">주문하기 > ♥{{store.storeName}}♥에 대한 후기</p>
    </div>
-<div class="container pt-4">
-    <div class="row justify-content-center text-center index">
-        <div class="col-sm">주문자 아이디</div>
-        <div class="col-sm">맛</div>
-        <div class="col-sm">서비스</div>
-        <div class="col-sm">디자인</div>
-        <div class="col-sm-3">한 줄 후기</div>
-    </div>
-{% for review in review_list %}
-<hr>
-    <div class="row justify-content-center text-center">
-        <div class="col-sm">{{review.secureID}}</div>
-        <div class="col-sm">{{review.taste}}</div>
-        <div class="col-sm">{{review.service}}</div>
-        <div class="col-sm">{{review.design}}</div>
-        <div class="col-sm-3">{{review.textReview}}</div>
-    </div>
 
-{% endfor %}
+
+<style>
+    #table_space{
+        width:100%;
+        height: 30em;
+        overflow:scroll;
+    }
+
+    table {
+      width:100%;
+      text-align: center;
+      border: 2px solid #bf7f7f;
+    }
+
+    table tr:not(:nth-child(1)){
+      font-size: 15px;
+      height: 2.5em;
+      vertical-align: top;
+      background-color: #f9f9f9cd;
+    }
+
+    table th:not(:last-child), td:not(:last-child){
+        border-right: 1px solid #bf7f7f;
+    }
+
+    #header{
+      background-color: #f7f1f1cb;
+      height: 2em;
+      border-bottom: double #bf7f7f;
+    }
+
+    th, td{
+        vertical-align:middle;
+        border-bottom: 1px solid #bf7f7f;
+        margin: 10px !important;
+    }
+</style>
+<div class="mt-4" id="table_space">
+    <table class = "text-nowrap" id = "table">
+        <tr id="header">
+            <th>주문자 아이디</th>
+            <th>주문한 케이크</th>
+            <th>맛</th>
+            <th>서비스</th>
+            <th>디자인</th>
+            <th>한 줄 후기</th>
+        </tr>
+        {% for review in review_list %}
+        <tr>
+            <td>{{review.secureID}}</td>
+            <td>케이크이름</td>
+            <td>{{review.taste}}</td>
+            <td>{{review.service}}</td>
+            <td>{{review.design}}</td>
+            <td>{{review.textReview}}</td>
+        </tr>
+        {% endfor %}
+    </table>
 </div>
+
 {% endblock %}
