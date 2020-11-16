@@ -92,6 +92,7 @@ class Store(models.Model):
     pickUpClose = models.CharField(max_length=15, verbose_name='픽업 마감 시간',null=True, blank=True, choices=TIME_CHOICES)
     aboutStore = models.TextField(verbose_name='가게 소개글', null=True, blank=True)
     storeImg = models.ImageField(verbose_name='가게 대표이미지', null=True, blank=True, default="logo_baker.png")
+    aboutCake = models.TextField(verbose_name='케이크 소개글', null=True, blank=True)
 
     def __str__(self):
         return self.businessID
