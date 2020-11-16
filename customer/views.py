@@ -355,8 +355,9 @@ def showReview(request, pk):
         customer = Orderer.objects.get(pk=user_id)
         res_data['customername'] = customer.name
         if request.method == "GET":
+            store = Store.objects.get(businessID = pk)
             review_list = Review.objects.filter(storeInfo=pk)
-
+            res_data['store']=store
             res_data['review_list'] = review_list
             return render(request, 'customer/showReview.html', res_data)
 
