@@ -272,6 +272,7 @@ class DetailedOption(models.Model):
         return self.detailName
 
 class Cake(models.Model): #원래 Store상속받음
+    cakeid = models.CharField(max_length=200,verbose_name="케이크 PK",primary_key=True,blank=False,default="")
     crn = models.CharField(max_length=50, verbose_name='사업자 등록번호',null=True,blank=False)
     cakeName = models.CharField(max_length=200, verbose_name='케이크 이름',null=False,blank=False,default="")
     cakeImg = models.ImageField(verbose_name='케이크 이미지',null=True,blank=True, default="logo_baker.png")
@@ -279,9 +280,19 @@ class Cake(models.Model): #원래 Store상속받음
     #mini = models.BooleanField(default=False,verbose_name='미니사이즈 가능 여부',null=True,blank=False)
     mini = models.CharField(max_length=200, verbose_name='미니사이즈 가능 여부', null=False, blank=False, default="",
                             choices=[('가능', '가능'), ('불가', '불가능')])
-    #ip = models.CharField(max_length=20,default="",verbose_name='케이크번호')
 
     class Meta:
         db_table = 'Cake'
         verbose_name = '케이크'
         verbose_name_plural = '케이크'
+
+class CakeOption(models.Model):
+    businessID = models.CharField(max_length=50, verbose_name='사업자 등록번호', null=True, blank=False,default="")
+    optionID = models.IntegerField(verbose_name='옵션 ID',null=True,blank=False,default="")
+    cakeID = models.IntegerField(verbose_name='케이크 ID',null=True,blank=False,default="")
+    isSelected = models.BooleanField(default=False,verbose_name='선택 여부',null=True,blank=False)
+
+    class Meta:
+        db_table = 'Cake Option'
+        verbose_name = '케이크 옵션'
+        verbose_name_plural = '케이크 옵션'

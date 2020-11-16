@@ -806,3 +806,11 @@ DetailedOptionFormset = modelformset_factory(
             )
     }
 )
+
+class CakeOptionForm(forms.ModelForm):
+    class Meta:
+        model = CakeOption
+        fields = ['isSelected']
+        widgets = {
+            'isSelected' : forms.CheckboxInput
+        }
