@@ -109,7 +109,7 @@
             </div>
             <hr>
             <div class="form-row text-nowrap">
-                <div class="form-group col-4">
+                <div class="form-group col-3">
                     <label>미니사이즈 가능 여부</label>
                 </div>
                 <div class="form-group col-4 form-control">
@@ -123,27 +123,10 @@
                 </div>
                 <div class="form-group col-5 text-nowrap form-control">
                     <table id="option_table">
-                        {% for option in option_list %}
-                        <tr>
-                            <td><input type="checkbox" value="{{option.pk}}" name="option_selected" class="chk">{{option.optionName}}</input></td>
+                        <tr class="option_tr">
+<!--                            <td>{{option.optionName}}아ㅏㅏㅏㅏㅏ</td>-->
+                            <td><input type="checkbox" name="option_selected" class="chk"></td>
                         </tr>
-                        {% endfor %}
-<!--                        <tr>-->
-<!--                            <td>옵션명2</td>-->
-<!--                            <td><input type="checkbox" name="chk2" class="chk ml-3"></td>-->
-<!--                        </tr>-->
-<!--                        <tr>-->
-<!--                            <td>옵션명3</td>-->
-<!--                            <td><input type="checkbox" name="chk3" class="chk ml-3"></td>-->
-<!--                        </tr>-->
-<!--                        <tr>-->
-<!--                            <td>옵션명4</td>-->
-<!--                            <td><input type="checkbox" name="chk4" class="chk ml-3"></td>-->
-<!--                        </tr>-->
-<!--                        <tr>-->
-<!--                            <td>옵션명5</td>-->
-<!--                            <td><input type="checkbox" name="chk5" class="chk ml-3"></td>-->
-<!--                        </tr>-->
                     </table>
 
                 </div>
@@ -155,6 +138,27 @@
     </div>
 
 </form>
+
+<!-- 옵션 개수만큼 추가 -->
+<script>
+    $(document).ready(function(){
+        var html_option = document.getElementById('option_table').innerHTML;
+        var i;
+
+        for(i=0; i < {{optionNum}} - 1; i++){
+            $('#option_table').append(html_option);
+        }
+
+        var option_elements = document.getElementsByClassName('option_tr');
+<!--        console.log(option_elements[i].querySelector('input'));-->
+
+        for(i=0; i < {{optionNum}} - 1; i++){
+            option_elements[i].querySelector('input').setAttribute('value', '{{option_list[0].pk}}');
+            option_elements[i].querySelector('td').append('{{option_list[0].optionName}}');
+        }
+    });
+</script>
+
 
 
 <script>
