@@ -542,20 +542,41 @@ def cake_add(request):
     res_data = {}
     user_id = request.session.get('user')
 
+    # 전체 옵션들 가져와서 for문 안에서 객체 생성.
+
     if user_id:
         baker = Baker.objects.get(pk=user_id)
         res_data['bakername'] = baker.name
         if request.method == "POST":
             cakeform = CakeForm(request.POST,request.FILES)
+            cakeoptionform = CakeOptionForm(request.POST)
             store = Store.objects.get(pk=baker.businessID)
 
-            if cakeform.is_valid():
+            if cakeform.is_valid() and cakeoptionform.is_valid():
                 cakeobject = cakeform.save(commit=False)
                 cakeobject.crn = store.businessID
                 cakeobject.cakeName = cakeform.cleaned_data['cakeName']
                 cakeobject.cakeImg = cakeform.cleaned_data['cakeImg']
                 cakeobject.cakePrice = cakeform.cleaned_data['cakePrice']
                 cakeobject.mini = cakeform.cleaned_data['mini']
+                cakeobject.cakeid = str(store.businessID)+cakeform.cleaned_data['cakeName']
+
+                # namebaker = request.POST.get('name_baker', None)
+                selectedoptions = request.POST.get('option_selected[]',None)
+                # print(len(selectedoptions))
+                print(selectedoptions)
+
+                # option_list = Option.objects.filter(businessID=baker.businessID)
+                # for option in option_list:
+                #     optionname = option.optionName
+                #     cakeoption = CakeOption(
+                #         businessID = baker.businessID,
+                #         optionID = option.pk,
+                #         cakeID = store.businessID+cakeform.cleaned_data['cakeName'],
+                #         isSelected = cakeoptionform.cleaned_data[optionname]
+                #     )
+                #     # cakeoption = cakeoptionform.save()
+                #     cakeoption.save()
 
                 if Cake.objects.filter(cakeName=cakeobject.cakeName, crn=cakeobject.crn).exists():
                     cakeform = CakeForm()
@@ -572,6 +593,8 @@ def cake_add(request):
 
         else:
             cakeform = CakeForm()
+            option_list = Option.objects.filter(businessID=baker.businessID)
+            res_data['option_list']=option_list
             res_data['cake'] = cakeform
             return render(request, 'baker/cake_add.html', res_data)
 
