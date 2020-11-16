@@ -219,6 +219,7 @@ class Review(models.Model):
     # orderer = models.ForeignKey(Orderer,on_delete=models.CASCADE)
     # cakeStore = models.ForeignKey(Store,on_delete=models.CASCADE)
     orderer = models.CharField(max_length=20,verbose_name="주문자",null=True,blank=False)
+    secureID = models.CharField(max_length=20,verbose_name="주문자 ID 변환",null=True,blank=False)
     storeInfo = models.CharField(max_length=50, verbose_name='사업자 등록번호',null=True,blank=False)
     taste = models.IntegerField(verbose_name='맛 평점',null=True,blank=False)
     service = models.IntegerField(verbose_name='서비스 평점',null=True,blank=False)
