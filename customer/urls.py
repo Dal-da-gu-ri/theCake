@@ -17,8 +17,10 @@ urlpatterns = [
     path('main/stores/',views.showStores,name='showStores'),
     path('main/stores/<int:pk>/', views.storeInfo, name='storeInfo'),
     path('main/stores/<int:pk>/showReview', views.showReview, name='showReview'),
+    # path('main/stores/<int:crn>/order/<int:cakepk>/', views.cakeOrder, name='cakeOrder'),
+    path('main/stores/<int:crn>/order/<str:cakepk>/', views.cakeOrder, name='cakeOrder'),
+
     # path('main/stores/<int:pk>/<int:pk1>/order', views.cakeOrder, name='cakeOrder'),
-    path('main/stores/<int:crn>/order/<int:cakepk>/', views.cakeOrder, name='cakeOrder'),
     # path('main/stores/<int:pk1>/', views.cakeOrder, name='cakeOrder'),
 
     path('temp/', views.temp, name='temp'),

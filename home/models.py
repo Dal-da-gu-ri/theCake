@@ -288,8 +288,10 @@ class Cake(models.Model): #원래 Store상속받음
 
 class CakeOption(models.Model):
     businessID = models.CharField(max_length=50, verbose_name='사업자 등록번호', null=True, blank=False,default="")
-    optionID = models.IntegerField(verbose_name='옵션 ID',null=True,blank=False,default="")
-    cakeID = models.IntegerField(verbose_name='케이크 ID',null=True,blank=False,default="")
+    # optionID = models.IntegerField(verbose_name='옵션 ID',null=True,blank=False,default="")
+    # cakeID = models.IntegerField(verbose_name='케이크 ID',null=True,blank=False,default="")
+    option = models.ForeignKey(Option,related_name='Option', on_delete=models.CASCADE, null=True)
+    cake = models.ForeignKey(Cake,related_name='Cake', on_delete=models.CASCADE, null=True)
     isSelected = models.BooleanField(default=False,verbose_name='선택 여부',null=True,blank=False)
 
     class Meta:

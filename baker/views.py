@@ -594,10 +594,14 @@ def cake_add(request):
         else:
             cakeform = CakeForm()
             option_list = Option.objects.filter(businessID=baker.businessID)
+
+            # for option in option_list:
+            #     optionname = option.optionName
+            #     option
             optionNum = len(option_list)
             res_data['option_list']=option_list
             res_data['cake'] = cakeform
-            res_data['optionNum']=optionNum
+            # res_data['optionNum']=optionNum
             return render(request, 'baker/cake_add.html', res_data)
 
     else:
