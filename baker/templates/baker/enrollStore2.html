@@ -82,20 +82,29 @@
     label {
         display:block;
         text-align: center;
+        white-space: nowrap;
     }
     form {
         margin-top: 50px;
     }
+  #store_img{
+        width: 12rem;
+        height: 12rem;
+        object-fit: contain;
+        border: 2px solid gray;
+        border-radius: 3px;
+    }
+
 </style>
 
 
 <form method = "POST" action = "#" enctype="multipart/form-data">
     {% csrf_token %}
     <div class="row justify-content-center">
-        <div class="col-8 col-sm-4 mb-3">
-            <div class="image-block embed-responsive embed-responsive-1by1">
-               <img class="embed-responsive-item" src="/media/{{ name }}">
-                <img class="embed-responsive-item" src="{{store.storeImg.value.url}}">
+        <div class="col-8 col-sm-5 col-md-4 mb-3">
+            <div class="image-block embed-responsive-1by1" style="text-align: center;">
+               <img id="store_img" src="/media/{{ name }}">
+<!--                <img class="embed-responsive-item" src="{{store.storeImg.value.url}}">-->
             </div>
             <br>
             {{store.storeImg}}
@@ -108,7 +117,7 @@
 <!--            {{store.storeImg.value.href}}-->
 
         </div>
-        <div id="storeInfo" class="form-group col-8 col-sm-8">
+        <div id="storeInfo" class="form-group col-8 col-sm-7 col-md-8">
             <div class="form-row">
                 <div class="form-group col-4">
                     <label>가게 이름</label>
