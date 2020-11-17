@@ -139,23 +139,26 @@
 
 </form>
 
+
 <!-- 옵션 개수만큼 추가 -->
 <script>
     $(document).ready(function(){
         var html_option = document.getElementById('option_table').innerHTML;
         var i;
 
-        for(i=0; i < {{optionNum}} - 1; i++){
+        for(i=0; i < {{option_list|length}} - 1; i++){
             $('#option_table').append(html_option);
         }
 
         var option_elements = document.getElementsByClassName('option_tr');
 <!--        console.log(option_elements[i].querySelector('input'));-->
 
-        for(i=0; i < {{optionNum}} - 1; i++){
-            option_elements[i].querySelector('input').setAttribute('value', '{{option_list[0].pk}}');
-            option_elements[i].querySelector('td').append('{{option_list[0].optionName}}');
+        for(i=0; i < {{option_list|length}}; i++){
+            option_elements[i].querySelector('input').setAttribute('value', 'optionPk');
+            option_elements[i].querySelector('td').append('optionName');
         }
+
+        console.log(document.getElementById('option_table'));
     });
 </script>
 
