@@ -319,6 +319,7 @@ def enrollStore(request):
                     storeobject.daum_sigungu = request.POST.get('daum_sigungu',None)
                     storeobject.daum_dong = request.POST.get('daum_dong',None)
                     storeobject.storeImg = storeform.cleaned_data['storeImg']
+                    storeobject.aboutCake = storeform.cleaned_data['aboutCake']
 
                     storeobject.save()
                     res_data['store'] = storeform
