@@ -125,7 +125,7 @@
                     <table id="option_table">
                         <tr class="option_tr">
 <!--                            <td>{{option.optionName}}아ㅏㅏㅏㅏㅏ</td>-->
-                            <td><input type="checkbox" name="option_selected" class="chk"></td>
+                            <td><input type="checkbox" name="option_selected" class="chk ml-4"></td>
                         </tr>
                     </table>
 
@@ -155,10 +155,10 @@
 
         for(i=0; i < {{option_list|length}}; i++){
             option_elements[i].querySelector('input').setAttribute('value', 'optionPk');
-            option_elements[i].querySelector('td').append('optionName');
+            option_elements[i].querySelector('td').prepend('optionName');
         }
 
-        console.log(document.getElementById('option_table'));
+<!--        console.log(document.getElementById('option_table'));-->
     });
 </script>
 
