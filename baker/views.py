@@ -669,19 +669,52 @@ def cake_edit(request,pk):
             #    cake = Cake.objects.get(cakeName=cakeName)
             if cakeform.is_valid():
 
-                cakeobject = cakeform.save()
+                # cakeobject = cakeform.save()
                 #return redirect('/baker/manageCake/myCakes')
                 res_data['cake'] = cakeform
-                cakeobject.save()
+                # cakeobject.save()
                 res_data['name'] = cakeobject.cakeImg
                 #return render(request, 'baker/myCakes.html', res_data)
 
-                if Cake.objects.filter(cakeName=cakeobject.cakeName, crn=cakeobject.crn).exists():
-                    cakeform = CakeForm()
-                    res_data['cake'] = cakeform
-                    res_data['error'] = "이미 등록된 케이크 이름입니다."
-                    return render(request, 'baker/cake_edit.html', res_data)
+
+                # if Cake.objects.filter(crn=cakeobject.crn,cakeName=cakeobject.cakeName).exists():
+
+                if Cake.objects.filter(crn=cakeobject.crn,cakeName=cakeobject.cakeName).exists():
+
+                    thiscake=Cake.objects.filter(crn=cakeobject.crn,cakeName=cakeobject.cakeName)
+                    if len(thiscake)>1:
+                        # cakeform = CakeForm()
+                        # res_data['cake'] = cakeform
+                        cakeform = CakeForm(instance=cakeobject)
+                        options = Option.objects.filter(businessID=baker.businessID)
+                        selectedoptions = CakeOption.objects.filter(businessID=baker.businessID,
+                                                                    cakeID=cakeobject.pk, isSelected=1)
+                        res_data['cake'] = cakeform
+                        res_data['options'] = options
+                        res_data['selectedoptions'] = selectedoptions
+                        res_data['error'] = "이미 등록된 케이크 이름입니다."
+                        return render(request, 'baker/cake_edit.html', res_data)
+                    else:
+                        thiscake = Cake.objects.get(crn=cakeobject.crn, cakeName=cakeobject.cakeName)
+                        if thiscake.cakeid != pk:
+                            # cakeform = CakeForm()
+                            # res_data['cake'] = cakeform
+                            cakeform = CakeForm(instance=cakeobject)
+                            options = Option.objects.filter(businessID=baker.businessID)
+                            selectedoptions = CakeOption.objects.filter(businessID=baker.businessID,
+                                                                        cakeID=cakeobject.pk, isSelected=1)
+                            res_data['cake'] = cakeform
+                            res_data['options'] = options
+                            res_data['selectedoptions'] = selectedoptions
+                            res_data['error'] = "이미 등록된 케이크 이름입니다."
+                            return render(request, 'baker/cake_edit.html', res_data)
+                        else:
+                            cakeobject = cakeform.save()
+                            cakeobject.save()
+                            res_data['cake'] = cakeform
+                            return redirect('/baker/manageCake/myCakes', res_data)
                 else:
+                    cakeobject = cakeform.save()
                     cakeobject.save()
                     res_data['cake'] = cakeform
                     return redirect('/baker/manageCake/myCakes', res_data)
@@ -699,12 +732,11 @@ def cake_edit(request,pk):
             cakeform = CakeForm(instance=cakeobject)
             options = Option.objects.filter(businessID=baker.businessID)
             selectedoptions = CakeOption.objects.filter(businessID=baker.businessID,cakeID=cakeobject.pk,isSelected=1)
-            #cakeform = CakeForm()
             res_data['cake'] = cakeform
             res_data['options'] = options
             res_data['selectedoptions']=selectedoptions
-            print(options)
-            print(selectedoptions)
+            # print(options)
+            # print(selectedoptions)
             return render(request, 'baker/cake_edit.html', res_data)
 
     else:
