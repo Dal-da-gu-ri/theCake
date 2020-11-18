@@ -594,12 +594,20 @@ def cake_add(request):
         else:
             cakeform = CakeForm()
             options = Option.objects.filter(businessID=baker.businessID)
+
             option_list = []
-            option_list.append([])
-            for option in options:
-                option = Option.objects.get(businessID=baker.businessID)
-                option_list.append(option.optionName)
-                option_list[option.optionName].append(option.pk)
+            optionNum = len(options)
+            i=0
+            for i in range(0,optionNum):
+                option_list.append([])
+                curoption = Option.objects.get(optionName=options[i])
+                option_list[i].append(curoption.optionName)
+                option_list[i].append(curoption.pk)
+
+            # for option in options:
+            #     option = Option.objects.get(businessID=baker.businessID)
+            #     option_list.append(option.optionName)
+            #     option_list[option.optionName].append(option.pk)
 
 
             # for option in option_list:
