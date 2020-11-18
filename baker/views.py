@@ -661,6 +661,8 @@ def cake_edit(request,pk):
         baker = Baker.objects.get(businessID=curcake.crn)
         res_data['bakername'] = baker.name
         cakeobject = get_object_or_404(Cake,pk=pk)
+
+        selOptions=[]
         if request.method == "POST":
             cakeform = CakeForm(request.POST,request.FILES,instance=cakeobject)
             #store = Store.objects.get(pk=baker.businessID)
@@ -689,9 +691,14 @@ def cake_edit(request,pk):
                         options = Option.objects.filter(businessID=baker.businessID)
                         selectedoptions = CakeOption.objects.filter(businessID=baker.businessID,
                                                                     cakeID=cakeobject.pk, isSelected=1)
+                        for opt in selectedoptions:
+                            selOptions.append(opt.optionID)
+                        res_data['selectedoptions'] = selOptions
+
                         res_data['cake'] = cakeform
                         res_data['options'] = options
-                        res_data['selectedoptions'] = selectedoptions
+
+                        # res_data['selectedoptions'] = selectedoptions
                         res_data['error'] = "이미 등록된 케이크 이름입니다."
                         return render(request, 'baker/cake_edit.html', res_data)
                     else:
@@ -703,12 +710,21 @@ def cake_edit(request,pk):
                             options = Option.objects.filter(businessID=baker.businessID)
                             selectedoptions = CakeOption.objects.filter(businessID=baker.businessID,
                                                                         cakeID=cakeobject.pk, isSelected=1)
+                            for opt in selectedoptions:
+                                selOptions.append(opt.optionID)
+                            res_data['selectedoptions'] = selOptions
                             res_data['cake'] = cakeform
                             res_data['options'] = options
-                            res_data['selectedoptions'] = selectedoptions
+                            # res_data['selectedoptions'] = selectedoptions
                             res_data['error'] = "이미 등록된 케이크 이름입니다."
                             return render(request, 'baker/cake_edit.html', res_data)
                         else:
+                            # selectedoptions = CakeOption.objects.filter(businessID=baker.businessID,
+                            #                                             cakeID=cakeobject.pk, isSelected=1)
+                            # for opt in selectedoptions:
+                            #     # print(opt)
+                            #     selOptions.append(opt.optionID)
+                            # # print(selOptions)
                             cakeobject = cakeform.save()
                             cakeobject.save()
                             res_data['cake'] = cakeform
@@ -732,9 +748,12 @@ def cake_edit(request,pk):
             cakeform = CakeForm(instance=cakeobject)
             options = Option.objects.filter(businessID=baker.businessID)
             selectedoptions = CakeOption.objects.filter(businessID=baker.businessID,cakeID=cakeobject.pk,isSelected=1)
+            for opt in selectedoptions:
+                selOptions.append(opt.optionID)
+            res_data['selectedoptions'] = selOptions
             res_data['cake'] = cakeform
             res_data['options'] = options
-            res_data['selectedoptions']=selectedoptions
+            # res_data['selectedoptions']=selectedoptions
             # print(options)
             # print(selectedoptions)
             return render(request, 'baker/cake_edit.html', res_data)
