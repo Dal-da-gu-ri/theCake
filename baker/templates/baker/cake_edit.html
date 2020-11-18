@@ -1,0 +1,210 @@
+{% extends 'base_baker.html' %}
+{% block title%} 케이크 수정 {% endblock %}
+{% block content %}
+
+   <div class="row">
+        <p class="pt-3 pl-4 path">케이크 관리 > 내 케이크 > 케이크 수정</p>
+    </div>
+<style>
+   #submit{
+    padding: 0;
+    margin-top: 30px;
+    width: 100%;
+    margin: auto;
+    width: 120px;
+    height: 35px;
+    }
+
+    input[type="file"] {
+        position: relative;
+        margin-left: 50px;
+    }
+
+    .form-group{
+      width: 100%;
+      max-width: 900px;
+      padding: auto;
+      margin: auto;
+      word-break:keep-all;
+    }
+
+    .form-group .form-control {
+      position: relative;
+      box-sizing: border-box;
+      height: auto;
+      padding: 10px 20px;
+      font-size: 15px;
+      width: 270px;
+    }
+    .form-group .form-control:focus {
+      z-index: 2;
+    }
+
+    label {
+        display:block;
+        text-align: center;
+    }
+
+    form {
+        margin-top: 50px;
+    }
+
+    #cake_info{
+        margin-top:0;
+    }
+
+    .btn:disabled {
+        color: #9a9a9a;
+        opacity:1;
+    }
+
+    #option_table {
+        width: 17em;
+    }
+
+    #option_table tr{
+        height: 1.6em;
+    }
+
+    table{
+      text-align: center;
+    }
+
+    tr, td{
+      vertical-align:middle;
+    }
+
+    td .chk{
+        vertical-align: -2px;
+    }
+
+<!--    #cakeImg{-->
+<!--        width: 12rem;-->
+<!--        height: 12rem;-->
+<!--        object-fit: contain;-->
+<!--        border: 2px solid gray;-->
+<!--        border-radius: 3px;-->
+<!--    }-->
+
+    #cake_img{
+        width: 12rem;
+        height: 12rem;
+        object-fit: contain;
+        border: 2px solid gray;
+        border-radius: 3px;
+    }
+
+</style>
+
+
+<form method = "POST" action = "#" enctype="multipart/form-data">
+    {% csrf_token %}
+    <div class="row justify-content-center">
+        <div class="col-8 col-sm-5 col-md-4 mb-3">
+<!--            <div style="text-align: center;">-->
+<!--                <img id="cakeImg" class="m-2" src="/media/{{ cake.cakeImg.value }}" alt="cake image">-->
+<!--            </div>-->
+            <div class="image-block embed-responsive-1by1" style="text-align: center;">
+               <img id="cake_img" class="embed-responsive-item" src="/media/{{ cake.cakeImg.value }}">
+<!--               <img class="embed-responsive-item" src="{{cake.cakeImg.value.url}}">-->
+            </div>
+            <br>
+<!--            <div class="text-align:right;">-->
+                {{ cake.cakeImg }}
+<!--            </div>-->
+<!--            <div class="form-control-file">{{ cake.cakeImg }}</div>-->
+        </div>
+        <div id="cake_info" class="form-group col-8 col-sm-7 col-md-8">
+            <div class="form-row">
+                <div class="form-group col-4 text-nowrap">
+                    <label>케이크 이름</label>
+                </div>
+                <div class="form-group col-4" style="align:center;">
+                    {{ cake.cakeName }}
+                </div>
+            </div>
+            <hr>
+            <div class="form-row">
+                <div class="form-group col-4 text-nowrap">
+                    <label>케이크 가격</label>
+                </div>
+                <div class="form-group col-4">
+                  {{ cake.cakePrice }}
+                </div>
+            </div>
+            <hr>
+            <div class="form-row text-nowrap">
+                <div class="form-group col-3">
+                    <label>미니사이즈 가능 여부</label>
+                </div>
+                <div class="form-group col-4 form-control">
+                  {{ cake.mini }}
+                </div>
+            </div>
+            <hr>
+            <div class="form-row">
+                <div class="form-group col-4 text-nowrap">
+                    <label>필요한 옵션 선택</label>
+                </div>
+                <div class="form-group col-5 text-nowrap form-control">
+                    <table id="option_table">
+                        {% for option in options %}
+                        <tr class="option_tr">
+                            <td>{{option.optionName}}<input type="checkbox" name="option_selected" class="chk ml-4" value="{{option.pk}}"></td>
+                        </tr>
+                        {% endfor %}
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row mt-5">
+        <button type='submit' id="submit" class="btn btn-secondary">등록</button>
+    </div>
+</form>
+
+<!-- 옵션 개수만큼 추가 -->
+<script>
+<!--    $(document).ready(function(){-->
+<!--        var html_option = document.getElementById('option_table').innerHTML;-->
+<!--        var i;-->
+
+<!--        for(i=0; i < {{options|length}} - 1; i++){-->
+<!--            $('#option_table').append(html_option);-->
+<!--        }-->
+
+<!--        var option_elements = document.getElementsByClassName('option_tr');-->
+
+<!--        for(i=0; i < {{options|length}}; i++){-->
+<!--            option_elements[i].querySelector('input').setAttribute('value', '{{options.i.pk}}');-->
+<!--            option_elements[i].querySelector('td').prepend('{{options.i.optionName}}');-->
+<!--        }-->
+
+<!--    });-->
+</script>
+
+<!-- 옵션 체크 -->
+<script>
+    $(document).ready(function(){
+        var html_option = document.getElementById('option_table').innerHTML;
+        var i;
+
+        for(i=0; i < {{options|length}} - 1; i++){
+            $('#option_table').append(html_option);
+        }
+
+        var option_elements = document.getElementsByClassName('option_tr');
+
+        for(i=0; i < {{options|length}}; i++){
+            option_elements[i].querySelector('input').setAttribute('value', '{{options.i.pk}}');
+            option_elements[i].querySelector('td').prepend('{{options.i.optionName}}');
+        }
+
+    });
+</script>
+
+<script>
+  if('{{error}}'!="")
+    alert('{{ error }}');
+</script>
+{% endblock %}
