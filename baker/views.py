@@ -563,7 +563,7 @@ def cake_add(request):
                 cakeobject.cakeid = str(store.businessID)+cakeform.cleaned_data['cakeName']
 
                 # namebaker = request.POST.get('name_baker', None)
-                selectedoptions = request.POST.get('option_selected[]',None)
+                selectedoptions = request.POST.get('option_selected',None)
                 # print(len(selectedoptions))
                 print(selectedoptions)
 
@@ -615,7 +615,8 @@ def cake_add(request):
             #     optionname = option.optionName
             #     option
             # optionNum = len(option_list)
-            res_data['option_list']=option_list
+            res_data['options'] = options
+            res_data['option_list'] = option_list
             res_data['cake'] = cakeform
             # res_data['optionNum']=optionNum
             return render(request, 'baker/cake_add.html', res_data)
