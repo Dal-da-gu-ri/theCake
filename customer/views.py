@@ -1,9 +1,5 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from home.models import *
-from django.contrib.auth.models import User
-from django.contrib import auth
 from django.contrib.auth.hashers import make_password, check_password
-from .color import matchcolor
 # Create your views here.
 from home.tokens import account_activation_token
 from .textCustomer import messageSend

@@ -1,5 +1,3 @@
-from .forms import *
-from home.models import *
 from datetime import datetime
 
 

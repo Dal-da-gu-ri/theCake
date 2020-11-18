@@ -1,6 +1,3 @@
-from home.models import *
-
-
 def secureID(userid,reviewNum):
     customer = Orderer.objects.get(pk=userid)
     review = Review.objects.get(pk=reviewNum)

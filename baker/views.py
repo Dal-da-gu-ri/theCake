@@ -1,22 +1,13 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from home.models import *
-from django.contrib.auth.models import User
-from django.contrib import auth
 from django.contrib.auth.hashers import make_password, check_password
 from .crn import Search_CRN
-import json
 from home.tokens import account_activation_token
 from .textBaker import messageSend,passwordMessage
-from django.views import View
-from django.http import HttpResponse,JsonResponse
-from django.core.exceptions import ValidationError
-from django.core.validators import validate_email
 from django.contrib.sites.shortcuts import get_current_site
 from django.utils.http import urlsafe_base64_decode,urlsafe_base64_encode
 from django.core.mail import EmailMessage
 from django.utils.encoding import force_bytes,force_text
 from .forms import *
-from datetime import datetime
 
 from .create_password import passwordMaker
 
@@ -24,7 +15,7 @@ from .dailyamounts import setDailyAmounts
 #make_password(str) : 이 함수에 넣어준 문자열을 암호화합니다. (hashing)
 #check_password(a,b) : a,b가 일치하는지 확인, 반환합니다.
 
-from django.http import HttpResponse, JsonResponse
+from django.http import JsonResponse
 # Create your views here.
 
 ### 회원가입 및 로그인
@@ -550,10 +541,10 @@ def cake_add(request):
         res_data['bakername'] = baker.name
         if request.method == "POST":
             cakeform = CakeForm(request.POST,request.FILES)
-            cakeoptionform = CakeOptionForm(request.POST)
+            # cakeoptionform = CakeOptionForm(request.POST)
             store = Store.objects.get(pk=baker.businessID)
 
-            if cakeform.is_valid() and cakeoptionform.is_valid():
+            if cakeform.is_valid():
                 cakeobject = cakeform.save(commit=False)
                 cakeobject.crn = store.businessID
                 cakeobject.cakeName = cakeform.cleaned_data['cakeName']
@@ -563,7 +554,7 @@ def cake_add(request):
                 cakeobject.cakeid = str(store.businessID)+cakeform.cleaned_data['cakeName']
 
                 # namebaker = request.POST.get('name_baker', None)
-                selectedoptions = request.POST.get('option_selected',None)
+                selectedoptions = request.POST.getlist('option_selected[]',None)
                 # print(len(selectedoptions))
                 print(selectedoptions)
 
@@ -616,7 +607,7 @@ def cake_add(request):
             #     option
             # optionNum = len(option_list)
             res_data['options'] = options
-            res_data['option_list'] = option_list
+            # res_data['option_list'] = option_list
             res_data['cake'] = cakeform
             # res_data['optionNum']=optionNum
             return render(request, 'baker/cake_add.html', res_data)
@@ -661,7 +652,7 @@ def cake_edit(request,pk):
                     cakeform = CakeForm()
                     res_data['cake'] = cakeform
                     res_data['error'] = "이미 등록된 케이크 이름입니다."
-                    return render(request, 'baker/cake_add.html', res_data)
+                    return render(request, 'baker/cake_edit.html', res_data)
                 else:
                     cakeobject.save()
                     res_data['cake'] = cakeform
@@ -672,7 +663,7 @@ def cake_edit(request,pk):
                     cakeform = CakeForm()
                     res_data['cake'] = cakeform
                     # res_data['error'] = "이미 등록된 케이크 이름입니다."
-                    return render(request, 'baker/cake_add.html', res_data)
+                    return render(request, 'baker/cake_edit.html', res_data)
                     #return redirect('/baker/inappropriateApproach')
 
         else:
@@ -680,7 +671,7 @@ def cake_edit(request,pk):
             cakeform = CakeForm(instance=cakeobject)
             #cakeform = CakeForm()
             res_data['cake'] = cakeform
-            return render(request, 'baker/cake_add.html', res_data)
+            return render(request, 'baker/cake_edit.html', res_data)
 
     else:
         if request.method == "GET":

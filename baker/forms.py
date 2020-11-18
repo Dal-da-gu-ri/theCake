@@ -1,6 +1,6 @@
 from django import forms
-from home.models import *
 from django.forms import modelformset_factory
+from home.models import *
 # class BakerForm(forms.ModelForm):
 #     class Meta:
 #         model = Baker
