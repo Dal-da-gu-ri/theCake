@@ -48,22 +48,26 @@ class StoreForm(forms.ModelForm):
 
             'storeName': forms.TextInput(
                 #label='가게 이름',
-                attrs={'class': 'form-control'}
+                attrs={'class': 'form-control',
+                       'required': 'required'}
             ),
             'storeContact': forms.TextInput(
                 #label='가게 연락처',
                 attrs={
                     'class': 'form-control',
-                    'placeholder': '예) 02-1234-5678'
+                    'placeholder': '예) 02-1234-5678',
+                    'required': 'required'
                 }
             ),
             'pickUpOpen': forms.Select(
                 #label='픽업 오픈 시간',
-                attrs={'class': 'form-control'}
+                attrs={'class': 'form-control',
+                       'required': 'required'}
             ),
             'pickUpClose': forms.Select(
                 #label='픽업 마감 시간',
-                attrs={'class': 'form-control'}
+                attrs={'class': 'form-control',
+                       'required': 'required'}
             ),
             'aboutStore': forms.Textarea(
                 #label='가게 소개글',
@@ -76,11 +80,15 @@ class StoreForm(forms.ModelForm):
             'postcode': forms.TextInput(
                 attrs={'id':'sample6_postcode',
                        'class': 'form-control',
+                       'readonly': 'readonly',
+                       'required': 'required',
                        'placeholder':"우편번호"}
             ),
             'address1': forms.TextInput(
                 attrs={'id': 'sample6_address',
                        'class': 'form-control',
+                       'readonly': 'readonly',
+                       'required': 'required',
                        'placeholder':"주소"}
             ),
             'address2': forms.TextInput(
@@ -91,6 +99,7 @@ class StoreForm(forms.ModelForm):
             'address3': forms.TextInput(
                 attrs={'id': 'sample6_extraAddress',
                        'class': 'form-control',
+                       'readonly': 'readonly',
                        'placeholder':"참고항목"}
             ),
             'daum_sido': forms.TextInput(
