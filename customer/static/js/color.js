@@ -24,9 +24,9 @@ function complementaryColor1(r1, g1, b1) {
 //톤온톤 - 1
 function monoColor1(r1,g1,b1) {
     if (r1 > 220 && g1 > 220 && b1 > 220)
-        return [int((r1+250)/3), int((g1+250)/3), int((b1+250)/3)];
+        return [(r1+250)/3, (g1+250)/3, (b1+250)/3];
     else
-        return [int((r1+250)/2), int((g1+250)/2), int((b1+250)/2)];
+        return [(r1+250)/2, (g1+250)/2, (b1+250)/2];
 }
 //트리컬러 - 2
 function triColor1(r1,g1,b1) {

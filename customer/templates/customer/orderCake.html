@@ -220,7 +220,7 @@
                             <br><br>
                             <p class="text-nowrap mb-2" style="text-align:left;">레터링</p>
                             <p class="text-nowrap mb-1" style="text-align:left;">
-                                <span>색상<input type="color" id="letter_color" value="#ffffff"></span>
+                                <span>색상<input type="color" id="letter  _color" value="#ffffff"></span>
                                 <span class="ml-2">크기<input type="number" id="letter_size" min="1" max="70"></span>
                             </p>
                             <input type="text" id="letter_content" placeholder="텍스트를 입력해주세요">
@@ -324,15 +324,29 @@
                 const r = parseInt(cake_color.substr(1,2), 16);
                 const g = parseInt(cake_color.substr(3,2), 16);
                 const b = parseInt(cake_color.substr(5,2), 16);
-                console.log(`cake_color red: ${r}, green: ${g}, blue: ${b}`);
+<!--                console.log(`cake_color red: ${r}, green: ${g}, blue: ${b}`);-->
                 // ctx2.fillStyle = "cake_color";
                 document.getElementById('cake_circle').style.backgroundColor = cake_color;
-                var rgb = complementaryColor1(r, g, b);
-                var new_r = rgb[0];
-                var new_g = rgb[1];
-                var new_b = rgb[2];
-                console.log(`new_cake_color red: ${new_r}, green: ${new_g}, blue: ${new_b}`);
-                document.getElementById('color5').style.backgroundColor = 'rgb(' + new_r + ',' + new_g + ',' + new_b + ')';
+                var comp_rgb = complementaryColor1(r, g, b);
+                var comp_r = comp_rgb[0];
+                var comp_g = comp_rgb[1];
+                var comp_b = comp_rgb[2];
+                var tri_rgb = triColor1(r, g, b);
+                var tri_r1 = tri_rgb[0];
+                var tri_g1 = tri_rgb[1];
+                var tri_b1 = tri_rgb[2];
+                var tri_r2 = tri_rgb[3];
+                var tri_g2 = tri_rgb[4];
+                var tri_b2 = tri_rgb[5];
+                var mono_rgb = monoColor1(r, g, b);
+                var mono_r = mono_rgb[0];
+                var mono_g = mono_rgb[1];
+                var mono_b = mono_rgb[2];
+                document.getElementById('color5').style.backgroundColor = 'rgb(' + comp_r + ',' + comp_g + ',' + comp_b + ')';
+                document.getElementById('color6').style.backgroundColor = 'rgb(' + tri_r1 + ',' + tri_g1 + ',' + tri_b1 + ')';
+                document.getElementById('color7').style.backgroundColor = 'rgb(' + tri_r2 + ',' + tri_g2 + ',' + tri_b2 + ')';
+                document.getElementById('color8').style.backgroundColor = 'rgb(' + mono_r + ',' + mono_g + ',' + mono_b + ')';
+
 
             })
         })
@@ -362,7 +376,25 @@
                 const b = parseInt(cream_color.substr(5,2), 16)
                 console.log(`cream_color red: ${r}, green: ${g}, blue: ${b}`)
                 document.getElementById('cream_circle').style.backgroundColor = cream_color;
-<!--                document.getElementById('color1').style.backgroundColor = 'rgb(' + 148 + ',' + 52 + ',' + 52 + ')';-->
+                var comp_rgb = complementaryColor1(r, g, b);
+                var comp_r = comp_rgb[0];
+                var comp_g = comp_rgb[1];
+                var comp_b = comp_rgb[2];
+                var tri_rgb = triColor1(r, g, b);
+                var tri_r1 = tri_rgb[0];
+                var tri_g1 = tri_rgb[1];
+                var tri_b1 = tri_rgb[2];
+                var tri_r2 = tri_rgb[3];
+                var tri_g2 = tri_rgb[4];
+                var tri_b2 = tri_rgb[5];
+                var mono_rgb = monoColor1(r, g, b);
+                var mono_r = mono_rgb[0];
+                var mono_g = mono_rgb[1];
+                var mono_b = mono_rgb[2];
+                document.getElementById('color1').style.backgroundColor = 'rgb(' + comp_r + ',' + comp_g + ',' + comp_b + ')';
+                document.getElementById('color2').style.backgroundColor = 'rgb(' + tri_r1 + ',' + tri_g1 + ',' + tri_b1 + ')';
+                document.getElementById('color3').style.backgroundColor = 'rgb(' + tri_r2 + ',' + tri_g2 + ',' + tri_b2 + ')';
+                document.getElementById('color4').style.backgroundColor = 'rgb(' + mono_r + ',' + mono_g + ',' + mono_b + ')';
             })
         })
         function color5_click() {
