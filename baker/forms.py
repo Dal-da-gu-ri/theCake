@@ -38,7 +38,7 @@ from django.forms import modelformset_factory
 class StoreForm(forms.ModelForm):
     class Meta:
         model = Store
-        fields = ['storeImg', 'storeName', 'storeContact', 'aboutStore', 'pickUpOpen', 'pickUpClose', 'postcode', 'address1', 'address2', 'address3', 'daum_sido', 'daum_sigungu', 'daum_dong']
+        fields = ['storeImg', 'storeName', 'storeContact', 'aboutStore', 'pickUpOpen', 'pickUpClose', 'postcode', 'address1', 'address2', 'address3', 'daum_sido', 'daum_sigungu', 'daum_dong', 'aboutCake']
         widgets = {
             # label은 HTML에서 label태그를 의미
             # widget은 input이라고 생각
@@ -68,6 +68,10 @@ class StoreForm(forms.ModelForm):
             'aboutStore': forms.Textarea(
                 #label='가게 소개글',
                 attrs={'class': 'form-control'}
+            ),
+            'aboutCake': forms.Textarea(
+                attrs={'class': 'form-control',
+                       'placeholder': 'ex) 텍스트 추가 시, 1호: 20자 이내, 2~3호: 30자 이내로 글자 수 제한합니다.'}
             ),
             'postcode': forms.TextInput(
                 attrs={'id':'sample6_postcode',
