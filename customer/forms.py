@@ -34,3 +34,41 @@ class OrdererForm(forms.ModelForm):
             # )
 
         }
+
+
+class ReviewForm(forms.ModelForm):
+    class Meta:
+        model = Orderer
+        fields = ['taste', 'service', 'design','textReview']
+        widgets = {
+            'taste': forms.NumberInput(
+                attrs={
+                    'class': 'form-control',
+                    'placeholder': '맛 평가',
+                    'max': 5,
+                    'min': 0
+                }
+            ),
+            'service': forms.NumberInput(
+                attrs={
+                    'class': 'form-control',
+                    'placeholder': '서비스 평가',
+                    'max': 5,
+                    'min': 0
+                }
+            ),
+            'design': forms.NumberInput(
+                attrs={
+                    'class': 'form-control',
+                    'placeholder': '디자인 평가',
+                    'max': 5,
+                    'min': 0
+                }
+            ),
+            'textReview': forms.TextInput(
+                attrs={
+                    'class': 'form-control',
+                    'placeholder': '텍스트 리뷰'
+                }
+            ),
+        }

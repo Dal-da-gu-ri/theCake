@@ -11,6 +11,9 @@ from django.views.decorators.csrf import csrf_exempt
 from baker.forms import *
 from customer.forms import *
 from .mappingdate import mappingDate
+from .ordernum import makeordernum
+from .secureID import secureID
+
 
 def temp(request):
     return render(request, 'customer/showCakes.html')
@@ -386,6 +389,22 @@ def cakeOrder(request,crn,cakepk):
             return render(request, 'customer/orderCake.html', res_data)
         else:
             # 주문하기 버튼을 눌렀을 때 나올 화면
+            order = Order(
+                orderNum = makeordernum(),
+                orderer = customer.userID,
+                pickupDate = request.POST.get('pickupDate',None),
+                pickupTime = request.POST.get('pickupTime',None),
+                businessID = crn,
+                cakeName = cakeobject.cakeName,
+                cakeText = request.POST.get('cakeText',None),
+                message = request.POST.get('message',None),
+                price = request.POST.get('price',None),
+                status = '주문 요청'
+                # requiredOpt
+                # additionalOpt
+            )
+            order.save()
+
             return render(request, 'customer/orderlist_customer.html', res_data)
 
 
@@ -398,9 +417,7 @@ def cakeOrder(request,crn,cakepk):
 
     #   주문화면
 
-def testing(request):
 
-    return render(request,'customer/test.html')
 
 def orderlist(request):
     res_data = {}
@@ -410,7 +427,65 @@ def orderlist(request):
         customer = Orderer.objects.get(pk=user_id)
         res_data['customername'] = customer.name
 
-    return render(request, 'customer/orderlist_customer.html',res_data)
+        if request.method == "GET":
+            order_list = Order.objects.filter(orderer = customer.userID)
+            res_data['order_list']=order_list
+            return render(request, 'customer/orderlist_customer.html',res_data)
+
+    else:
+        if request.method == "GET":
+            res_data['comment'] = "잘못된 접근입니다. 로그인을 해주세요!"
+            return render(request, 'baker/inappropriateApproach.html', res_data)
+        elif request.method == "POST":
+            return redirect('/')
+
+def writeReview(request,orderNum):
+    res_data = {}
+    user_id = request.session.get('user')
+
+    if user_id:
+        customer = Orderer.objects.get(pk=user_id)
+        res_data['customername'] = customer.name
+        reviewform = ReviewForm()
+        reviewobject = Review()
+        order = Order.objects.get(orderer=customer.userID, orderNum=orderNum)
+        if request.method == "GET":
+            try:
+                reviewobject = Review.objects.get(orderer=customer.userID,orderNum=orderNum)
+                reviewform = ReviewForm(instance=reviewobject)
+            except Review.DoesNotExist:
+                reviewobject=Review()
+                reviewform = ReviewForm(instance=reviewobject)
+
+            res_data['order'] = order
+            res_data['review']=reviewform
+            return render(request, 'customer/writeReview.html', res_data)
+        elif request.method == "POST":
+            reviewform = ReviewForm(request.POST)
+
+            if reviewform.is_valid(): #유효성 검사
+                reviewobject.orderNum = orderNum
+                reviewobject.orderer = customer.userID
+                secureID(customer.userID,orderNum)
+                reviewobject.storeInfo = order.businessID
+                reviewobject.taste = reviewform.cleaned_data['taste']
+                reviewobject.service = reviewform.cleaned_data['service']
+                reviewobject.design = reviewform.cleaned_data['design']
+                reviewobject.textReview = reviewform.cleaned_data['textReview']
+                reviewobject.save()
+
+                res_data['review'] = reviewform
+                return render(request, 'customer/orderlist_customer.html', res_data)
+            else:
+                    print(reviewform.errors)
+                    return redirect('/baker/inappropriateApproach')
+
+    else:
+        if request.method == "GET":
+            res_data['comment'] = "잘못된 접근입니다. 로그인을 해주세요!"
+            return render(request, 'baker/inappropriateApproach.html', res_data)
+        elif request.method == "POST":
+            return redirect('/')
 
 
 # def mypage(request):

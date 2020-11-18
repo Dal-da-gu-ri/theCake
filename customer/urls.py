@@ -50,6 +50,8 @@ urlpatterns = [
     # 주문내역조회
     # (수령날짜, 수령시간, 선택한 케이크 이미지, 최종가격, 주문매장, 주문진행상황, 주문번호(?))
     path('orderList/', views.orderlist, name='orderList_customer'),
+    path('orderList/<int:orderNum>/review', views.writeReview, name='writeReview'),
+
     # 주문내역조회-수정하기는 selectedCake과 다른 페이지라고 해야하나 아니면 그 화면에 그대로 + 정보 자동기입?
     # path('orderList/changeOrder', views.changeOrder, name='changeOrder_customer'),
 
