@@ -49,10 +49,13 @@
             <form method="POST" class="form-signin">
                 <img class="mb-4" src="/static/img/logo_customer.png" alt="logo_customer" width="141" height="120">
                      {% csrf_token %}
-                <div class="row mt-5">
-                        <div class="col-12">
-                            {{comment}}
-                        </div>
+                <div class="mt-5 text-nowrap">
+                    <div>
+                        {{email}}로 이메일이 발송되었습니다.
+                    </div>
+                    <div>
+                        인증을 완료해주세요.
+                    </div>
                 </div>
             </form>
 </body>

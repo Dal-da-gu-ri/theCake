@@ -46,15 +46,15 @@ body {
     </style>
 </head>
 <body class="text-center">
-            <form method="POST" class="form-signin">
-                <img class="mb-4" src="/static/img/logo_customer.png" alt="logo_customer" width="141" height="120">
-                     {% csrf_token %}
-                <div class="row mt-5">
-                        <div class="col-12">
-                            {{comment}}
-                        </div>
+    <form method="POST" class="form-signin">
+        <img class="mb-4" src="/static/img/logo_customer.png" alt="logo_customer" width="141" height="120">
+             {% csrf_token %}
+        <div class="row mt-5" style="text-align:center;">
+                <div class="col-12 text-nowrap">
+                    {{customerid}}님의 계정이 활성화되었습니다.
                 </div>
-                <button type='submit' id="submit" class="btn btn-lg btn-secondary btn-block">로그인하러 가기</button>
-            </form>
+        </div>
+        <button type='submit' id="submit" class="btn btn-lg btn-secondary btn-block">로그인하러 가기</button>
+    </form>
 </body>
 </html>
