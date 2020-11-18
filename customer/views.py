@@ -69,7 +69,8 @@ def join(request):
                     user_email = customerobject.email
                     email = EmailMessage(mail_subject, message, to=[user_email])
                     email.send()
-                    res_data['comment'] = user_email + " 로 이메일이 발송되었습니다. \n\n인증을 완료해주세요 :)"
+                    # res_data['comment'] = user_email + " 로 이메일이 발송되었습니다. \n\n인증을 완료해주세요 :)"
+                    res_data['email'] = user_email
                     return render(request, 'customer/userEmailSent.html', res_data)
 
             except checkOrderer.DoesNotExist:
@@ -90,7 +91,7 @@ def useridCheck(request):
 
         try:
             customer = checkOrderer.objects.get(userid = userID)
-            res_data['error'] = "이미 등록된 아이디입니다."
+            res_data['error'] = "이미 등록된 아이디입니다. 다른 아이디를 입력해주세요!"
             return render(request, 'customer/useridCheck.html', res_data)
         except checkOrderer.DoesNotExist:
             #comment = None
@@ -111,7 +112,8 @@ def activate(request,uid64, token):
         customer.is_active = True
         customer.save()
         if request.method == "GET":
-            res_data['comment'] = customer.userID+"님의 계정이 활성화되었습니다."
+            # res_data['comment'] = customer.userID+"님의 계정이 활성화되었습니다."
+            res_data['customerid'] = customer.userID
             return render(request,'customer/userActivate.html',res_data)
     elif request.method == "POST":
         return redirect('/customer/login')
