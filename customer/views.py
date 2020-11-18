@@ -377,11 +377,25 @@ def cakeOrder(request,crn,cakepk):
         customer = Orderer.objects.get(pk=user_id)
         res_data['customername'] = customer.name
 
-    print("Hello")
-    print(crn)
-    print(cakepk)
+        cakeobject = get_object_or_404(Cake,pk=cakepk)
+        storeobject = get_object_or_404(Store,businessID=crn)
 
-    return render(request, 'customer/orderCake.html', res_data)
+        res_data['store']=storeobject
+        res_data['cake']=cakeobject
+        if request.method == "GET":
+            return render(request, 'customer/orderCake.html', res_data)
+        else:
+            # 주문하기 버튼을 눌렀을 때 나올 화면
+            return render(request, 'customer/orderlist_customer.html', res_data)
+
+
+    else:
+        if request.method == "GET":
+            res_data['comment'] = "잘못된 접근입니다. 로그인을 해주세요!"
+            return render(request, 'baker/inappropriateApproach.html', res_data)
+        elif request.method == "POST":
+            return redirect('/')
+
     #   주문화면
 
 def testing(request):
