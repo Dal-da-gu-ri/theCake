@@ -11,8 +11,152 @@
     <div class="row">
         <p class="pt-3 pl-4 path">주문하기</p>
     </div>
-    <script>
-      jQuery(document).ready(function(){
+
+<style>
+
+    @import url('https://fonts.googleapis.com/css2?family=Nanum+Gothic&display=swap');
+
+    #date {
+      width: 200px;
+      padding: .8em .5em;
+      border: 1px solid #999;
+      font-family: 'Nanum Gothic', sans-serif;
+      background: #ffffff;
+      border-radius: 0px;
+    }
+
+    input[type=date]::-ms-clear {
+      display: none;
+    }
+
+    .location_select {
+      width: 200px;
+      padding: .8em .5em;
+      border: 1px solid #999;
+      font-family: 'Nanum Gothic', sans-serif;
+      border-radius: 0px;
+      /* 네이티브 모형 감추기 */
+      -webkit-appearance: none;
+      -moz-appearance: none;
+      appearance: none;
+      margin-right: 30px;
+    }
+
+    /* 네이티브 화살표 숨기기 */
+    select::-ms-expand {
+        display: none;
+    }
+
+    .button {
+        background-color: #b5b5b5;
+        border:none;
+        color:white;
+        padding: 9px 43px;
+        text-align: center;
+        text-decoration:none;
+        display: inline-block;
+        font-size: 15px;
+        margin: 4px 0px;
+    }
+
+    #selectbox_letter {
+        color:#838383;
+        font-size:15px;
+        text-align: right;
+    }
+
+    .form-group {
+        /*position: relative;*/
+        margin: 5% 20%;
+    }
+
+    #store_name{
+        text-align: center;
+        font-size: 1.3em;
+        color: black;
+    }
+
+    #select_btn{
+        transition:.15s ease;
+        border: 1px solid #cf8484;
+        background-color:white;
+        color: #cc5f5f;
+        width: 90%;
+        height: 1.7em;
+        border-radius: 2px;
+    }
+
+    #select_btn:hover {
+        background-color: #cf8484;
+        color: white;
+    }
+    /*
+    .gray{
+        color:#929292;
+    }
+    */
+
+    .bd-placeholder-img {
+        font-size: 1.125rem;
+        text-anchor: middle;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+    }
+
+    @media (min-width: 768px) {
+        .bd-placeholder-img-lg {
+          font-size: 3.5rem;
+        }
+    }
+
+    .card{
+        border: 1px solid #8e8e8e;
+    }
+
+    .card-body{
+        font-size: 0.9em;
+        background-color: #f5efef;
+        padding: 1rem;
+    }
+
+</style>
+
+<div>
+  <fieldset>
+    <div class="form-group">
+      <div class="row flex-nowrap justify-content-right align-items-center pt-5 form">
+        <label class="text-nowrap" style="padding-right:70px">위치</label>
+        <select id="sido" class="location_select">
+          <option value="">시/ 도 선택</option>
+        </select>
+        <select id="sigugun" class="location_select">
+          <option value="">시/ 군/ 구 선택</option>
+        </select>
+        <select id="dong" class="location_select">
+          <option value="">읍/ 면/ 동 선택</option>
+        </select>
+      </div>
+
+      <div class="row flex-nowrap justify-content-right align-items-center pt-3 form">
+          <label class="text-nowrap" for="date" style="padding-right:70px;">날짜</label>
+          <input id="date" type="date" name="date">
+      </div>
+        <br>
+        <br>
+      <p id="selectbox_letter">※ 날짜와 위치를 모두 선택해주세요.</p>
+        <br>
+        <button type="submit" id="search_button" class="btn btn-sm btn-secondary button" style="float: right;">확인</button>
+    </div>
+  </fieldset>
+</div>
+<div id="data_stores">
+
+</div>
+
+<script>
+    jQuery(document).ready(function(){
       //sido option 추가
       //each: 일반적인 반복함수 (배열이나 객체, 콜백함수)
       jQuery.each(hangjungdong.sido, function(idx, code){
@@ -73,57 +217,26 @@
         var dongCode = sido + sigugun + dong + '00';
       });
     });
+
     function fn_option(code, name){
       return '<option value="' + code +'">' + name +'</option>';
     }
-    </script>
-
-  <div>
-      <fieldset>
-        <div class="form-group">
-          <div class="row flex-nowrap justify-content-right align-items-center pt-5 form">
-            <label class="text-nowrap" style="padding-right:70px">위치</label>
-            <select id="sido" class="location_select">
-              <option value="">시/ 도 선택</option>
-            </select>
-            <select id="sigugun" class="location_select">
-              <option value="">시/ 군/ 구 선택</option>
-            </select>
-            <select id="dong" class="location_select">
-              <option value="">읍/ 면/ 동 선택</option>
-            </select>
-          </div>
-
-          <div class="row flex-nowrap justify-content-right align-items-center pt-3 form">
-              <label class="text-nowrap" for="date" style="padding-right:70px;">날짜</label>
-              <input id="date" type="date" name="date">
-          </div>
-            <br>
-            <br>
-          <p id="selectbox_letter">※ 날짜와 위치를 모두 선택해주세요.</p>
-            <br>
-            <button type="submit" id="search_button" class="btn btn-sm btn-secondary button" style="float: right;">확인</button>
-        </div>
-      </fieldset>
-    </div>
-    <div id="data_stores">
-
-    </div>
-        <script>
-            $('#search_button').click(function(){
-                var sido = $('#sido').val()
-                var sigugun = $('#sigugun').val()
-                var dong = $('#dong').val()
-                var date = $('#date').val()
-                $.ajax({
-                    url:'{% url 'customer:showStores' %}',
-                    data : { 'sido':sido, 'sigugun':sigugun, 'dong':dong, 'date':date },
-                    success:function(data){
-                        $('#data_stores').html(data)
-                    }
-                })
-            })
-        </script>
+</script>
+<script>
+    $('#search_button').click(function(){
+        var sido = $('#sido').val()
+        var sigugun = $('#sigugun').val()
+        var dong = $('#dong').val()
+        var date = $('#date').val()
+        $.ajax({
+            url:'{% url 'customer:showStores' %}',
+            data : { 'sido':sido, 'sigugun':sigugun, 'dong':dong, 'date':date },
+            success:function(data){
+                $('#data_stores').html(data)
+            }
+        })
+    })
+</script>
 <script>
     var date = new Date();
     minDate = date.toISOString().split('T')[0];
