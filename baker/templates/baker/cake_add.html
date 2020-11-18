@@ -148,12 +148,11 @@
                 </div>
                 <div class="form-group col-5 text-nowrap form-control">
                     <table id="option_table">
+                        {% for option in options %}
                         <tr class="option_tr">
-                            <td><input type="checkbox" name="option_selected" class="chk ml-4" value="{{options.0.pk}}">{{options.0.optionName}}</td>
+                            <td>{{option.optionName}}<input type="checkbox" name="option_selected" class="chk ml-4" value="{{option.pk}}"></td>
                         </tr>
-                        <tr class="option_tr">
-                            <td><input type="checkbox" name="option_selected" class="chk ml-4" value="{{options.1.pk}}">{{options.1.optionName}}</td>
-                        </tr>
+                        {% endfor %}
                     </table>
                 </div>
             </div>
@@ -175,7 +174,6 @@
 <!--        }-->
 
 <!--        var option_elements = document.getElementsByClassName('option_tr');-->
-<!--&lt;!&ndash;        console.log(option_elements[i].querySelector('input'));&ndash;&gt;-->
 
 <!--        for(i=0; i < {{options|length}}; i++){-->
 <!--            option_elements[i].querySelector('input').setAttribute('value', '{{options.i.pk}}');-->
