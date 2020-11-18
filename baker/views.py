@@ -504,7 +504,7 @@ def dailyamountsetting(request):
                 dailyform = DailyAmountForm(instance=dailyobject)
             # dailyform = DailyAmountForm()
             res_data['dailyform'] = dailyform
-            return render(request, 'baker/dayhandle.html', res_data)  # 나중에 opendays.html으로 바꿔야함
+            return render(request, 'baker/dayhandle2.html', res_data)  # 나중에 opendays.html으로 바꿔야함
 
     else:
         if request.method == "GET":
