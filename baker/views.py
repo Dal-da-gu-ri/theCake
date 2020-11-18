@@ -10,7 +10,7 @@ from django.utils.encoding import force_bytes,force_text
 from .forms import *
 
 from .create_password import passwordMaker
-
+from .createcakepk import newcakepk
 from .dailyamounts import setDailyAmounts
 #make_password(str) : 이 함수에 넣어준 문자열을 암호화합니다. (hashing)
 #check_password(a,b) : a,b가 일치하는지 확인, 반환합니다.
@@ -533,7 +533,7 @@ def myCakes(request):
 def cake_add(request):
     res_data = {}
     user_id = request.session.get('user')
-
+    cakesearch = False
     # 전체 옵션들 가져와서 for문 안에서 객체 생성.
 
     if user_id:
@@ -551,10 +551,30 @@ def cake_add(request):
                 cakeobject.cakeImg = cakeform.cleaned_data['cakeImg']
                 cakeobject.cakePrice = cakeform.cleaned_data['cakePrice']
                 cakeobject.mini = cakeform.cleaned_data['mini']
-                cakeobject.cakeid = str(store.businessID)+cakeform.cleaned_data['cakeName']
+                while cakesearch == False:
+                    newpk = newcakepk()
+                    try:
+                        cake = Cake.objects.get(pk=newpk)
+                        cakesearch = False
+                    except Cake.DoesNotExist:
+                        cakesearch = True
+                    #
+                    # if Cake.objects.get(pk=newpk):
+                    #     cakesearch = False
+                    # else:
+                    #     cakesearch = True
+                cakeobject.cakeid = str(newpk)
+                selectedoptions = request.POST.getlist('option_selected',None)
+                for option in selectedoptions:
+                    curoption = Option.objects.get(businessID=baker.businessID,pk=option)
+                    cakeoption = CakeOption(
+                            businessID = baker.businessID,
+                            optionID = curoption.pk,
+                            cakeID= newpk,
+                            isSelected = True
+                         )
+                    cakeoption.save()
 
-                # namebaker = request.POST.get('name_baker', None)
-                selectedoptions = request.POST.getlist('option_selected[]',None)
                 # print(len(selectedoptions))
                 print(selectedoptions)
 
@@ -630,7 +650,8 @@ def cake_edit(request,pk):
     user_id = request.session.get('user')
 
     if user_id:
-        baker = Baker.objects.get(pk=user_id)
+        curcake = Cake.objects.get(pk=pk)
+        baker = Baker.objects.get(businessID=curcake.crn)
         res_data['bakername'] = baker.name
         cakeobject = get_object_or_404(Cake,pk=pk)
         if request.method == "POST":
@@ -669,8 +690,14 @@ def cake_edit(request,pk):
         else:
             #cakeobject = Cake.objects.get(cakeName=baker.businessID)
             cakeform = CakeForm(instance=cakeobject)
+            options = Option.objects.filter(businessID=baker.businessID)
+            selectedoptions = CakeOption.objects.filter(businessID=baker.businessID,cakeID=cakeobject.pk,isSelected=1)
             #cakeform = CakeForm()
             res_data['cake'] = cakeform
+            res_data['options'] = options
+            res_data['selectedoptions']=selectedoptions
+            print(options)
+            print(selectedoptions)
             return render(request, 'baker/cake_edit.html', res_data)
 
     else:
