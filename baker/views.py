@@ -305,7 +305,12 @@ def enrollStore(request):
                     storeobject.address1 = storeform.cleaned_data['address1']
                     storeobject.address2 = storeform.cleaned_data['address2']
                     storeobject.address3 = storeform.cleaned_data['address3']
-                    storeobject.location = storeform.cleaned_data['address1'] + " "+storeform.cleaned_data['address2']
+                    if storeform.cleaned_data['address2']:
+                        storeobject.location = storeform.cleaned_data['address1'] + " " + storeform.cleaned_data[
+                            'address2']
+                    else:
+                        storeobject.location = storeform.cleaned_data['address1']
+
                     storeobject.daum_sido = request.POST.get('daum_sido',None)
                     storeobject.daum_sigungu = request.POST.get('daum_sigungu',None)
                     storeobject.daum_dong = request.POST.get('daum_dong',None)
