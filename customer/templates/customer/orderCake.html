@@ -326,33 +326,48 @@
                 const r = parseInt(cake_color.substr(1,2), 16);
                 const g = parseInt(cake_color.substr(3,2), 16);
                 const b = parseInt(cake_color.substr(5,2), 16);
+
 <!--                console.log(`cake_color red: ${r}, green: ${g}, blue: ${b}`);-->
                 // ctx2.fillStyle = "cake_color";
                 document.getElementById('cake_circle').style.backgroundColor = cake_color;
+
                 var comp_rgb = complementaryColor1(r, g, b);
                 var comp_r = comp_rgb[0];
                 var comp_g = comp_rgb[1];
                 var comp_b = comp_rgb[2];
+                var comp_hex = '#'+parseInt( (comp_r), 10 ).toString( 16 )+parseInt( (comp_g), 10 ).toString( 16 )+parseInt( (comp_b), 10 ).toString( 16 );
+
                 var tri_rgb = triColor1(r, g, b);
                 var tri_r1 = tri_rgb[0];
                 var tri_g1 = tri_rgb[1];
                 var tri_b1 = tri_rgb[2];
+                var tri1_hex = '#'+parseInt( (tri_r1), 10 ).toString( 16 )+parseInt( (tri_g1), 10 ).toString( 16 )+parseInt( (tri_b1), 10 ).toString( 16 );
                 var tri_r2 = tri_rgb[3];
                 var tri_g2 = tri_rgb[4];
                 var tri_b2 = tri_rgb[5];
+                var tri2_hex = '#'+parseInt( (tri_r2), 10 ).toString( 16 )+parseInt( (tri_g2), 10 ).toString( 16 )+parseInt( (tri_b2), 10 ).toString( 16 );
+
                 var mono_rgb = monoColor1(r, g, b);
                 var mono_r = mono_rgb[0];
                 var mono_g = mono_rgb[1];
                 var mono_b = mono_rgb[2];
+                var mono_hex = '#'+parseInt( (mono_r), 10 ).toString( 16 )+parseInt( (mono_g), 10 ).toString( 16 )+parseInt( (mono_b), 10 ).toString( 16 );
+
                 document.getElementById('color5').style.backgroundColor = 'rgb(' + comp_r + ',' + comp_g + ',' + comp_b + ')';
                 document.getElementById('color6').style.backgroundColor = 'rgb(' + tri_r1 + ',' + tri_g1 + ',' + tri_b1 + ')';
                 document.getElementById('color7').style.backgroundColor = 'rgb(' + tri_r2 + ',' + tri_g2 + ',' + tri_b2 + ')';
                 document.getElementById('color8').style.backgroundColor = 'rgb(' + mono_r + ',' + mono_g + ',' + mono_b + ')';
-<!--                고민이 필요해요-->
-                document.getElementById('color1').style.backgroundColor = 'rgb(' + 255 + ',' + 255 + ',' + 255 + ')';
-                document.getElementById('color2').style.backgroundColor = 'rgb(' + 255 + ',' + 255 + ',' + 255 + ')';
-                document.getElementById('color3').style.backgroundColor = 'rgb(' + 255 + ',' + 255 + ',' + 255 + ')';
-                document.getElementById('color4').style.backgroundColor = 'rgb(' + 255 + ',' + 255 + ',' + 255 + ')';
+
+<!--                도와주세요-->
+<!--                document.getElementById('color1').style.backgroundColor = 'rgb(' + 255 + ',' + 255 + ',' + 255 + ')';-->
+<!--                document.getElementById('color2').style.backgroundColor = 'rgb(' + 255 + ',' + 255 + ',' + 255 + ')';-->
+<!--                document.getElementById('color3').style.backgroundColor = 'rgb(' + 255 + ',' + 255 + ',' + 255 + ')';-->
+<!--                document.getElementById('color4').style.backgroundColor = 'rgb(' + 255 + ',' + 255 + ',' + 255 + ')';-->
+
+                document.getElementById( 'color5' ).setAttribute( 'title', `${comp_hex}` );
+                document.getElementById( 'color6' ).setAttribute( 'title', `${tri1_hex}` );
+                document.getElementById( 'color7' ).setAttribute( 'title', `${tri2_hex}` );
+                document.getElementById( 'color8' ).setAttribute( 'title', `${mono_hex}` );
 
 
             })
@@ -383,30 +398,44 @@
                 const b = parseInt(cream_color.substr(5,2), 16)
                 console.log(`cream_color red: ${r}, green: ${g}, blue: ${b}`)
                 document.getElementById('cream_circle').style.backgroundColor = cream_color;
+
                 var comp_rgb = complementaryColor1(r, g, b);
                 var comp_r = comp_rgb[0];
                 var comp_g = comp_rgb[1];
                 var comp_b = comp_rgb[2];
+                var comp_hex = '#'+parseInt( (comp_r), 10 ).toString( 16 )+parseInt( (comp_g), 10 ).toString( 16 )+parseInt( (comp_b), 10 ).toString( 16 );
+
                 var tri_rgb = triColor1(r, g, b);
                 var tri_r1 = tri_rgb[0];
                 var tri_g1 = tri_rgb[1];
                 var tri_b1 = tri_rgb[2];
+                var tri1_hex = '#'+parseInt( (tri_r1), 10 ).toString( 16 )+parseInt( (tri_g1), 10 ).toString( 16 )+parseInt( (tri_b1), 10 ).toString( 16 );
                 var tri_r2 = tri_rgb[3];
                 var tri_g2 = tri_rgb[4];
                 var tri_b2 = tri_rgb[5];
+                var tri2_hex = '#'+parseInt( (tri_r2), 10 ).toString( 16 )+parseInt( (tri_g2), 10 ).toString( 16 )+parseInt( (tri_b2), 10 ).toString( 16 );
+
                 var mono_rgb = monoColor1(r, g, b);
                 var mono_r = mono_rgb[0];
                 var mono_g = mono_rgb[1];
                 var mono_b = mono_rgb[2];
+                var mono_hex = '#'+parseInt( (mono_r), 10 ).toString( 16 )+parseInt( (mono_g), 10 ).toString( 16 )+parseInt( (mono_b), 10 ).toString( 16 );
+
                 document.getElementById('color1').style.backgroundColor = 'rgb(' + comp_r + ',' + comp_g + ',' + comp_b + ')';
                 document.getElementById('color2').style.backgroundColor = 'rgb(' + tri_r1 + ',' + tri_g1 + ',' + tri_b1 + ')';
                 document.getElementById('color3').style.backgroundColor = 'rgb(' + tri_r2 + ',' + tri_g2 + ',' + tri_b2 + ')';
                 document.getElementById('color4').style.backgroundColor = 'rgb(' + mono_r + ',' + mono_g + ',' + mono_b + ')';
-<!--                고민이 필요해요-->
-                document.getElementById('color5').style.backgroundColor = 'rgb(' + 255 + ',' + 255 + ',' + 255 + ')';
-                document.getElementById('color6').style.backgroundColor = 'rgb(' + 255 + ',' + 255 + ',' + 255 + ')';
-                document.getElementById('color7').style.backgroundColor = 'rgb(' + 255 + ',' + 255 + ',' + 255 + ')';
-                document.getElementById('color8').style.backgroundColor = 'rgb(' + 255 + ',' + 255 + ',' + 255 + ')';
+
+<!--                도와주세요-->
+<!--                document.getElementById('color5').style.backgroundColor = 'rgb(' + 255 + ',' + 255 + ',' + 255 + ')';-->
+<!--                document.getElementById('color6').style.backgroundColor = 'rgb(' + 255 + ',' + 255 + ',' + 255 + ')';-->
+<!--                document.getElementById('color7').style.backgroundColor = 'rgb(' + 255 + ',' + 255 + ',' + 255 + ')';-->
+<!--                document.getElementById('color8').style.backgroundColor = 'rgb(' + 255 + ',' + 255 + ',' + 255 + ')';-->
+
+                document.getElementById( 'color1' ).setAttribute( 'title', `${comp_hex}` );
+                document.getElementById( 'color2' ).setAttribute( 'title', `${tri1_hex}` );
+                document.getElementById( 'color3' ).setAttribute( 'title', `${tri2_hex}` );
+                document.getElementById( 'color4' ).setAttribute( 'title', `${mono_hex}` );
             })
         })
         function color5_click() {
