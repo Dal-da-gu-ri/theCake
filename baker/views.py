@@ -565,37 +565,35 @@ def cake_add(request):
                         cakesearch = False
                     except Cake.DoesNotExist:
                         cakesearch = True
-                    #
-                    # if Cake.objects.get(pk=newpk):
-                    #     cakesearch = False
-                    # else:
-                    #     cakesearch = True
                 cakeobject.cakeid = str(newpk)
                 selectedoptions = request.POST.getlist('option_selected',None)
-                for option in selectedoptions:
-                    curoption = Option.objects.get(businessID=baker.businessID,pk=option)
+
+                option_list = Option.objects.filter(businessID=baker.businessID)
+                for option in option_list:
                     cakeoption = CakeOption(
-                            businessID = baker.businessID,
-                            optionID = curoption.pk,
-                            cakeID= newpk,
-                            isSelected = True
-                         )
+                        businessID=baker.businessID,
+                        optionID=option.pk,
+                        cakeID=newpk,
+                        isSelected=False
+                    )
                     cakeoption.save()
 
-                # print(len(selectedoptions))
+
+                for option in selectedoptions:
+                    # curoption = Option.objects.get(businessID=baker.businessID,pk=option)
+                    # cakeoption = CakeOption(
+                    #         businessID = baker.businessID,
+                    #         optionID = curoption.pk,
+                    #         cakeID= newpk,
+                    #         isSelected = True
+                    #      )
+                    cakeoption = CakeOption.objects.get(businessID=baker.businessID,optionID=option,cakeID= newpk)
+                    cakeoption.isSelected = True
+                    cakeoption.save()
+
                 print(selectedoptions)
 
-                # option_list = Option.objects.filter(businessID=baker.businessID)
-                # for option in option_list:
-                #     optionname = option.optionName
-                #     cakeoption = CakeOption(
-                #         businessID = baker.businessID,
-                #         optionID = option.pk,
-                #         cakeID = store.businessID+cakeform.cleaned_data['cakeName'],
-                #         isSelected = cakeoptionform.cleaned_data[optionname]
-                #     )
-                #     # cakeoption = cakeoptionform.save()
-                #     cakeoption.save()
+
 
                 if Cake.objects.filter(cakeName=cakeobject.cakeName, crn=cakeobject.crn).exists():
                     cakeform = CakeForm()
@@ -613,30 +611,8 @@ def cake_add(request):
         else:
             cakeform = CakeForm()
             options = Option.objects.filter(businessID=baker.businessID)
-
-            option_list = []
-            optionNum = len(options)
-            i=0
-            for i in range(0,optionNum):
-                option_list.append([])
-                curoption = Option.objects.get(optionName=options[i])
-                option_list[i].append(curoption.optionName)
-                option_list[i].append(curoption.pk)
-
-            # for option in options:
-            #     option = Option.objects.get(businessID=baker.businessID)
-            #     option_list.append(option.optionName)
-            #     option_list[option.optionName].append(option.pk)
-
-
-            # for option in option_list:
-            #     optionname = option.optionName
-            #     option
-            # optionNum = len(option_list)
             res_data['options'] = options
-            # res_data['option_list'] = option_list
             res_data['cake'] = cakeform
-            # res_data['optionNum']=optionNum
             return render(request, 'baker/cake_add.html', res_data)
 
     else:
@@ -646,11 +622,6 @@ def cake_add(request):
         elif request.method == "POST":
             return redirect('/')
 
-
-"""cakeform = CakeForm()
-res_data['cake'] = cakeform
-res_data['error'] = "이미 등록된 케이크 이름입니다."
-return render(request, 'baker/cake_add.html', res_data)"""
 
 def cake_edit(request,pk):
     res_data = {}
@@ -665,21 +636,40 @@ def cake_edit(request,pk):
         selOptions=[]
         if request.method == "POST":
             cakeform = CakeForm(request.POST,request.FILES,instance=cakeobject)
-            #store = Store.objects.get(pk=baker.businessID)
-
-            #try:
-            #    cake = Cake.objects.get(cakeName=cakeName)
             if cakeform.is_valid():
 
-                # cakeobject = cakeform.save()
-                #return redirect('/baker/manageCake/myCakes')
                 res_data['cake'] = cakeform
-                # cakeobject.save()
                 res_data['name'] = cakeobject.cakeImg
-                #return render(request, 'baker/myCakes.html', res_data)
 
+                selectedoptions = request.POST.getlist('option_selected',None)
+                alloptions = CakeOption.objects.filter(businessID=baker.businessID,cakeID=pk)
+                optionhandle = False
+                # print(alloptions)
+                # print(selectedoptions)
+                # print(len(selectedoptions))
+                for opt in alloptions:
+                    # print(opt.isSelected)
+                    for sel in range(0,len(selectedoptions)):
+                        # print(selectedoptions[sel])
+                        # print("opt: ",opt.optionID)
+                        if opt.optionID == int(selectedoptions[sel]):
+                            # print("here")
+                            optionhandle = True
+                            opt.isSelected = True
+                            opt.save()
+                    if optionhandle == False:
+                        opt.isSelected = False
+                        opt.save()
+                    # print(opt.isSelected)
 
-                # if Cake.objects.filter(crn=cakeobject.crn,cakeName=cakeobject.cakeName).exists():
+                # print(alloptions)
+
+                selectedoptions = CakeOption.objects.filter(businessID=baker.businessID,
+                                                            cakeID=cakeobject.pk, isSelected=1)
+                for opt in selectedoptions:
+                    selOptions.append(opt.optionID)
+                res_data['selectedoptions'] = selOptions
+
 
                 if Cake.objects.filter(crn=cakeobject.crn,cakeName=cakeobject.cakeName).exists():
 
@@ -689,11 +679,11 @@ def cake_edit(request,pk):
                         # res_data['cake'] = cakeform
                         cakeform = CakeForm(instance=cakeobject)
                         options = Option.objects.filter(businessID=baker.businessID)
-                        selectedoptions = CakeOption.objects.filter(businessID=baker.businessID,
-                                                                    cakeID=cakeobject.pk, isSelected=1)
-                        for opt in selectedoptions:
-                            selOptions.append(opt.optionID)
-                        res_data['selectedoptions'] = selOptions
+                        # selectedoptions = CakeOption.objects.filter(businessID=baker.businessID,
+                        #                                             cakeID=cakeobject.pk, isSelected=1)
+                        # for opt in selectedoptions:
+                        #     selOptions.append(opt.optionID)
+                        # res_data['selectedoptions'] = selOptions
 
                         res_data['cake'] = cakeform
                         res_data['options'] = options
@@ -708,23 +698,17 @@ def cake_edit(request,pk):
                             # res_data['cake'] = cakeform
                             cakeform = CakeForm(instance=cakeobject)
                             options = Option.objects.filter(businessID=baker.businessID)
-                            selectedoptions = CakeOption.objects.filter(businessID=baker.businessID,
-                                                                        cakeID=cakeobject.pk, isSelected=1)
-                            for opt in selectedoptions:
-                                selOptions.append(opt.optionID)
-                            res_data['selectedoptions'] = selOptions
+                            # selectedoptions = CakeOption.objects.filter(businessID=baker.businessID,
+                            #                                             cakeID=cakeobject.pk, isSelected=1)
+                            # for opt in selectedoptions:
+                            #     selOptions.append(opt.optionID)
+                            # res_data['selectedoptions'] = selOptions
                             res_data['cake'] = cakeform
                             res_data['options'] = options
                             # res_data['selectedoptions'] = selectedoptions
                             res_data['error'] = "이미 등록된 케이크 이름입니다."
                             return render(request, 'baker/cake_edit.html', res_data)
                         else:
-                            # selectedoptions = CakeOption.objects.filter(businessID=baker.businessID,
-                            #                                             cakeID=cakeobject.pk, isSelected=1)
-                            # for opt in selectedoptions:
-                            #     # print(opt)
-                            #     selOptions.append(opt.optionID)
-                            # # print(selOptions)
                             cakeobject = cakeform.save()
                             cakeobject.save()
                             res_data['cake'] = cakeform
@@ -734,17 +718,13 @@ def cake_edit(request,pk):
                     cakeobject.save()
                     res_data['cake'] = cakeform
                     return redirect('/baker/manageCake/myCakes', res_data)
-                # return redirect('/baker/manageCake/myCakes', res_data)
             else:
                     # print(cakeform.errors)
                     cakeform = CakeForm()
                     res_data['cake'] = cakeform
-                    # res_data['error'] = "이미 등록된 케이크 이름입니다."
                     return render(request, 'baker/cake_edit.html', res_data)
-                    #return redirect('/baker/inappropriateApproach')
 
         else:
-            #cakeobject = Cake.objects.get(cakeName=baker.businessID)
             cakeform = CakeForm(instance=cakeobject)
             options = Option.objects.filter(businessID=baker.businessID)
             selectedoptions = CakeOption.objects.filter(businessID=baker.businessID,cakeID=cakeobject.pk,isSelected=1)
@@ -753,9 +733,6 @@ def cake_edit(request,pk):
             res_data['selectedoptions'] = selOptions
             res_data['cake'] = cakeform
             res_data['options'] = options
-            # res_data['selectedoptions']=selectedoptions
-            # print(options)
-            # print(selectedoptions)
             return render(request, 'baker/cake_edit.html', res_data)
 
     else:
@@ -775,6 +752,9 @@ def cake_delete(request, pk):
         baker = Baker.objects.get(pk=user_id)
         res_data['bakername'] = baker.name
         cakeobject = get_object_or_404(Cake, pk=pk)
+        cakeoptions = CakeOption.objects.filter(businessID=baker.businessID,cakeID=cakeobject.pk)
+        for opt in cakeoptions:
+            opt.delete()
         cakeobject.delete()
         return redirect('/baker/manageCake/myCakes', res_data)
     else:
