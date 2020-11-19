@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Nanum+Gothic&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Nanum+Gothic+Coding&display=swap');
 html, body, div, span, applet, object, iframe,
 h1, h2, h3, h4, h5, h6, p, blockquote, pre,
 a, abbr, acronym, address, big, cite, code,
@@ -32,7 +32,7 @@ body {
     display: flex;
     -ms-flex-align: center;
 	line-height: 1;
-	font-family : 'Nanum Gothic', sans-serif;
+	font-family : 'Nanum Gothic Coding', monospace;
 	height:100%;
 }
 ol, ul {
@@ -72,5 +72,5 @@ body {
 }
 */
 *{
-    font-family: 'Nanum Gothic', sans-serif;
+    font-family: 'Nanum Gothic Coding', monospace;
 }
