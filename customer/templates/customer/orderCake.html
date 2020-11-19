@@ -55,8 +55,6 @@
         justify-content: center;
         align-items: center;
         overflow: hidden;
-
-
     }
 
     #cake_letter_content{
@@ -75,7 +73,7 @@
         border-right: 2px solid red;
     }
 
-    #lg_border2{
+    #lg_border3{
         border-bottom: 2px solid red;
     }
 
@@ -174,12 +172,24 @@
 <!--    }    -->
 
     select {
-        width: 180px;
+        width: 110px;
         height: 30px;
         padding: .5em .5em;
         border: 1px solid #999;
         border-radius: 0px;
         font-size: 0.95em;
+    }
+
+    @media (min-width: 768px) {
+        select {
+            width: 120px;
+        }
+    }
+
+     @media (min-width: 992px) {
+        select {
+            width: 160px;
+        }
     }
 
 <!--    /* 네이티브 화살표 숨기기 */-->
@@ -188,15 +198,27 @@
 <!--    }-->
 
     .font{
-        font-size: 0.85rem;
+        font-size: 0.85em;
+    }
+
+    .option{
+        padding-left:10%;
+    }
+
+    #lettering{
+        border: 2px solid lightgray;
+        border-radius: 3px;
+        height: 5rem;
+        width: 100%;
+        background-color: white;
     }
     </style>
 
     <table id="selected_cakeInfo" class="mt-4">
 <!--        <tr style="width: 12rem;">-->
         <tr id="lg_tr">
-            <td rowspan="2" id="lg_border" style="text-align: center; width: 30%;">
-                <div class="mt-5 m-2">내가 선택한 디자인</div>
+            <td rowspan="3" id="lg_border" style="text-align: center; vertical-align: top; width: 30%;">
+                <div class="mt-4 m-2">내가 선택한 디자인</div>
                 <img id="cakeImg" class="m-1" src="/media/{{cake.cakeImg}}" alt="cake image">
                 <div id="cakeInfo" class="m-2">
                     <div class="m-2" style="font-weight: bold;">{{cake.cakeName}}</div>
@@ -204,8 +226,8 @@
                     <span>{{cake.cakePrice}}원</span>
                 </div>
                 <div class="mt-5 d-flex justify-content-around" style="font-weight: bold;">
-                <span>사장님이 전하는 말</span>
-                <span style="color: red;">※필독</span>
+                    <span>사장님이 전하는 말</span>
+                    <span style="color: red;">※필독</span>
                 </div>
                 <span id="baker_msg" class="mt-3 mx-1 p-2">
 <!--                  <pre>-->
@@ -214,69 +236,73 @@
                 </span>
             </td>
             <td id="lg_border2">
-                <div style="width:45%; float: left;">
-
-                    <table id="requiredOption_table" class="font text-nowrap">
-                        <tr>
-                            <th style="font-weight: bold; font-size: 1.1em;">필수옵션</th>
-                            <th></th>
-    <!--                        <th>선택옵션</th>-->
-    <!--                        <th>선택</th>-->
-                        </tr>
+<!--                <div class="ml-3 mt-3" style="font-weight:bold;">-->
+<!--                        <span class="text-nowrap">옵션선택</span>-->
+<!--                </div>-->
+                <div class="mt-3">
+                    <div style="width:45%; float: left; padding-left:5%;">
+                        <table id="requiredOption_table" class="font text-nowrap">
+                            <tr>
+                                <th style="font-weight: bold; font-size: 0.95rem; height: 22px;">필수옵션</th>
+        <!--                        <th>선택옵션</th>-->
+        <!--                        <th>선택</th>-->
+                            </tr>
+                            {% for option in options %}
+                            {% if option.isNecessary == 1 %}
+                            <tr>
+                                <td>{{option.optionName}}</td>
+                                <td style="padding-left: 5%;">
+                                    <!-- 이게 동적으로 필수옵션 개수 만큼 -->
+                                    <select name="requiredOption" id="requiredOption">
+                                        <!--필수옵션이름-->
+                                        <option value="{{option.pk}}">필수선택</option>
+                                        <!-- 이게 동적으로 세부옵션만큼 -->
+                                            {% for detailedOption in detailedOptions %}
+                                            {% if detailedOption.option_id == option.pk %}
+                                            <!-- 필수상세옵션1-->
+                                            <option value="{{detailedOption.pk}}">{{detailedOption.detailName}}</option>
+                                            {% endif %}
+                                            {% endfor %}
+                                    </select>
+                                </td>
+                            </tr>
+                            {% endif %}
+                            {% endfor %}
+                        </table>
+                    </div>
+                    <div style="width:45%; float: right; padding-right:5%;">
                         {% for option in options %}
-                        {% if option.isNecessary == 1 %}
-                        <tr>
-                            <td>{{option.optionName}}</td>
-                            <td>
-                                 <!-- 이게 동적으로 필수옵션 개수 만큼 -->
-                                <select name="requiredOption" id="requiredOption">
-                                    <!--필수옵션이름-->
-                                    <option value="{{option.pk}}">필수옵션: {{option.optionName}}</option>
-                                    <!-- 이게 동적으로 세부옵션만큼 -->
-                                    {% for detailedOption in detailedOptions %}
-                                    {% if detailedOption.option_id == option.pk %}
-                                    <!-- 필수상세옵션1-->
-                                    <option value="{{detailedOption.pk}}">{{detailedOption.detailName}}</option>
-                                    {% endif %}
-                                    {% endfor %}
-                                </select>
-                            </td>
-                        </tr>
+                        {% if option.isNecessary == 0 %}
+                        <table id="optionalOption_table" class="font text-nowrap">
+                            <tr class="mb-2">
+                                <th style="font-weight: bold; font-size: 0.95rem; height: 22px;">선택옵션</th>
+                                <th></th>
+        <!--                        <th>선택옵션</th>-->
+        <!--                        <th>선택</th>-->
+                            </tr>
+                            <tr>
+                                <td>{{option.optionName}}</td>
+                                <td style="padding-left: 5%;">
+                                     <!-- 이게 동적으로 필수옵션 개수 만큼 -->
+                                    <select name="optionalOption" id="optionalOption">
+                                        <!--필수옵션이름-->
+                                        <option value="{{option.pk}}">필요시 선택</option>
+                                        <!-- 이게 동적으로 세부옵션만큼 -->
+                                        {% for detailedOption in detailedOptions %}
+                                        {% if detailedOption.option_id == option.pk %}
+                                        <!-- 필수상세옵션1-->
+                                        <option value="{{detailedOption.pk}}">{{detailedOption.detailName}}</option>
+                                        {% endif %}
+                                        {% endfor %}
+                                    </select>
+                                </td>
+                            </tr>
+                        </table>
                         {% endif %}
                         {% endfor %}
-                    </table>
+                    </div>
                 </div>
-                <div style="width:45%; float: right;">
-                    {% for option in options %}
-                    {% if option.isNecessary == 0 %}
-                    <table id="optionalOption_table" class="font text-nowrap">
-                        <tr class="mb-2">
-                            <th style="font-weight: bold; font-size: 1.1em;">선택옵션</th>
-                            <th></th>
-    <!--                        <th>선택옵션</th>-->
-    <!--                        <th>선택</th>-->
-                        </tr>
-                        <tr>
-                            <td>{{option.optionName}}</td>
-                            <td>
-                                 <!-- 이게 동적으로 필수옵션 개수 만큼 -->
-                                <select name="optionalOption" id="optionalOption">
-                                    <!--필수옵션이름-->
-                                    <option value="{{option.pk}}">선택옵션: {{option.optionName}}</option>
-                                    <!-- 이게 동적으로 세부옵션만큼 -->
-                                    {% for detailedOption in detailedOptions %}
-                                    {% if detailedOption.option_id == option.pk %}
-                                    <!-- 필수상세옵션1-->
-                                    <option value="{{detailedOption.pk}}">{{detailedOption.detailName}}</option>
-                                    {% endif %}
-                                    {% endfor %}
-                                </select>
-                            </td>
-                        </tr>
-                    </table>
-                    {% endif %}
-                    {% endfor %}
-                </div>
+
 <!--                {% for option in options %}-->
 <!--                {% if option.isNecessary == 0 %}-->
 <!--                &lt;!&ndash; 이게 동적으로 선택옵션 개수 만큼 &ndash;&gt;-->
@@ -298,9 +324,17 @@
             </td>
         </tr>
         <tr>
+            <td id="lg_border3">
+                <div class="mt-3" style="font-weight:bold; padding-left:5%;">
+                    <div style="font-weight: bold; font-size: 0.95rem;">레터링 문구</div>
+                </div>
+                <div class="mt-2" style="padding-left:5%; font-size:0.9rem;"><textarea type="text" id="lettering" placeholder="레터링이 필수옵션이거나, 추가옵션시에는 선택했을 경우에만 기입해주세요."></textarea></div>
+            </td>
+        </tr>
+        <tr>
             <td>
-                <div class="ml-3 mt-3 d-flex justify-content-between" style="font-weight:bold;">
-                    <span class="text-nowrap">색조합 추천 받기</span>
+                <div class="ml-3 mt-3" style="font-weight:bold;">
+                    <div class="text-nowrap">색조합 추천 받기</div>
                 </div>
                 <div class="ml-3 mt-2">
                     <span style="font-size: 0.9em; color: red; font-weight:bold;" class="text-nowrap">※ 시뮬레이션입니다. 실제 케이크에 적용되지 않습니다!</span>
@@ -313,17 +347,17 @@
                     <div id="color_select" class="col-10 col-sm-10 col-md-5 col-lg-5 m-4" style="text-align:center;">
                         <div style="display: inline-block;">
                             <p class="text-nowrap mb-3 mt-2" style="text-align:left;">케이크색상<input type="color" id="cake_color" value="#ffffff"></p>
-                            <div class="color_recommend" id="color1" onclick="color1_click();"></div><div class="color_recommend" id="color2" style="margin-left: 0.4em;" onclick="color2_click();"></div><div class="color_recommend" id="color3" style="margin-left: 0.4em;" onclick="color3_click();"></div><div class="color_recommend" id="color4" style="margin-left: 0.4em;" onclick="color4_click();"></div><div class="color_recommend" id="color9" style="margin-left: 0.4em;" onclick="color9_click();"></div>
+                            <div class="color_recommend" id="color1" onclick="color1_click();"></div><div class="color_recommend" id="color2" style="margin-left: 0.4em;" onclick="color2_click();"></div><div class="color_recommend" id="color3" style="margin-left: 0.4em;" onclick="color3_click();"></div><div class="color_recommend" id="color4" style="margin-left: 0.4em;" onclick="color4_click();"></div>
                             <br><br>
                             <p class="text-nowrap mb-3" style="text-align:left;">크림색상<input type="color" id="cream_color" value="#ffffff"></p>
-                            <div id="color5" class="color_recommend" onclick="color5_click();"></div><div class="color_recommend" id="color6" style="margin-left: 0.4em;" onclick="color6_click();"></div><div id="color7" class="color_recommend" style="margin-left: 0.4em;" onclick="color7_click();"></div><div class="color_recommend" id="color8" style="margin-left: 0.4em;" onclick="color8_click();"></div><div class="color_recommend" id="color10" style="margin-left: 0.4em;" onclick="color10_click();"></div>
+                            <div id="color5" class="color_recommend" onclick="color5_click();"></div><div class="color_recommend" id="color6" style="margin-left: 0.4em;" onclick="color6_click();"></div><div id="color7" class="color_recommend" style="margin-left: 0.4em;" onclick="color7_click();"></div><div class="color_recommend" id="color8" style="margin-left: 0.4em;" onclick="color8_click();"></div>
                             <br><br>
                             <p class="text-nowrap mb-2" style="text-align:left;">레터링</p>
                             <p class="text-nowrap mb-1" style="text-align:left;">
                                 <span>색상<input type="color" id="letter_color" value="#ffffff"></span>
                                 <span class="ml-2">크기<input type="number" id="letter_size" min="1" max="70"></span>
                             </p>
-                            <input type="text" id="letter_content" placeholder="텍스트를 입력해주세요">
+                            <textarea type="text" id="letter_content" placeholder="텍스트를 입력해주세요"></textarea>
                         </div>
                     </div>
                     <!--                        <table id="color_select">-->
@@ -372,15 +406,21 @@
                         </div>
                     </div>
                 </div>
-                <div style="text-align:right;" class="mb-2">
-                    totalprice원
-                </div>
-                <div style="text-align:right;">
-                    <button type="submit" class="add_btn" onclick="location.href='{% url 'customer:orderList_customer' %}'">주문하기</button>
-                </div>
+<!--                <div style="text-align:right;" class="mb-2">-->
+<!--                    totalprice원-->
+<!--                </div>-->
+<!--                <div style="text-align:right;">-->
+<!--                    <button type="submit" class="add_btn" onclick="location.href='{% url 'customer:orderList_customer' %}'">주문하기</button>-->
+<!--                </div>-->
             </td>
         </tr>
     </table>
+    <div style="text-align:right;" class="mb-2">
+        totalprice원
+    </div>
+    <div style="text-align:right;">
+        <button type="submit" class="add_btn" onclick="location.href='{% url 'customer:orderList_customer' %}'">주문하기</button>
+    </div>
 
 
 
