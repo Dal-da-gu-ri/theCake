@@ -16,7 +16,7 @@ from .secureID import secureID
 
 
 def temp(request):
-    return render(request, 'customer/showCakes.html')
+    return render(request, 'customer/temp.html')
 
 def showStores2(request):
     search_key1 = request.GET['search_key1']

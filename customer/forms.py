@@ -46,7 +46,7 @@ class ReviewForm(forms.ModelForm):
                     'class': 'form-control',
                     'placeholder': '맛 평가',
                     'max': 5,
-                    'min': 0
+                    'min': 1
                 }
             ),
             'service': forms.NumberInput(
@@ -54,7 +54,7 @@ class ReviewForm(forms.ModelForm):
                     'class': 'form-control',
                     'placeholder': '서비스 평가',
                     'max': 5,
-                    'min': 0
+                    'min': 1
                 }
             ),
             'design': forms.NumberInput(
@@ -62,7 +62,7 @@ class ReviewForm(forms.ModelForm):
                     'class': 'form-control',
                     'placeholder': '디자인 평가',
                     'max': 5,
-                    'min': 0
+                    'min': 1
                 }
             ),
             'textReview': forms.TextInput(
