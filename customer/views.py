@@ -369,7 +369,7 @@ def showReview(request, pk):
     else:
         if request.method == "GET":
             res_data['comment'] = "잘못된 접근입니다. 로그인을 해주세요!"
-            return render(request, 'baker/inappropriateApproach.html', res_data)
+            return render(request, 'customer/inappropriateApproach.html', res_data)
         elif request.method == "POST":
             return redirect('/')
 
@@ -440,7 +440,7 @@ def cakeOrder(request,crn,cakepk):
     else:
         if request.method == "GET":
             res_data['comment'] = "잘못된 접근입니다. 로그인을 해주세요!"
-            return render(request, 'baker/inappropriateApproach.html', res_data)
+            return render(request, 'customer/inappropriateApproach.html', res_data)
         elif request.method == "POST":
             return redirect('/')
 
@@ -464,7 +464,7 @@ def orderlist(request):
     else:
         if request.method == "GET":
             res_data['comment'] = "잘못된 접근입니다. 로그인을 해주세요!"
-            return render(request, 'baker/inappropriateApproach.html', res_data)
+            return render(request, 'customer/inappropriateApproach.html', res_data)
         elif request.method == "POST":
             return redirect('/')
 
@@ -507,12 +507,12 @@ def writeReview(request,orderNum):
                 return render(request, 'customer/orderlist_customer.html', res_data)
             else:
                     print(reviewform.errors)
-                    return redirect('/baker/inappropriateApproach')
+                    return redirect('/customer/inappropriateApproach')
 
     else:
         if request.method == "GET":
             res_data['comment'] = "잘못된 접근입니다. 로그인을 해주세요!"
-            return render(request, 'baker/inappropriateApproach.html', res_data)
+            return render(request, 'customer/inappropriateApproach.html', res_data)
         elif request.method == "POST":
             return redirect('/')
 
