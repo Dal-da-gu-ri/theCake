@@ -21,12 +21,12 @@ function complementaryColor1(r1, g1, b1) {
             return [b1+g1-r1, b1, g1];
     }
 }
-//톤온톤 - 1
+//모노톤 - 2
 function monoColor1(r1,g1,b1) {
     if (r1 > 220 && g1 > 220 && b1 > 220)
-        return [(r1+250)/3, (g1+250)/3, (b1+250)/3];
+        return [(r1+250)/3, (g1+250)/3, (b1+250)/3, (r1+250)/4, (g1+250)/4, (b1+250)/4];
     else
-        return [(r1+250)/2, (g1+250)/2, (b1+250)/2];
+        return [(r1+250)/2, (g1+250)/2, (b1+250)/2, (r1+500)/3, (g1+500)/3, (b1+500)/3];
 }
 //트리컬러 - 2
 function triColor1(r1,g1,b1) {
