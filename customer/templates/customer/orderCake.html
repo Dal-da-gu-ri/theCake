@@ -71,11 +71,11 @@
         height: 60%;
     }
 
-    #lg_tr td:first-child{
+    #lg_border{
         border-right: 2px solid red;
     }
 
-    #lg_tr td:last-child{
+    #lg_border2{
         border-bottom: 2px solid red;
     }
 
@@ -157,29 +157,45 @@
         background-color: #969393;
     }
 
+    #requiredOption_table, #optionalOption_table{
+
+    }
+
+<!--    select {-->
+<!--        width: 160px;-->
+<!--        height: 35px;-->
+<!--        padding: .6em .5em;-->
+<!--        border: 1px solid #999;-->
+<!--        background: url(https://farm1.staticflickr.com/379/19928272501_4ef877c265_t.jpg) no-repeat 95% 50%;-->
+<!--        border-radius: 0px;-->
+<!--        -webkit-appearance: none;-->
+<!--        -moz-appearance: none;-->
+<!--        appearance: none;-->
+<!--    }    -->
+
     select {
-        width: 160px;
-        height: 35px;
-        padding: .6em .5em;
+        width: 180px;
+        height: 30px;
+        padding: .5em .5em;
         border: 1px solid #999;
-        background: url(https://farm1.staticflickr.com/379/19928272501_4ef877c265_t.jpg) no-repeat 95% 50%;
         border-radius: 0px;
-        -webkit-appearance: none;
-        -moz-appearance: none;
-        appearance: none;
+        font-size: 0.95em;
     }
 
-    /* 네이티브 화살표 숨기기 */
-    select::-ms-expand {
-        display: none;
-    }
+<!--    /* 네이티브 화살표 숨기기 */-->
+<!--    select::-ms-expand {-->
+<!--        display: none;-->
+<!--    }-->
 
+    .font{
+        font-size: 0.85rem;
+    }
     </style>
 
     <table id="selected_cakeInfo" class="mt-4">
 <!--        <tr style="width: 12rem;">-->
         <tr id="lg_tr">
-            <td rowspan="2" style="text-align: center; width: 30%;">
+            <td rowspan="2" id="lg_border" style="text-align: center; width: 30%;">
                 <div class="mt-5 m-2">내가 선택한 디자인</div>
                 <img id="cakeImg" class="m-1" src="/media/{{cake.cakeImg}}" alt="cake image">
                 <div id="cakeInfo" class="m-2">
@@ -197,44 +213,88 @@
 <!--                  </pre>-->
                 </span>
             </td>
-            <td>
-                {% for option in options %}
-                {% if option.isNecessary == 1 %}
-                <!-- 이게 동적으로 필수옵션 개수 만큼 -->
-                <select name="requiredOption" id="requiredOption">
-<!--                    필수옵션이름-->
-                    <option value="{{option.pk}}">필수옵션: {{option.optionName}}</option>
-                    <!-- 이게 동적으로 세부옵션만큼 -->
-                    {% for detailedOption in detailedOptions %}
-                    {% if detailedOption.option_id == option.pk %}
-<!--                    필수상세옵션1-->
-                    <option value="{{detailedOption.pk}}">{{detailedOption.detailName}}</option>
+            <td id="lg_border2">
+                <div style="width:45%; float: left;">
 
+                    <table id="requiredOption_table" class="font text-nowrap">
+                        <tr>
+                            <th style="font-weight: bold; font-size: 1.1em;">필수옵션</th>
+                            <th></th>
+    <!--                        <th>선택옵션</th>-->
+    <!--                        <th>선택</th>-->
+                        </tr>
+                        {% for option in options %}
+                        {% if option.isNecessary == 1 %}
+                        <tr>
+                            <td>{{option.optionName}}</td>
+                            <td>
+                                 <!-- 이게 동적으로 필수옵션 개수 만큼 -->
+                                <select name="requiredOption" id="requiredOption">
+                                    <!--필수옵션이름-->
+                                    <option value="{{option.pk}}">필수옵션: {{option.optionName}}</option>
+                                    <!-- 이게 동적으로 세부옵션만큼 -->
+                                    {% for detailedOption in detailedOptions %}
+                                    {% if detailedOption.option_id == option.pk %}
+                                    <!-- 필수상세옵션1-->
+                                    <option value="{{detailedOption.pk}}">{{detailedOption.detailName}}</option>
+                                    {% endif %}
+                                    {% endfor %}
+                                </select>
+                            </td>
+                        </tr>
+                        {% endif %}
+                        {% endfor %}
+                    </table>
+                </div>
+                <div style="width:45%; float: right;">
+                    {% for option in options %}
+                    {% if option.isNecessary == 0 %}
+                    <table id="optionalOption_table" class="font text-nowrap">
+                        <tr class="mb-2">
+                            <th style="font-weight: bold; font-size: 1.1em;">선택옵션</th>
+                            <th></th>
+    <!--                        <th>선택옵션</th>-->
+    <!--                        <th>선택</th>-->
+                        </tr>
+                        <tr>
+                            <td>{{option.optionName}}</td>
+                            <td>
+                                 <!-- 이게 동적으로 필수옵션 개수 만큼 -->
+                                <select name="optionalOption" id="optionalOption">
+                                    <!--필수옵션이름-->
+                                    <option value="{{option.pk}}">선택옵션: {{option.optionName}}</option>
+                                    <!-- 이게 동적으로 세부옵션만큼 -->
+                                    {% for detailedOption in detailedOptions %}
+                                    {% if detailedOption.option_id == option.pk %}
+                                    <!-- 필수상세옵션1-->
+                                    <option value="{{detailedOption.pk}}">{{detailedOption.detailName}}</option>
+                                    {% endif %}
+                                    {% endfor %}
+                                </select>
+                            </td>
+                        </tr>
+                    </table>
                     {% endif %}
                     {% endfor %}
+                </div>
+<!--                {% for option in options %}-->
+<!--                {% if option.isNecessary == 0 %}-->
+<!--                &lt;!&ndash; 이게 동적으로 선택옵션 개수 만큼 &ndash;&gt;-->
+<!--                <select name="optionalOption" id="optionalOption">-->
+<!--&lt;!&ndash;                    선택옵션이름&ndash;&gt;-->
+<!--                   <option value="{{option.pk}}">선택옵션: {{option.optionName}}</option>-->
+<!--                    &lt;!&ndash; 이게 동적으로 세부옵션만큼 &ndash;&gt;-->
+<!--                    {% for detailedOption in detailedOptions %}-->
+<!--                    {% if detailedOption.option_id == option.pk %}-->
+<!--&lt;!&ndash;                    선택상세옵션1&ndash;&gt;-->
+<!--                    <option value="{{detailedOption.pk}}">{{detailedOption.detailName}}</option>-->
 
-                </select>
-                {% endif %}
-                {% endfor %}
+<!--                    {% endif %}-->
+<!--                    {% endfor %}-->
 
-                {% for option in options %}
-                {% if option.isNecessary == 0 %}
-                <!-- 이게 동적으로 선택옵션 개수 만큼 -->
-                <select name="requiredOption" id="optionalOption">
-<!--                    선택옵션이름-->
-                   <option value="{{option.pk}}">선택옵션: {{option.optionName}}</option>
-                    <!-- 이게 동적으로 세부옵션만큼 -->
-                    {% for detailedOption in detailedOptions %}
-                    {% if detailedOption.option_id == option.pk %}
-<!--                    선택상세옵션1-->
-                    <option value="{{detailedOption.pk}}">{{detailedOption.detailName}}</option>
-
-                    {% endif %}
-                    {% endfor %}
-
-                </select>
-                {% endif %}
-                {% endfor %}
+<!--                </select>-->
+<!--                {% endif %}-->
+<!--                {% endfor %}-->
             </td>
         </tr>
         <tr>
