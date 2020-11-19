@@ -283,6 +283,10 @@ def showStores(request):
                     else:
                         res_data['error'] = "조회된 가게가 없습니다."
 
+            else:
+                res_data['error'] = "픽업 위치를 선택해주세요."
+
+
 
         else:             #선택된 가게가 없는 데 넘어온 경우..
             res_data['error'] = "날짜를 선택해주세요."
@@ -332,14 +336,14 @@ def storeInfo(request,pk):
             # print(res_data)
             # return render(request, 'customer/showStores.html', res_data)
             return render(request,'customer/showCakes.html',res_data)
-        elif request.method == "POST":
-            ## 케이크 가게가 마음에 들어서 주문하러 기
-            return render(request,'customer/showCakes.html',res_data)
-
-
-            return render(request, 'customer/inappropriateApproach.html', res_data)
-        elif request.method == "POST":
-            return redirect('/customer/login')
+        # elif request.method == "POST":
+        #     ## 케이크 가게가 마음에 들어서 주문하러 기
+        #     return render(request,'customer/showCakes.html',res_data)
+        #
+        #
+        #     return render(request, 'customer/inappropriateApproach.html', res_data)
+        # elif request.method == "POST":
+        #     return redirect('/customer/login')
 
 
     else:
