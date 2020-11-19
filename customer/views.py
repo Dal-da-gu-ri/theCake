@@ -390,6 +390,31 @@ def cakeOrder(request,crn,cakepk):
         res_data['store']=storeobject
         res_data['cake']=cakeobject
         if request.method == "GET":
+            optionspk =[]
+            options =[]
+            # detailedpk =[]
+            details = []
+            option_list = CakeOption.objects.filter(businessID=crn,cakeID=cakepk,isSelected=1)
+            detailed_list = DetailedOption.objects.filter(businessID=crn)
+
+            for option in option_list:
+                optionspk.append(option.optionID)
+
+            for i in range(0,len(optionspk)):
+                optionobject = Option.objects.get(businessID=crn, pk=optionspk[i])
+                options.append(optionobject)
+                for j in range(0,len(detailed_list)):
+                    if detailed_list[j].option_id == optionobject.pk:
+                        details.append(detailed_list[j])
+
+            print(options)
+            for option in options:
+                print(option.optionName)
+            print(details)
+            for detail in details:
+                print(detail.option_id)
+            res_data['options']=options
+            res_data['detailedOptions'] = details
             return render(request, 'customer/orderCake.html', res_data)
         else:
             # 주문하기 버튼을 눌렀을 때 나올 화면

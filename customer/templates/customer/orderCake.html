@@ -199,14 +199,16 @@
             </td>
             <td>
                 {% for option in options %}
-                {% if option.isNeccesary == 1 %}
+                {% if option.isNecessary == 1 %}
                 <!-- 이게 동적으로 필수옵션 개수 만큼 -->
                 <select name="requiredOption" id="requiredOption">
-                    <option value="">{{option.optionName}}필수옵션이름</option>
+<!--                    필수옵션이름-->
+                    <option value="{{option.pk}}">필수옵션: {{option.optionName}}</option>
                     <!-- 이게 동적으로 세부옵션만큼 -->
                     {% for detailedOption in detailedOptions %}
-                    {% if detailedOption.option_id == option.id %}
-                    <option value="{{detailedOption.pk}}">{{detailedOption.name}}필수상세옵션1</option>
+                    {% if detailedOption.option_id == option.pk %}
+<!--                    필수상세옵션1-->
+                    <option value="{{detailedOption.pk}}">{{detailedOption.detailName}}</option>
 
                     {% endif %}
                     {% endfor %}
@@ -216,14 +218,16 @@
                 {% endfor %}
 
                 {% for option in options %}
-                {% if option.isNeccesary == 0 %}
+                {% if option.isNecessary == 0 %}
                 <!-- 이게 동적으로 선택옵션 개수 만큼 -->
                 <select name="requiredOption" id="optionalOption">
-            ]       <option value="">{{option.optionName}}선택옵션이름</option>
+<!--                    선택옵션이름-->
+                   <option value="{{option.pk}}">선택옵션: {{option.optionName}}</option>
                     <!-- 이게 동적으로 세부옵션만큼 -->
                     {% for detailedOption in detailedOptions %}
-                    {% if detailedOption.option_id == option.id %}
-                    <option value="{{detailedOption.pk}}">{{detailedOption.name}}선택상세옵션1</option>
+                    {% if detailedOption.option_id == option.pk %}
+<!--                    선택상세옵션1-->
+                    <option value="{{detailedOption.pk}}">{{detailedOption.detailName}}</option>
 
                     {% endif %}
                     {% endfor %}
