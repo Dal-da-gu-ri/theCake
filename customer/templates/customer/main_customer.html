@@ -3,7 +3,6 @@
 
 {% block content %}
 
-    <link rel="stylesheet" href="/static/css/main_customer.css">
     <script type="application/javascript" src="/static/js/hangjungdong3.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
 
@@ -25,8 +24,9 @@
     }
 
     .location_select {
-      width: 200px;
-      padding: .8em .5em;
+      width: 160px;
+      height: 43px;
+      padding: .6em .5em;
       border: 1px solid #999;
       background: url(https://farm1.staticflickr.com/379/19928272501_4ef877c265_t.jpg) no-repeat 95% 50%;
       border-radius: 0px;   //IOS 둥근모서리 제거
@@ -34,6 +34,10 @@
       -webkit-appearance: none;
       -moz-appearance: none;
       appearance: none;
+    }
+
+    #date {
+      height: 43px;
     }
 
     /* 네이티브 화살표 숨기기 */
@@ -64,64 +68,36 @@
         margin: 5% 20%;
     }
 
-    #store_name{
-        text-align: center;
-        font-size: 1.3em;
-        color: black;
-    }
 
-    #select_btn{
-        transition:.15s ease;
-        border: 1px solid #cf8484;
-        background-color:white;
-        color: #cc5f5f;
-        width: 90%;
-        height: 1.7em;
-        border-radius: 2px;
-    }
 
-    #select_btn:hover {
-        background-color: #cf8484;
-        color: white;
-    }
+
     /*
     .gray{
         color:#929292;
     }
     */
 
-    .bd-placeholder-img {
-        font-size: 1.125rem;
-        text-anchor: middle;
-        -webkit-user-select: none;
-        -moz-user-select: none;
-        -ms-user-select: none;
-        user-select: none;
-    }
+<!--    .bd-placeholder-img {-->
+<!--        font-size: 1.125rem;-->
+<!--        text-anchor: middle;-->
+<!--        -webkit-user-select: none;-->
+<!--        -moz-user-select: none;-->
+<!--        -ms-user-select: none;-->
+<!--        user-select: none;-->
+<!--    }-->
 
-    @media (min-width: 768px) {
-        .bd-placeholder-img-lg {
-          font-size: 3.5rem;
-        }
-    }
+<!--    @media (min-width: 768px) {-->
+<!--        .bd-placeholder-img-lg {-->
+<!--          font-size: 3.5rem;-->
+<!--        }-->
+<!--    }-->
 
-    .card{
-        border: 1px solid #8e8e8e;
-    }
-
-    .card-body{
-        font-size: 0.9em;
-        background-color: #f5efef;
-        padding: 1rem;
-    }
 
 </style>
 
-<div>
-  <fieldset>
-    <div class="form-group">
-      <div class="row flex-nowrap justify-content-right align-items-center pt-5 form">
-        <label class="text-nowrap pr-4">위치</label>
+<div style="text-align: center;">
+      <div class="pt-5 text-nowrap">
+        <label class="pr-4">위치</label>
         <select id="sido" class="location_select">
           <option value="">시/ 도</option>
         </select>
@@ -132,20 +108,17 @@
           <option value="">읍/ 면/ 동</option>
         </select>
       </div>
-
-      <div class="row flex-nowrap justify-content-right align-items-center pt-3 form">
-          <label class="text-nowrap pr-4" for="date">날짜</label>
+      <div class="pt-3 text-nowrap">
+          <label class="pr-4" for="date">날짜</label>
           <input id="date" type="date" name="date">
       </div>
         <br>
         <br>
       <p id="selectbox_letter">※ 날짜와 위치를 모두 선택해주세요.</p>
         <br>
-        <button type="submit" id="search_button" class="btn btn-secondary button" style="float: right;">주문 가능 가게 찾기</button>
-    </div>
-  </fieldset>
+        <button type="submit" id="search_button" class="btn btn-secondary button" style="float: right;">주문가능 가게 찾기</button>
 </div>
-<div id="data_stores">
+<div id="data_stores" class="mt-5">
 
 </div>
 
