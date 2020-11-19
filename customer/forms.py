@@ -38,7 +38,7 @@ class OrdererForm(forms.ModelForm):
 
 class ReviewForm(forms.ModelForm):
     class Meta:
-        model = Orderer
+        model = Review
         fields = ['taste', 'service', 'design','textReview']
         widgets = {
             'taste': forms.NumberInput(
