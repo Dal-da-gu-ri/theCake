@@ -1,6 +1,11 @@
 {% extends 'base_customer.html' %}
 {% block title %} :: 후기 작성하기 :: {% endblock %}
 {% block content %}
+
+<div class="row">
+        <p class="pt-3 pl-4 path">후기 작성하기</p>
+</div>
+
 <div class="taste text-center">
     <div class="mt-3">맛 평점</div>
   <span class="starR on" id="taste_star1">별1</span>
@@ -20,7 +25,7 @@
 </div>
 <hr>
 <div class="design text-center">
-    <div class="mt-3">디자인 평점</div>
+  <div class="mt-3">디자인 평점</div>
   <span class="starR on" id="design_star1">별1</span>
   <span class="starR" id="design_star2">별2</span>
   <span class="starR" id="design_star3">별3</span>
@@ -28,21 +33,21 @@
   <span class="starR" id="design_star5">별5</span>
 </div>
 <style>
-    .starR{
-  background: url('http://miuu227.godohosting.com/images/icon/ico_review.png') no-repeat right 0;
-  background-size: auto 100%;
-  width: 30px;
-  height: 30px;
-  display: inline-block;
-  text-indent: -9999px;
-  cursor: pointer;
-}
-.starR.on{background-position:0 0;}
+  .starR{
+    background: url('http://miuu227.godohosting.com/images/icon/ico_review.png') no-repeat right 0;
+    background-size: auto 100%;
+    width: 30px;
+    height: 30px;
+    display: inline-block;
+    text-indent: -9999px;
+    cursor: pointer;
+  }
+  <div class="starR on">background-position:0 0;</div>
 </style>
 
 <!--taste-->
 <script>
-    var taste=1;
+   var taste=1;
     $('.taste span').click(function(){
       $(this).parent().children('span').removeClass('on');
       $(this).addClass('on').prevAll('span').addClass('on');
