@@ -427,7 +427,7 @@
         </tr>
     </table>
     <div style="text-align:right; font-size: 1.1rem; font-weight: bold; color: #ec6161;" class="mb-2">
-        최종가격: <span id="totalprice"><input type="hidden" name="total_price" id="total_price" value="" />{{cake.cakePrice}}</span><span>  원</span>
+        최종가격: <span id="totalprice">{{cake.cakePrice}}</span><span>  원</span><input type="hidden" name="total_price" id="total_price" value="" />
     </div>
     <div style="text-align:right;">
 <!--        <button type="submit" class="add_btn" onclick="location.href='{% url 'customer:orderList_customer' %}'">주문하기</button>-->
@@ -454,11 +454,12 @@
                 break;
             }
         }
-        <!-- 픽업시간을 선택하지 않았을 경우 -->
+        <!-- 픽업시간을 선택하지 않았을 경우(우선) -->
         var pickupTime = document.getElementById("pickupTime");
         if(pickupTime.options[pickupTime.selectedIndex].value == ""){
             check=2;
         }
+        <!-- 경고창 -->
         if(check == 1){
             alert("필수옵션을 다 선택해주세요.");
             return false;
@@ -494,13 +495,7 @@
         {% endfor %}
 
         document.getElementById("totalprice").innerHTML = price;
-
-        console.log($('input[name=total_price]').attr());
-        $('input[name=total_price]').attr('value', price);
-<!--        console.log(price);-->
-<!--        document.getElementById("total_price").value = ;-->
-        console.log(document.getElementById("total_price").value);
-<!--        $('#total_price').val(price);-->
+        document.getElementById('total_price').setAttribute('value',price);
     }
 </script>
 
