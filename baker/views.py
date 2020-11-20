@@ -800,7 +800,22 @@ def orderInfo(request, pk):
     res_data = {}
     user_id = request.session.get('user')
 
-    return render(request, 'baker/orderInfo.html', res_data)
+    if user_id:
+        baker = Baker.objects.get(pk=user_id)
+        res_data['bakername'] = baker.name
+
+        order = Order.objects.get(businessID=baker.businessID,orderNum=pk)
+        res_data['order'] = order
+        if request.method == "GET":
+            return render(request, 'baker/orderInfo.html', res_data)
+
+    else:
+        if request.method == "GET":
+            res_data['comment'] = "잘못된 접근입니다. 로그인을 해주세요!"
+            return render(request, 'baker/inappropriateApproach.html', res_data)
+        elif request.method == "POST":
+            return redirect('/')
+
 
 def mypage(request):
     res_data = {}
