@@ -5,6 +5,7 @@
         <p class="pt-3 pl-4 path">주문하기 > ♥{{store.storeName}}♥에서 나만의 케이크 만들기</p>
     </div>
 
+
     <style>
     .color_recommend {
         float: left;
@@ -170,25 +171,35 @@
 <!--        appearance: none;-->
 <!--    }    -->
 
-    select {
+    .option {
         width: 110px;
         height: 30px;
         padding: .5em .5em;
         border: 1px solid #999;
         border-radius: 0px;
         font-size: 0.95em;
+        padding-left:10%;
     }
 
     @media (min-width: 768px) {
-        select {
+        .option {
             width: 120px;
         }
     }
 
      @media (min-width: 992px) {
-        select {
+        .option {
             width: 160px;
         }
+    }
+
+    .pickupTime{
+        width: 135px;
+        height: 30px;
+        border: 1px solid #999;
+        border-radius: 0px;
+        font-size: 0.9rem;
+        padding-left: 0.5rem;
     }
 
 <!--    /* 네이티브 화살표 숨기기 */-->
@@ -200,10 +211,6 @@
         font-size: 0.85em;
     }
 
-    .option{
-        padding-left:10%;
-    }
-
     #lettering{
         border: 2px solid #ffe0e0;
         border-radius: 3px;
@@ -212,11 +219,22 @@
         background-color: white;
     }
     </style>
-
+<form method = "POST" class="form-signup" onsubmit="return check_submit()">
+     {% csrf_token %}
     <table id="selected_cakeInfo" class="mt-4">
 <!--        <tr style="width: 12rem;">-->
         <tr id="lg_tr">
-            <td rowspan="3" id="lg_border" style="text-align: center; vertical-align: top; width: 30%;">
+            <td rowspan="4" id="lg_border" style="text-align: center; vertical-align: top; width: 30%;">
+                <div class="mt-3" style="font-weight: bold;"><span>픽업 날짜: </span><span class="ml-3">{{selectedYear}}2020</span><span> / {{selectedMonth}}11</span><span> / {{selectedDay}}30</span></div>
+                <div class="mt-2">
+                    <span style="font-weight: bold;">픽업 시간</span>
+                    <select name="pickupTime" class="pickupTime">
+                            <option value="">선택해주세요.</option>
+                        {% for pickuptime in pickuptimes %}
+                            <option value="{{pickuptime}}">{{pickuptime}}</option>
+                        {% endfor %}
+                    </select>
+                </div>
                 <div class="mt-4 m-2">내가 선택한 디자인</div>
                 <img id="cakeImg" class="m-1" src="/media/{{cake.cakeImg}}" alt="cake image">
                 <div id="cakeInfo" class="m-2">
@@ -234,91 +252,100 @@
 <!--                  </pre>-->
                 </span>
             </td>
-            <td id="lg_border2">
+        <td id="lg_border2">
+<!--                <div class="row mt-3">-->
+<!--                    <div style="float: left;"><span>픽업날짜:</span><span class="ml-3">{{selectedYear}}2020</span><span> / {{selectedMonth}}11</span><span> / {{selectedDay}}30</span></div>-->
+<!--                    <div style="float: right;"><span>픽업시간:</span></div>-->
+<!--                </div>-->
 <!--                <div class="ml-3 mt-3" style="font-weight:bold;">-->
 <!--                        <span class="text-nowrap">옵션선택</span>-->
 <!--                </div>-->
-                <div class="mt-3">
-                    <div style="width:45%; float: left; padding-left:5%;">
-                        <table id="requiredOption_table" class="font text-nowrap">
-                            <tr>
-                                <th style="font-weight: bold; font-size: 0.95rem; height: 22px;">필수옵션</th>
-        <!--                        <th>선택옵션</th>-->
-        <!--                        <th>선택</th>-->
-                            </tr>
-                            {% for option in options %}
-                            {% if option.isNecessary == 1 %}
-                            <tr>
-                                <td>{{option.optionName}}</td>
-                                <td style="padding-left: 5%;">
-                                    <!-- 이게 동적으로 필수옵션 개수 만큼 -->
-                                    <select name="option" class="option" onchange="price_cal()">
-                                        <!--필수옵션이름-->
+            <div class="mt-3">
+                <div style="width:45%; float: left; padding-left:5%;">
+                    <table id="requiredOption_table" class="font text-nowrap">
+                        <tr>
+                            <th style="font-weight: bold; font-size: 0.95rem; height: 22px;">필수옵션</th>
+    <!--                        <th>선택옵션</th>-->
+    <!--                        <th>선택</th>-->
+                        </tr>
+                        {% for option in options %}
+                        {% if option.isNecessary == 1 %}
+                        <tr>
+                            <td>{{option.optionName}}</td>
+                            <td style="padding-left: 5%;">
+                                <!-- 이게 동적으로 필수옵션 개수 만큼 -->
+                                <select name="option" class="option requiredOption" onchange="price_cal()">
+                                    <!--필수옵션이름-->
 <!--                                        <option value="{{option.pk}}">필수선택</option>-->
-                                        <option value="">필수선택</option>
-                                        <!-- 이게 동적으로 세부옵션만큼 -->
-                                            {% for detailedOption in detailedOptions %}
-                                            {% if detailedOption.option_id == option.pk %}
-                                            <!-- 필수상세옵션1-->
-                                            {% if detailedOption.pricing >= 0%}
-                                            <option value="{{detailedOption.pk}}">{{detailedOption.detailName}} (+{{detailedOption.pricing}})</option>
-                                            {% elif detailedOption.pricing < 0%}
-                                            <option value="{{detailedOption.pk}}">{{detailedOption.detailName}} ({{detailedOption.pricing}})</option>
-                                            {% endif %}
-
-                                            {% endif %}
-                                            {% endfor %}
-                                    </select>
-                                </td>
-                                <td>
-                                <!-- 색상판, 이미지업로드 -->
-                                </td>
-                            </tr>
-                            {% endif %}
-                            {% endfor %}
-                        </table>
-                    </div>
-                    <div style="width:45%; float: right; padding-right:5%;">
-                        <table id="optionalOption_table" class="font text-nowrap">
-                            <tr class="mb-2">
-                                <th style="font-weight: bold; font-size: 0.95rem; height: 22px;">선택옵션</th>
-        <!--                        <th>선택옵션</th>-->
-        <!--                        <th>선택</th>-->
-                            </tr>
-                            {% for option in options %}
-                            {% if option.isNecessary == 0 %}
-                            <tr>
-                                <td>{{option.optionName}}</td>
-                                <td style="padding-left: 5%;">
-                                     <!-- 이게 동적으로 필수옵션 개수 만큼 -->
-                                    <select name="option" class="option" onchange="price_cal()">
-                                        <!--필수옵션이름-->
-<!--                                        <option value="{{option.pk}}">필요시 선택</option>-->
-                                        <option value="">필요시 선택</option>
-                                        <!-- 이게 동적으로 세부옵션만큼 -->
+                                    <option value="">필수선택</option>
+                                    <!-- 이게 동적으로 세부옵션만큼 -->
                                         {% for detailedOption in detailedOptions %}
                                         {% if detailedOption.option_id == option.pk %}
                                         <!-- 필수상세옵션1-->
-                                        {% if detailedOption.pricing >= 0%}
+                                        {% if detailedOption.pricing >= 0 %}
                                         <option value="{{detailedOption.pk}}">{{detailedOption.detailName}} (+{{detailedOption.pricing}})</option>
-                                        {% elif detailedOption.pricing < 0%}
+                                        {% elif detailedOption.pricing < 0 %}
                                         <option value="{{detailedOption.pk}}">{{detailedOption.detailName}} ({{detailedOption.pricing}})</option>
                                         {% endif %}
 
                                         {% endif %}
                                         {% endfor %}
-                                    </select>
-                                </td>
-                                <td>
-                                <!-- 색상판, 이미지업로드 -->
-                                </td>
-                            </tr>
-                            {% endif %}
-                            {% endfor %}
-                        </table>
-
-                    </div>
+                                </select>
+                            </td>
+                            <td>
+                            <!-- 색상판, 이미지업로드 -->
+                            </td>
+                        </tr>
+                        {% endif %}
+                        {% endfor %}
+                    </table>
                 </div>
+                <div style="width:45%; float: right; padding-right:5%;">
+                    <table id="optionalOption_table" class="font text-nowrap">
+                        <tr class="mb-2">
+                            <th style="font-weight: bold; font-size: 0.95rem; height: 22px;">선택옵션</th>
+    <!--                        <th>선택옵션</th>-->
+    <!--                        <th>선택</th>-->
+                        </tr>
+                        {% for option in options %}
+                        {% if option.isNecessary == 0 %}
+                        <tr>
+                            <td>{{option.optionName}}</td>
+                            <td style="padding-left: 5%;">
+                                 <!-- 이게 동적으로 필수옵션 개수 만큼 -->
+                                <select name="option" class="option" onchange="price_cal()">
+                                    <!--필수옵션이름-->
+<!--                                        <option value="{{option.pk}}">필요시 선택</option>-->
+                                    <option value="">필요시 선택</option>
+                                    <!-- 이게 동적으로 세부옵션만큼 -->
+                                    {% for detailedOption in detailedOptions %}
+                                    {% if detailedOption.option_id == option.pk %}
+                                        <!-- 필수상세옵션1-->
+                                        {% if detailedOption.pricing >= 0 %}
+                                            <option value="{{detailedOption.pk}}">{{detailedOption.detailName}} (+{{detailedOption.pricing}})</option>
+                                        {% elif detailedOption.pricing < 0 %}
+                                            <option value="{{detailedOption.pk}}">{{detailedOption.detailName}} ({{detailedOption.pricing}})</option>
+                                        {% endif %}
+
+                                    {% endif %}
+                                    {% endfor %}
+                                </select>
+                            </td>
+                            <td>
+                            <!-- 색상판, 이미지업로드 -->
+                            </td>
+                        </tr>
+                        {% endif %}
+                        {% endfor %}
+
+                        <!-- 못하겠어 -->
+                        {% if options.isNecessary == 1  %}
+                            <tr>선택옵션이 존재하지 않습니다.</tr>
+                        {% endif %}
+                    </table>
+
+                </div>
+            </div>
 
 <!--                {% for option in options %}-->
 <!--                {% if option.isNecessary == 0 %}-->
@@ -338,14 +365,14 @@
 <!--                </select>-->
 <!--                {% endif %}-->
 <!--                {% endfor %}-->
-            </td>
+        </td>
         </tr>
         <tr>
             <td id="lg_border3">
                 <div class="mt-3" style="font-weight:bold; padding-left:5%;">
                     <div style="font-weight: bold; font-size: 0.95rem;">레터링 문구</div>
                 </div>
-                <div class="mt-2 mb-2" style="padding-left:5%; font-size:0.9rem;"><textarea type="text" id="lettering" placeholder="레터링이 필수옵션이거나, 추가옵션시에는 선택했을 경우에만 기입해주세요."></textarea></div>
+                <div class="mt-2 mb-2" style="padding-left:5%; font-size:0.9rem;"><textarea type="text" name="cakeText" id="lettering" placeholder="레터링이 필수옵션이거나, 추가옵션 시에는 선택했을 경우에만 기입해주세요."></textarea></div>
             </td>
         </tr>
         <tr>
@@ -363,11 +390,11 @@
                 <div class="row">
                     <div id="color_select" class="col-10 col-sm-10 col-md-5 col-lg-5 m-4" style="text-align:center;">
                         <div style="display: inline-block;">
-                            <p class="text-nowrap mb-3 mt-2" style="text-align:left;">케이크색상<input type="color" id="cake_color" value="#ffffff"></p>
-                            <div class="color_recommend" id="color1" onclick="color1_click();"></div><div class="color_recommend" id="color2" style="margin-left: 0.4em;" onclick="color2_click();"></div><div class="color_recommend" id="color3" style="margin-left: 0.4em;" onclick="color3_click();"></div><div class="color_recommend" id="color4" style="margin-left: 0.4em;" onclick="color4_click();"></div><div class="color_recommend" id="color9" style="margin-left: 0.4em;" onclick="color9_click();"></div>
+                            <p class="text-nowrap mb-3" style="text-align:left;">케이크색상<input type="color" id="cake_color" value="#ffffff"></p>
+                            <div class="color_recommend" id="color1" onclick="color1_click();"></div><div class="color_recommend" id="color2" style="margin-left: 0.4em;" onclick="color2_click();"></div><div class="color_recommend" id="color3" style="margin-left: 0.4em;" onclick="color3_click();"></div><div class="color_recommend" id="color4" style="margin-left: 0.4em;" onclick="color4_click();"></div>
                             <br><br>
                             <p class="text-nowrap mb-3" style="text-align:left;">크림색상<input type="color" id="cream_color" value="#ffffff"></p>
-                            <div id="color5" class="color_recommend" onclick="color5_click();"></div><div class="color_recommend" id="color6" style="margin-left: 0.4em;" onclick="color6_click();"></div><div id="color7" class="color_recommend" style="margin-left: 0.4em;" onclick="color7_click();"></div><div class="color_recommend" id="color8" style="margin-left: 0.4em;" onclick="color8_click();"></div><div class="color_recommend" id="color10" style="margin-left: 0.4em;" onclick="color10_click();"></div>
+                            <div id="color5" class="color_recommend" onclick="color5_click();"></div><div class="color_recommend" id="color6" style="margin-left: 0.4em;" onclick="color6_click();"></div><div id="color7" class="color_recommend" style="margin-left: 0.4em;" onclick="color7_click();"></div><div class="color_recommend" id="color8" style="margin-left: 0.4em;" onclick="color8_click();"></div>
                             <br><br>
                             <p class="text-nowrap mb-2" style="text-align:left;">레터링</p>
                             <p class="text-nowrap mb-1" style="text-align:left;">
@@ -398,49 +425,40 @@
             </td>
         </tr>
     </table>
-    <div style="text-align:right; font-size: 1.1rem; font-weight: bold;" class="mb-2">
-        최종가격: <span id="totalprice" >{{cake.cakePrice}}</span>  원
+    <div style="text-align:right; font-size: 1.1rem; font-weight: bold; color: #ec6161;" class="mb-2">
+        최종가격: <span id="totalprice"><input type="hidden" name="price" id="price" value="">{{cake.cakePrice}}</span><span>  원</span>
     </div>
     <div style="text-align:right;">
-        <button type="submit" class="add_btn" onclick="location.href='{% url 'customer:orderList_customer' %}'">주문하기</button>
+<!--        <button type="submit" class="add_btn" onclick="location.href='{% url 'customer:orderList_customer' %}'">주문하기</button>-->
+        <button type="submit" class="add_btn">주문하기</button>
     </div>
+</form>
 
+<!--<script>-->
+<!--    $(function(){-->
 
-
-
-    <!-- <div style="border: 1px solid black; position: relative; width:1000; height:1000;">
-        <p>케이크색상</p><input type="color" id="cake_color" value="#ffffff">
-        <canvas id="cake_form2"  width="1000" height="1000">
-            <script>
-                const canvas2 = document.querySelector("#cake_form2");
-                const ctx2 = canvas2.getContext("2d");
-                ctx2.beginPath();
-                ctx2.arc(300,300,120,0,Math.PI*2,false);
-                ctx2.lineWidth = 3;
-                ctx2.fillStyle = "#ffffff";
-                ctx2.fill();
-                ctx2.stroke();
-            </script>
-        </canvas>
-        <canvas id="cake_form1" width="1000" height="1000">
-            <script>
-            const canvas1 = document.querySelector("#cake_form1");
-            const ctx1 = canvas1.getContext("2d");
-            ctx1.beginPath();
-            // 원그리기 : context.arc(x,y,반지름, 시작각도, 종료각도, 그리는 방향)
-            ctx1.arc(300,300,60,0,Math.PI*2,false);
-            ctx1.lineWidth = 3;
-            ctx1.fillStyle = "red";
-            ctx1.fill();
-            ctx1.stroke();
-            </script>
-        </canvas>          -->
-
-
+<!--            console.log({{pickuptimes|length}});-->
+<!--    });-->
+<!--</script>-->
 <!-- 필수옵션 다 선택되지 않은 상태로 주문하기 누르면 오류 -->
 <script>
+    function check_submit(){
+        var check=0;
+        var requiredOption_list = document.getElementsByClassName("requiredOption");
+        for(var i=0; i< requiredOption_list.length; i++){
+            if(requiredOption_list[i].options[requiredOption_list[i].selectedIndex].value ==""){
+                check=1;
+                break;
+            }
+        }
+        if(check == 1){
+            alert("필수옵션을 다 선택해주세요.");
+            return false;
+        }
+        else
+            return true;
+    }
 </script>
-
 <!-- 최종 가격 계산 -->
 
 <!-- 케이크 1호 가격 + 선택한 필수옵션 + 선택한 선택옵션-->
@@ -464,8 +482,22 @@
         {% endfor %}
 
         document.getElementById("totalprice").innerHTML = price;
+        $("#price").val(price);
+
     }
 </script>
+
+<!--&lt;!&ndash; 최종 가격 보내기 &ndash;&gt;-->
+<!--<script>-->
+<!--    $('#order_btn').click(function(){-->
+<!--        var totalprice = $('#totalprice').val()-->
+<!--        $.ajax({-->
+<!--            url:'{% url 'customer:showStores' %}',-->
+<!--            data : { 'totalprice':totalprice }-->
+<!--        })-->
+<!--    })-->
+<!--</script>-->
+
 
 <script type="text/javascript" src="/static/js/color.js"></script>
 
