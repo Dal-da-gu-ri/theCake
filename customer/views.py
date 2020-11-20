@@ -450,36 +450,34 @@ def cakeOrder(request,crn,cakepk):
             return render(request, 'customer/orderCake.html', res_data)
         else:
             # 주문하기 버튼을 눌렀을 때 나올 화면
-            # order = Order(
-            #     orderNum = makeordernum(),
-            #     orderer = customer.userID,
-            #     pickupDate = request.session.get('selectedYear')+"-"+request.session.get('selectedMonth')+"-"+request.session.get('selectedDay'),
-            #     pickupTime = request.POST.get('pickupTime',None),
-            #     businessID = crn,
-            #     cakeName = cakeobject.cakeName,
-            #     cakeText = request.POST.get('cakeText',None),
-            #     message = request.POST.get('message',None),
-            #     price = request.POST.get('price',None),
-            #     options = request.POST.getlist('option', None),
-            #     status = '주문 요청'
-            #     # requiredOpt
-            #     # additionalOpt
-            # )
-            # order.save()
+            order = Order(
+                orderNum = makeordernum(),
+                orderer = customer.userID,
+                pickupDate = str(request.session.get('selectedYear'))+"-"+str(request.session.get('selectedMonth'))+"-"+str(request.session.get('selectedDay')),
+                pickupTime = request.POST.get('pickupTime',None),
+                businessID = crn,
+                cakeName = cakeobject.cakeName,
+                cakeText = request.POST.get('cakeText',None),
+                message = request.POST.get('message',None),
+                price = request.POST.get('total_price',None),
+                options = request.POST.getlist('option', None),
+                status = '주문 요청'
+                # requiredOpt
+                # additionalOpt
+            )
+            order.save()
 
             amountChange(crn,request.session.get('selectedDay'),-1)
 
-            pickupTime = request.POST.get('pickupTime', None)
-            cakeText = request.POST.get('cakeText', None)
-            price = request.POST.get('totalprice', None)
-            options = request.POST.getlist('option', None)
-
-
-
-            print(pickupTime)
-            print(cakeText)
-            print(price)
-            print(options)
+            # pickupTime = request.POST.get('pickupTime', None)
+            # cakeText = request.POST.get('cakeText', None)
+            # price = request.POST.get('total_price', None)
+            # options = request.POST.getlist('option', None)
+            #
+            # print(pickupTime)
+            # print(cakeText)
+            # print(price)
+            # print(options)
             return render(request, 'customer/orderlist_customer.html', res_data)
 
 

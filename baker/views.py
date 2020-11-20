@@ -783,7 +783,18 @@ def manageOrder(request):
     if user_id:
         baker = Baker.objects.get(pk=user_id)
         res_data['bakername'] = baker.name
-    return render(request, 'baker/manageOrder.html',res_data)
+
+        order_list = Order.objects.filter(businessID=baker.businessID)
+        res_data['order_list'] = order_list
+        if request.method == "GET":
+            return render(request, 'baker/manageOrder.html',res_data)
+
+    else:
+        if request.method == "GET":
+            res_data['comment'] = "잘못된 접근입니다. 로그인을 해주세요!"
+            return render(request, 'baker/inappropriateApproach.html', res_data)
+        elif request.method == "POST":
+            return redirect('/')
 
 def orderInfo(request, pk):
     res_data = {}

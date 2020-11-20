@@ -193,14 +193,15 @@ class Order(models.Model):
         ('Jan', '1월'), ('Feb', '2월'), ('Mar', '3월'), ('Apr', '4월'), ('May', '5월'), ('Jun', '6월'),
         ('Jul', '7월'), ('Aug', '8월'), ('Sep', '9월'), ('Oct', '10월'), ('Nov', '11월'), ('Dec', '12월'),
     }
-    orderNum = models.DateTimeField(auto_now_add=True,verbose_name='주문 번호',primary_key=True,blank=False)
+    orderNum = models.CharField(max_length=50,verbose_name='주문 번호',primary_key=True,blank=False)
     orderer = models.CharField(max_length=20,verbose_name="주문자",null=True,blank=False)
     pickupDate = models.CharField(max_length=30,verbose_name='희망 수령일',null=True,blank=False)
     pickupTime = models.CharField(max_length=20,verbose_name='희망 픽업 시간',null=True,blank=False)
     businessID = models.CharField(max_length=50, verbose_name='사업자 등록번호',null=True,blank=False)
     cakeName = models.CharField(max_length=200, verbose_name='케이크 이름',null=True,blank=False)
-    requiredOpt = models.TextField(verbose_name='필수 선택 옵션',null=True,blank=False)
-    additionalOpt = models.TextField(verbose_name='추가 선택 옵션',null=True,blank=True)
+    options = models.TextField(verbose_name='선택 옵션',null=True,blank=False)
+    # requiredOpt = models.TextField(verbose_name='필수 선택 옵션',null=True,blank=False)
+    # additionalOpt = models.TextField(verbose_name='추가 선택 옵션',null=True,blank=True)
     cakeText = models.TextField(verbose_name='케이크 문구',null=True,blank=True)
     message = models.TextField(verbose_name='요청 사항',null=True,blank=True)
     price = models.IntegerField(verbose_name='가격',null=True,blank=False)
