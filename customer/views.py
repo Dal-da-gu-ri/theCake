@@ -379,6 +379,18 @@ def showReview(request, pk):
 def cakeOrder(request,crn,cakepk):
     res_data = {}
     user_id = request.session.get('user')
+    TIME_CHOICES = [
+        ('0', '9:00'), ('1', '9:30'), ('2', '10:00'), ('3', '10:30'), ('4', '11:00'),
+        ('5', '11:30'),
+        ('6', '12:00'), ('7', '12:30'), ('8', '13:00'), ('9', '13:30'), ('10', '14:00'),
+        ('11', '14:30'),
+        ('12', '15:00'), ('13', '15:30'), ('14', '16:00'), ('15', '16:30'), ('16', '17:00'),
+        ('17', '17:30'),
+        ('18', '18:00'), ('19', '18:30'), ('20', '19:00'), ('21', '19:30'), ('22', '20:00'),
+        ('23', '20:30'),
+        ('24', '21:00'), ('25', '21:30'), ('26', '22:00'), ('27', '22:30'),
+    ]
+
 
     if user_id:
         customer = Orderer.objects.get(pk=user_id)
@@ -386,7 +398,20 @@ def cakeOrder(request,crn,cakepk):
 
         cakeobject = get_object_or_404(Cake,pk=cakepk)
         storeobject = get_object_or_404(Store,businessID=crn)
+        # print(storeobject.pickUpOpen)
+        # print(storeobject.pickUpClose)
+        # print(TIME_CHOICES)
 
+        # print(storeobject.pickUpOpen, TIME_CHOICES[int(storeobject.pickUpOpen)][1])
+        # print(storeobject.pickUpClose, TIME_CHOICES[int(storeobject.pickUpClose)][1])
+
+        # print(TIME_CHOICES[int(storeobject.pickUpOpen)][0],TIME_CHOICES[int(storeobject.pickUpOpen)][1])
+        # print(TIME_CHOICES[int(storeobject.pickUpClose)][0],TIME_CHOICES[int(storeobject.pickUpClose)][1])
+        pickuptimes = []
+        for i in range(int(storeobject.pickUpOpen),int(storeobject.pickUpClose)+1):
+            pickuptimes.append(TIME_CHOICES[i][1])
+        print(pickuptimes)
+        res_data['pickuptimes'] = pickuptimes
         res_data['store']=storeobject
         res_data['cake']=cakeobject
         if request.method == "GET":
@@ -407,12 +432,12 @@ def cakeOrder(request,crn,cakepk):
                     if detailed_list[j].option_id == optionobject.pk:
                         details.append(detailed_list[j])
 
-            print(options)
-            for option in options:
-                print(option.optionName)
-            print(details)
-            for detail in details:
-                print(detail.option_id)
+            # print(options)
+            # for option in options:
+            #     print(option.optionName)
+            # print(details)
+            # for detail in details:
+            #     print(detail.option_id)
             res_data['options']=options
             res_data['detailedOptions'] = details
             return render(request, 'customer/orderCake.html', res_data)
