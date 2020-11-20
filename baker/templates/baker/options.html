@@ -270,16 +270,16 @@
 <!--                        <span class="ml-5 mr-1 requiredOption"> 필수옵션입니다. </span>-->
                         <!-- 세부항목 추가 button -->
                         {% if option.isNecessary == 1 %}
-                        <span class="optionalOption ml-3" style="font-weight:bold; color: red;">
+                        <span class="optionalOption mr-5" style="font-weight:bold; color: red;">
                             필수옵션입니다
                         </span>
                         {% endif %}
                         {% if option.isNecessary != 1 %}
-                        <span class="optionalOption ml-3" style="font-weight:bold;">
+                        <span class="optionalOption mr-5" style="font-weight:bold;">
                             선택옵션입니다
                         </span>
                         {% endif %}
-                        <button type="button" class="addDetail_btn ml-3" onclick="location.href='{% url 'baker:option_edit' option.pk %}'">옵션 수정</button>
+<!--                        <button type="button" class="addDetail_btn ml-3" onclick="location.href='{% url 'baker:option_edit' option.pk %}'">옵션 수정</button>-->
                         <!-- 옵션삭제 button -->
                         <button type="button" class="deleteOption_btn" onclick="location.href='{% url 'baker:option_delete' option.pk %}'">옵션 삭제</button>
 <!--                        <button type="button" class="deleteOption_btn">옵션 삭제</button>-->
