@@ -385,3 +385,71 @@ def mappingDate(businessID,month, date):
 
     # print(available)
     return available
+
+
+def amountChange(businessID,date,change):
+    curmonth = datetime.today().month
+    storeAmount = DailyAmount.objects.get(businessID=businessID)
+    if date == 1:
+        storeAmount.day1 =  storeAmount.day1 + change
+    elif date == 2:
+        storeAmount.day2 =  storeAmount.day2 + change
+    elif date == 3:
+        storeAmount.day3 =  storeAmount.day3 + change
+    elif date == 4:
+        storeAmount.day4 =  storeAmount.day4 + change
+    elif date == 5:
+        storeAmount.day5 =  storeAmount.day5 + change
+    elif date == 6:
+        storeAmount.day6 =  storeAmount.day6 + change
+    elif date == 7:
+        storeAmount.day7 =  storeAmount.day7 + change
+    elif date == 8:
+        storeAmount.day8 = storeAmount.day8 + change
+    elif date == 9:
+        storeAmount.day9 =  storeAmount.day9 + change
+    elif date == 10:
+        storeAmount.day10 =  storeAmount.day10 + change
+    elif date == 11:
+        storeAmount.day11 =  storeAmount.day11 + change
+    elif date == 12:
+        storeAmount.day12 =  storeAmount.day12 + change
+    elif date == 13:
+        storeAmount.day13 =  storeAmount.day13 + change
+    elif date == 14:
+        storeAmount.day14 =  storeAmount.day14 + change
+    elif date == 15:
+        storeAmount.day15 =  storeAmount.day15 + change
+    elif date == 16:
+        storeAmount.day16 = storeAmount.day16 + change
+    elif date == 17:
+        storeAmount.day17 = storeAmount.day17 + change
+    elif date == 18:
+        storeAmount.day18 =  storeAmount.day18 + change
+    elif date == 19:
+        storeAmount.day19 =  storeAmount.day19 + change
+    elif date == 20:
+        storeAmount.day20 =  storeAmount.day20 + change
+    elif date == 21:
+        storeAmount.day21 = storeAmount.day21 + change
+    elif date == 22:
+        storeAmount.day22 =  storeAmount.day22 + change
+    elif date == 23:
+        storeAmount.day23 =  storeAmount.day23 + change
+    elif date == 24:
+        storeAmount.day24 =  storeAmount.day24 + change
+    elif date == 25:
+        storeAmount.day25 = storeAmount.day25 + change
+    elif date == 26:
+        storeAmount.day26 = storeAmount.day26 + change
+    elif date == 27:
+        storeAmount.day27 =  storeAmount.day27 + change
+    elif date == 28:
+        storeAmount.day28 =  storeAmount.day28 + change
+    elif date == 29:
+        storeAmount.day29 = storeAmount.day29 + change
+    elif date == 30:
+        storeAmount.day30 =  storeAmount.day30 + change
+    elif date == 31:
+        storeAmount.day31 =  storeAmount.day31 + change
+    storeAmount.save()
