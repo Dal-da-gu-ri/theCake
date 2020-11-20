@@ -650,8 +650,7 @@ def cake_edit(request,pk):
                 for opt in alloptions:
                     # print(opt.isSelected)
                     for sel in range(0,len(selectedoptions)):
-                        # print(selectedoptions[sel])
-                        # print("opt: ",opt.optionID)
+                        # print("sel: ",selectedoptions[sel],"opt: ",opt.optionID)
                         if opt.optionID == int(selectedoptions[sel]):
                             # print("here")
                             optionhandle = True
@@ -660,6 +659,9 @@ def cake_edit(request,pk):
                     if optionhandle == False:
                         opt.isSelected = False
                         opt.save()
+                    optionhandle = False
+                    # print(opt.optionID, opt.isSelected)
+                    # print(optionhandle)
                     # print(opt.isSelected)
 
                 # print(alloptions)
