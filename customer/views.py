@@ -457,6 +457,7 @@ def cakeOrder(request,crn,cakepk):
                 pickupTime = request.POST.get('pickupTime',None),
                 businessID = crn,
                 cakeName = cakeobject.cakeName,
+                cakeImg = cakeobject.cakeImg,
                 cakeText = request.POST.get('cakeText',None),
                 message = request.POST.get('message',None),
                 price = request.POST.get('total_price',None),
@@ -496,6 +497,7 @@ def cakeOrder(request,crn,cakepk):
             # pickupTime = request.POST.get('pickupTime', None)
             # cakeText = request.POST.get('cakeText', None)
             price = request.POST.get('total_price', None)
+            res_data['price'] = price
             # options = request.POST.getlist('option', None)
             #
             # print(pickupTime)

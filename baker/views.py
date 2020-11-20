@@ -807,7 +807,7 @@ def orderInfo(request, pk):
         order = Order.objects.get(businessID=baker.businessID,orderNum=pk)
         optionlist = OrderOption.objects.filter(businessID=baker.businessID,orderID=pk)
         option_list =[]
-
+        print(order.cakeImg)
         for i in range(0,len(optionlist)):
             option = DetailedOption.objects.get(businessID=baker.businessID,pk=optionlist[i].optionID)
             option_list.append(option)

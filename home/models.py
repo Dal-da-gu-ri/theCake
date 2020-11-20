@@ -199,6 +199,7 @@ class Order(models.Model):
     pickupTime = models.CharField(max_length=20,verbose_name='희망 픽업 시간',null=True,blank=False)
     businessID = models.CharField(max_length=50, verbose_name='사업자 등록번호',null=True,blank=False)
     cakeName = models.CharField(max_length=200, verbose_name='케이크 이름',null=True,blank=False)
+    cakeImg = models.ImageField(verbose_name='케이크 이미지', null=True, blank=True)
     # options = models.TextField(verbose_name='선택 옵션',null=True,blank=False)
     # requiredOpt = models.TextField(verbose_name='필수 선택 옵션',null=True,blank=False)
     # additionalOpt = models.TextField(verbose_name='추가 선택 옵션',null=True,blank=True)
