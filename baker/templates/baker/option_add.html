@@ -352,14 +352,14 @@
 <script>
   $(document).ready(function(){
     $("#id_withColor").change(function(){
-        if($("#id_withColor").is(":checked")){
+        if($("#id_withImage").is(":checked")||$("#id_withColor").is(":checked")){
             $("#detail").hide();
         }else{
             $("#detail").show();
         }
     });
     $("#id_withImage").change(function(){
-        if($("#id_withImage").is(":checked")){
+        if($("#id_withImage").is(":checked")||$("#id_withColor").is(":checked")){
             $("#detail").hide();
         }else{
             $("#detail").show();
