@@ -199,7 +199,7 @@ class Order(models.Model):
     pickupTime = models.CharField(max_length=20,verbose_name='희망 픽업 시간',null=True,blank=False)
     businessID = models.CharField(max_length=50, verbose_name='사업자 등록번호',null=True,blank=False)
     cakeName = models.CharField(max_length=200, verbose_name='케이크 이름',null=True,blank=False)
-    options = models.TextField(verbose_name='선택 옵션',null=True,blank=False)
+    # options = models.TextField(verbose_name='선택 옵션',null=True,blank=False)
     # requiredOpt = models.TextField(verbose_name='필수 선택 옵션',null=True,blank=False)
     # additionalOpt = models.TextField(verbose_name='추가 선택 옵션',null=True,blank=True)
     cakeText = models.TextField(verbose_name='케이크 문구',null=True,blank=True)
@@ -299,3 +299,15 @@ class CakeOption(models.Model):
         db_table = 'Cake Option'
         verbose_name = '케이크 옵션'
         verbose_name_plural = '케이크 옵션'
+
+
+class OrderOption(models.Model):
+    businessID = models.CharField(max_length=50, verbose_name='사업자 등록번호', null=True, blank=False,default="")
+    orderer = models.CharField(max_length=20,verbose_name="주문자",null=True,blank=False)
+    optionID = models.IntegerField(verbose_name='옵션 ID',null=True,blank=False,default="")
+    orderID = models.CharField(max_length=50,verbose_name='주문 번호',null=True,blank=False,default="")
+
+    class Meta:
+        db_table = 'Order Option'
+        verbose_name = '주문서 옵션'
+        verbose_name_plural = '주문서 옵션'

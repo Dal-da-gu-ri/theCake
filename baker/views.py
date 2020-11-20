@@ -805,7 +805,22 @@ def orderInfo(request, pk):
         res_data['bakername'] = baker.name
 
         order = Order.objects.get(businessID=baker.businessID,orderNum=pk)
+        optionlist = OrderOption.objects.filter(businessID=baker.businessID,orderID=pk)
+        option_list =[]
+
+        for i in range(0,len(optionlist)):
+            option = DetailedOption.objects.get(businessID=baker.businessID,pk=optionlist[i].optionID)
+            option_list.append(option)
+
+        # for i in range(0,len(order.options)):
+        #     option = DetailedOption.objects.get(businessID=baker.businessID,pk=order.options[i])
+        #     option_list.append(option)
+        print(order)
+        print(option_list)
+        # print(order.options)
+        # print(len(order.options))
         res_data['order'] = order
+        res_data['option_list']=option_list
         if request.method == "GET":
             return render(request, 'baker/orderInfo.html', res_data)
 

@@ -460,23 +460,47 @@ def cakeOrder(request,crn,cakepk):
                 cakeText = request.POST.get('cakeText',None),
                 message = request.POST.get('message',None),
                 price = request.POST.get('total_price',None),
-                options = request.POST.getlist('option', None),
+                # options = request.POST.getlist('option', None),
                 status = '주문 요청'
                 # requiredOpt
                 # additionalOpt
             )
             order.save()
+            optionpk = []
+            options = request.POST.getlist('option', None)
+            print(options, len(options), len(options[0]))
+            print(options[0],options[1])
+            for option in range(0, len(options)):
+                curoption = DetailedOption.objects.get(businessID=crn,detailName=options[option])
+                orderoption = OrderOption(
+                    businessID = crn,
+                    orderer = customer.userID,
+                    optionID = curoption.pk,
+                    orderID = order.orderNum
+                )
+                orderoption.save()
 
+            #
+            # optionpk =[]
+            # # print(options,len(options),len(options[0]))
+            # # print(options[0][0],options[0][1])
+            # for option in range(0,len(options[0])):
+            #     curoption = DetailedOption.objects.get(businessID=crn,detailName=options[0][option])
+            #     optionpk.append(curoption.pk)
+            # order.options = optionpk
+            # print(order.options[0],order.options[1])
+
+            # print(optionpk)
             amountChange(crn,request.session.get('selectedDay'),-1)
 
             # pickupTime = request.POST.get('pickupTime', None)
             # cakeText = request.POST.get('cakeText', None)
-            # price = request.POST.get('total_price', None)
+            price = request.POST.get('total_price', None)
             # options = request.POST.getlist('option', None)
             #
             # print(pickupTime)
             # print(cakeText)
-            # print(price)
+            print(price)
             # print(options)
             return render(request, 'customer/orderlist_customer.html', res_data)
 
