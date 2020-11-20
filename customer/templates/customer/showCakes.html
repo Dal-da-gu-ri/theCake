@@ -103,26 +103,23 @@ body {
     background-color: #cd7d7d;
 }
 
-    #review{
+#review{
     float: right;
     transition:.15s ease;
-    border: 1px solid #cf8484;
-    background-color:white;
-    color: #cc5f5f;
-    border-radius: 2px;
-    }
+    border: 2px solid #cf8484;
+    color: #cf8484;
+    background-color: white;
+    border-radius:1px;
+    font-weight:bold;
+}
 
-    #review:hover {
-        background-color: #cf8484;
-        color: white;
-    }
-    #review:focus {
+#review:hover {
+    background-color: #cf8484;
+    color: white;
+}
+#review:focus {
     outline: none;
-    }
-
-    #review:active {
-    background-color: #cd7d7d;
-    }
+}
 
 </style>
 
@@ -136,8 +133,8 @@ body {
     <div class="row">
     <div class="container justify-content-around">
         <div class="row row-eq-height justify-content-around mt-3" style="height:20%">
-            <div class="col-6 col-sm-6 col-md-5">
-                <div class="d-flex justify-content-center align-items-center text-nowrap my-2" style="padding: 0.1em 1.5em;  border-radius: 2px; background-color: #aba0a0; width:100%">
+            <div class="col-9 col-sm-7 col-md-5">
+                <div class="d-flex justify-content-center align-items-center text-nowrap my-2" style="padding: 0.1em 1.5em; background-color: #aba0a0; width:18em; border-radius:1px;">
                     <!-- 가게로고 -->
                     <div class="d-inline-block">
                         <img src="/media/{{store.storeImg}}" alt="store image" width="40">
@@ -147,13 +144,17 @@ body {
                         {{store.storeName}}
                     </div>
                 </div>
-                <div class="d-flex justify-content-center text-nowrap" style="padding: 0.2em 1.5em; border: 2px solid #aba0a0; border-radius: 2px; background-color: white; width:100%">
+                <div class="d-flex justify-content-center text-nowrap" style="padding: 0.2em 1.5em; border: 2px solid #aba0a0; background-color: white; width:18em; border-radius:1px;">
                     <div class="d-inline-block my-2" style="color: gray">
                     <!-- 선택한 픽업날짜 -->
                         <span>선택하신 픽업날짜</span><span class="ml-3">{{selectedYear}}</span><span> / {{selectedMonth}}</span><span> / {{selectedDay}}</span>
                     </div>
                 </div>
-                <button id="review" class="form-control text-center mt-2" style="width: 9em; padding: 3px; font-size: 0.8em;" onclick="location.href='{% url 'customer:showReview' store.pk %}'">리뷰 보러가기</button>
+                <div class="d-flex justify-content-end text-nowrap">
+                    <div class="d-inline-block my-2">
+                        <button id="review" style="width: 9em; padding: 0.5em; font-size: 0.9em;" onclick="location.href='{% url 'customer:showReview' store.pk %}'">리뷰 보러가기</button>
+                    </div>
+                </div>
             </div>
             <div class="col-10 col-sm-10 col-md-6" id="store_intro">
                 <!-- 가게소개 -->
@@ -164,7 +165,7 @@ body {
                 <!-- 픽업시작시간, 픽업마감시간 -->
                 <div id="storeInfo">
                     <div class="mb-2">
-                         <span>픽업시간: </span>{{store.get_pickUpOpen_display}} <span>~ </span>{{store.get_pickUpClose_display}}
+                        <span>픽업시간: </span>{{store.get_pickUpOpen_display}} <span>~ </span>{{store.get_pickUpClose_display}}
                     </div>
                     <!-- 가게위치 -->
                     <div class="mb-2">
@@ -242,10 +243,10 @@ body {
 
 
 <script>
-$(function(){
-            $("#order_btn").on('click', function(){
-            console.log(pk)
-            })
+    $(function(){
+        $("#order_btn").on('click', function(){
+        console.log(pk)
         })
+    })
 </script>
 {% endblock %}
