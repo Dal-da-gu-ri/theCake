@@ -267,7 +267,6 @@
 <!--        $('.img:first()').hide();-->
 <!--    });-->
 <!--</script>-->
-
 <script type="text/javascript">
     <!-- updateElementIndex(this, prefix, i);-->
     function updateElementIndex(el, prefix, ndx) {
@@ -348,7 +347,25 @@
         deleteForm('form', $(this));
         return false;
     });
-</script>
 
+</script>
+<script>
+  $(document).ready(function(){
+    $("#id_withColor").change(function(){
+        if($("#id_withColor").is(":checked")){
+            $("#detail").hide();
+        }else{
+            $("#detail").show();
+        }
+    });
+    $("#id_withImage").change(function(){
+        if($("#id_withImage").is(":checked")){
+            $("#detail").hide();
+        }else{
+            $("#detail").show();
+        }
+    });
+  });
+</script>
 
 {% endblock %}
