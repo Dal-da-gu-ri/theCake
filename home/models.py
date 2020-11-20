@@ -279,8 +279,8 @@ class Cake(models.Model): #원래 Store상속받음
     cakeImg = models.ImageField(verbose_name='케이크 이미지',null=True,blank=True, default="logo_baker.png")
     cakePrice = models.IntegerField(verbose_name='1호 기준 가격',null=True,blank=False)
     #mini = models.BooleanField(default=False,verbose_name='미니사이즈 가능 여부',null=True,blank=False)
-    mini = models.CharField(max_length=200, verbose_name='미니사이즈 가능 여부', null=False, blank=False, default="",
-                            choices=[('가능', '가능'), ('불가', '불가능')])
+    # mini = models.CharField(max_length=200, verbose_name='미니사이즈 가능 여부', null=False, blank=False, default="",
+    #                         choices=[('가능', '가능'), ('불가', '불가능')])
 
     class Meta:
         db_table = 'Cake'

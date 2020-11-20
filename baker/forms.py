@@ -122,7 +122,7 @@ class StoreForm(forms.ModelForm):
 class CakeForm(forms.ModelForm):
     class Meta:
         model = Cake
-        fields = ['cakeName', 'cakeImg', 'cakePrice', 'mini']
+        fields = ['cakeName', 'cakeImg', 'cakePrice']
         widgets = {
             'cakeName': forms.TextInput(
                 attrs={
@@ -135,8 +135,8 @@ class CakeForm(forms.ModelForm):
                     'class': 'form-control',
                     'placeholder': '케이크 가격(1호 기준)'
                 }
-            ),
-            'mini': forms.RadioSelect()
+            )
+            # 'mini': forms.RadioSelect()
         }
 
 class OpenDaysForm(forms.ModelForm):

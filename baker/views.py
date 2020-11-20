@@ -488,7 +488,7 @@ def dailyamountsetting(request):
                 return redirect('/baker/inappropriateApproach')
 
         else:
-            print("heree2")
+            # print("heree2")
             # daysobject = OpenDays.objects.get(businessID=baker.businessID)
             # daysform = OpenDaysForm(instance=daysobject)
             # res_data['opendays'] = daysform
@@ -557,7 +557,7 @@ def cake_add(request):
                 cakeobject.cakeName = cakeform.cleaned_data['cakeName']
                 cakeobject.cakeImg = cakeform.cleaned_data['cakeImg']
                 cakeobject.cakePrice = cakeform.cleaned_data['cakePrice']
-                cakeobject.mini = cakeform.cleaned_data['mini']
+                # cakeobject.mini = cakeform.cleaned_data['mini']
                 while cakesearch == False:
                     newpk = newcakepk()
                     try:
