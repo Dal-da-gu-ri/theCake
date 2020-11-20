@@ -398,8 +398,8 @@
             </td>
         </tr>
     </table>
-    <div id="totalprice" style="text-align:right; font-size: 1.1rem;" class="mb-2">
-        최종가격: {{cake.cakePrice}}  원
+    <div style="text-align:right; font-size: 1.1rem; font-weight: bold;" class="mb-2">
+        최종가격: <span id="totalprice" >{{cake.cakePrice}}</span>  원
     </div>
     <div style="text-align:right;">
         <button type="submit" class="add_btn" onclick="location.href='{% url 'customer:orderList_customer' %}'">주문하기</button>
@@ -463,9 +463,7 @@
             }
         {% endfor %}
 
-        console.log(price);
-
-        document.getElementById("totalprice").innerHTML = "최종가격: " + price + "  원";
+        document.getElementById("totalprice").innerHTML = price;
     }
 </script>
 
