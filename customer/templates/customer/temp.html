@@ -1,190 +1,117 @@
 {% extends 'base_customer.html' %}
-
+{% block title %} :: 후기 작성하기 :: {% endblock %}
 {% block content %}
-   <div class="row">
-        <p class="pt-3 pl-4 path">주문하기</p>
-   </div>
-
-    <style>
-    input[type="color"] {
-<!--	-webkit-appearance: none;-->
-	border: none;
-	width: 20px;
-	height: 20px;
-	background-color: light gray;
+<div class="taste text-center">
+    <div class="mt-3">맛 평점</div>
+  <span class="starR on" id="taste_star1">별1</span>
+  <span class="starR" id="taste_star2">별2</span>
+  <span class="starR" id="taste_star3">별3</span>
+  <span class="starR" id="taste_star4">별4</span>
+  <span class="starR" id="taste_star5">별5</span>
+</div>
+<hr>
+<div class="service text-center">
+    <div class="mt-3">서비스 평점</div>
+  <span class="starR on" id="service_star1">별1</span>
+  <span class="starR" id="service_star2">별2</span>
+  <span class="starR" id="service_star3">별3</span>
+  <span class="starR" id="service_star4">별4</span>
+  <span class="starR" id="service_star5">별5</span>
+</div>
+<hr>
+<div class="design text-center">
+    <div class="mt-3">디자인 평점</div>
+  <span class="starR on" id="design_star1">별1</span>
+  <span class="starR" id="design_star2">별2</span>
+  <span class="starR" id="design_star3">별3</span>
+  <span class="starR" id="design_star4">별4</span>
+  <span class="starR" id="design_star5">별5</span>
+</div>
+<style>
+    .starR{
+  background: url('http://miuu227.godohosting.com/images/icon/ico_review.png') no-repeat right 0;
+  background-size: auto 100%;
+  width: 30px;
+  height: 30px;
+  display: inline-block;
+  text-indent: -9999px;
+  cursor: pointer;
 }
-input[type="color"]::-webkit-color-swatch-wrapper {
-	padding: 0px;
-	border-style:none;
-	background-color: none;
-}
-input[type="color"]::-webkit-color-swatch {
+.starR.on{background-position:0 0;}
+</style>
 
-<!--  border-style: none;-->
-border: solid 1px #000;
-<!--border: 2em;-->
-}
-    #cream_circle {
-        background-color:#ffffff;
-        border:3px solid #000000;
-        width:300px;
-        height:300px;
-        border-radius:100%;
-        text-align:center;
-        margin:0 auto;
-        font-size:12px;
-        vertical-align:middle;
-        /* display: table-cell; */
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        line-height:150px;
-        }
-    #cake_circle {
-        background-color:#ffffff;
-        border:1px solid #000000;
-        width:230px;
-        height:230px;
-        border-radius:100%;
-        text-align:center;
-        margin:auto;
-        font-size:12px; color:#fff;
-        vertical-align:middle;
-        /* display: inline-block; */
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        line-height:100px;
-    }
-    #cake_letter {
-        width:250px;
-        height:250px;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        overflow: hidden;
-
-        /* word-break: break-all; */
-        /* border:5px solid #000000; */
-    }
-
-    #cake_letter_content{
-        /* font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; */
-        font-size: 40px;
-        color: black;
-        font-weight: bold;
-    }
-    </style>
-
-   <div class="pt-3">
-        <div><p>케이크색상<input type="color" id="cake_color" value="#ffffff"></p></div>
-        <div><p>크림색상<input type="color" id="cream_color" value="#ffffff"></p></div>
-        <div>
-        <p>레터링</p>
-        <p>
-            <span>색상<input type="color" id="letter_color" value="#ffffff"></span>
-            <span>크기<input type="number" id="letter_size" min="1" max="70"></span>
-        </p>
-        </div>
-        <input type="text" id="letter_content" placeholder="텍스트">
-        <div id="cream_circle">
-            <div id="cake_circle">
-                <div id="cake_letter">
-                    <div id="cake_letter_content" class="text-nowrap">
-                        <!-- 여기다가 쓰면 됨  -->
-                    </div>
-                </div>
-            </div>
-        </div>
-
-    <!-- <div style="border: 1px solid black; position: relative; width:1000; height:1000;">
-        <p>케이크색상</p><input type="color" id="cake_color" value="#ffffff">
-        <canvas id="cake_form2"  width="1000" height="1000">
-            <script>
-                const canvas2 = document.querySelector("#cake_form2");
-                const ctx2 = canvas2.getContext("2d");
-                ctx2.beginPath();
-                ctx2.arc(300,300,120,0,Math.PI*2,false);
-                ctx2.lineWidth = 3;
-                ctx2.fillStyle = "#ffffff";
-                ctx2.fill();
-                ctx2.stroke();
-            </script>
-        </canvas>
-        <canvas id="cake_form1" width="1000" height="1000">
-            <script>
-            const canvas1 = document.querySelector("#cake_form1");
-            const ctx1 = canvas1.getContext("2d");
-            ctx1.beginPath();
-            // 원그리기 : context.arc(x,y,반지름, 시작각도, 종료각도, 그리는 방향)
-            ctx1.arc(300,300,60,0,Math.PI*2,false);
-            ctx1.lineWidth = 3;
-            ctx1.fillStyle = "red";
-            ctx1.fill();
-            ctx1.stroke();
-            </script>
-        </canvas>          -->
-<!--    <p>실험<input type="color" id="color_pick" value="" onchange="printColor(event)"></p>-->
-        <p>실험<input type="color" id="color_pick" value="#ffffff"></p>
-    </div>
+<!--taste-->
 <script>
-        $(function(){
-            $("#color_pick").on('input', function(){
-                  var color = $("#color_pick").val();
-                  const r = parseInt(color.substr(1,2), 16)
-                  const g = parseInt(color.substr(3,2), 16)
-                  const b = parseInt(color.substr(5,2), 16)
-                  console.log(`red: ${r}, green: ${g}, blue: ${b}`)
-            })
-        })
-<!--function printColor(ev) {-->
-<!--  const color = ev.target.value-->
-<!--  const r = parseInt(color.substr(1,2), 16)-->
-<!--  const g = parseInt(color.substr(3,2), 16)-->
-<!--  const b = parseInt(color.substr(5,2), 16)-->
-<!--  console.log(`red: ${r}, green: ${g}, blue: ${b}`)-->
-<!--}-->
+    var taste=1;
+    $('.taste span').click(function(){
+      $(this).parent().children('span').removeClass('on');
+      $(this).addClass('on').prevAll('span').addClass('on');
+      return false;
+    });
+    $('#taste_star1').click(function(){
+        taste=1;
+    });
+    $('#taste_star2').click(function(){
+        taste=2;
+    });
+    $('#taste_star3').click(function(){
+        taste=3;
+    });
+    $('#taste_star4').click(function(){
+        taste=4;
+    });
+    $('#taste_star5').click(function(){
+        taste=5;
+    });
 </script>
-    <script>
-        $(function(){
-            $("#cream_color").on('input', function(){
-                // console.log($("#cream_color").val());
-                var cream_color = $("#cream_color").val();
-                document.getElementById('cream_circle').style.backgroundColor = cream_color;
-            })
-        })
 
-        $(function(){
-            $("#cake_color").on('input', function(){
-                // console.log($("#cake_color").val());
-                var cake_color = $("#cake_color").val();
-                // ctx2.fillStyle = "cake_color";
-                document.getElementById('cake_circle').style.backgroundColor = cake_color;
-            })
-        })
+<!--service-->
+<script>
+    var service=1;
+    $('.service span').click(function(){
+      $(this).parent().children('span').removeClass('on');
+      $(this).addClass('on').prevAll('span').addClass('on');
+      return false;
+    });
+    $('#star1').click(function(){
+        service=1;
+    });
+    $('#star2').click(function(){
+        service=2;
+    });
+    $('#star3').click(function(){
+        service=3;
+    });
+    $('#star4').click(function(){
+        service=4;
+    });
+    $('#star5').click(function(){
+        service=5;
+    });
+</script>
 
-        $(function(){
-            $("#letter_color").on('input', function(){
-                console.log($("#letter_color").val());
-                var letter_color = $("#letter_color").val();
-                document.getElementById('cake_letter_content').style.color = letter_color;
-            })
-        })
-
-        $(function(){
-            $("#letter_size").on('input', function(){
-                console.log($("#letter_size").val());
-                var letter_size = $("#letter_size").val();
-                document.getElementById('cake_letter_content').style.fontSize = letter_size+'px';
-            })
-        })
-
-        $(function(){
-            $("#letter_content").on('input', function(){
-                cake_letter_content.innerHTML = letter_content.value;
-            })
-        })
-
-
-    </script>
+<!--design-->
+<script>
+    var design=1;
+    $('.design span').click(function(){
+      $(this).parent().children('span').removeClass('on');
+      $(this).addClass('on').prevAll('span').addClass('on');
+      return false;
+    });
+    $('#design_star1').click(function(){
+        design=1;
+    });
+    $('#design_star2').click(function(){
+        design=2;
+    });
+    $('#design_star3').click(function(){
+        design=3;
+    });
+    $('#design_star4').click(function(){
+        design=4;
+    });
+    $('#design_star5').click(function(){
+        design=5;
+    });
+</script>
 {% endblock %}
