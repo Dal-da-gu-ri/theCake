@@ -284,9 +284,9 @@
                                         {% if detailedOption.option_id == option.pk %}
                                         <!-- 필수상세옵션1-->
                                         {% if detailedOption.pricing >= 0 %}
-                                        <option value="{{detailedOption.pk}}">{{detailedOption.detailName}} (+{{detailedOption.pricing}})</option>
+                                        <option value="{{detailedOption}}">{{detailedOption.detailName}} (+{{detailedOption.pricing}})</option>
                                         {% elif detailedOption.pricing < 0 %}
-                                        <option value="{{detailedOption.pk}}">{{detailedOption.detailName}} ({{detailedOption.pricing}})</option>
+                                        <option value="{{detailedOption}}">{{detailedOption.detailName}} ({{detailedOption.pricing}})</option>
                                         {% endif %}
 
                                         {% endif %}
@@ -323,9 +323,9 @@
                                     {% if detailedOption.option_id == option.pk %}
                                         <!-- 필수상세옵션1-->
                                         {% if detailedOption.pricing >= 0 %}
-                                            <option value="{{detailedOption.pk}}">{{detailedOption.detailName}} (+{{detailedOption.pricing}})</option>
+                                            <option value="{{detailedOption}}">{{detailedOption.detailName}} (+{{detailedOption.pricing}})</option>
                                         {% elif detailedOption.pricing < 0 %}
-                                            <option value="{{detailedOption.pk}}">{{detailedOption.detailName}} ({{detailedOption.pricing}})</option>
+                                            <option value="{{detailedOption}}">{{detailedOption.detailName}} ({{detailedOption.pricing}})</option>
                                         {% endif %}
 
                                     {% endif %}
@@ -435,12 +435,7 @@
     </div>
 </form>
 
-<!--<script>-->
-<!--    $(function(){-->
 
-<!--            console.log({{pickuptimes|length}});-->
-<!--    });-->
-<!--</script>-->
 <!-- 필수옵션 다 선택되지 않은 상태로 주문하기 누르면 오류 -->
 <script>
     function check_submit(){
@@ -472,8 +467,8 @@
             return true;
     }
 </script>
-<!-- 최종 가격 계산 -->
 
+<!-- 최종 가격 계산 -->
 <!-- 케이크 1호 가격 + 선택한 필수옵션 + 선택한 선택옵션-->
 <!-- -일땐 -해야되고 +일떈 +해야됨 -->
 <script>
@@ -498,17 +493,6 @@
         document.getElementById('total_price').setAttribute('value',price);
     }
 </script>
-
-<!--&lt;!&ndash; 최종 가격 보내기 &ndash;&gt;-->
-<!--<script>-->
-<!--    $('#order_btn').click(function(){-->
-<!--        var totalprice = $('#totalprice').val()-->
-<!--        $.ajax({-->
-<!--            url:'{% url 'customer:showStores' %}',-->
-<!--            data : { 'totalprice':totalprice }-->
-<!--        })-->
-<!--    })-->
-<!--</script>-->
 
 
 <script type="text/javascript" src="/static/js/color.js"></script>
