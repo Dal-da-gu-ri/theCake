@@ -4,23 +4,26 @@
 <div class="row">
         <p class="pt-3 pl-4 path">마이페이지 > 내 정보 수정</p>
     </div>
-<div class="pt-5">
-<form method = "POST" class="form-signup">
-    {% csrf_token %}
-               <div class="form-inline form-group">
-                  <label for="password_baker" class="col-sm-4 control-label">현재 비밀번호</label>
-                  <input type="password"
-                  class="col-lg-5 col-md-6 col-sm-6 form-control pw_baker"
-                  id="password_baker"
-                  placeholder="현재 비밀번호를 입력해주세요."
-                  name= "password_baker"
-                  required>
-                   <div class="ml-4">
-                       <button type="submit" id="pw_submit" class="btn btn-secondary btn-block">확인</button>
-                   </div>
-               </div>
-</form>
+
+
+<div style="margin-top: 15%;">
+    <form method = "POST" class="form-signup">
+        {% csrf_token %}
+       <div class="form-inline form-group">
+          <label for="password_baker" class="col-sm-4 control-label">현재 비밀번호</label>
+          <input type="password"
+          class="col-lg-5 col-md-6 col-sm-6 form-control pw_baker"
+          id="password_baker"
+          placeholder="현재 비밀번호를 입력해주세요."
+          name= "password_baker"
+          required>
+           <div class="ml-4">
+               <button type="submit" id="pw_submit" class="btn btn-secondary btn-block">확인</button>
+           </div>
+       </div>
+    </form>
 </div>
+
 <script>
     if('{{result}}'!="")
         alert('{{ result }}');

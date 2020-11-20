@@ -1,61 +1,93 @@
 {% extends 'base_customer.html' %}
 {% block title%} 회원정보 수정 {% endblock %}
 {% block content %}
-    <link rel="stylesheet" href="/static/css/signUp_customer.css">
-   <div class="row">
-        <p class="pt-3 pl-4 path">마이페이지 > 내 정보 수정</p>
-   </div>
-<div class="text-center pt-3">
 
-<form method = "POST" class="form-signup" onsubmit="return chkPW()">
-     {% csrf_token %}
-    <div class="form-inline form-group">
-      <label for="userID" class="col-sm-4 control-label">아이디</label>
-        <input class="form-control" value="{{userID}}" id="userID" disabled>
-    </div>
-
-    <div class="form-inline form-group">
-      <label class="col-sm-4 control-label">성명</label>
-        <input class="form-control" value="{{customername}}" id="customername" disabled>
-      <!-- 이 name 값으로 정보가 전달된다 -->
-
-    </div>
-
-    <div class="form-inline form-group">
-      <label for="email_customer" class="col-sm-4 control-label">이메일</label>
-      <input class="form-control" value="{{email_customer}}" id="email_customer" disabled>
-
-    </div>
-
-    <div class="form-inline form-group">
-      <label for="password_customer" class="col-sm-4 control-label">비밀번호</label>
-        <input type="password"
-      class="form-control"
-      id="password_customer"
-      placeholder="비밀번호"
-      name= "password_customer"
-      required>
-    </div>
-
-    <div class="form-inline form-group">
-      <label for="re-password_customer" class="col-sm-4 control-label" >비밀번호 확인</label>
-      <input type="password"
-      class="form-control"
-      id="re-password_customer"
-      placeholder="비밀번호 재입력"
-      name= "re-password_customer"
-      required>
-    </div>
-     <div class="alert alert-success" id="alert-success1">비밀번호가 일치합니다.</div>
-     <div class="alert alert-danger" id="alert-danger1">비밀번호가 일치하지 않습니다.</div>
+<div class="row">
+    <p class="pt-3 pl-4 path">마이페이지 > 내 정보 수정</p>
+</div>
 
 
-    <div class="form-inline form-group">
-      <label class="col-sm-4 control-label" >휴대전화</label>
-        <input class="form-control" value="{{phoneNum_customer}}" id="phoneNum_customer" disabled>
-    </div>
-    <button type="submit" id="submit" class="btn btn-lg btn-secondary btn-block">EDIT</button>
- </form>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Nanum+Gothic+Coding&display=swap');
+ .form-signup {
+    width: 100%;
+    max-width: 480px;
+    padding: 15px;
+    margin: auto;
+  }
+
+  .form-signup .form-control {
+    position: relative;
+    box-sizing: border-box;
+    height: auto;
+    padding: 10px;
+    font-size: 15px;
+    width: 270px;
+  }
+  .form-signup .form-control:focus {
+    z-index: 2;
+  }
+  .form-signup input[type="email"] {
+    margin-bottom: -1x;
+  }
+  .form-signup input[type="password"] {
+    margin-bottom: 0px;
+  }
+</style>
+
+
+<div class="text-center mt-5">
+    <form method = "POST" class="form-signup" onsubmit="return chkPW()">
+         {% csrf_token %}
+        <div class="form-inline form-group">
+          <label for="userID" class="col-sm-4 col-4 control-label">아이디</label>
+            <input class="form-control" value="{{userID}}" id="userID" disabled>
+        </div>
+
+        <div class="form-inline form-group">
+          <label class="col-sm-4 col-4 control-label">성명</label>
+            <input class="form-control" value="{{customername}}" id="customername" disabled>
+          <!-- 이 name 값으로 정보가 전달된다 -->
+
+        </div>
+
+        <div class="form-inline form-group">
+          <label for="email_customer" class="col-sm-4 col-4 control-label">이메일</label>
+          <input class="form-control" value="{{email_customer}}" id="email_customer" disabled>
+
+        </div>
+
+        <div class="form-inline form-group">
+          <label for="password_customer" class="col-sm-4 col-4 control-label">비밀번호</label>
+            <input type="password"
+          class="form-control"
+          id="password_customer"
+          placeholder="비밀번호"
+          name= "password_customer"
+          required>
+        </div>
+
+        <div class="form-inline form-group">
+          <label for="re-password_customer" class="col-sm-4 col-4 control-label" >비밀번호 확인</label>
+          <input type="password"
+          class="form-control"
+          id="re-password_customer"
+          placeholder="비밀번호 재입력"
+          name= "re-password_customer"
+          required>
+        </div>
+
+        <div class="alert alert-success" id="alert-success1">비밀번호가 일치합니다.</div>
+        <div class="alert alert-danger" id="alert-danger1">비밀번호가 일치하지 않습니다.</div>
+
+        <div class="form-inline form-group">
+          <label class="col-sm-4 col-4 control-label" >휴대전화</label>
+            <input class="form-control" value="{{phoneNum_customer}}" id="phoneNum_customer" disabled>
+        </div>
+        <div class="mt-5">
+            <button type="submit" id="submit" class="btn btn-secondary btn-block">EDIT</button>
+        </div>
+    </form>
 </div>
 <script type="text/javascript">
     $(function () {

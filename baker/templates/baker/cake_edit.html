@@ -100,7 +100,7 @@
 <form method = "POST" action = "#" enctype="multipart/form-data">
     {% csrf_token %}
     <div class="row justify-content-center">
-        <div class="col-8 col-sm-5 col-md-4 mb-3">
+        <div class="col-8 col-sm-5 col-md-4 mb-3 mt-4">
 <!--            <div style="text-align: center;">-->
 <!--                <img id="cakeImg" class="m-2" src="/media/{{ cake.cakeImg.value }}" alt="cake image">-->
 <!--            </div>-->
@@ -114,7 +114,7 @@
 <!--            </div>-->
 <!--            <div class="form-control-file">{{ cake.cakeImg }}</div>-->
         </div>
-        <div id="cake_info" class="form-group col-8 col-sm-7 col-md-8">
+        <div id="cake_info" class="form-group col-8 col-sm-7 col-md-8 mt-3">
             <div class="form-row">
                 <div class="form-group col-4 text-nowrap">
                     <label>케이크 이름</label>
@@ -133,24 +133,18 @@
                 </div>
             </div>
             <hr>
-            <div class="form-row text-nowrap">
-                <div class="form-group col-3">
-                    <label>미니사이즈 가능 여부</label>
-                </div>
-                <div class="form-group col-4 form-control">
-                  {{ cake.mini }}
-                </div>
-            </div>
-            <hr>
             <div class="form-row">
                 <div class="form-group col-4 text-nowrap">
                     <label>필요한 옵션 선택</label>
                 </div>
                 <div class="form-group col-5 text-nowrap form-control">
-                    <table id="option_table">
+                    <table id="option_table" style="text-align: left;">
                         {% for option in options %}
-                        <tr class="option_tr">
-                            <td>{{option.optionName}}<input type="checkbox" name="option_selected" class="chk ml-4" value="{{option.pk}}"></td>
+                        <tr class="option_tr ml-4">
+                            <td style="width:10%;"></td>
+                            <td>{{option.optionName}}</td>
+                            <td><input type="checkbox" name="option_selected" class="chk" value="{{option.pk}}"></td>
+                            <td style="width:10%;"></td>
                         </tr>
                         {% endfor %}
                     </table>
@@ -159,7 +153,7 @@
         </div>
     </div>
     <div class="row mt-5">
-        <button type='submit' id="submit" class="btn btn-secondary">등록</button>
+        <button type='submit' id="submit" class="btn btn-secondary mt-4">등록</button>
     </div>
 </form>
 
@@ -189,8 +183,8 @@
         var chk;
 
         {% for option in options %}
-            console.log("{{option.optionName}}");
             {% if option.pk in selectedoptions %}
+<!--                console.log("{{option.optionName}}");-->
                 $("input:checkbox[value='{{option.pk}}']").prop("checked", true);
             {% endif %}
         {% endfor %}
