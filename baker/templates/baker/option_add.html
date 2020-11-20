@@ -267,7 +267,6 @@
 <!--        $('.img:first()').hide();-->
 <!--    });-->
 <!--</script>-->
-
 <script type="text/javascript">
     <!-- updateElementIndex(this, prefix, i);-->
     function updateElementIndex(el, prefix, ndx) {
@@ -350,25 +349,23 @@
     });
 
 </script>
-
-
-<!--<script>-->
-<!--  $(document).ready(function(){-->
-<!--    $("#id_withColor").change(function(){-->
-<!--        if($("#id_withImage").is(":checked")||$("#id_withColor").is(":checked")){-->
-<!--            $("#detail").hide();-->
-<!--        }else{-->
-<!--            $("#detail").show();-->
-<!--        }-->
-<!--    });-->
-<!--    $("#id_withImage").change(function(){-->
-<!--        if($("#id_withImage").is(":checked")||$("#id_withColor").is(":checked")){-->
-<!--            $("#detail").hide();-->
-<!--        }else{-->
-<!--            $("#detail").show();-->
-<!--        }-->
-<!--    });-->
-<!--  });-->
-<!--</script>-->
+<script>
+  $(document).ready(function(){
+    $("#id_withColor").change(function(){
+        if($("#id_withImage").is(":checked")||$("#id_withColor").is(":checked")){
+            $("#detail").hide();
+        }else{
+            $("#detail").show();
+        }
+    });
+    $("#id_withImage").change(function(){
+        if($("#id_withImage").is(":checked")||$("#id_withColor").is(":checked")){
+            $("#detail").hide();
+        }else{
+            $("#detail").show();
+        }
+    });
+  });
+</script>
 
 {% endblock %}
