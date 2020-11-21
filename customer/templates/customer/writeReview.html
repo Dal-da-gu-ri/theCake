@@ -56,24 +56,27 @@ tr td:first-child{
         <div class="text-center mt-2">{{order.cakeName}}</div>
       </td>
       <td>
-        {{review.orderNum}}
+        {{order.orderNum}}
       </td>
     </tr>
   </table>
 
 </div>
 
-<form method = "POST" class="form-signup" onsubmit="return chkPW()">
+<form method = "POST" class="form_rate">
+
   <table>
     <tr>
       <td><div class="mt-2 text-nowrap">맛 평점</div></td>
       <td>
         <div class="taste text-nowrap align-items-center">
-          <span class="starR" id="taste_star1">별1</span>
+          <span class="starR on" id="taste_star1">별1</span>
           <span class="starR" id="taste_star2">별2</span>
           <span class="starR" id="taste_star3">별3</span>
           <span class="starR" id="taste_star4">별4</span>
           <span class="starR" id="taste_star5">별5</span>
+<!--          <span id="tasteRate"></span>-->
+          <input type="hidden" name="taste_rate" id="taste_rate" value="" />
         </div>
       </td>
     </tr>
@@ -81,23 +84,27 @@ tr td:first-child{
       <td><div class="mt-4 text-nowrap">서비스 평점</div></td>
       <td>
         <div class="service text-nowrap">
-          <span class="starR" id="service_star1">별1</span>
+          <span class="starR on" id="service_star1">별1</span>
           <span class="starR" id="service_star2">별2</span>
           <span class="starR" id="service_star3">별3</span>
           <span class="starR" id="service_star4">별4</span>
           <span class="starR" id="service_star5">별5</span>
-          </div>
+<!--          <span id="serviceRate"></span>-->
+          <input type="hidden" name="service_rate" id="service_rate" value="" />
+        </div>
       </td>
     </tr>
     <tr>
       <td><div class="mt-4 text-nowrap">디자인 평점</div></td>
       <td>
         <div class="design text-nowrap">
-          <span class="starR" id="design_star1">별1</span>
+          <span class="starR on" id="design_star1">별1</span>
           <span class="starR" id="design_star2">별2</span>
           <span class="starR" id="design_star3">별3</span>
           <span class="starR" id="design_star4">별4</span>
           <span class="starR" id="design_star5">별5</span>
+<!--          <span id="designRate"></span>-->
+          <input type="hidden" name="design_rate" id="design_rate" value="" />
         </div>
       </td>
     </tr>
@@ -110,6 +117,7 @@ tr td:first-child{
   <div class="mt-5 d-flex justify-content-center">
     <button type="submit" id="submit" class="btn btn-secondary btn-block text-nowrap" style="width:200px;">리뷰 등록하기</button>
   </div>
+
 </form>
 
 
@@ -150,7 +158,7 @@ tr td:first-child{
 
 <!--taste-->
 <script>
-    var taste=1;
+    var taste = 1;
 
     $('.taste span').click(function(){
       $(this).parent().children('span').removeClass('on');
@@ -159,24 +167,29 @@ tr td:first-child{
     });
     $('#taste_star1').click(function(){
         taste=1;
+        document.getElementById('taste_rate').setAttribute('value', taste);
     });
     $('#taste_star2').click(function(){
         taste=2;
+        document.getElementById('taste_rate').setAttribute('value', taste);
     });
     $('#taste_star3').click(function(){
         taste=3;
+        document.getElementById('taste_rate').setAttribute('value', taste);
     });
     $('#taste_star4').click(function(){
         taste=4;
+        document.getElementById('taste_rate').setAttribute('value', taste);
     });
     $('#taste_star5').click(function(){
         taste=5;
+        document.getElementById('taste_rate').setAttribute('value', taste);
     });
 </script>
 
 <!--service-->
 <script>
-    var service=1;
+    var service = 1;
 
     $('.service span').click(function(){
       $(this).parent().children('span').removeClass('on');
@@ -185,24 +198,29 @@ tr td:first-child{
     });
     $('#star1').click(function(){
         service=1;
+        document.getElementById('service_rate').setAttribute('value', service);
     });
     $('#star2').click(function(){
         service=2;
+        document.getElementById('service_rate').setAttribute('value', service);
     });
     $('#star3').click(function(){
         service=3;
+        document.getElementById('service_rate').setAttribute('value', service);
     });
     $('#star4').click(function(){
         service=4;
+        document.getElementById('service_rate').setAttribute('value', service);
     });
     $('#star5').click(function(){
         service=5;
+        document.getElementById('service_rate').setAttribute('value', service);
     });
 </script>
 
 <!--design-->
 <script>
-    var design=1;
+    var design = 1;
 
     $('.design span').click(function(){
       $(this).parent().children('span').removeClass('on');
@@ -211,18 +229,24 @@ tr td:first-child{
     });
     $('#design_star1').click(function(){
         design=1;
+        document.getElementById('design_rate').setAttribute('value', design);
     });
     $('#design_star2').click(function(){
         design=2;
+        document.getElementById('design_rate').setAttribute('value', design);
     });
     $('#design_star3').click(function(){
         design=3;
+        document.getElementById('design_rate').setAttribute('value', design);
     });
     $('#design_star4').click(function(){
         design=4;
+        document.getElementById('design_rate').setAttribute('value', design);
     });
     $('#design_star5').click(function(){
         design=5;
+        document.getElementById('design_rate').setAttribute('value', design);
     });
 </script>
+
 {% endblock %}

@@ -188,79 +188,79 @@
   </div>
 </div>
 
-<form method = "POST" action = "#">
-{% csrf_token %}
-<table id="table" class="mt-5 mb-2">
-        <!-- 옵션 추가에서 씀 -->
-         <tr id="option_row">
-            <td class="option text-nowrap" rowspan="2">옵션</td>
-            <td class="optionInfo text-nowrap">
-                <div class="d-flex justify-content-between align-items-center">
-                    <div>
-                        <!-- 옵션명 input -->
-                        {{optionform.optionName}}
-<!--                        <input type="text" name="optionName" placeholder="옵션명(10자리 이하)" maxlength="10" size="27" required>-->
-                        <!-- 필수옵션입니다 checkbox -->
-                        <span class="ml-3 mr-1 requiredOption">필수옵션입니까?</span>{{optionform.isNecessary}}
-<!--                        <input type="checkbox" class="isRequired" name="isRequired" value="필수옵션입니까" style="font-size: 0.8em;">-->
+<form method = "POST" action = "#" onsubmit="return check_submit()">
+    {% csrf_token %}
+    <table id="table" class="mt-5 mb-2">
+            <!-- 옵션 추가에서 씀 -->
+             <tr id="option_row">
+                <td class="option text-nowrap" rowspan="2">옵션</td>
+                <td class="optionInfo text-nowrap">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div>
+                            <!-- 옵션명 input -->
+                            {{optionform.optionName}}
+    <!--                        <input type="text" name="optionName" placeholder="옵션명(10자리 이하)" maxlength="10" size="27" required>-->
+                            <!-- 필수옵션입니다 checkbox -->
+                            <span class="ml-3 mr-1 requiredOption">필수옵션입니까?</span>{{optionform.isNecessary}}
+    <!--                        <input type="checkbox" class="isRequired" name="isRequired" value="필수옵션입니까" style="font-size: 0.8em;">-->
+                        </div>
+                        <div>
+                            <!-- 세부항목 추가 button -->
+                            <button type="button" class="add-form-row addDetail_btn ml-3">세부항목 추가</button>
+                        </div>
                     </div>
-                    <div>
-                        <!-- 세부항목 추가 button -->
-                        <button type="button" class="add-form-row addDetail_btn ml-3">세부항목 추가</button>
-                    </div>
-                </div>
-            </td>
-        </tr>
+                </td>
+            </tr>
 
-        <tr id="detail_row">
-            <td class="detailInfo">
-                <div class="mt-2 mb-3">
-<!--                    <span class="ml-3 mr-1">색상판</span>-->
-                    {{optionform.withColorOrImage}}
-<!--                    <span class="ml-4 mr-1">이미지 업로드</span>-->
-<!--                    {{optionform.withImage}}-->
-                  <span><img src="/static/img/question.png" style="width: 11px; margin-left:-30px; margin-bottom: 5px;"></span>
-                </div>
-<!--                <div id="detail">-->
-<!--                    <div class="detail_obj text-nowrap d-flex align-items-center ml-1 my-2">-->
-<!--                        &lt;!&ndash; 세부항목 이름 input &ndash;&gt;-->
-<!--                        <span class="ml-1 mr-3">종류</span>{{detail.detailName}}-->
-<!--                        &lt;!&ndash; 세부항목 추가금액 input &ndash;&gt;-->
-<!--                        <span class="ml-3 mr-3">추가금액</span>{{detail.pricing}}-->
-<!--                        &lt;!&ndash; 세부항목 삭제 button &ndash;&gt;-->
-<!--                        <span class="img">-->
-<!--                            <a class="deleteDetail_btn ml-2">-->
-<!--                                <img src="/static/img/delete.png" alt="세부항목 삭제" width="21em" onclick="javascript:deleteDetail(this)">-->
-<!--                            </a>-->
-<!--                        </span>-->
-<!--                    </div>-->
-<!--                </div>-->
-                {{ formset.management_form }}
-                {% for form in formset %}
-                <div id="detail">
-                    <div class="formRow detail_obj text-nowrap d-flex align-items-center ml-1 my-2">
-                        <!-- 세부항목 이름 input -->
-                        <span class="ml-1 mr-3">종류</span>{{form.detailName}}
-                        <!-- 세부항목 추가금액 input -->
-                        <span class="ml-3 mr-3">추가금액</span>{{form.pricing}}
-                        <!-- 세부항목 삭제 button -->
-                        <span class="img">
-                            <a class="remove-form-row deleteDetail_btn ml-2">
-<!--                                <img src="/static/img/delete.png" alt="세부항목 삭제" width="21em" onclick="javascript:deleteDetail(this)">-->
-                                <img src="/static/img/delete.png" alt="세부항목 삭제" width="21em">
-                            </a>
-                        </span>
+            <tr id="detail_row">
+                <td class="detailInfo">
+                    <div class="mt-2 mb-3 ml-3">
+    <!--                    <span class="ml-3 mr-1">색상판</span>-->
+                        {{optionform.withColorOrImage}}
+    <!--                    <span class="ml-4 mr-1">이미지 업로드</span>-->
+    <!--                    {{optionform.withImage}}-->
+                      <span><img src="/static/img/question.png" style="width: 11px; margin-left:-30px; margin-bottom: 5px;"></span>
                     </div>
-                </div>
-                {% endfor %}
-            </td>
-        </tr>
-</table>
+    <!--                <div id="detail">-->
+    <!--                    <div class="detail_obj text-nowrap d-flex align-items-center ml-1 my-2">-->
+    <!--                        &lt;!&ndash; 세부항목 이름 input &ndash;&gt;-->
+    <!--                        <span class="ml-1 mr-3">종류</span>{{detail.detailName}}-->
+    <!--                        &lt;!&ndash; 세부항목 추가금액 input &ndash;&gt;-->
+    <!--                        <span class="ml-3 mr-3">추가금액</span>{{detail.pricing}}-->
+    <!--                        &lt;!&ndash; 세부항목 삭제 button &ndash;&gt;-->
+    <!--                        <span class="img">-->
+    <!--                            <a class="deleteDetail_btn ml-2">-->
+    <!--                                <img src="/static/img/delete.png" alt="세부항목 삭제" width="21em" onclick="javascript:deleteDetail(this)">-->
+    <!--                            </a>-->
+    <!--                        </span>-->
+    <!--                    </div>-->
+    <!--                </div>-->
+                    {{ formset.management_form }}
+                    {% for form in formset %}
+                    <div id="detail">
+                        <div class="formRow detail_obj text-nowrap d-flex align-items-center ml-1 my-2">
+                            <!-- 세부항목 이름 input -->
+                            <span class="ml-1 mr-3">종류</span>{{form.detailName}}
+                            <!-- 세부항목 추가금액 input -->
+                            <span class="ml-3 mr-3">추가금액</span>{{form.pricing}}
+                            <!-- 세부항목 삭제 button -->
+                            <span class="img">
+                                <a class="remove-form-row deleteDetail_btn ml-2">
+    <!--                                <img src="/static/img/delete.png" alt="세부항목 삭제" width="21em" onclick="javascript:deleteDetail(this)">-->
+                                    <img src="/static/img/delete.png" alt="세부항목 삭제" width="21em">
+                                </a>
+                            </span>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </td>
+            </tr>
+    </table>
 
-<!-- 적용 버튼 -->
-<div id="submit" class="mt-5 d-flex justify-content-center align-items-center">
-    <button type="submit" class="apply_btn button">옵션 추가하기</button>
-</div>
+    <!-- 적용 버튼 -->
+    <div id="submit" class="mt-5 d-flex justify-content-center align-items-center">
+        <button type="submit" class="apply_btn button">옵션 추가하기</button>
+    </div>
 </form>
 
 
@@ -352,10 +352,48 @@
         return false;
     });
 
-    if('{{error}}'!="")
-    alert('{{ error }}');
-
 </script>
+
+
+<!-- 세부옵션(옵션명, 가격)을 다 적지 않으면 오류 -->
+<script>
+    function check_submit(){
+<!--        var check=0;-->
+<!--        var requiredOption_list = document.getElementsByClassName("requiredOption");-->
+
+<!--        &lt;!&ndash; 필수옵션을 다 선택하지 않았을 경우 &ndash;&gt;-->
+<!--        for(var i=0; i< requiredOption_list.length; i++){-->
+<!--            if(requiredOption_list[i].options[requiredOption_list[i].selectedIndex].value == ""){-->
+<!--                check=1;-->
+<!--                break;-->
+<!--            }-->
+<!--        }-->
+<!--        &lt;!&ndash; 픽업시간을 선택하지 않았을 경우(우선) &ndash;&gt;-->
+<!--        var pickupTime = document.getElementById("pickupTime");-->
+<!--        if(pickupTime.options[pickupTime.selectedIndex].value == ""){-->
+<!--            check=2;-->
+<!--        }-->
+<!--        &lt;!&ndash; 경고창 &ndash;&gt;-->
+<!--        if(check == 1){-->
+<!--            alert("필수옵션을 다 선택해주세요.");-->
+<!--            return false;-->
+<!--        }-->
+<!--        else if(check == 2){-->
+<!--            alert("픽업 시간을 선택해주세요.");-->
+<!--            return false;-->
+<!--        }-->
+<!--        else-->
+<!--            return true;-->
+    }
+</script>
+
+
+<script>
+  if('{{ error }}'!="")
+    alert('{{ error }}');
+</script>
+
+
 <!--<script>-->
 <!--  $(document).ready(function(){-->
 <!--    $("#id_withColor").change(function(){-->
@@ -391,3 +429,4 @@
 <!--  });-->
 <!--</script>-->
 {% endblock %}
+
