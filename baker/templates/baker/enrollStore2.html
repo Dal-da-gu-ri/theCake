@@ -102,21 +102,31 @@
     {% csrf_token %}
     <div class="row justify-content-center">
         <div class="col-8 col-sm-5 col-md-4 mb-3">
-            <div class="image-block embed-responsive-1by1" style="text-align: center;">
+<!--            <div class="image-block embed-responsive-1by1" style="text-align: center;">-->
 <!--                여기 고쳐야해요-->
+
+               <div class="image-block card-img-top embed-responsive embed-responsive-1by1 ">
+                 <img class="embed-responsive-item" src="/media/{{store.storeImg.value.path}}">
+                <img class="embed-responsive-item" src="/media/{{ name }}">
+
+               </div>
 <!--               <img class="embed-responsive-item" style="width: 12rem; height: 12rem; object-fit: contain; border: 2px solid gray; border-radius: 3px;" src="/media/{{ name }}">-->
 <!--                <img class="embed-responsive-item" style="width: 12rem; height: 12rem; object-fit: contain; border: 2px solid gray; border-radius: 3px;" src="{{store.storeImg.value.url}}">-->
-                <img id="store_img" src="/media/{{ name }}">
-            </div>
+<!--                <img id="store_img" src="/media/{{ name }}">-->
+<!--              <input type="file" name="storeImg">-->
+<!--            </div>-->
             <br>
             {{store.storeImg}}
 <!--            {% if store.instance.image %}-->
 <!--            {{ store.instance.storeImg.url }}-->
 <!--            {% endif %}-->
-<!--            <img class="embed-responsive-item" src="{{store.storeImg.value.url}}" alt="store_profile2">-->
+
+<!--            <img class="embed-responsive-item" src="/media/{{store.storeImg.value}}" alt="store_profile3">-->
+
 <!--            {{store.storeImg.value.url}}-->
 <!--            {{store.storeImg.value.path}}-->
 <!--            {{store.storeImg.value.href}}-->
+<!--            {{name}}-->
 
         </div>
         <div id="storeInfo" class="form-group col-8 col-sm-7 col-md-8">
