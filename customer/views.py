@@ -457,6 +457,9 @@ def cakeOrder(request,crn,cakepk):
                 pickupDate = str(request.session.get('selectedYear'))+"-"+str(request.session.get('selectedMonth'))+"-"+str(request.session.get('selectedDay')),
                 pickupTime = request.POST.get('pickupTime',None),
                 businessID = crn,
+                storeName = storeobject.storeName,
+                location = storeobject.location,
+                storeContact = storeobject.storeContact,
                 cakeName = cakeobject.cakeName,
                 cakeImg = cakeobject.cakeImg,
                 cakeText = request.POST.get('cakeText',None),
@@ -469,8 +472,13 @@ def cakeOrder(request,crn,cakepk):
             )
             order.save()
             optionpk = []
-            print(order.cakeImg)
+            # print(order.cakeImg)
             options = request.POST.getlist('option', None)
+            optioncolors = request.POST.getlist('option_color', None)
+            optionimgs = request.POST.getlist('option_image', None)
+            print(optioncolors,optionimgs)
+            print(optioncolors[1])
+
             # print(options, len(options), len(options[0]))
             # print(options[0],options[1])
             # print(options[2])
@@ -537,6 +545,13 @@ def orderlist(request):
 
         if request.method == "GET":
             order_list = Order.objects.filter(orderer = customer.userID)
+
+            optionlist = OrderOption.objects.filter(orderID=customer.userID)
+            # option_list = []
+            # for i in range(0, len(optionlist)):
+            #     option = DetailedOption.objects.get(orderID=customer.userID, pk=optionlist[i].optionID)
+            #     option_list.append(option)
+            res_data['option_list']=optionlist
             res_data['order_list']=order_list
             return render(request, 'customer/orderlist_customer.html',res_data)
 

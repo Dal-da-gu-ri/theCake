@@ -198,6 +198,9 @@ class Order(models.Model):
     pickupDate = models.CharField(max_length=30,verbose_name='희망 수령일',null=True,blank=False)
     pickupTime = models.CharField(max_length=20,verbose_name='희망 픽업 시간',null=True,blank=False)
     businessID = models.CharField(max_length=50, verbose_name='사업자 등록번호',null=True,blank=False)
+    storeName = models.CharField(max_length=30, verbose_name='가게 이름', null=True, blank=True)
+    location = models.CharField(max_length=200, verbose_name='가게 위치', null=True, blank=True)  # 나중에 blank False로 수정하기
+    storeContact = models.CharField(max_length=30, verbose_name='가게 연락처', null=True, blank=True) #,unique=True
     cakeName = models.CharField(max_length=200, verbose_name='케이크 이름',null=True,blank=False)
     cakeImg = models.ImageField(verbose_name='케이크 이미지', null=True, blank=True)
     # options = models.TextField(verbose_name='선택 옵션',null=True,blank=False)
