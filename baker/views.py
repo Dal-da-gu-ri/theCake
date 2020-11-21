@@ -827,15 +827,20 @@ def orderInfo(request, pk):
         optionlist = OrderOption.objects.filter(businessID=baker.businessID,orderID=pk)
         option_list =[]
         print(order.cakeImg)
+        print(len(optionlist))
+        print(optionlist[0].optionID)
         for i in range(0,len(optionlist)):
+            print(i)
+            print(optionlist[i].optionID)
+            print(baker.businessID)
             option = DetailedOption.objects.get(businessID=baker.businessID,pk=optionlist[i].optionID)
             option_list.append(option)
 
         # for i in range(0,len(order.options)):
         #     option = DetailedOption.objects.get(businessID=baker.businessID,pk=order.options[i])
         #     option_list.append(option)
-        print(order)
-        print(option_list)
+        # print(order)
+        # print(option_list)
         # print(order.options)
         # print(len(order.options))
 

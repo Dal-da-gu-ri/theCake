@@ -484,7 +484,7 @@ def cakeOrder(request,crn,cakepk):
                         orderoption = OrderOption(
                                         businessID = crn,
                                         orderer = customer.userID,
-                                        optionID = curoption.pk,
+                                        optionID = curdetail.pk,
                                         orderID = order.orderNum,
                                         color = details[i]
                                     )
@@ -493,7 +493,7 @@ def cakeOrder(request,crn,cakepk):
                         orderoption = OrderOption(
                                         businessID = crn,
                                         orderer = customer.userID,
-                                        optionID = curoption.pk,
+                                        optionID = curdetail.pk,
                                         orderID = order.orderNum,
                                         image = details[i]
                                     )
@@ -502,10 +502,36 @@ def cakeOrder(request,crn,cakepk):
                         orderoption = OrderOption(
                                         businessID = crn,
                                         orderer = customer.userID,
-                                        optionID = curoption.pk,
+                                        optionID = curdetail.pk,
                                         orderID = order.orderNum,
                                     )
                         orderoption.save()
+                    # if curoption.withColorOrImage == '색상판':
+                    #     orderoption = OrderOption(
+                    #                     businessID = crn,
+                    #                     orderer = customer.userID,
+                    #                     optionID = curoption.pk,
+                    #                     orderID = order.orderNum,
+                    #                     color = details[i]
+                    #                 )
+                    #     orderoption.save()
+                    # elif curoption.withColorOrImage == '이미지':
+                    #     orderoption = OrderOption(
+                    #                     businessID = crn,
+                    #                     orderer = customer.userID,
+                    #                     optionID = curoption.pk,
+                    #                     orderID = order.orderNum,
+                    #                     image = details[i]
+                    #                 )
+                    #     orderoption.save()
+                    # elif curoption.withColorOrImage == '선택 없음':
+                    #     orderoption = OrderOption(
+                    #                     businessID = crn,
+                    #                     orderer = customer.userID,
+                    #                     optionID = curoption.pk,
+                    #                     orderID = order.orderNum,
+                    #                 )
+                    #     orderoption.save()
                 amountChange(crn, request.session.get('selectedDay'), -1)
 
                 return redirect('/customer/orderList/', res_data)
@@ -567,7 +593,7 @@ def orderlist(request):
         res_data['customername'] = customer.name
 
         if request.method == "GET":
-            order_list = Order.objects.filter(orderer = customer.userID).order_by('status','pickupDate','pickupTime')
+            order_list = Order.objects.filter(orderer = customer.userID).order_by('-status','pickupDate','pickupTime')
 
             optionlist = OrderOption.objects.filter(orderID=customer.userID)
             # option_list = []
