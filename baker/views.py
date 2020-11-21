@@ -823,6 +823,12 @@ def orderInfo(request, pk):
         res_data['option_list']=option_list
         if request.method == "GET":
             return render(request, 'baker/orderInfo.html', res_data)
+        elif request.method == "POST":
+            order.status = "주문 수락"
+            order.save()
+            return redirect('/baker/manageOrder/',res_data)
+            # return render(request, 'baker/manageOrder.html',res_data)
+
 
     else:
         if request.method == "GET":
@@ -1090,7 +1096,6 @@ def option_add(request):
             optionform = OptionForm(request.POST)
             formset = DetailedOptionFormset(request.POST)
             if optionform.is_valid() and formset.is_valid():
-                # first save this book, as its reference will be used in `Author`
                 option = optionform.save(commit=False)
                 option.businessID = baker.businessID
                 option.optionName = optionform.cleaned_data['optionName']
@@ -1100,7 +1105,6 @@ def option_add(request):
                 option = optionform.save()
                 option.save()
                 for form in formset:
-                    # so that `book` instance can be attached.
                     detail = form.save(commit=False)
                     detail.option = option
                     detail.businessID = baker.businessID
