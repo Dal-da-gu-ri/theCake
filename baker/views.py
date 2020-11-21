@@ -644,15 +644,9 @@ def cake_edit(request,pk):
                 selectedoptions = request.POST.getlist('option_selected',None)
                 alloptions = CakeOption.objects.filter(businessID=baker.businessID,cakeID=pk)
                 optionhandle = False
-                # print(alloptions)
-                # print(selectedoptions)
-                # print(len(selectedoptions))
                 for opt in alloptions:
-                    # print(opt.isSelected)
                     for sel in range(0,len(selectedoptions)):
-                        # print("sel: ",selectedoptions[sel],"opt: ",opt.optionID)
                         if opt.optionID == int(selectedoptions[sel]):
-                            # print("here")
                             optionhandle = True
                             opt.isSelected = True
                             opt.save()
@@ -660,12 +654,6 @@ def cake_edit(request,pk):
                         opt.isSelected = False
                         opt.save()
                     optionhandle = False
-                    # print(opt.optionID, opt.isSelected)
-                    # print(optionhandle)
-                    # print(opt.isSelected)
-
-                # print(alloptions)
-
                 selectedoptions = CakeOption.objects.filter(businessID=baker.businessID,
                                                             cakeID=cakeobject.pk, isSelected=1)
                 for opt in selectedoptions:
@@ -681,33 +669,19 @@ def cake_edit(request,pk):
                         # res_data['cake'] = cakeform
                         cakeform = CakeForm(instance=cakeobject)
                         options = Option.objects.filter(businessID=baker.businessID)
-                        # selectedoptions = CakeOption.objects.filter(businessID=baker.businessID,
-                        #                                             cakeID=cakeobject.pk, isSelected=1)
-                        # for opt in selectedoptions:
-                        #     selOptions.append(opt.optionID)
-                        # res_data['selectedoptions'] = selOptions
 
                         res_data['cake'] = cakeform
                         res_data['options'] = options
 
-                        # res_data['selectedoptions'] = selectedoptions
                         res_data['error'] = "이미 등록된 케이크 이름입니다."
                         return render(request, 'baker/cake_edit.html', res_data)
                     else:
                         thiscake = Cake.objects.get(crn=cakeobject.crn, cakeName=cakeobject.cakeName)
                         if thiscake.cakeid != pk:
-                            # cakeform = CakeForm()
-                            # res_data['cake'] = cakeform
                             cakeform = CakeForm(instance=cakeobject)
                             options = Option.objects.filter(businessID=baker.businessID)
-                            # selectedoptions = CakeOption.objects.filter(businessID=baker.businessID,
-                            #                                             cakeID=cakeobject.pk, isSelected=1)
-                            # for opt in selectedoptions:
-                            #     selOptions.append(opt.optionID)
-                            # res_data['selectedoptions'] = selOptions
                             res_data['cake'] = cakeform
                             res_data['options'] = options
-                            # res_data['selectedoptions'] = selectedoptions
                             res_data['error'] = "이미 등록된 케이크 이름입니다."
                             return render(request, 'baker/cake_edit.html', res_data)
                         else:
@@ -1122,6 +1096,10 @@ def option_add(request):
                 return redirect('/baker/manageCake/options/',res_data)
             else:
                 print(optionform.errors)
+                optionform = OptionForm(request.GET or None)
+                formset = DetailedOptionFormset(queryset=DetailedOption.objects.none())
+                res_data['optionform'] = optionform
+                res_data['formset'] = formset
                 res_data['error']="모든 칸을 입력해주세요."
                 return render(request, 'baker/option_add.html', res_data)
 
