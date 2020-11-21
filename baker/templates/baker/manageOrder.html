@@ -71,10 +71,15 @@
             <td>{{order.pickupDate}}</td>
             <td>{{order.pickupTime}}</td>
             {% if order.status == 1 %}
-            <td>주문 수락</td>
-            {% endif %}
-            {% if order.status == 0 %}
+            <td style="font-weight:bold; color: blue;">주문 수락</td>
+            {% elif order.status == 0 %}
             <td style="font-weight:bold; color:red;">주문 요청</td>
+            {% elif order.status == 2 %}
+            <td>주문 거절</td>
+            {% elif order.status == 3 %}
+            <td style="font-weight:bold; color:purple;">결제 완료</td>
+            {% elif order.status == 4 %}
+            <td style="font-weight:bold; color: #e3a452;">픽업 완료</td>
             {% endif %}
         </tr>
 
