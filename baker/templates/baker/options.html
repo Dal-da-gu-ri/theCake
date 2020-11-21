@@ -273,8 +273,7 @@
                         <span class="optionalOption mr-5" style="font-weight:bold; color: red;">
                             필수옵션입니다
                         </span>
-                        {% endif %}
-                        {% if option.isNecessary != 1 %}
+                        {% else %}
                         <span class="optionalOption mr-5" style="font-weight:bold;">
                             선택옵션입니다
                         </span>
@@ -293,19 +292,17 @@
                 <!-- 색상판, 이미지업로드 유무 (Ex. 색상판: 유, 이미지업로드: 무)-->
                 <div class="mt-2 mb-3">
                     <span class="ml-2 mr-1">색상판:</span><span class="ml-2" style="font-weight: bold;">
-                        {% if option.withColor == 1 %}
+                        {% if option.withColorOrImage == '색상판' %}
                         필요
-                        {% endif %}
-                        {% if option.withColor != 1 %}
+                        {% else %}
                         불필요
                         {% endif %}
                 </span>
 <!--                    <span class="ml-3 mr-1">색상판</span> <input type="checkbox" class="color_check" name="color_check" value="색상판" style="font-size: 0.8em;" disabled>-->
                     <span class="ml-4 mr-1">이미지 업로드:</span><span class="ml-2" style="font-weight: bold;">
-                        {% if option.withImage == 1 %}
+                        {% if option.withColorOrImage == '이미지' %}
                         필요
-                        {% endif %}
-                        {% if option.withImage != 1 %}
+                        {% else %}
                         불필요
                         {% endif %}
                 </span>
@@ -363,6 +360,10 @@
     }
 </script>
 
+<!-- 옵션이 isactive이면 옵션삭제 비활성화 -->
+<script>
+
+</script>
 
 <!--&lt;!&ndash; 옵션 삭제 &ndash;&gt;-->
 <!--<script type="text/javascript">-->
