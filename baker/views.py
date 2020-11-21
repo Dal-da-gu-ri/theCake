@@ -1141,7 +1141,12 @@ def option_add(request):
                     detail.businessID = baker.businessID
                     detail.detailName = form.cleaned_data['detailName']
                     if DetailedOption.objects.get(businessID = baker.businessID,detailName=form.cleaned_data['detailName']):
-                        res_data['error'] = "등록하지 않은 세부옵션명을 기입해주세요."
+                        option.delete()
+                        optionform = OptionForm(request.GET or None)
+                        formset = DetailedOptionFormset(queryset=DetailedOption.objects.none())
+                        res_data['optionform'] = optionform
+                        res_data['formset'] = formset
+                        res_data['error'] = "이전에 등록하지 않은 세부옵션명을 기입해주세요."
                         return render(request, 'baker/option_add.html', res_data)
                     detail.pricing = form.cleaned_data['pricing']
                     detail.save()
