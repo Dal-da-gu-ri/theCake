@@ -45,37 +45,35 @@
 
 </style>
 
-
 <div class="album py-3">
-    <div class="pt-3">
-    <div class="row-eq-height">
-    {% for store in store_list %}
-      <div class="col-lg-3 col-md-4 col-sm-6 col-6"  style="text-align: center;">
-        <div class="card mb-3">
-          <div class="image-block card-img-top embed-responsive embed-responsive-1by1">
-                <img class="embed-responsive-item" src="/media/{{store.storeImg}}" alt="store image">
-          </div>
-          <div class="card-body">
-            <div class="pt-1">
-                <p class="store_name">{{store.storeName}}</p>
-                <p class="pt-3">{{store.reviewStore}}</p>
-                <div class="pt-3">
-<!--                  가게위치 - 간단하게 ex) 인천 부평구 삼산동-->
-                <span class="store_addr gray">{{store.daum_sido}} {{store.daum_sigungu}} {{store.daum_dong}}</span>
+    <div class="container pt-3">
+        <div class="row row-eq-height">
+        {% for store in store_list %}
+          <div class="col-lg-3 col-md-4 col-sm-6 col-6"  style="text-align: center;">
+            <div class="card mb-3">
+              <div class="image-block card-img-top embed-responsive embed-responsive-1by1">
+                    <img class="embed-responsive-item" src="/media/{{store.storeImg}}" alt="store image">
+              </div>
+              <div class="card-body">
+                <div class="pt-1">
+                    <p class="store_name">{{store.storeName}}</p>
+                    <p class="pt-3">{{store.reviewStore}}</p>
+                    <div class="pt-3">
+    <!--                  가게위치 - 간단하게 ex) 인천 부평구 삼산동-->
+                    <span class="store_addr gray">{{store.daum_sido}} {{store.daum_sigungu}} {{store.daum_dong}}</span>
+                    </div>
+                    <div class="text-nowrap">
+                      <button class="select_btn mt-3" onclick="location.href='{% url 'customer:storeInfo' store.pk %}'">가게 선택</button>
+                    </div>
                 </div>
-                <div class="text-nowrap">
-                  <button class="select_btn mt-3" onclick="location.href='{% url 'customer:storeInfo' store.pk %}'">가게 선택</button>
-                </div>
+              </div>
             </div>
+            <br>
           </div>
+          {% endfor %}
         </div>
-        <br>
-      </div>
-      {% endfor %}
-    </div>
   </div>
 </div>
-
 
 <script>
     if('{{error}}'!="")
