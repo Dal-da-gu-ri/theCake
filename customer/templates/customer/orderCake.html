@@ -299,12 +299,12 @@
                                 </select>
                             </td>
                         </tr>
-                        {% if option.withColorOrImage == 1 %}
+                        {% if option.withColorOrImage == "색상판" %}
                         <tr>
                         <!-- 색상판 -->
                             <td style="padding-left: 5%;"><input type="color" name="option_color" id="requiredOption_color" value="#ffffff"></td>
                         </tr>
-                        {% elif option.withColorOrImage == 1 %}
+                        {% elif option.withColorOrImage == "이미지" %}
                         <tr>
                         <!-- 이미지업로드 -->
                             <td style="padding-left: 5%;"><input type="file" name="option_image" id="requiredOption_image" accept="image/*"></td>
