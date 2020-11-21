@@ -845,9 +845,12 @@ def orderInfo(request, pk):
         # print(len(order.options))
 
         orderer = Orderer.objects.get(userID=order.orderer)
+        orderoption_list = OrderOption.objects.filter(businessID=baker.businessID,orderer=orderer.userID,orderID=pk)
+
         res_data['orderer']=orderer
         res_data['order'] = order
         res_data['option_list']=option_list
+        res_data['orderoption_list']=orderoption_list
         if request.method == "GET":
             return render(request, 'baker/orderInfo.html', res_data)
         elif request.method == "POST":
@@ -1137,6 +1140,9 @@ def option_add(request):
                     detail.option = option
                     detail.businessID = baker.businessID
                     detail.detailName = form.cleaned_data['detailName']
+                    if DetailedOption.objects.get(businessID = baker.businessID,detailName=form.cleaned_data['detailName']):
+                        res_data['error'] = "등록하지 않은 세부옵션명을 기입해주세요."
+                        return render(request, 'baker/option_add.html', res_data)
                     detail.pricing = form.cleaned_data['pricing']
                     detail.save()
                 return redirect('/baker/manageCake/options/',res_data)

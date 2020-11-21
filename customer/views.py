@@ -477,6 +477,9 @@ def cakeOrder(request,crn,cakepk):
                 options = request.POST.getlist('option', None)
                 details = request.POST.getlist('option_detail', None)
 
+                print(options)
+                print(options[0])
+                print(details)
                 for i in range(0,len(options)):
                     curdetail = DetailedOption.objects.get(businessID=crn,detailName=options[i])
                     curoption = Option.objects.get(businessID=crn,optionName=curdetail.option)
@@ -506,6 +509,9 @@ def cakeOrder(request,crn,cakepk):
                                         orderID = order.orderNum,
                                     )
                         orderoption.save()
+
+
+
                     # if curoption.withColorOrImage == '색상판':
                     #     orderoption = OrderOption(
                     #                     businessID = crn,
