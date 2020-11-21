@@ -567,7 +567,7 @@ def orderlist(request):
         res_data['customername'] = customer.name
 
         if request.method == "GET":
-            order_list = Order.objects.filter(orderer = customer.userID)
+            order_list = Order.objects.filter(orderer = customer.userID).order_by('status','pickupDate','pickupTime')
 
             optionlist = OrderOption.objects.filter(orderID=customer.userID)
             # option_list = []
