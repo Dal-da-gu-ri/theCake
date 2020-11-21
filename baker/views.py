@@ -1121,7 +1121,11 @@ def option_add(request):
                     detail.save()
                 return redirect('/baker/manageCake/options/',res_data)
             else:
-                    return redirect('/baker/inappropriateApproach')
+                print(optionform.errors)
+                res_data['error']="모든 칸을 입력해주세요."
+                return render(request, 'baker/option_add.html', res_data)
+
+                # return redirect('/baker/inappropriateApproach')
 
     else:
         if request.method == "GET":
