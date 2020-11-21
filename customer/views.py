@@ -439,6 +439,7 @@ def cakeOrder(request,crn,cakepk):
                     if detailed_list[j].option_id == optionobject.pk:
                         details.append(detailed_list[j])
 
+            print(cakeobject.cakeImg)
             # print(options)
             # for option in options:
             #     print(option.optionName)
@@ -457,28 +458,32 @@ def cakeOrder(request,crn,cakepk):
                 pickupTime = request.POST.get('pickupTime',None),
                 businessID = crn,
                 cakeName = cakeobject.cakeName,
+                cakeImg = cakeobject.cakeImg,
                 cakeText = request.POST.get('cakeText',None),
                 message = request.POST.get('message',None),
                 price = request.POST.get('total_price',None),
                 # options = request.POST.getlist('option', None),
-                status = '주문 요청'
+                status = 0
                 # requiredOpt
                 # additionalOpt
             )
             order.save()
             optionpk = []
+            print(order.cakeImg)
             options = request.POST.getlist('option', None)
-            print(options, len(options), len(options[0]))
-            print(options[0],options[1])
+            # print(options, len(options), len(options[0]))
+            # print(options[0],options[1])
+            # print(options[2])
             for option in range(0, len(options)):
-                curoption = DetailedOption.objects.get(businessID=crn,detailName=options[option])
-                orderoption = OrderOption(
-                    businessID = crn,
-                    orderer = customer.userID,
-                    optionID = curoption.pk,
-                    orderID = order.orderNum
-                )
-                orderoption.save()
+                if options[option]:
+                    curoption = DetailedOption.objects.get(businessID=crn,detailName=options[option])
+                    orderoption = OrderOption(
+                        businessID = crn,
+                        orderer = customer.userID,
+                        optionID = curoption.pk,
+                        orderID = order.orderNum
+                    )
+                    orderoption.save()
 
             #
             # optionpk =[]
@@ -496,6 +501,7 @@ def cakeOrder(request,crn,cakepk):
             # pickupTime = request.POST.get('pickupTime', None)
             # cakeText = request.POST.get('cakeText', None)
             price = request.POST.get('total_price', None)
+            res_data['price'] = price
             # options = request.POST.getlist('option', None)
             #
             # print(pickupTime)

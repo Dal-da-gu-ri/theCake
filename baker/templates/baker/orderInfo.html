@@ -1,9 +1,139 @@
 {% extends 'base_baker.html' %}
 {% block title %} :: 상세 주문 내역 확인 :: {% endblock %}
 {% block content %}
+
+<style>
+  #accept{
+    margin-left: 7.5em;
+    padding: 0.7em;
+    padding-right: 2em;
+    padding-left: 2em;"
+  }
+  @media (max-width: 1184px) {
+    #accept{
+      margin-left: 5.8em;
+    }
+  }
+  @media (max-width: 976px) {
+    #accept{
+      margin-left: 3em;
+    }
+  }
+<!--  @media (max-width: 570px) {-->
+<!--    #accept{-->
+<!--      margin-left: 7em;-->
+<!--    }-->
+<!--  }-->
+</style>
 <div class="row">
         <p class="pt-3 pl-4 path">주문 관리 > 상세 주문 내역 확인</p>
 </div>
 
+    <div class="row justify-content-center">
+        <div class="col-8 col-sm-5 col-md-4 mb-3 mt-4">
+<!--            <div style="text-align: center;">-->
+<!--                <img id="cakeImg" class="m-2" src="/media/{{ cake.cakeImg.value }}" alt="cake image">-->
+<!--            </div>-->
+            <div class="image-block card-img-top embed-responsive embed-responsive-1by1">
+               <img id="cake_img" class="embed-responsive-item" src="/media/{{ order.cakeImg }}">
+            </div>
+            <br>
+                <form method = "POST" action = "#" onsubmit="return accept()">
+                {% csrf_token %}
+                <div class="row mt-1">
+                  <button id="accept" class="btn btn-secondary mt-4 text-center">수락하기</button>
+                </div>
+                </form>
+        </div>
+        <div id="cake_info" class="form-group col-8 col-sm-7 col-md-8 mt-3">
+            <div class="form-row">
+                <div class="form-group col-4 text-nowrap">
+                    <label>주문번호</label>
+                </div>
+                <div class="form-group col-4" style="align:center;">
+                    {{ order.orderNum }}
+                </div>
+            </div>
+            <hr>
+            <div class="form-row">
+                <div class="form-group col-4 text-nowrap">
+                    <label>주문자</label>
+                </div>
+                <div class="form-group col-4" style="align:center;">
+                    {{ order.orderer }}
+                </div>
+            </div>
+            <hr>
+            <div class="form-row">
+                <div class="form-group col-4 text-nowrap">
+                    <label>케이크 이름</label>
+                </div>
+                <div class="form-group col-4" style="align:center;">
+                    {{ order.cakeName }}
+                </div>
+            </div>
+            <hr>
+            <div class="form-row">
+                <div class="form-group col-4 text-nowrap">
+                    <label>선택한 옵션</label>
+                </div>
+                <div class="form-group col-4">
+                        {% for option in option_list %}
+                        {{option.option}}:{{option.detailName}}(+{{option.pricing}}원)<br>
+                        <!--만약 option.Color가 ""이 아니라면 출력-->
+                        <!--{{option.Color}}-->
+                  {{option.}}
+                        {% endfor %}
+                </div>
+            </div>
+            <hr>
+            <div class="form-row">
+                <div class="form-group col-4 text-nowrap">
+                    <label>희망 픽업일</label>
+                </div>
+                <div class="form-group col-4" style="align:center;">
+                    {{ order.pickupDate }}
+                </div>
+            </div>
+            <hr>
+            <div class="form-row">
+                <div class="form-group col-4 text-nowrap">
+                    <label>희망 픽업 시간</label>
+                </div>
+                <div class="form-group col-4" style="align:center;">
+                    {{ order.pickupTime }}
+                </div>
+            </div>
+            <hr>
+            <div class="form-row">
+                <div class="form-group col-4 text-nowrap">
+                    <label>주문 요청사항</label>
+                </div>
+                <div class="form-group col-4">
+                  {{ order.message }}
+                </div>
+            </div>
+          <hr>
+            <div class="form-row">
+                <div class="form-group col-4 text-nowrap">
+                    <label>최종 가격</label>
+                </div>
+                <div class="form-group col-4">
+                  {{ order.price }}원
+                </div>
+            </div>
+
+        </div>
+    </div>
+<!--    <div class="row mt-5">-->
+<!--        <button type='submit' id="submit" class="btn btn-secondary mt-4">등록</button>-->
+<!--    </div>-->
+
+<script>
+  $(function(){
+    if ('{{order.status}}'=="1")
+      $('#accept').attr('disabled', true);
+  });
+</script>
 
 {% endblock %}
