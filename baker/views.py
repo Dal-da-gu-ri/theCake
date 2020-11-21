@@ -642,7 +642,45 @@ def cake_edit(request,pk):
                 res_data['name'] = cakeobject.cakeImg
 
                 selectedoptions = request.POST.getlist('option_selected',None)
+
+
+
                 alloptions = CakeOption.objects.filter(businessID=baker.businessID,cakeID=pk)
+
+                option_list = Option.objects.filter(businessID=baker.businessID)
+                available = False
+                for i in range(0,len(option_list)):
+                    print("1:",available)
+                    for j in range(0,len(alloptions)):
+                        if option_list[i].pk == alloptions[j].optionID:
+                            available = True
+
+                    if available == False:
+                        cakeoption = CakeOption(
+                            businessID=baker.businessID,
+                            optionID=option_list[i].pk,
+                            cakeID=pk,
+                            isSelected=False
+                        )
+                        cakeoption.save()
+                        alloptions.append(cakeoption)
+                    print("2:",available)
+                    available = False
+
+                print(option_list)
+                print(alloptions)
+
+
+                # for option in option_list:
+                #     cakeoption = CakeOption(
+                #         businessID=baker.businessID,
+                #         optionID=option.pk,
+                #         cakeID=newpk,
+                #         isSelected=False
+                #     )
+                #     cakeoption.save()
+
+
                 optionhandle = False
                 for opt in alloptions:
                     for sel in range(0,len(selectedoptions)):
