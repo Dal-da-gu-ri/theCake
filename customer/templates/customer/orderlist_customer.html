@@ -1,8 +1,87 @@
 {% extends 'base_customer.html' %}
-
+{% block title %} ::주문 내역 조회:: {% endblock %}
 {% block content %}
-   <div class="row">
-        <p class="pt-3 pl-4 path">주문목록</p>
-    </div>
+<style>
+    #table_space{
+        width:100%;
+        height: 30em;
+        overflow:scroll;
+    }
 
+    table {
+      width:100%;
+      text-align: center;
+      border: 2px solid #bf7f7f;
+    }
+
+    table tr:not(:nth-child(1)){
+      font-size: 15px;
+      height: 2.5em;
+      vertical-align: top;
+      background-color: #f9f9f9cd;
+    }
+
+    table th:not(:last-child), td:not(:last-child){
+        border-right: 1px solid #bf7f7f;
+    }
+    table th:nth-child(1){
+        width: 15%;
+    }
+    table th:nth-child(2){
+        width: 15%;
+    }
+    table th:nth-child(3){
+        width: 25%;
+    }
+    table th:nth-child(4), table th:nth-child(5){
+        width: 15%;
+    }
+    #header{
+      background-color: #f7f1f1cb;
+      height: 2em;
+      border-bottom: double #bf7f7f;
+      font-weight: bold;
+    }
+
+    th, td{
+        vertical-align:middle;
+        border-bottom: 1px solid #bf7f7f;
+        margin: 10px !important;
+    }
+</style>
+  <div class="row">
+        <p class="pt-3 pl-4 path">주문 내역 조회</p>
+  </div>
+
+<div class="mt-4" id="table_space">
+    <table class = "text-nowrap" id = "table">
+        <tr id="header">
+            <th>픽업 날짜</th>
+            <th>케이크 이미지</th>
+            <th>옵션 선택</th>
+            <th>주문 매장</th>
+            <th></th>
+            <th>주문 진행 상황</th>
+        </tr>
+        {% for order in order_list %}
+        <tr>
+            <td>{{order.pickupDate}}<br>{{order.pickupTime}}</td>
+            <td><div class="image-block embed-responsive-1by1" style="text-align: center;">
+               <img id="cake_img" class="embed-responsive-item" src="/media/{{ cake.cakeImg.value }}">
+<!--               <img class="embed-responsive-item" src="{{cake.cakeImg.value.url}}">-->
+            </div></td>
+            <td>{{order.cakeName}}</a></td>
+            <td>{{order.pickupDate}}</td>
+            <td>{{order.pickupTime}}</td>
+            {% if order.status == 1 %}
+            <td>주문 수락</td>
+            {% endif %}
+            {% if order.status == 0 %}
+          <td style="font-weight:bold; color:red;">주문 요청<button>주문취소</button></td>
+            {% endif %}
+        </tr>
+
+        {% endfor %}
+    </table>
+</div>
 {% endblock %}
