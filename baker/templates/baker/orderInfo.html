@@ -38,7 +38,7 @@
                <img id="cake_img" class="embed-responsive-item" src="/media/{{ order.cakeImg }}">
             </div>
             <br>
-                <form method = "POST" action = "#" onsubmit="return accept()">
+                <form method = "POST" action = "#" onsubmit="return accept_alert()">
                 {% csrf_token %}
                 <div class="row mt-1">
                   <button id="accept" class="btn btn-secondary mt-4 text-center">수락하기</button>
@@ -129,6 +129,7 @@
 <!--        <button type='submit' id="submit" class="btn btn-secondary mt-4">등록</button>-->
 <!--    </div>-->
 
+<!--수락하기 버튼을 disabled-->
 <script>
   $(function(){
     if ('{{order.status}}'=="1")
@@ -136,4 +137,15 @@
   });
 </script>
 
+<!--수락 경고창-->
+<script>
+    function accept_alert(){
+        var result = confirm("정말 수락하실 건가요? 한 번 수락하면 수락 취소는 불가합니다!");
+        if(result){
+            return true;
+        }else{
+            return false;
+        }
+    }
+</script>
 {% endblock %}
