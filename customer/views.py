@@ -230,6 +230,9 @@ def showStores(request):
         store_list=[]
         isStore = False
 
+        review_list = Review.objects.all()
+        res_data['review_list'] = review_list
+
         if day:
             orderyear = int(orderdate[0])*1000+int(orderdate[1])*100+int(orderdate[2])*10+int(orderdate[3])
             ordermonth = int(orderdate[5]) * 10 + int(orderdate[6])
@@ -624,39 +627,62 @@ def writeReview(request,orderNum):
     if user_id:
         customer = Orderer.objects.get(pk=user_id)
         res_data['customername'] = customer.name
-        reviewform = ReviewForm()
+        # reviewform = ReviewForm()
         reviewobject = Review()
         order = Order.objects.get(orderer=customer.userID, orderNum=orderNum)
         if request.method == "GET":
-            try:
-                reviewobject = Review.objects.get(orderer=customer.userID,orderNum=orderNum)
-                reviewform = ReviewForm(instance=reviewobject)
-            except Review.DoesNotExist:
-                reviewobject=Review()
-                reviewform = ReviewForm(instance=reviewobject)
+            # try:
+            #     reviewobject = Review.objects.get(orderer=customer.userID,orderNum=orderNum)
+            #     reviewform = ReviewForm(instance=reviewobject)
+            # except Review.DoesNotExist:
+            #     reviewobject=Review()
+            #     reviewform = ReviewForm(instance=reviewobject)
 
             res_data['order'] = order
-            res_data['review']=reviewform
+            # res_data['review']=reviewform
             return render(request, 'customer/writeReview.html', res_data)
         elif request.method == "POST":
-            reviewform = ReviewForm(request.POST)
 
-            if reviewform.is_valid(): #유효성 검사
-                reviewobject.orderNum = orderNum
-                reviewobject.orderer = customer.userID
-                secureID(customer.userID,orderNum)
-                reviewobject.storeInfo = order.businessID
-                reviewobject.taste = reviewform.cleaned_data['taste']
-                reviewobject.service = reviewform.cleaned_data['service']
-                reviewobject.design = reviewform.cleaned_data['design']
-                reviewobject.textReview = reviewform.cleaned_data['textReview']
-                reviewobject.save()
+            review = Review(
+                orderNum = orderNum,
+                orderer = customer.userID,
+                storeInfo = order.businessID,
+                # taste = int(request.POST.get('taste_rate',None)),
+                # service = int(request.POST.get('service_rate', None)),
+                # design = int(request.POST.get('design_rate', None)),
+                textReview = request.POST.get('review', None),
 
-                res_data['review'] = reviewform
-                return render(request, 'customer/orderlist_customer.html', res_data)
-            else:
-                    print(reviewform.errors)
-                    return redirect('/customer/inappropriateApproach')
+            )
+
+            taste = request.POST.get('taste_rate',None)
+            service = request.POST.get('service_rate', None)
+            design = request.POST.get('design_rate', None)
+            review.taste = int(taste)
+            review.service = int(service)
+            review.design = int(design)
+            # print(taste)
+            review.save()
+            secureID(customer.userID,orderNum)
+            return redirect('/customer/orderList/',res_data)
+
+
+            # reviewform = ReviewForm(request.POST)
+            # if reviewform.is_valid(): #유효성 검사
+            #     reviewobject.orderNum = orderNum
+            #     reviewobject.orderer = customer.userID
+            #     secureID(customer.userID,orderNum)
+            #     reviewobject.storeInfo = order.businessID
+            #     reviewobject.taste = reviewform.cleaned_data['taste']
+            #     reviewobject.service = reviewform.cleaned_data['service']
+            #     reviewobject.design = reviewform.cleaned_data['design']
+            #     reviewobject.textReview = reviewform.cleaned_data['textReview']
+            #     reviewobject.save()
+            #
+            #     res_data['review'] = reviewform
+            #     return render(request, 'customer/orderlist_customer.html', res_data)
+            # else:
+            #         print(reviewform.errors)
+            #         return redirect('/customer/inappropriateApproach')
 
     else:
         if request.method == "GET":
