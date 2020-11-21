@@ -175,7 +175,9 @@
 <!--        padding-right: 1em;-->
 <!--        border-right: 1.5px solid black;-->
 <!--    }-->
-
+  label{
+    margin-right: 20px;
+  }
 
 </style>
 
@@ -213,10 +215,11 @@
         <tr id="detail_row">
             <td class="detailInfo">
                 <div class="mt-2 mb-3">
-                    <span class="ml-3 mr-1">색상판</span>
-                    {{optionform.withColor}}
-                    <span class="ml-4 mr-1">이미지 업로드</span>
-                    {{optionform.withImage}}
+<!--                    <span class="ml-3 mr-1">색상판</span>-->
+                    {{optionform.withColorOrImage}}
+<!--                    <span class="ml-4 mr-1">이미지 업로드</span>-->
+<!--                    {{optionform.withImage}}-->
+                  <span><img src="/static/img/question.png" style="width: 11px; margin-left:-30px; margin-bottom: 5px;"></span>
                 </div>
 <!--                <div id="detail">-->
 <!--                    <div class="detail_obj text-nowrap d-flex align-items-center ml-1 my-2">-->
@@ -259,6 +262,7 @@
     <button type="submit" class="apply_btn button">옵션 추가하기</button>
 </div>
 </form>
+
 
 
 <!-- 처음건 버튼이 존재하지 않음 -->
@@ -369,5 +373,18 @@
 <!--    });-->
 <!--  });-->
 <!--</script>-->
-
+<!--<script>-->
+<!--  $(document).ready(function(){-->
+<!--    $("#id_withColor").change(function(){-->
+<!--      if($("#id_withColor").is(":checked")){-->
+<!--        $("#id_withImage").is(":checked")=false;-->
+<!--        console.log('컬러가 체크되어잇으니 이미지는 해제해라');-->
+<!--      }-->
+<!--    });-->
+<!--    $("#id_withImage").change(function(){-->
+<!--      if($("#id_withImage").is(":checked"))-->
+<!--        $("#id_withColor").is(":checked")=false;-->
+<!--    });-->
+<!--  });-->
+<!--</script>-->
 {% endblock %}
