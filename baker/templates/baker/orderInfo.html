@@ -1,6 +1,30 @@
 {% extends 'base_baker.html' %}
 {% block title %} :: 상세 주문 내역 확인 :: {% endblock %}
 {% block content %}
+
+<style>
+  #accept{
+    margin-left: 7.5em;
+    padding: 0.7em;
+    padding-right: 2em;
+    padding-left: 2em;"
+  }
+  @media (max-width: 1184px) {
+    #accept{
+      margin-left: 5.8em;
+    }
+  }
+  @media (max-width: 976px) {
+    #accept{
+      margin-left: 3em;
+    }
+  }
+<!--  @media (max-width: 570px) {-->
+<!--    #accept{-->
+<!--      margin-left: 7em;-->
+<!--    }-->
+<!--  }-->
+</style>
 <div class="row">
         <p class="pt-3 pl-4 path">주문 관리 > 상세 주문 내역 확인</p>
 </div>
@@ -10,14 +34,15 @@
 <!--            <div style="text-align: center;">-->
 <!--                <img id="cakeImg" class="m-2" src="/media/{{ cake.cakeImg.value }}" alt="cake image">-->
 <!--            </div>-->
-            <div class="image-block embed-responsive-1by1" style="text-align: center;">
-               <img id="cake_img" class="embed-responsive-item" src="/media/{{ order.cakeImg.value }}">
-               <img class="embed-responsive-item" src="{{order.cakeImg.value.url}}">
+            <div class="image-block card-img-top embed-responsive embed-responsive-1by1">
+               <img id="cake_img" class="embed-responsive-item" src="/media/{{ order.cakeImg }}">
             </div>
             <br>
                 <form method = "POST" action = "#" onsubmit="return accept()">
                 {% csrf_token %}
-                <button id="accept" onclick="accept()">수락하기</button>
+                <div class="row mt-1">
+                  <button id="accept" class="btn btn-secondary mt-4 text-center">수락하기</button>
+                </div>
                 </form>
         </div>
         <div id="cake_info" class="form-group col-8 col-sm-7 col-md-8 mt-3">
@@ -105,9 +130,10 @@
 <!--    </div>-->
 
 <script>
-  function accept(){
-    $('#accept').attr('disabled', true);
-  }
+  $(function(){
+    if ('{{order.status}}'=="1")
+      $('#accept').attr('disabled', true);
+  });
 </script>
 
 {% endblock %}
