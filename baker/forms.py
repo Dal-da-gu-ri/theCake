@@ -782,7 +782,12 @@ class OptionForm(forms.ModelForm):
                 }
             ),
             'isNecessary' : forms.CheckboxInput,
-            'withColorOrImage':forms.RadioSelect
+            'withColorOrImage':forms.RadioSelect(
+                attrs={
+                    'class': 'form-check-inline',
+                    'style': 'display: inline-block; margin-right:0px;'
+                }
+            )
             # 'withColor' : forms.CheckboxInput,
             # 'withImage' : forms.CheckboxInput
         }
@@ -800,7 +805,12 @@ extra=1,
             }
         ),
         'isNecessary': forms.CheckboxInput,
-        'withColorOrImage': forms.RadioSelect
+        'withColorOrImage':forms.RadioSelect(
+                attrs={
+                    'class': 'form-check-inline',
+                    'style': 'display: inline-block; margin-right:0px;'
+                }
+        )
         # 'withColor': forms.CheckboxInput,
         # 'withImage': forms.CheckboxInput
     }
