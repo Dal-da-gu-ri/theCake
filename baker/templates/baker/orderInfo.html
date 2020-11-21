@@ -24,13 +24,26 @@
 <!--      margin-left: 7em;-->
 <!--    }-->
 <!--  }-->
+  .color_recommend {
+        float: left;
+	      border:2px solid #000000;
+	      width: 15px;
+	      height: 15px;
+	      border-radius: 100%;
+    }
+    #customerImage{
+        width: 13rem;
+        height: 13rem;
+        object-fit: contain;
+        border: 2px solid #ffe0e0;
+    }
 </style>
 <div class="row">
         <p class="pt-3 pl-4 path">주문 관리 > 상세 주문 내역 확인</p>
 </div>
 
     <div class="row justify-content-center">
-        <div class="col-8 col-sm-5 col-md-4 mb-3 mt-4">
+        <div class="col-8 col-sm-5 col-md-4 mb-3 mt-5">
 <!--            <div style="text-align: center;">-->
 <!--                <img id="cakeImg" class="m-2" src="/media/{{ cake.cakeImg.value }}" alt="cake image">-->
 <!--            </div>-->
@@ -45,79 +58,94 @@
                 </div>
                 </form>
         </div>
-        <div id="cake_info" class="form-group col-8 col-sm-7 col-md-8 mt-3">
+        <div id="cake_info" class="form-group col-8 col-sm-7 col-md-8 mt-5">
             <div class="form-row">
-                <div class="form-group col-4 text-nowrap">
+                <div class="col-4 text-nowrap text-center">
                     <label>주문번호</label>
                 </div>
-                <div class="form-group col-4" style="align:center;">
+                <div class="col-6" style="align:center;">
                     {{ order.orderNum }}
                 </div>
             </div>
             <hr>
             <div class="form-row">
-                <div class="form-group col-4 text-nowrap">
+                <div class="col-4 text-nowrap text-center">
                     <label>주문자</label>
                 </div>
-                <div class="form-group col-4" style="align:center;">
+                <div class="col-6" style="align:center;">
                     {{ order.orderer }}
                 </div>
             </div>
             <hr>
             <div class="form-row">
-                <div class="form-group col-4 text-nowrap">
+                <div class="col-4 text-nowrap text-center">
                     <label>케이크 이름</label>
                 </div>
-                <div class="form-group col-4" style="align:center;">
+                <div class="col-6" style="align:center;">
                     {{ order.cakeName }}
                 </div>
             </div>
             <hr>
             <div class="form-row">
-                <div class="form-group col-4 text-nowrap">
-                    <label>선택한 옵션</label>
+                <div class="col-4 text-nowrap text-center">
+                    <label style="margin-top: 2.8em;">선택한 옵션</label>
                 </div>
-                <div class="form-group col-4">
-                        {% for option in option_list %}
-                        {{option.option}}:{{option.detailName}}(+{{option.pricing}}원)<br>
-                        <!--만약 option.Color가 ""이 아니라면 출력-->
-                        <!--{{option.Color}}-->
-                        {% endfor %}
+                <div class="col-6">
+                  {% for option in option_list %}
+                    {% for orderoption in orderoption_list %}
+                      {% if orderoption.color != NULL %}
+                        {% if orderoption.optionID == option.id %}
+                          <div class="mt-2">{{option.option}}: {{option.detailName}} ({{option.pricing}}원) <div class="color_recommend" style="background-color: {{orderoption.color}};"></div></div>
+                        {% endif %}
+                      {% elif orderoption.image != NULL %}
+                        {% if orderoption.optionID == option.id %}
+                          <div class="mt-2">{{option.option}}: {{option.detailName}} ({{option.pricing}}원)<img id="customerImage" class="m-1" src="/media/{{orderoption.image}}" alt="customer image"></div>
+                        {% endif %}
+                      {% elif orderoption.color == NULL %}
+                        {% if orderoption.image == NULL %}
+                          {% if orderoption.optionID == option.id %}
+                            <div class="mt-2">{{option.option}}: {{option.detailName}} ({{option.pricing}}원)</div>
+                          {% endif %}
+                        {% endif %}
+                      {% endif %}
+                    {% endfor %}
+                  {% endfor %}
+                  <div class="mt-2"></div>
                 </div>
             </div>
             <hr>
             <div class="form-row">
-                <div class="form-group col-4 text-nowrap">
+                <div class="col-4 text-nowrap text-center">
                     <label>희망 픽업일</label>
                 </div>
-                <div class="form-group col-4" style="align:center;">
+                <div class="col-6" style="align:center;">
                     {{ order.pickupDate }}
                 </div>
             </div>
             <hr>
             <div class="form-row">
-                <div class="form-group col-4 text-nowrap">
+                <div class="col-4 text-nowrap text-center">
                     <label>희망 픽업 시간</label>
                 </div>
-                <div class="form-group col-4" style="align:center;">
+                <div class="col-6">
                     {{ order.pickupTime }}
                 </div>
             </div>
             <hr>
             <div class="form-row">
-                <div class="form-group col-4 text-nowrap">
+                <div class="col-4 text-nowrap text-center">
                     <label>주문 요청사항</label>
                 </div>
-                <div class="form-group col-4">
+                <div class="col-6">
                   {{ order.message }}
                 </div>
             </div>
           <hr>
             <div class="form-row">
-                <div class="form-group col-4 text-nowrap">
+                <div class="col-4 text-nowrap text-center">
                     <label>최종 가격</label>
                 </div>
-                <div class="form-group col-4">
+                <div class="col-6">
                   {{ order.price }}원
                 </div>
             </div>
