@@ -473,28 +473,67 @@ def cakeOrder(request,crn,cakepk):
             order.save()
             optionpk = []
             # print(order.cakeImg)
-            options = request.POST.getlist('option', None)
-            optioncolors = request.POST.getlist('option_color', None)
-            optionimgs = request.POST.getlist('option_image', None)
-            print(optioncolors,optionimgs)
-            print(optioncolors[1])
+            # options = request.POST.getlist('option', None)
+            # optioncolors = request.POST.getlist('option_color', None)
+            # optionimgs = request.POST.getlist('option_image', None)
+            # print(options,optioncolors,optionimgs)
+            # print(optioncolors[1])
 
+            options = request.POST.getlist('option', None)
+            details = request.POST.getlist('option_detail', None)
+
+            for i in range(0,len(options)):
+                curdetail = DetailedOption.objects.get(businessID=crn,detailName=options[i])
+                curoption = Option.objects.get(businessID=crn,optionName=curdetail.option)
+                if curoption.withColorOrImage == '색상판':
+                    orderoption = OrderOption(
+                                    businessID = crn,
+                                    orderer = customer.userID,
+                                    optionID = curoption.pk,
+                                    orderID = order.orderNum,
+                                    color = details[i]
+                                )
+                    orderoption.save()
+                elif curoption.withColorOrImage == '이미지':
+                    orderoption = OrderOption(
+                                    businessID = crn,
+                                    orderer = customer.userID,
+                                    optionID = curoption.pk,
+                                    orderID = order.orderNum,
+                                    image = details[i]
+                                )
+                    orderoption.save()
+                elif curoption.withColorOrImage == '선택 없음':
+                    orderoption = OrderOption(
+                                    businessID = crn,
+                                    orderer = customer.userID,
+                                    optionID = curoption.pk,
+                                    orderID = order.orderNum,
+                                )
+                    orderoption.save()
+
+            print(options)
+            print(options[0], options[1], options[2], options[3], options[4])
+            print(details)
+            print(details[0],details[1],details[2],details[3],details[4])
             # print(options, len(options), len(options[0]))
             # print(options[0],options[1])
             # print(options[2])
-            for option in range(0, len(options)):
-                if options[option]:
-                    curoption = DetailedOption.objects.get(businessID=crn,detailName=options[option])
-                    curbigoption = Option.objects.get(businessID=crn,optionName=curoption.option)
-                    curbigoption.isUsed = True
-                    curbigoption.save()
-                    orderoption = OrderOption(
-                        businessID = crn,
-                        orderer = customer.userID,
-                        optionID = curoption.pk,
-                        orderID = order.orderNum
-                    )
-                    orderoption.save()
+
+
+            # for option in range(0, len(options)):
+            #     if options[option]:
+            #         curoption = DetailedOption.objects.get(businessID=crn,detailName=options[option])
+            #         curbigoption = Option.objects.get(businessID=crn,optionName=curoption.option)
+            #         curbigoption.isUsed = True
+            #         curbigoption.save()
+            #         orderoption = OrderOption(
+            #             businessID = crn,
+            #             orderer = customer.userID,
+            #             optionID = curoption.pk,
+            #             orderID = order.orderNum
+            #         )
+            #         orderoption.save()
 
             #
             # optionpk =[]
@@ -511,13 +550,13 @@ def cakeOrder(request,crn,cakepk):
 
             # pickupTime = request.POST.get('pickupTime', None)
             # cakeText = request.POST.get('cakeText', None)
-            price = request.POST.get('total_price', None)
-            res_data['price'] = price
+            # price = request.POST.get('total_price', None)
+            # res_data['price'] = price
             # options = request.POST.getlist('option', None)
             #
             # print(pickupTime)
             # print(cakeText)
-            print(price)
+            # print(price)
             # print(options)
             # return render(request, 'customer/orderlist_customer.html', res_data)
             return redirect('/customer/orderList/', res_data)
