@@ -439,6 +439,7 @@ def cakeOrder(request,crn,cakepk):
                     if detailed_list[j].option_id == optionobject.pk:
                         details.append(detailed_list[j])
 
+            print(cakeobject.cakeImg)
             # print(options)
             # for option in options:
             #     print(option.optionName)
@@ -468,18 +469,21 @@ def cakeOrder(request,crn,cakepk):
             )
             order.save()
             optionpk = []
+            print(order.cakeImg)
             options = request.POST.getlist('option', None)
-            print(options, len(options), len(options[0]))
-            print(options[0],options[1])
+            # print(options, len(options), len(options[0]))
+            # print(options[0],options[1])
+            # print(options[2])
             for option in range(0, len(options)):
-                curoption = DetailedOption.objects.get(businessID=crn,detailName=options[option])
-                orderoption = OrderOption(
-                    businessID = crn,
-                    orderer = customer.userID,
-                    optionID = curoption.pk,
-                    orderID = order.orderNum
-                )
-                orderoption.save()
+                if options[option]:
+                    curoption = DetailedOption.objects.get(businessID=crn,detailName=options[option])
+                    orderoption = OrderOption(
+                        businessID = crn,
+                        orderer = customer.userID,
+                        optionID = curoption.pk,
+                        orderID = order.orderNum
+                    )
+                    orderoption.save()
 
             #
             # optionpk =[]

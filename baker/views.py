@@ -819,6 +819,9 @@ def orderInfo(request, pk):
         print(option_list)
         # print(order.options)
         # print(len(order.options))
+
+        orderer = Orderer.objects.get(userID=order.orderer)
+        res_data['orderer']=orderer
         res_data['order'] = order
         res_data['option_list']=option_list
         if request.method == "GET":
