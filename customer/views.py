@@ -572,7 +572,27 @@ def cakeOrder(request,crn,cakepk):
 
     #   주문화면
 
+def order_delete(request,pk):
+    res_data = {}
+    user_id = request.session.get('user')
 
+    if user_id:
+        customer = Orderer.objects.get(pk=user_id)
+        res_data['customername'] = customer.name
+        orderobject = get_object_or_404(Order, pk=pk)
+        orderobject.delete()
+
+        if OrderOption.objects.filter(orderID=pk):
+            orderoptionobject = OrderOption.objects.filter(orderID=pk)
+            orderoptionobject.delete()
+        return redirect('/customer/orderList', res_data)
+
+    else:
+        if request.method == "GET":
+            res_data['comment'] = "잘못된 접근입니다. 로그인을 해주세요!"
+            return render(request, 'customer/inappropriateApproach.html', res_data)
+        elif request.method == "POST":
+            return redirect('/')
 
 def orderlist(request):
     res_data = {}

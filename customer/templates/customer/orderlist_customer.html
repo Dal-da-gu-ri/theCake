@@ -28,10 +28,10 @@
         width: 15%;
     }
     table th:nth-child(2){
-        width: 15%;
+        width: 5%;
     }
     table th:nth-child(3){
-        width: 25%;
+        width: 40%;
     }
     table th:nth-child(4), table th:nth-child(5){
         width: 15%;
@@ -48,6 +48,25 @@
         border-bottom: 1px solid #bf7f7f;
         margin: 10px !important;
     }
+    .select_btn{
+        transition:.15s ease;
+        border: 1px solid #cf8484;
+        background-color:white;
+        color: #cc5f5f;
+        width: 90%;
+        height: 1.7em;
+        border-radius: 2px;
+        font-size: 0.9rem;
+    }
+    .select_btn:hover{
+      background-color: #cf8484;
+      color: white;
+    }
+    #cake_img{
+        width: 8rem;
+        height: 8rem;
+        object-fit: contain;
+    }
 </style>
   <div class="row">
         <p class="pt-3 pl-4 path">주문 내역 조회</p>
@@ -57,27 +76,28 @@
     <table class = "text-nowrap" id = "table">
         <tr id="header">
             <th>픽업 날짜</th>
-            <th>케이크 이미지</th>
-            <th>옵션 선택</th>
-            <th>주문 매장</th>
-            <th></th>
+            <th>케이크</th>
+            <th>매장 정보</th>
+            <th>가격</th>
             <th>주문 진행 상황</th>
         </tr>
         {% for order in order_list %}
         <tr>
             <td>{{order.pickupDate}}<br>{{order.pickupTime}}</td>
-            <td><div class="image-block embed-responsive-1by1" style="text-align: center;">
-               <img id="cake_img" class="embed-responsive-item" src="/media/{{ cake.cakeImg.value }}">
+            <td class="image-block embed-responsive-1by1" style="text-align: center;">
+
+               <img id="cake_img" class="embed-responsive-item" src="/media/{{order.cakeImg}}">
 <!--               <img class="embed-responsive-item" src="{{cake.cakeImg.value.url}}">-->
-            </div></td>
-            <td>{{order.cakeName}}</a></td>
-            <td>{{order.pickupDate}}</td>
-            <td>{{order.pickupTime}}</td>
+
+            </td>
+
+            <td><div class="mb-1">{{order.storeName}}</div><div class="mb-1">{{order.location}}</div><div>{{order.storeContact}}</div></td>
+            <td>{{order.price}}원</td>
             {% if order.status == 1 %}
-            <td>주문 수락</td>
+            <td style="font-weight:bold; color: blue;">주문 수락</td>
             {% endif %}
             {% if order.status == 0 %}
-          <td style="font-weight:bold; color:red;">주문 요청<button>주문취소</button></td>
+            <td><div class="mt-1" style="font-weight:bold;">주문 요청</div><a href="{% url 'customer:order_delete' order.pk %}"><button class="select_btn mt-1 mb-1">주문취소</button></a></td>
             {% endif %}
         </tr>
 
