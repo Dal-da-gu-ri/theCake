@@ -477,6 +477,9 @@ def cakeOrder(request,crn,cakepk):
             for option in range(0, len(options)):
                 if options[option]:
                     curoption = DetailedOption.objects.get(businessID=crn,detailName=options[option])
+                    curbigoption = Option.objects.get(businessID=crn,optionName=curoption.option)
+                    curbigoption.isUsed = True
+                    curbigoption.save()
                     orderoption = OrderOption(
                         businessID = crn,
                         orderer = customer.userID,

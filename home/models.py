@@ -242,6 +242,7 @@ class Option(models.Model):
     color = models.CharField(max_length=30, verbose_name='컬러 코드', null=True, blank=True, unique=False)
     withImage = models.BooleanField(default=False, verbose_name='이미지추가 유무', null=True, blank=False)
     image = models.CharField(max_length=100, verbose_name='이미지 경로', null=True, blank=True, unique=False)
+    isUsed = models.BooleanField(default=False)
 
     class Meta:
         db_table = 'Options'
