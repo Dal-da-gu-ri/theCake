@@ -767,12 +767,13 @@ class OptionForm(forms.ModelForm):
 
     class Meta:
         model = Option
-        fields = ['optionName', 'isNecessary', 'withColor', 'withImage']
+        fields = ['optionName', 'isNecessary', 'withColorOrImage']
         labels = {
             'optionName': 'Option Name',
             'isNecessary':'Necessary?',
-            'withColor':'Color?',
-            'withImage':'Image?'
+            'withColorOrImage':'With color or image'
+            # 'withColor':'Color?',
+            # 'withImage':'Image?'
         }
         widgets = {
             'optionName' : forms.TextInput(
@@ -781,15 +782,16 @@ class OptionForm(forms.ModelForm):
                 }
             ),
             'isNecessary' : forms.CheckboxInput,
-            'withColor' : forms.CheckboxInput,
-            'withImage' : forms.CheckboxInput
+            'withColorOrImage':forms.RadioSelect
+            # 'withColor' : forms.CheckboxInput,
+            # 'withImage' : forms.CheckboxInput
         }
 
 
 # OptionFormset = formset_factory(BookForm)
 OptionFormset = modelformset_factory(
     Option,
-    fields=['optionName', 'isNecessary', 'withColor', 'withImage'],
+    fields=['optionName', 'isNecessary', 'withColorOrImage'],
 extra=1,
     widgets={
         'optionName': forms.TextInput(
@@ -798,8 +800,9 @@ extra=1,
             }
         ),
         'isNecessary': forms.CheckboxInput,
-        'withColor': forms.CheckboxInput,
-        'withImage': forms.CheckboxInput
+        'withColorOrImage': forms.RadioSelect
+        # 'withColor': forms.CheckboxInput,
+        # 'withImage': forms.CheckboxInput
     }
 )
 

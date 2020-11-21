@@ -238,10 +238,11 @@ class Option(models.Model):
     businessID = models.CharField(max_length=50, verbose_name='사업자 등록번호', null=True, blank=False)
     optionName = models.CharField(max_length=30, verbose_name='옵션명', null=True, blank=False, unique=True)
     isNecessary = models.BooleanField(default=False, verbose_name='필수 여부', null=True, blank=False)
-    withColor = models.BooleanField(default=False, verbose_name='색상판 유무', null=True, blank=False)
+    withColorOrImage = models.CharField(max_length=100,default="", verbose_name='색상판/이미지 유무', null=False, blank=False, choices=[('색상판', '색상판'), ('이미지', '이미지'),('선택 없음', '선택 없음')])
     color = models.CharField(max_length=30, verbose_name='컬러 코드', null=True, blank=True, unique=False)
-    withImage = models.BooleanField(default=False, verbose_name='이미지추가 유무', null=True, blank=False)
-    image = models.CharField(max_length=100, verbose_name='이미지 경로', null=True, blank=True, unique=False)
+    # withImage = models.BooleanField(default=False, verbose_name='이미지추가 유무', null=True, blank=False)
+    # withColor = models.BooleanField(default=False, verbose_name='색상판 유무', null=True, blank=False)
+    image = models.CharField(max_length=100, verbose_name='이미지 이름', null=True, blank=True, unique=False)
     isUsed = models.BooleanField(default=False)
 
     class Meta:

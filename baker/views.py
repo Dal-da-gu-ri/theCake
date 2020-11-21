@@ -1107,8 +1107,9 @@ def option_add(request):
                 option.businessID = baker.businessID
                 option.optionName = optionform.cleaned_data['optionName']
                 option.isNecessary = optionform.cleaned_data['isNecessary']
-                option.withImage = optionform.cleaned_data['withImage']
-                option.withColor = optionform.cleaned_data['withColor']
+                option.withColorOrImage = optionform.cleaned_data['withColorOrImage']
+                # option.withImage = optionform.cleaned_data['withImage']
+                # option.withColor = optionform.cleaned_data['withColor']
                 option = optionform.save()
                 option.save()
                 for form in formset:
