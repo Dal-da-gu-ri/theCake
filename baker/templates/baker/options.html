@@ -273,8 +273,7 @@
                         <span class="optionalOption mr-5" style="font-weight:bold; color: red;">
                             필수옵션입니다
                         </span>
-                        {% endif %}
-                        {% if option.isNecessary != 1 %}
+                        {% else %}
                         <span class="optionalOption mr-5" style="font-weight:bold;">
                             선택옵션입니다
                         </span>
@@ -295,8 +294,7 @@
                     <span class="ml-2 mr-1">색상판:</span><span class="ml-2" style="font-weight: bold;">
                         {% if option.withColorOrImage == '색상판' %}
                         필요
-                        {% endif %}
-                        {% if option.withColorOrImage != '색상판' %}
+                        {% else %}
                         불필요
                         {% endif %}
                 </span>
@@ -304,8 +302,7 @@
                     <span class="ml-4 mr-1">이미지 업로드:</span><span class="ml-2" style="font-weight: bold;">
                         {% if option.withColorOrImage == '이미지' %}
                         필요
-                        {% endif %}
-                        {% if option.withColorOrImage != '이미지' %}
+                        {% else %}
                         불필요
                         {% endif %}
                 </span>
@@ -363,6 +360,10 @@
     }
 </script>
 
+<!-- 옵션이 isactive이면 옵션삭제 비활성화 -->
+<script>
+
+</script>
 
 <!--&lt;!&ndash; 옵션 삭제 &ndash;&gt;-->
 <!--<script type="text/javascript">-->
