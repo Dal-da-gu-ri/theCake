@@ -14,7 +14,7 @@ from .createcakepk import newcakepk
 from .dailyamounts import setDailyAmounts
 #make_password(str) : 이 함수에 넣어준 문자열을 암호화합니다. (hashing)
 #check_password(a,b) : a,b가 일치하는지 확인, 반환합니다.
-
+from django.db.models import Case, Q
 from django.http import JsonResponse
 # Create your views here.
 
@@ -783,8 +783,12 @@ def manageOrder(request):
     if user_id:
         baker = Baker.objects.get(pk=user_id)
         res_data['bakername'] = baker.name
+        # order_list = Order.objects.filter(businessID=baker.businessID)
 
-        order_list = Order.objects.filter(businessID=baker.businessID)
+        # status_list = ['주문 요청','주문 수락']
+        # status = Case(*[When])
+        order_list = Order.objects.filter(businessID=baker.businessID).order_by('status','pickupDate','pickupTime')
+        print(order_list)
         res_data['order_list'] = order_list
         if request.method == "GET":
             return render(request, 'baker/manageOrder.html',res_data)
@@ -827,7 +831,7 @@ def orderInfo(request, pk):
         if request.method == "GET":
             return render(request, 'baker/orderInfo.html', res_data)
         elif request.method == "POST":
-            order.status = "주문 수락"
+            order.status = 1
             order.save()
             return redirect('/baker/manageOrder/',res_data)
             # return render(request, 'baker/manageOrder.html',res_data)

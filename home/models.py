@@ -206,8 +206,8 @@ class Order(models.Model):
     cakeText = models.TextField(verbose_name='케이크 문구',null=True,blank=True)
     message = models.TextField(verbose_name='요청 사항',null=True,blank=True)
     price = models.IntegerField(verbose_name='가격',null=True,blank=False)
-    status = models.CharField(max_length=30,verbose_name='주문 진행 상황',null=True,blank=False)
-
+    # status = models.CharField(max_length=30,verbose_name='주문 진행 상황',null=True,blank=False)
+    status = models.IntegerField(verbose_name='주문 진행 상황',default=0,blank=False)
     def __str__(self):
          return self.orderNum
 

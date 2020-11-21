@@ -463,7 +463,7 @@ def cakeOrder(request,crn,cakepk):
                 message = request.POST.get('message',None),
                 price = request.POST.get('total_price',None),
                 # options = request.POST.getlist('option', None),
-                status = '주문 요청'
+                status = 0
                 # requiredOpt
                 # additionalOpt
             )
