@@ -132,7 +132,7 @@
             {% elif order.status == 3 %}
             <td style="font-weight:bold; color: purple;">결제 완료</td>
             {% elif order.status == 4 %}
-            <td><div class="mt-1" style="font-weight:bold;">픽업 완료</div><a href="{% url 'writeReview' order.orderNum %}"><button class="select_btn2 mt-1 mb-1">리뷰 쓰러 가기</button></a></td>
+            <td><div class="mt-1" style="font-weight:bold;">픽업 완료</div><a href="{% url 'customer:writeReview' order.orderNum %}"><button class="select_btn2 mt-1 mb-1">리뷰 쓰러 가기</button></a></td>
             {% endif %}
         </tr>
 
