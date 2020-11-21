@@ -451,115 +451,79 @@ def cakeOrder(request,crn,cakepk):
             return render(request, 'customer/orderCake.html', res_data)
         else:
             # 주문하기 버튼을 눌렀을 때 나올 화면
-            order = Order(
-                orderNum = makeordernum(),
-                orderer = customer.userID,
-                pickupDate = str(request.session.get('selectedYear'))+"-"+str(request.session.get('selectedMonth'))+"-"+str(request.session.get('selectedDay')),
-                pickupTime = request.POST.get('pickupTime',None),
-                businessID = crn,
-                storeName = storeobject.storeName,
-                location = storeobject.location,
-                storeContact = storeobject.storeContact,
-                cakeName = cakeobject.cakeName,
-                cakeImg = cakeobject.cakeImg,
-                cakeText = request.POST.get('cakeText',None),
-                message = request.POST.get('message',None),
-                price = request.POST.get('total_price',None),
-                # options = request.POST.getlist('option', None),
-                status = 0
-                # requiredOpt
-                # additionalOpt
-            )
-            order.save()
-            optionpk = []
-            # print(order.cakeImg)
-            # options = request.POST.getlist('option', None)
-            # optioncolors = request.POST.getlist('option_color', None)
-            # optionimgs = request.POST.getlist('option_image', None)
-            # print(options,optioncolors,optionimgs)
-            # print(optioncolors[1])
+            if mappingDate(crn,request.session.get('selectedMonth'),request.session.get('selectedDay')) == True:
 
-            options = request.POST.getlist('option', None)
-            details = request.POST.getlist('option_detail', None)
+                order = Order(
+                    orderNum = makeordernum(),
+                    orderer = customer.userID,
+                    pickupDate = str(request.session.get('selectedYear'))+"-"+str(request.session.get('selectedMonth'))+"-"+str(request.session.get('selectedDay')),
+                    pickupTime = request.POST.get('pickupTime',None),
+                    businessID = crn,
+                    storeName = storeobject.storeName,
+                    location = storeobject.location,
+                    storeContact = storeobject.storeContact,
+                    cakeName = cakeobject.cakeName,
+                    cakeImg = cakeobject.cakeImg,
+                    cakeText = request.POST.get('cakeText',None),
+                    message = request.POST.get('message',None),
+                    price = request.POST.get('total_price',None),
+                    # options = request.POST.getlist('option', None),
+                    status = 0
+                    # requiredOpt
+                    # additionalOpt
+                )
+                order.save()
 
-            for i in range(0,len(options)):
-                curdetail = DetailedOption.objects.get(businessID=crn,detailName=options[i])
-                curoption = Option.objects.get(businessID=crn,optionName=curdetail.option)
-                if curoption.withColorOrImage == '색상판':
-                    orderoption = OrderOption(
-                                    businessID = crn,
-                                    orderer = customer.userID,
-                                    optionID = curoption.pk,
-                                    orderID = order.orderNum,
-                                    color = details[i]
-                                )
-                    orderoption.save()
-                elif curoption.withColorOrImage == '이미지':
-                    orderoption = OrderOption(
-                                    businessID = crn,
-                                    orderer = customer.userID,
-                                    optionID = curoption.pk,
-                                    orderID = order.orderNum,
-                                    image = details[i]
-                                )
-                    orderoption.save()
-                elif curoption.withColorOrImage == '선택 없음':
-                    orderoption = OrderOption(
-                                    businessID = crn,
-                                    orderer = customer.userID,
-                                    optionID = curoption.pk,
-                                    orderID = order.orderNum,
-                                )
-                    orderoption.save()
+                options = request.POST.getlist('option', None)
+                details = request.POST.getlist('option_detail', None)
 
-            print(options)
-            print(options[0], options[1], options[2], options[3], options[4])
-            print(details)
-            print(details[0],details[1],details[2],details[3],details[4])
-            # print(options, len(options), len(options[0]))
-            # print(options[0],options[1])
-            # print(options[2])
+                for i in range(0,len(options)):
+                    curdetail = DetailedOption.objects.get(businessID=crn,detailName=options[i])
+                    curoption = Option.objects.get(businessID=crn,optionName=curdetail.option)
+                    if curoption.withColorOrImage == '색상판':
+                        orderoption = OrderOption(
+                                        businessID = crn,
+                                        orderer = customer.userID,
+                                        optionID = curoption.pk,
+                                        orderID = order.orderNum,
+                                        color = details[i]
+                                    )
+                        orderoption.save()
+                    elif curoption.withColorOrImage == '이미지':
+                        orderoption = OrderOption(
+                                        businessID = crn,
+                                        orderer = customer.userID,
+                                        optionID = curoption.pk,
+                                        orderID = order.orderNum,
+                                        image = details[i]
+                                    )
+                        orderoption.save()
+                    elif curoption.withColorOrImage == '선택 없음':
+                        orderoption = OrderOption(
+                                        businessID = crn,
+                                        orderer = customer.userID,
+                                        optionID = curoption.pk,
+                                        orderID = order.orderNum,
+                                    )
+                        orderoption.save()
+                amountChange(crn, request.session.get('selectedDay'), -1)
 
+                return redirect('/customer/orderList/', res_data)
 
-            # for option in range(0, len(options)):
-            #     if options[option]:
-            #         curoption = DetailedOption.objects.get(businessID=crn,detailName=options[option])
-            #         curbigoption = Option.objects.get(businessID=crn,optionName=curoption.option)
-            #         curbigoption.isUsed = True
-            #         curbigoption.save()
-            #         orderoption = OrderOption(
-            #             businessID = crn,
-            #             orderer = customer.userID,
-            #             optionID = curoption.pk,
-            #             orderID = order.orderNum
-            #         )
-            #         orderoption.save()
+            else:
+                res_data['error']="해당 일자에 주문 가능 수량이 없습니다."
+                return redirect('/customer/main/',res_data)
 
-            #
-            # optionpk =[]
-            # # print(options,len(options),len(options[0]))
-            # # print(options[0][0],options[0][1])
-            # for option in range(0,len(options[0])):
-            #     curoption = DetailedOption.objects.get(businessID=crn,detailName=options[0][option])
-            #     optionpk.append(curoption.pk)
-            # order.options = optionpk
-            # print(order.options[0],order.options[1])
-
-            # print(optionpk)
-            amountChange(crn,request.session.get('selectedDay'),-1)
-
-            # pickupTime = request.POST.get('pickupTime', None)
-            # cakeText = request.POST.get('cakeText', None)
-            # price = request.POST.get('total_price', None)
-            # res_data['price'] = price
-            # options = request.POST.getlist('option', None)
-            #
-            # print(pickupTime)
-            # print(cakeText)
-            # print(price)
             # print(options)
-            # return render(request, 'customer/orderlist_customer.html', res_data)
-            return redirect('/customer/orderList/', res_data)
+            # print(options[0], options[1], options[2], options[3], options[4])
+            # print(details)
+            # print(details[0],details[1],details[2],details[3],details[4])
+
+            # if mappingDate(store, ordermonth, orderday) == True:  # 주문가능한 수량이 있을경우
+
+
+
+
 
 
 
