@@ -218,13 +218,20 @@
         width: 100%;
         background-color: white;
     }
+
+     #message{
+        border: 2px solid #ffe0e0;
+        border-radius: 3px;
+        height: 5rem;
+        width: 100%;
+        background-color: white;
+    }
     </style>
 <form method = "POST" name="order" class="form_order" onsubmit="return check_submit()">
      {% csrf_token %}
     <table id="selected_cakeInfo" class="mt-4">
-<!--        <tr style="width: 12rem;">-->
         <tr id="lg_tr">
-            <td rowspan="4" id="lg_border" style="text-align: center; vertical-align: top; width: 30%;">
+            <td rowspan="5" id="lg_border" style="text-align: center; vertical-align: top; width: 30%;">
                 <div class="mt-3" style="font-weight: bold;"><span>픽업 날짜: </span><span class="ml-3">{{selectedYear}}</span><span> / {{selectedMonth}}</span><span> / {{selectedDay}}</span></div>
                 <div class="mt-2">
                     <span style="font-weight: bold;">픽업 시간</span>
@@ -254,20 +261,11 @@
                 </span>
             </td>
         <td id="lg_border2">
-<!--                <div class="row mt-3">-->
-<!--                    <div style="float: left;"><span>픽업날짜:</span><span class="ml-3">{{selectedYear}}2020</span><span> / {{selectedMonth}}11</span><span> / {{selectedDay}}30</span></div>-->
-<!--                    <div style="float: right;"><span>픽업시간:</span></div>-->
-<!--                </div>-->
-<!--                <div class="ml-3 mt-3" style="font-weight:bold;">-->
-<!--                        <span class="text-nowrap">옵션선택</span>-->
-<!--                </div>-->
             <div class="mt-3">
                 <div style="width:45%; float: left; padding-left:5%;">
                     <table id="requiredOption_table" class="font text-nowrap">
                         <tr>
                             <th style="font-weight: bold; font-size: 0.95rem; height: 22px;">필수옵션</th>
-    <!--                        <th>선택옵션</th>-->
-    <!--                        <th>선택</th>-->
                         </tr>
                         {% for option in options %}
                         {% if option.isNecessary == 1 %}
@@ -277,25 +275,32 @@
                                 <!-- 이게 동적으로 필수옵션 개수 만큼 -->
                                 <select name="option" class="option requiredOption" onchange="price_cal()">
                                     <!--필수옵션이름-->
-<!--                                        <option value="{{option.pk}}">필수선택</option>-->
                                     <option value="">필수선택</option>
                                     <!-- 이게 동적으로 세부옵션만큼 -->
                                         {% for detailedOption in detailedOptions %}
                                         {% if detailedOption.option_id == option.pk %}
-                                        <!-- 필수상세옵션1-->
-                                        {% if detailedOption.pricing >= 0 %}
-                                        <option value="{{detailedOption}}">{{detailedOption.detailName}} (+{{detailedOption.pricing}})</option>
-                                        {% elif detailedOption.pricing < 0 %}
-                                        <option value="{{detailedOption}}">{{detailedOption.detailName}} ({{detailedOption.pricing}})</option>
-                                        {% endif %}
+                                            <!-- 필수상세옵션1-->
+                                            {% if detailedOption.pricing >= 0 %}
+                                                <option value="{{detailedOption}}">{{detailedOption.detailName}} (+{{detailedOption.pricing}})</option>
+                                            {% elif detailedOption.pricing < 0 %}
+                                                <option value="{{detailedOption}}">{{detailedOption.detailName}} ({{detailedOption.pricing}})</option>
+                                            {% endif %}
 
                                         {% endif %}
                                         {% endfor %}
                                 </select>
                             </td>
+                        {% if option.withColor == 1 %}
                             <td>
-                            <!-- 색상판, 이미지업로드 -->
+                            <!-- 색상판 -->
+                                <input type="color" name="option_color" id="requiredOption_color" value="#ffffff">
                             </td>
+                        {% elif option.withImage == 1 %}
+                            <td>
+                            <!-- 이미지업로드 -->
+                                <input type="file" name="option_image" id="requiredOption_image" accept="image/*">
+                            </td>
+                        {% endif %}
                         </tr>
                         {% endif %}
                         {% endfor %}
@@ -305,36 +310,41 @@
                     <table id="optionalOption_table" class="font text-nowrap">
                         <tr class="mb-2">
                             <th style="font-weight: bold; font-size: 0.95rem; height: 22px;">선택옵션</th>
-    <!--                        <th>선택옵션</th>-->
-    <!--                        <th>선택</th>-->
                         </tr>
                         {% for option in options %}
                         {% if option.isNecessary == 0 %}
                         <tr>
                             <td>{{option.optionName}}</td>
-                            <td style="padding-left: 5%;">
-                                 <!-- 이게 동적으로 필수옵션 개수 만큼 -->
-                                <select name="option" class="option" onchange="price_cal()">
-                                    <!--필수옵션이름-->
-<!--                                        <option value="{{option.pk}}">필요시 선택</option>-->
-                                    <option value="">필요시 선택</option>
-                                    <!-- 이게 동적으로 세부옵션만큼 -->
-                                    {% for detailedOption in detailedOptions %}
-                                    {% if detailedOption.option_id == option.pk %}
-                                        <!-- 필수상세옵션1-->
-                                        {% if detailedOption.pricing >= 0 %}
-                                            <option value="{{detailedOption}}">{{detailedOption.detailName}} (+{{detailedOption.pricing}})</option>
-                                        {% elif detailedOption.pricing < 0 %}
-                                            <option value="{{detailedOption}}">{{detailedOption.detailName}} ({{detailedOption.pricing}})</option>
-                                        {% endif %}
+                                <td style="padding-left: 5%;">
+                                     <!-- 이게 동적으로 필수옵션 개수 만큼 -->
+                                    <select name="option" class="option" onchange="price_cal()">
+                                        <!--필수옵션이름-->
+                                        <option value="">필요시 선택</option>
+                                        <!-- 이게 동적으로 세부옵션만큼 -->
+                                        {% for detailedOption in detailedOptions %}
+                                        {% if detailedOption.option_id == option.pk %}
+                                            <!-- 필수상세옵션1-->
+                                            {% if detailedOption.pricing >= 0 %}
+                                                <option value="{{detailedOption}}">{{detailedOption.detailName}} (+{{detailedOption.pricing}})</option>
+                                            {% elif detailedOption.pricing < 0 %}
+                                                <option value="{{detailedOption}}">{{detailedOption.detailName}} ({{detailedOption.pricing}})</option>
+                                            {% endif %}
 
-                                    {% endif %}
-                                    {% endfor %}
-                                </select>
-                            </td>
-                            <td>
-                            <!-- 색상판, 이미지업로드 -->
-                            </td>
+                                        {% endif %}
+                                        {% endfor %}
+                                    </select>
+                                </td>
+                            {% if option.withColor == 1 %}
+                                <td>
+                                <!-- 색상판 -->
+                                    <input type="color" name="option_color" id="optionalOption_color" value="#ffffff">
+                                </td>
+                            {% elif option.withImage == 1 %}
+                                <td>
+                                <!-- 이미지업로드 -->
+                                    <input type="file" name="option_image" id="optionalOption_image" accept="image/*">
+                                </td>
+                            {% endif %}
                         </tr>
                         {% endif %}
                         {% endfor %}
@@ -347,33 +357,21 @@
 
                 </div>
             </div>
-
-<!--                {% for option in options %}-->
-<!--                {% if option.isNecessary == 0 %}-->
-<!--                &lt;!&ndash; 이게 동적으로 선택옵션 개수 만큼 &ndash;&gt;-->
-<!--                <select name="optionalOption" id="optionalOption">-->
-<!--&lt;!&ndash;                    선택옵션이름&ndash;&gt;-->
-<!--                   <option value="{{option.pk}}">선택옵션: {{option.optionName}}</option>-->
-<!--                    &lt;!&ndash; 이게 동적으로 세부옵션만큼 &ndash;&gt;-->
-<!--                    {% for detailedOption in detailedOptions %}-->
-<!--                    {% if detailedOption.option_id == option.pk %}-->
-<!--&lt;!&ndash;                    선택상세옵션1&ndash;&gt;-->
-<!--                    <option value="{{detailedOption.pk}}">{{detailedOption.detailName}}</option>-->
-
-<!--                    {% endif %}-->
-<!--                    {% endfor %}-->
-
-<!--                </select>-->
-<!--                {% endif %}-->
-<!--                {% endfor %}-->
-        </td>
         </tr>
         <tr>
-            <td id="lg_border3">
+            <td>
                 <div class="mt-3" style="font-weight:bold; padding-left:5%;">
                     <div style="font-weight: bold; font-size: 0.95rem;">레터링 문구</div>
                 </div>
                 <div class="mt-2 mb-2" style="padding-left:5%; font-size:0.9rem;"><textarea type="text" name="cakeText" id="lettering" placeholder="레터링이 필수옵션이거나, 추가옵션 시에는 선택했을 경우에만 기입해주세요."></textarea></div>
+            </td>
+        </tr>
+        <tr>
+            <td id="lg_border3">
+                <div class="mt-3" style="font-weight:bold; padding-left:5%;">
+                    <div style="font-weight: bold; font-size: 0.95rem;">사장님께 전하는 말</div>
+                </div>
+                <div class="mt-2 mb-2" style="padding-left:5%; font-size:0.9rem;"><textarea type="text" name="message" id="message" placeholder="사장님께 하고 싶은 말이 있다면 적어주세요."></textarea></div>
             </td>
         </tr>
         <tr>
@@ -476,19 +474,22 @@
         var price = Number({{cake.cakePrice}});
         var option_list = document.getElementsByClassName("option");
         var selectedDetailedOption = new Array;
-        var detailedOptionPK;
+        var detailedOption;
 
         for(var i=0; i< option_list.length; i++){
-            selectedDetailedOption.push(Number(option_list[i].options[option_list[i].selectedIndex].value));
+            console.log(option_list[i].options[option_list[i].selectedIndex].value);
+            selectedDetailedOption.push(option_list[i].options[option_list[i].selectedIndex].value);
         }
 
+        console.log(selectedDetailedOption);
         {% for detailedOption in detailedOptions %}
-            detailedOptionPK = {{detailedOption.pk}};
-            if(selectedDetailedOption.includes(detailedOptionPK)){
+            detailedOption = "{{detailedOption.detailName}}";
+            if(selectedDetailedOption.includes(detailedOption)){
                 price += {{detailedOption.pricing}};
             }
         {% endfor %}
 
+        console.log(price);
         document.getElementById("totalprice").innerHTML = price;
         document.getElementById('total_price').setAttribute('value',price);
     }
