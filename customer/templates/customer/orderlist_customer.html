@@ -1,3 +1,4 @@
+<!--          결제하기 url 나중에 적기-->
 {% extends 'base_customer.html' %}
 {% block title %} ::주문 내역 조회:: {% endblock %}
 {% block content %}
@@ -48,6 +49,34 @@
         border-bottom: 1px solid #bf7f7f;
         margin: 10px !important;
     }
+    .select_btn2{
+        transition:.15s ease;
+        border: 1px solid #e3a452;
+        background-color:white;
+        color: #e3a452;
+        width: 90%;
+        height: 1.7em;
+        border-radius: 2px;
+        font-size: 0.9rem;
+    }
+    .select_btn2:hover{
+      background-color: #e3a452;
+      color: white;
+    }
+    .select_btn3{
+        transition:.15s ease;
+        border: 1px solid #2c64f2;
+        background-color:white;
+        color: #2c64f2;
+        width: 90%;
+        height: 1.7em;
+        border-radius: 2px;
+        font-size: 0.9rem;
+    }
+    .select_btn3:hover{
+      background-color: #2c64f2;
+      color: white;
+    }
     .select_btn{
         transition:.15s ease;
         border: 1px solid #cf8484;
@@ -94,10 +123,16 @@
             <td><div class="mb-1">{{order.storeName}}</div><div class="mb-1">{{order.location}}</div><div>{{order.storeContact}}</div></td>
             <td>{{order.price}}원</td>
             {% if order.status == 1 %}
-            <td style="font-weight:bold; color: blue;">주문 수락</td>
-            {% endif %}
-            {% if order.status == 0 %}
+<!--          결제하기 url 나중에 적기-->
+          <td><div style="font-weight:bold; color: blue;">주문 수락</div><a href="#"><button class="select_btn3 mt-1 mb-1">결제하기</button></a></td>
+            {% elif order.status == 0 %}
             <td><div class="mt-1" style="font-weight:bold;">주문 요청</div><a href="{% url 'customer:order_delete' order.pk %}"><button class="select_btn mt-1 mb-1">주문취소</button></a></td>
+            {% elif order.status == 2 %}
+            <td style="font-weight:bold; color: red;">주문 거절됨</td>
+            {% elif order.status == 3 %}
+            <td style="font-weight:bold; color: purple;">결제 완료</td>
+            {% elif order.status == 4 %}
+            <td><div class="mt-1" style="font-weight:bold;">픽업 완료</div><a href="{% url 'writeReview' order.orderNum %}"><button class="select_btn2 mt-1 mb-1">리뷰 쓰러 가기</button></a></td>
             {% endif %}
         </tr>
 
