@@ -272,16 +272,16 @@
                         {% for option in options %}
                         {% if option.isNecessary == 1 %}
                         <tr>
-                            {% if option.withColor == 1 %}
+                            {% if option.withColorOrImage == "색상판" %}
                             <td rowspan="2">{{option.optionName}}</td>
-                            {% elif option.withImage == 1 %}
+                            {% elif option.withColorOrImage == "이미지" %}
                             <td rowspan="2">{{option.optionName}}</td>
                             {% else %}
                             <td>{{option.optionName}}</td>
                             {% endif %}
                             <td style="padding-left: 5%;">
                                 <!-- 이게 동적으로 필수옵션 개수 만큼 -->
-                                <select name="option" class="option requiredOption" onchange="price_cal()">
+                                <select name="option option_color option_image" class="option requiredOption" onchange="price_cal()">
                                     <!--필수옵션이름-->
                                     <option value="">필수선택</option>
                                     <!-- 이게 동적으로 세부옵션만큼 -->
@@ -299,12 +299,12 @@
                                 </select>
                             </td>
                         </tr>
-                        {% if option.withColor == 1 %}
+                        {% if option.withColorOrImage == 1 %}
                         <tr>
                         <!-- 색상판 -->
                             <td style="padding-left: 5%;"><input type="color" name="option_color" id="requiredOption_color" value="#ffffff"></td>
                         </tr>
-                        {% elif option.withImage == 1 %}
+                        {% elif option.withColorOrImage == 1 %}
                         <tr>
                         <!-- 이미지업로드 -->
                             <td style="padding-left: 5%;"><input type="file" name="option_image" id="requiredOption_image" accept="image/*"></td>
@@ -324,16 +324,16 @@
                         {% for option in options %}
                         {% if option.isNecessary == 0 %}
                         <tr>
-                            {% if option.withColor == 1 %}
+                            {% if option.withColorOrImage == "색상판" %}
                             <td rowspan="2">{{option.optionName}}</td>
-                            {% elif option.withImage == 1 %}
+                            {% elif option.withColorOrImage == "이미지" %}
                             <td rowspan="2">{{option.optionName}}</td>
                             {% else %}
                             <td>{{option.optionName}}</td>
                             {% endif %}
                             <td style="padding-left: 5%;">
                                  <!-- 이게 동적으로 필수옵션 개수 만큼 -->
-                                <select name="option" class="option" onchange="price_cal()">
+                                <select name="option option_color option_image" class="option" onchange="price_cal()">
                                     <!--필수옵션이름-->
                                     <option value="">필요시 선택</option>
                                     <!-- 이게 동적으로 세부옵션만큼 -->
@@ -351,12 +351,12 @@
                                 </select>
                             </td>
                         </tr>
-                        {% if option.withColor == 1 %}
+                        {% if option.withColorOrImage == "색상판" %}
                         <tr>
                         <!-- 색상판 -->
                             <td style="padding-left: 5%;"><input type="color" name="option_color" id="optionalOption_color" value="#ffffff"></td>
                         </tr>
-                        {% elif option.withImage == 1 %}
+                        {% elif option.withColorOrImage == "이미지" %}
                         <tr>
                         <!-- 이미지업로드 -->
                             <td style="padding-left: 5%;"><input type="file" name="option_image" id="optionalOption_image" accept="image/*"></td>
