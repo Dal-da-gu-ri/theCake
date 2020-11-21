@@ -511,7 +511,9 @@ def cakeOrder(request,crn,cakepk):
             # print(cakeText)
             print(price)
             # print(options)
-            return render(request, 'customer/orderlist_customer.html', res_data)
+            # return render(request, 'customer/orderlist_customer.html', res_data)
+            return redirect('/customer/orderList/', res_data)
+
 
 
     else:
