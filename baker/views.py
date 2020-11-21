@@ -663,9 +663,12 @@ def cake_edit(request,pk):
                             isSelected=False
                         )
                         cakeoption.save()
-                        alloptions.append(cakeoption)
+                        # alloptions.append(cakeoption)
                     print("2:",available)
                     available = False
+
+
+                alloptions = CakeOption.objects.filter(businessID=baker.businessID,cakeID=pk)
 
                 print(option_list)
                 print(alloptions)
