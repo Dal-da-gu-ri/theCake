@@ -16,6 +16,9 @@ from .dailyamounts import setDailyAmounts
 #check_password(a,b) : a,b가 일치하는지 확인, 반환합니다.
 from django.db.models import Case, Q
 from django.http import JsonResponse
+
+from customer.mappingdate import mappingDate, amountChange
+
 # Create your views here.
 
 ### 회원가입 및 로그인
@@ -877,6 +880,10 @@ def orderReject(request,pk):
             return render(request, 'baker/order_reject.html', res_data)
         elif request.method == "POST":
             msg = request.POST.get('fromManager', None)
+
+            pickupdate = order.pickupDate
+            orderdate = int(pickupdate[8]) * 10 + int(pickupdate[9])
+            amountChange(order.businessID, orderdate, 1)
 
             order.fromManager = msg
             order.status = 2

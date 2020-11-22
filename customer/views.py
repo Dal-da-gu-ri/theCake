@@ -554,6 +554,9 @@ def order_delete(request,pk):
         customer = Orderer.objects.get(pk=user_id)
         res_data['customername'] = customer.name
         orderobject = get_object_or_404(Order, pk=pk)
+        pickupdate = orderobject.pickupDate
+        orderdate = int(pickupdate[8])*10+int(pickupdate[9])
+        amountChange(orderobject.businessID,orderdate,1)
         orderobject.delete()
 
         if OrderOption.objects.filter(orderID=pk):
