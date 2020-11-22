@@ -93,6 +93,8 @@ class Store(models.Model):
     aboutStore = models.TextField(verbose_name='가게 소개글', null=True, blank=True)
     storeImg = models.ImageField(verbose_name='가게 대표이미지', null=True, blank=True, default="logo_baker.png")
     aboutCake = models.TextField(verbose_name='케이크 소개글', null=True, blank=True)
+    totalorder = models.IntegerField(verbose_name="전체 주문 수",null=True,default=0,blank=True)
+    totalrate = models.FloatField(verbose_name="평점 평균",blank=True,default=0,null=True)
 
     def __str__(self):
         return self.businessID

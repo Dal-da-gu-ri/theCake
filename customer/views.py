@@ -630,6 +630,8 @@ def writeReview(request,orderNum):
         # reviewform = ReviewForm()
         reviewobject = Review()
         order = Order.objects.get(orderer=customer.userID, orderNum=orderNum)
+        store = Store.objects.get(businessID=order.businessID)
+
         if request.method == "GET":
             # try:
             #     reviewobject = Review.objects.get(orderer=customer.userID,orderNum=orderNum)
@@ -664,6 +666,21 @@ def writeReview(request,orderNum):
             review.design = int(design)
             # print(taste)
             review.save()
+            avg = request.POST.get('avg_rate', None)
+            reviewAvg = float(avg)
+            # reviewAvg = (review.taste+review.service+review.design)/3
+
+            print(store.totalorder,store.totalrate,reviewAvg)
+            totalamount = store.totalrate * float(store.totalorder)
+            store.totalrate = (float(totalamount) + reviewAvg) / (float(store.totalorder) +1)
+            store.totalorder = store.totalorder + 1
+
+            store.save()
+            print(store.totalorder,store.totalrate)
+
+            # print(taste,service,design,avg)
+            # reviewAvg = (review.taste+review.service+review.design)/3
+
             secureID(customer.userID,orderNum)
             return redirect('/customer/orderList/',res_data)
 
