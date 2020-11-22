@@ -17,7 +17,10 @@
   text-indent: -9999px;
   cursor: pointer;
 }
-.starR.on{background-position:0 0;}
+
+.starR.on{
+  background-position:0 0;
+}
 
 table{
   margin-left: auto;
@@ -49,23 +52,27 @@ tr td:first-child{
 </style>
 
 <div class="text-center">
-  <table>
+  <table style="width:90%">
     <tr>
-      <td>
+      <td colspan="2" class="text-center">
         <img id="cakeImg" class="m-1" src="/media/{{order.cakeImg}}" alt="cake image">
-        <div class="text-center mt-2">{{order.cakeName}}</div>
+        <div class=" mt-2">{{order.cakeName}}</div>
       </td>
       <td>
-        {{order.orderNum}}
+        주문번호: {{order.orderNum}}
+      </td>
+    </tr>
+    <tr>
+      <td>
+
       </td>
     </tr>
   </table>
 
 </div>
-
-<form method = "POST" class="form_rate">
-     {% csrf_token %}
-
+<hr>
+<form method = "POST" class="form_rate" onsubmit="cal_avgRate()">
+ {% csrf_token %}
   <table>
     <tr>
       <td><div class="mt-2 text-nowrap">맛 평점</div></td>
@@ -76,7 +83,6 @@ tr td:first-child{
           <span class="starR" id="taste_star3">별3</span>
           <span class="starR" id="taste_star4">별4</span>
           <span class="starR" id="taste_star5">별5</span>
-<!--          <span id="tasteRate"></span>-->
           <input type="hidden" name="taste_rate" id="taste_rate" value="1" />
         </div>
       </td>
@@ -90,7 +96,6 @@ tr td:first-child{
           <span class="starR" id="service_star3">별3</span>
           <span class="starR" id="service_star4">별4</span>
           <span class="starR" id="service_star5">별5</span>
-<!--          <span id="serviceRate"></span>-->
           <input type="hidden" name="service_rate" id="service_rate" value="1" />
         </div>
       </td>
@@ -104,13 +109,13 @@ tr td:first-child{
           <span class="starR" id="design_star3">별3</span>
           <span class="starR" id="design_star4">별4</span>
           <span class="starR" id="design_star5">별5</span>
-<!--          <span id="designRate"></span>-->
           <input type="hidden" name="design_rate" id="design_rate" value="1" />
         </div>
       </td>
     </tr>
   </table>
 
+  <input type="hidden" name="avg_rate" id="avg_rate" value="1"/>
   <div id="review" class="mt-2 mb-2 text-center" style="padding-left:5%; font-size:0.9rem;">
     <textarea type="text" name="review" id="review_content" class="p-2" placeholder="한 줄 평을 남겨주세요."></textarea>
   </div>
@@ -168,23 +173,19 @@ tr td:first-child{
     });
     $('#taste_star1').click(function(){
         taste=1;
-        document.getElementById('taste_rate').setAttribute('value', taste);
+<!--        document.getElementById('taste_rate').setAttribute('value', taste);-->
     });
     $('#taste_star2').click(function(){
         taste=2;
-        document.getElementById('taste_rate').setAttribute('value', taste);
     });
     $('#taste_star3').click(function(){
         taste=3;
-        document.getElementById('taste_rate').setAttribute('value', taste);
     });
     $('#taste_star4').click(function(){
         taste=4;
-        document.getElementById('taste_rate').setAttribute('value', taste);
     });
     $('#taste_star5').click(function(){
         taste=5;
-        document.getElementById('taste_rate').setAttribute('value', taste);
     });
 </script>
 
@@ -199,23 +200,19 @@ tr td:first-child{
     });
     $('#service_star1').click(function(){
         service=1;
-        document.getElementById('service_rate').setAttribute('value', service);
+<!--        document.getElementById('service_rate').setAttribute('value', service);-->
     });
     $('#service_star2').click(function(){
         service=2;
-        document.getElementById('service_rate').setAttribute('value', service);
     });
     $('#service_star3').click(function(){
         service=3;
-        document.getElementById('service_rate').setAttribute('value', service);
     });
     $('#service_star4').click(function(){
         service=4;
-        document.getElementById('service_rate').setAttribute('value', service);
     });
     $('#service_star5').click(function(){
         service=5;
-        document.getElementById('service_rate').setAttribute('value', service);
     });
 </script>
 
@@ -230,24 +227,33 @@ tr td:first-child{
     });
     $('#design_star1').click(function(){
         design=1;
-        document.getElementById('design_rate').setAttribute('value', design);
+<!--        document.getElementById('design_rate').setAttribute('value', design);-->
     });
     $('#design_star2').click(function(){
         design=2;
-        document.getElementById('design_rate').setAttribute('value', design);
     });
     $('#design_star3').click(function(){
         design=3;
-        document.getElementById('design_rate').setAttribute('value', design);
     });
     $('#design_star4').click(function(){
         design=4;
-        document.getElementById('design_rate').setAttribute('value', design);
     });
     $('#design_star5').click(function(){
         design=5;
-        document.getElementById('design_rate').setAttribute('value', design);
     });
 </script>
 
+<!--평균내기-->
+<script>
+  function cal_avgRate(){
+        document.getElementById('taste_rate').setAttribute('value', taste);
+        document.getElementById('service_rate').setAttribute('value', service);
+        document.getElementById('design_rate').setAttribute('value', design);
+
+        var avg = (taste + service + design)/3;
+        document.getElementById('avg_rate').setAttribute('value', avg);
+  }
+</script>
+
+<!--별에 효과넣고싶음-->
 {% endblock %}
