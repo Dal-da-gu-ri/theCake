@@ -288,11 +288,11 @@
                             <td>{{option.optionName}}</td>
                             {% endif %}
                             <td style="padding-left: 5%;">
-                                <!-- 이게 동적으로 필수옵션 개수 만큼 -->
+                                <!-- 동적으로 필수옵션 개수 만큼 -->
                                 <select name="option" class="option requiredOption" onchange="price_cal()">
                                     <!--필수옵션이름-->
                                     <option value="">필수선택</option>
-                                    <!-- 이게 동적으로 세부옵션만큼 -->
+                                        <!-- 동적으로 세부옵션만큼 -->
                                         {% for detailedOption in detailedOptions %}
                                         {% if detailedOption.option_id == option.pk %}
                                             <!-- 필수상세옵션1-->
@@ -508,6 +508,31 @@
 <!-- 케이크 1호 가격 + 선택한 필수옵션 + 선택한 선택옵션-->
 <!-- -일땐 -해야되고 +일떈 +해야됨 -->
 <script>
+<!--    function price_cal(){-->
+<!--        var price = Number({{cake.cakePrice}});-->
+<!--        var option_list = document.getElementsByClassName("option");-->
+<!--        var selectedDetailedOption = new Array;-->
+<!--        var detailedOption;-->
+
+<!--        for(var i=0; i< option_list.length; i++){-->
+<!--            console.log(option_list[i].options[option_list[i].selectedIndex].value);-->
+<!--            selectedDetailedOption.push(option_list[i].options[option_list[i].selectedIndex].value);-->
+<!--        }-->
+
+<!--        console.log(selectedDetailedOption);-->
+<!--        {% for detailedOption in detailedOptions %}-->
+<!--            detailedOption = "{{detailedOption.detailName}}";-->
+<!--            if(selectedDetailedOption.includes(detailedOption)){-->
+<!--                price += {{detailedOption.pricing}};-->
+<!--            }-->
+<!--        {% endfor %}-->
+
+<!--        console.log(price);-->
+<!--        document.getElementById("totalprice").innerHTML = price;-->
+<!--        document.getElementById('total_price').setAttribute('value',price);-->
+<!--    }    -->
+
+
     function price_cal(){
         var price = Number({{cake.cakePrice}});
         var option_list = document.getElementsByClassName("option");
@@ -516,12 +541,12 @@
 
         for(var i=0; i< option_list.length; i++){
             console.log(option_list[i].options[option_list[i].selectedIndex].value);
-            selectedDetailedOption.push(option_list[i].options[option_list[i].selectedIndex].value);
+            selectedDetailedOption.push(Number(option_list[i].options[option_list[i].selectedIndex].value));
         }
 
         console.log(selectedDetailedOption);
         {% for detailedOption in detailedOptions %}
-            detailedOption = "{{detailedOption.detailName}}";
+            detailedOption = {{detailedOption.pk}};
             if(selectedDetailedOption.includes(detailedOption)){
                 price += {{detailedOption.pricing}};
             }
