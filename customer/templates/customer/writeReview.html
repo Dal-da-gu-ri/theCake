@@ -25,26 +25,52 @@
 table{
   margin-left: auto;
   margin-right: auto;
-  margin-top: 10%;
+}
+
+#rate_table{
+  margin-top: 6%;
+  margin-bottom: 6%;
+}
+
+#rate_table tr td{
+  vertical-align: middle;
 }
 
 #rate_table tr td:first-child{
-  width: 45%;
+  padding-right: 30px;
 }
+
+#orderInfo_table{
+  margin-top: 5%;
+  width: 70%;
+}
+
+#orderInfo_table tr td:nth-child(2){
+  padding: 20px;
+  border: 2px solid #d8d8d8;
+ }
 
 #orderInfo_table td{
-  vertical-align:middle;
-  margin:0 auto;
+  vertical-align:top;
   height: 10%;
+  padding: 0;
 }
 
-#orderInfo_table tr:not(:first-child){
+#orderInfo_table td:nth-child(2){
+
+}
+
+#orderInfo_table tr td:nth-child(2) div:not(:first-child){
+  font-size: 0.95rem;
   color: gray;
 }
 
 
 #review{
-  padding-top: 5%;
+  font-size:0.9rem;
+  margin:0 auto;
+  width:80%;
+  text-align: center;
 }
 
 #review_content{
@@ -59,50 +85,44 @@ table{
     width: 10rem;
     height: 10rem;
     object-fit: contain;
-    border: 2px solid #ffe0e0;
+<!--    border: 2px solid #d8d8d8;-->
 }
 </style>
 
-<div class="text-center">
-  <table id="orderInfo_table" style="width:90%;">
+<div class="text-center pb-3">
+  <table id="orderInfo_table">
     <tr>
-      <td rowspan="2" class="text-center" style="width: 50%;">
+      <td class="text-center" style="width: 30%;">
         <img id="cakeImg" src="/media/{{order.cakeImg}}" alt="cake image">
 <!--        <div class=" mt-2">{{order.cakeName}}</div>-->
       </td>
-      <td style="vertical-align:top;">
-        주문한 케이크명: {{order.cakeName}}
-        <hr>
-      </td>
-    </tr>
-    <tr>
       <td>
+        <div>주문한 케이크명: {{order.cakeName}}</div>
+        <hr>
         <div>주문번호: {{order.orderNum}}</div>
         <div class="pt-2">가게명: {{order.storeName}}</div>
       </td>
     </tr>
   </table>
-
 </div>
 <hr>
+
 <form method = "POST" class="form_rate" onsubmit="cal_avgRate()">
  {% csrf_token %}
   <table id="rate_table">
-    <tr>
-      <td><div class="text-nowrap">맛 평점</div></td>
-      <td>
-        <div class="taste text-nowrap align-items-center">
+    <tr height="60">
+      <td class="text-nowrap">맛 평점</td>
+      <td class="taste text-nowrap">
           <span class="starR on" id="taste_star1">별1</span>
           <span class="starR" id="taste_star2">별2</span>
           <span class="starR" id="taste_star3">별3</span>
           <span class="starR" id="taste_star4">별4</span>
           <span class="starR" id="taste_star5">별5</span>
           <input type="hidden" name="taste_rate" id="taste_rate" value="1" />
-        </div>
       </td>
     </tr>
-    <tr>
-      <td><div class="mt-4 text-nowrap">서비스 평점</div></td>
+    <tr height="60">
+      <td class="text-nowrap">서비스 평점</td>
       <td>
         <div class="service text-nowrap">
           <span class="starR on" id="service_star1">별1</span>
@@ -114,8 +134,8 @@ table{
         </div>
       </td>
     </tr>
-    <tr>
-      <td><div class="mt-4 text-nowrap">디자인 평점</div></td>
+    <tr height="60">
+      <td class="text-nowrap">디자인 평점</td>
       <td>
         <div class="design text-nowrap">
           <span class="starR on" id="design_star1">별1</span>
@@ -130,8 +150,9 @@ table{
   </table>
 
   <input type="hidden" name="avg_rate" id="avg_rate" value="1"/>
-  <div id="review" class="mt-4 mb-2 text-center" style="padding-left:5%; font-size:0.9rem;">
-    <textarea type="text" step="0.1" name="review" id="review_content" class="p-2" placeholder="한 줄 평을 남겨주세요."></textarea>
+
+  <div id="review" class="mt-4 mb-2">
+    <textarea type="text" name="review" id="review_content" class="p-2" placeholder="한 줄 평을 남겨주세요."></textarea>
   </div>
 
   <div class="mt-5 d-flex justify-content-center">
