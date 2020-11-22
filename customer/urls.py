@@ -22,8 +22,6 @@ urlpatterns = [
 
     # path('main/stores/<int:pk>/<int:pk1>/order', views.cakeOrder, name='cakeOrder'),
     # path('main/stores/<int:pk1>/', views.cakeOrder, name='cakeOrder'),
-
-    path('temp/', views.temp, name='temp'),
     # path('main/showStores2', views.showStores2, name='showStores2'),
 
     # 주문하기
