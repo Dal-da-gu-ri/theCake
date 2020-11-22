@@ -49,6 +49,7 @@ urlpatterns = [
     # (수령날짜, 수령시간, 선택한 케이크 이미지, 최종가격, 주문매장, 주문진행상황, 주문번호(?))
     path('orderList/', views.orderlist, name='orderList_customer'),
     path('orderList/<int:orderNum>/pay', views.cakePay, name='pay'),
+    path('orderList/<int:orderNum>/paySuccess', views.paySuccess, name='paySuccess'),
     path('orderList/<int:orderNum>/review', views.writeReview, name='writeReview'),
     path('orderList/<str:pk>/delete', views.order_delete, name='order_delete'),
 
