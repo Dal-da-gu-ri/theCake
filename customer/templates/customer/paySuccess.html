@@ -1,0 +1,111 @@
+{% extends 'base_customer.html' %}
+{% block title %} :: 결제 영수증 :: {% endblock %}
+{% block content %}
+
+<style>
+  #submit{
+    padding: 0.7em;
+    padding-right: 2em;
+    padding-left: 2em;"
+  }
+
+  .color_recommend {
+        display: inline-flex;
+	      border: 2px solid #000000;
+	      width: 15px;
+	      height: 15px;
+	      border-radius: 100%;
+    }
+    #customerImage{
+        width: 13rem;
+        height: 13rem;
+        object-fit: contain;
+        border: 2px solid #ffe0e0;
+    }
+</style>
+<div class="row">
+        <p class="pt-3 pl-4 path">결제 내역</p>
+</div>
+<form>
+    <div class="row justify-content-center">
+        <div id="cake_info" class="form-group col-8 col-sm-7 col-md-8 mt-5" style="padding-top: 1em; padding-bottom: 1em; border: 2px solid #bdbdbd;">
+            <div class="form-row">
+                <div class="col-4 text-nowrap text-center">
+                    <label>주문번호</label>
+                </div>
+                <div class="col-6" style="align:center;">
+                    {{ order.orderNum }}
+                </div>
+            </div>
+            <hr>
+            <div class="form-row">
+                <div class="col-4 text-nowrap text-center">
+                    <label>구매자명</label>
+                </div>
+                <div class="col-6" style="align:center;">
+                    {{ order.orderer }}
+                </div>
+            </div>
+            <hr>
+            <div class="form-row">
+                <div class="col-4 text-nowrap text-center">
+                    <label>상품명</label>
+                </div>
+                <div class="col-6" style="align:center;">
+                    {{ order.cakeName }}
+                </div>
+            </div>
+            <hr>
+            <div class="form-row">
+                <div class="col-4 text-nowrap text-center">
+                    <label>거래일시</label>
+                </div>
+                <div class="col-6" style="align:center;">
+                    {{ now }}
+                </div>
+            </div>
+            <hr>
+            <div class="form-row">
+                <div class="col-4 text-nowrap text-center">
+                    <label>희망 픽업일</label>
+                </div>
+                <div class="col-6" style="align:center;">
+                    {{ order.pickupDate }}
+                </div>
+            </div>
+            <hr>
+            <div class="form-row">
+                <div class="col-4 text-nowrap text-center">
+                    <label>희망 픽업 시간</label>
+                </div>
+                <div class="col-6">
+                    {{ order.pickupTime }}
+                </div>
+            </div>
+            <hr>
+            <div class="form-row">
+                <div class="col-4 text-nowrap text-center">
+                    <label>주문 요청사항</label>
+                </div>
+                <div class="col-6">
+                  {{ order.message }}
+                </div>
+            </div>
+          <hr>
+            <div class="form-row">
+                <div class="col-4 text-nowrap text-center">
+                    <label>최종 가격</label>
+                </div>
+                <div class="col-6">
+                  {{ order.price }}원
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <div class="row mt-5">
+        <button type='submit' id="submit" class="btn btn-secondary mt-4">홈으로 돌아가기</button>
+    </div>
+</form>
+
+{% endblock %}
