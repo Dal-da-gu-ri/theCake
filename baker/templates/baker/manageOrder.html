@@ -79,7 +79,9 @@
             {% elif order.status == 3 %}
             <td style="font-weight:bold; color:purple;">결제 완료</td>
             {% elif order.status == 4 %}
-            <td style="font-weight:bold; color: #e3a452;">픽업 완료</td>
+            <td style="font-weight:bold;">픽업 완료</td>
+            {% elif order.status == 5 %}
+            <td style="font-weight:bold;">픽업 완료</td>
             {% endif %}
         </tr>
 

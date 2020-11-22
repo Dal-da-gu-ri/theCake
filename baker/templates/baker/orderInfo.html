@@ -25,8 +25,8 @@
 <!--    }-->
 <!--  }-->
   .color_recommend {
-        float: left;
-	      border:2px solid #000000;
+        display: inline-flex;
+	      border: 2px solid #000000;
 	      width: 15px;
 	      height: 15px;
 	      border-radius: 100%;
@@ -95,7 +95,7 @@
                     {% for orderoption in orderoption_list %}
                       {% if orderoption.color != NULL %}
                         {% if orderoption.optionID == option.id %}
-                          <div class="mt-2">{{option.option}}: {{option.detailName}} ({{option.pricing}}원) <div class="color_recommend" style="background-color: {{orderoption.color}};"></div></div>
+                          <div class="mt-2"><div class="color_recommend" style="background-color: {{orderoption.color}};"></div>{{option.option}}: {{option.detailName}} ({{option.pricing}}원) </div>
                         {% endif %}
                       {% elif orderoption.image != NULL %}
                         {% if orderoption.optionID == option.id %}
