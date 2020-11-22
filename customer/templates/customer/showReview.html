@@ -13,30 +13,30 @@
         overflow:scroll;
     }
 
-    table {
+    #review_table {
       width:100%;
       text-align: center;
       border: 2px solid #bf7f7f;
     }
 
-    table tr:not(:nth-child(1)){
+    #review_table tr:not(:nth-child(1)){
       font-size: 15px;
       height: 2.5em;
       vertical-align: top;
       background-color: #f9f9f9cd;
     }
 
-    table th:not(:last-child), td:not(:last-child){
+    #review_table th:not(:last-child), td:not(:last-child){
         border-right: 1px solid #bf7f7f;
     }
 
-    table th:nth-child(1){
+    #review_table th:nth-child(1){
         width: 15%;
     }
-    table th:nth-child(2){
+    #review_table th:nth-child(2){
         width: 20%;
     }
-    table th:nth-child(3), table th:nth-child(4), table th:nth-child(5){
+    #review_table th:nth-child(3), table th:nth-child(4), table th:nth-child(5){
         width: 10%;
     }
     #header{
@@ -46,14 +46,21 @@
       font-weight: bold;
     }
 
-    th, td{
+    #review_table th, td{
         vertical-align:middle;
         border-bottom: 1px solid #bf7f7f;
         margin: 10px !important;
     }
+
+    .star{
+        width: 1.3rem;
+        height: 1.3rem;
+
+    }
+
 </style>
 <div class="mt-4" id="table_space">
-    <table class = "text-nowrap" id = "table">
+    <table class = "text-nowrap" id = "review_table">
         <tr id="header">
             <th>주문자 아이디</th>
             <th>주문한 케이크</th>
@@ -66,13 +73,31 @@
         <tr>
             <td>{{review.secureID}}</td>
             <td>케이크이름</td>
-            <td>{{review.taste}}</td>
-            <td>{{review.service}}</td>
-            <td>{{review.design}}</td>
+            <td>
+                <div class="d-flex align-items-center justify-content-center">
+                    <span style="margin-right: 10px;"><img class="star" src="/static/star.png" alt="star"></span>
+                    <span style="font-weight: bold; font-size: 1.1rem;">{{review.taste}}</span>
+                </div>
+            </td>
+            <td>
+                 <div class="d-flex align-items-center justify-content-center">
+                    <span style="margin-right: 10px;"><img class="star" src="/static/star.png" alt="star"></span>
+                    <span style="font-weight: bold; font-size: 1.1rem;">{{review.service}}</span>
+                </div>
+            </td>
+            <td>
+                <div class="d-flex align-items-center justify-content-center">
+                    <span style="margin-right: 10px;"><img class="star" src="/static/star.png" alt="star"></span>
+                    <span style="font-weight: bold; font-size: 1.1rem;">{{review.design}}</span>
+                </div>
+            </td>
             <td>{{review.textReview}}</td>
         </tr>
         {% endfor %}
     </table>
+</div>
+<div>
+
 </div>
 
 {% endblock %}

@@ -201,39 +201,40 @@ body {
 
 <div class="form-group">
 <!--   가게 케이크들 -->
- <div class="album py-3">
+    <div class="album py-3">
 
-  <div class="container pt-3">
-    <div class="row row-eq-height">
+      <div class="container pt-3">
+        <div class="row row-eq-height">
 
-<!--      'cakeName', 'cakeImg', 'cakePrice', 'mini'-->
-      {% for cake in cake_list %}
-      <div class="col-lg-3 col-md-4 col-sm-6 col-6">
-        <div class="card mb-3">
-          <div class="image-block card-img-top embed-responsive embed-responsive-1by1">
-            <img class="embed-responsive-item" src="/media/{{cake.cakeImg}}" alt="cake image">
-          </div>
-          <div class="card-body">
-            <div class="pt-1">
-                <p class="card-text pt-2 pb-3" style="text-align: center;">{{cake.cakeName}}</p>
-              <div class="d-flex justify-content-around row pt-2">
-                <span class="card-text gray">가격 (1호 기준)</span>
-                <span>{{cake.cakePrice}}원</span>
-              </div>
-<!--              <hr>-->
+    <!--      'cakeName', 'cakeImg', 'cakePrice', 'mini'-->
+          {% for cake in cake_list %}
+          <div class="col-lg-3 col-md-4 col-sm-6 col-6">
+            <div class="card mb-3">
+                  <div class="image-block card-img-top embed-responsive embed-responsive-1by1">
+                    <img class="embed-responsive-item" src="/media/{{cake.cakeImg}}" alt="cake image">
+                  </div>
+
+                  <div class="card-body">
+                        <div class="pt-1">
+                            <p class="card-text pt-2 pb-3" style="text-align: center;">{{cake.cakeName}}</p>
+                          <div class="d-flex justify-content-around row pt-2">
+                            <span class="card-text gray">가격 (1호 기준)</span>
+                            <span>{{cake.cakePrice}}원</span>
+                          </div>
+            <!--              <hr>-->
+                        </div>
+                        <div class="d-flex justify-content-center pt-3 mb-2">
+            <!--                  <input type="hidden" name="_method" value="order" />-->
+                              <button id="order_btn" onclick="location.href='{% url 'customer:cakeOrder' crn=cake.crn cakepk=cake.pk %}'">주문하기</button>
+                        </div>
+                  </div>
             </div>
-            <div class="d-flex justify-content-center pt-3 mb-2">
-<!--                  <input type="hidden" name="_method" value="order" />-->
-                  <button id="order_btn" onclick="location.href='{% url 'customer:cakeOrder' crn=cake.crn cakepk=cake.pk %}'">주문하기</button>
-            </div>
+            <br>
           </div>
+          {% endfor %}
         </div>
-        <br>
       </div>
-      {% endfor %}
     </div>
-  </div>
-</div>
 </div>
 
 

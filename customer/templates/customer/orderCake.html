@@ -525,7 +525,6 @@
     }
 </script>
 
-
 <script type="text/javascript" src="/static/js/color.js"></script>
 
 <!--cake color-->
@@ -706,5 +705,15 @@
             })
         })
 </script>
+<script>
+    if('{{error}}'!="")
+        alert('{{ error }}');
+</script>
 
+<!--<script>-->
+<!--    history.pushState(null, null, location.href);-->
+<!--    window.onpopstate = function () {-->
+<!--        history.go(1);-->
+<!--    };-->
+<!--</script>-->
 {% endblock %}
