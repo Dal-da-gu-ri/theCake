@@ -1,0 +1,45 @@
+{% extends 'base_customer.html' %}
+{% block title %} ::주문 거절 사유:: {% endblock %}
+{% block content %}
+
+<style>
+  #letter_content{
+        border: 2px solid #bdbdbd;;
+        border-radius: 12px;
+        padding: 15px;
+        height: 8rem;
+        width: 40%;
+        background-color: white;
+    }
+
+    textarea:focus{
+        outline:none;
+    }
+</style>
+<div class="row">
+        <p class="pt-3 pl-4 path">주문 관리 > 주문 거절</p>
+</div>
+<div style="margin-top: 10%;">
+    <form method = "POST" class="form-signup" onsubmit="return reject_alert()">
+        {% csrf_token %}
+       <div class="form-inline form-group">
+          <label class="col-sm-4 control-label" style="font-weight:bold;">주문 거절 사유</label>
+          <textarea id="letter_content" name="fromManager"></textarea>
+           <div class="ml-4">
+               <button type="submit" class="btn btn-danger btn-block">확인</button>
+           </div>
+       </div>
+    </form>
+</div>
+<!--거절 경고창-->
+<script>
+    function reject_alert(){
+        var result = confirm("정말 거절하실 건가요? 한 번 거절하면 거절 취소는 불가합니다!");
+        if(result){
+            return true;
+        }else{
+            return false;
+        }
+    }
+</script>
+{% endblock %}

@@ -860,7 +860,7 @@ def orderInfo(request, pk):
             return redirect('/')
 
 
-def orderReject(request,orderNum):
+def orderReject(request,pk):
     res_data = {}
     user_id = request.session.get('user')
 
@@ -868,7 +868,7 @@ def orderReject(request,orderNum):
         baker = Baker.objects.get(pk=user_id)
         res_data['bakername'] = baker.name
 
-        order = Order.objects.get(businessID=baker.businessID,orderNum=orderNum)
+        order = Order.objects.get(businessID=baker.businessID,orderNum=pk)
 
 
         if request.method == "GET":
@@ -881,7 +881,7 @@ def orderReject(request,orderNum):
             order.fromManager = msg
             order.status = 2
             order.save()
-            return render(request, 'baker/manageOrder.html',res_data)
+            return redirect('/baker/manageOrder', res_data)
 
     else:
         if request.method == "GET":
@@ -1018,11 +1018,11 @@ def changeAccountInfo(request):
 
         else:
             baker = Baker.objects.get(businessID=baker.businessID)
-            bakerform = BakerForm(instance=baker)
+            # bakerform = BakerForm(instance=baker)
             # storeform = StoreForm()
             # res_data['baker'] = bakerform
             res_data = {
-                'baker': bakerform,
+                # 'baker': bakerform,
                 'userID': baker.userID,
                 'email_baker': baker.email
             }

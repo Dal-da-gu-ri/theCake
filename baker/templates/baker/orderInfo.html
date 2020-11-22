@@ -3,27 +3,12 @@
 {% block content %}
 
 <style>
-  #accept{
-    margin-left: 7.5em;
+  #accept, #reject{
     padding: 0.7em;
     padding-right: 2em;
     padding-left: 2em;"
   }
-  @media (max-width: 1184px) {
-    #accept{
-      margin-left: 5.8em;
-    }
-  }
-  @media (max-width: 976px) {
-    #accept{
-      margin-left: 3em;
-    }
-  }
-<!--  @media (max-width: 570px) {-->
-<!--    #accept{-->
-<!--      margin-left: 7em;-->
-<!--    }-->
-<!--  }-->
+
   .color_recommend {
         display: inline-flex;
 	      border: 2px solid #000000;
@@ -51,12 +36,17 @@
                <img id="cake_img" class="embed-responsive-item" src="/media/{{ order.cakeImg }}">
             </div>
             <br>
+          <div class="form-inline form-group">
                 <form method = "POST" action = "#" onsubmit="return accept_alert()">
                 {% csrf_token %}
-                <div class="row mt-1">
+                <div class="row mt-1 ml-4">
                   <button id="accept" class="btn btn-secondary mt-4 text-center">수락하기</button>
                 </div>
                 </form>
+                <div class="row mt-1 ml-4">
+                  <a href="{% url 'baker:orderReject' order.orderNum %}"><button id="reject" class="btn btn-danger mt-4 text-center">거절하기</button></a>
+                </div>
+          </div>
         </div>
         <div id="cake_info" class="form-group col-8 col-sm-7 col-md-8 mt-5" style="padding-top: 1em; padding-bottom: 1em; border: 2px solid #bdbdbd;">
             <div class="form-row">
@@ -156,11 +146,13 @@
 <!--        <button type='submit' id="submit" class="btn btn-secondary mt-4">등록</button>-->
 <!--    </div>-->
 
-<!--수락하기 버튼을 disabled-->
+<!--수락하기, 거절하기 버튼 disabled-->
 <script>
   $(function(){
-    if ('{{order.status}}'!="0")
+    if ('{{order.status}}'!="0"){
       $('#accept').attr('disabled', true);
+      $('#reject').attr('disabled', true);
+    }
   });
 </script>
 
