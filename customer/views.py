@@ -531,12 +531,6 @@ def cakeOrder(request,crn,cakepk):
 
             # if mappingDate(store, ordermonth, orderday) == True:  # 주문가능한 수량이 있을경우
 
-
-
-
-
-
-
     else:
         if request.method == "GET":
             res_data['comment'] = "잘못된 접근입니다. 로그인을 해주세요!"
@@ -597,6 +591,34 @@ def orderlist(request):
             return render(request, 'customer/inappropriateApproach.html', res_data)
         elif request.method == "POST":
             return redirect('/')
+
+def cakePay(request,orderNum):
+    res_data = {}
+    user_id = request.session.get('user')
+
+    if user_id:
+        customer = Orderer.objects.get(pk=user_id)
+        res_data['customername'] = customer.name
+        order = Order.objects.get(orderer=customer.userID, orderNum=orderNum)
+
+
+        if request.method == "GET":
+
+            res_data['customer']=customer
+            res_data['order'] = order
+            return render(request,'customer/pay.html',res_data)
+
+
+    else:
+        if request.method == "GET":
+            res_data['comment'] = "잘못된 접근입니다. 로그인을 해주세요!"
+            return render(request, 'customer/inappropriateApproach.html', res_data)
+        elif request.method == "POST":
+            return redirect('/')
+
+
+
+
 
 def writeReview(request,orderNum):
     res_data = {}
