@@ -45,6 +45,13 @@
         border-bottom: 1px solid #bf7f7f;
         margin: 10px !important;
     }
+
+
+    .star{
+        width: 1.3rem;
+        height: 1.3rem;
+
+    }
 </style>
   <div class="row">
         <p class="pt-3 pl-4 path">가게 관리 > 가게 평점 확인</p>
@@ -63,9 +70,24 @@
         <tr>
             <td>{{review.orderNum}}</td>
             <td>{{review.secureID}}</td>
-            <td>{{review.taste}}</td>
-            <td>{{review.service}}</td>
-            <td>{{review.design}}</td>
+            <td>
+                <div class="d-flex align-items-center justify-content-center">
+                    <span style="margin-right: 10px;"><img class="star" src="/static/star.png" alt="star"></span>
+                    <span style="font-weight: bold; font-size: 1.1rem;">{{review.taste}}</span>
+                </div>
+            </td>
+            <td>
+                 <div class="d-flex align-items-center justify-content-center">
+                    <span style="margin-right: 10px;"><img class="star" src="/static/star.png" alt="star"></span>
+                    <span style="font-weight: bold; font-size: 1.1rem;">{{review.service}}</span>
+                </div>
+            </td>
+            <td>
+                <div class="d-flex align-items-center justify-content-center">
+                    <span style="margin-right: 10px;"><img class="star" src="/static/star.png" alt="star"></span>
+                    <span style="font-weight: bold; font-size: 1.1rem;">{{review.design}}</span>
+                </div>
+            </td>
             <td>{{review.textReview}}</td>
         </tr>
         {% endfor %}
