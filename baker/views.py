@@ -1125,8 +1125,8 @@ def option_add(request):
                 option.withColorOrImage = optionform.cleaned_data['withColorOrImage']
                 # option.withImage = optionform.cleaned_data['withImage']
                 # option.withColor = optionform.cleaned_data['withColor']
-                # option = optionform.save()
-                # option.save()
+                option = optionform.save()
+                option.save()
                 for form in formset:
                     detail = form.save(commit=False)
                     detail.option = option
