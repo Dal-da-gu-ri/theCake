@@ -112,7 +112,7 @@
         </tr>
         {% for order in order_list %}
         <tr>
-            <td>{{order.pickupDate}}<br>{{order.pickupTime}}</td>
+          <td><div class="mb-1">{{order.pickupDate}}</div><div>{{order.pickupTime}}</div></td>
             <td class="image-block embed-responsive-1by1" style="text-align: center;">
 
                <img id="cake_img" class="embed-responsive-item" src="/media/{{order.cakeImg}}">
@@ -126,13 +126,15 @@
 <!--          결제하기 url 나중에 적기-->
           <td><div style="font-weight:bold; color: blue;">주문 수락</div><a href="#"><button class="select_btn3 mt-1 mb-1">결제하기</button></a></td>
             {% elif order.status == 0 %}
-            <td><div class="mt-1" style="font-weight:bold;">주문 요청</div><a href="{% url 'customer:order_delete' order.pk %}"><button class="select_btn mt-1 mb-1">주문취소</button></a></td>
+            <td><div class="mt-1" style="font-weight:bold; color:#cc5f5f;">주문 요청</div><a href="{% url 'customer:order_delete' order.pk %}"><button class="select_btn mt-1 mb-1">주문취소</button></a></td>
             {% elif order.status == 2 %}
             <td style="font-weight:bold; color: red;">주문 거절됨</td>
             {% elif order.status == 3 %}
             <td style="font-weight:bold; color: purple;">결제 완료</td>
             {% elif order.status == 4 %}
             <td><div class="mt-1" style="font-weight:bold; color: #e3a452;">픽업 완료</div><a href="{% url 'customer:writeReview' order.orderNum %}"><button class="select_btn2 mt-1 mb-1">리뷰 쓰러 가기</button></a></td>
+            {% elif order.status == 5 %}
+            <td><div class="mt-1" style="font-weight:bold;">픽업 완료</div>
             {% endif %}
         </tr>
 

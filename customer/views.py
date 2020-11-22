@@ -641,10 +641,12 @@ def writeReview(request,orderNum):
             #     reviewform = ReviewForm(instance=reviewobject)
 
             res_data['order'] = order
+
             # res_data['review']=reviewform
             return render(request, 'customer/writeReview.html', res_data)
         elif request.method == "POST":
-
+            order.status = 5
+            order.save()
 
             review = Review(
                 orderNum = orderNum,
