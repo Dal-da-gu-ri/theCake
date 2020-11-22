@@ -481,10 +481,11 @@ def cakeOrder(request,crn,cakepk):
                 details = request.POST.getlist('option_detail', None)
 
                 print(options)
-                print(options[0])
+                print(options[0].pk)
                 print(details)
                 for i in range(0,len(options)):
                     if options[i]:
+
                         curdetail = DetailedOption.objects.get(businessID=crn,detailName=options[i])
                         curoption = Option.objects.get(businessID=crn,optionName=curdetail.option)
                         if curoption.withColorOrImage == '색상판':

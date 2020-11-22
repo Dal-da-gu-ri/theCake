@@ -1242,11 +1242,17 @@ def option_delete(request,pk):
         baker = Baker.objects.get(pk=user_id)
         res_data['bakername'] = baker.name
         optionobject = get_object_or_404(Option, pk=pk)
-        optionobject.delete()
 
         if DetailedOption.objects.filter(option_id=optionobject.pk, businessID=baker.businessID):
             detailobject = DetailedOption.objects.filter(option_id=optionobject.pk, businessID=baker.businessID)
             detailobject.delete()
+
+        if CakeOption.objects.filter(businessID=baker.businessID,optionID = optionobject.pk):
+            cakeoption = CakeOption.objects.filter(businessID=baker.businessID,optionID = optionobject.pk)
+            cakeoption.delete()
+
+        optionobject.delete()
+
         return redirect('/baker/manageCake/options', res_data)
 
     else:
