@@ -643,10 +643,12 @@ def writeReview(request,orderNum):
             return render(request, 'customer/writeReview.html', res_data)
         elif request.method == "POST":
 
+
             review = Review(
                 orderNum = orderNum,
                 orderer = customer.userID,
                 storeInfo = order.businessID,
+                cakeName = order.cakeName,
                 # taste = int(request.POST.get('taste_rate',None)),
                 # service = int(request.POST.get('service_rate', None)),
                 # design = int(request.POST.get('design_rate', None)),
