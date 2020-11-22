@@ -5,3 +5,8 @@ def makeordernum():
 
     #print(num)
     return num
+
+
+def now():
+    now = datetime.today().strftime("%Y/%m/%d %H:%M:%S")
+    return now

@@ -11,7 +11,7 @@ from django.views.decorators.csrf import csrf_exempt
 from baker.forms import *
 from customer.forms import *
 from .mappingdate import mappingDate, amountChange
-from .ordernum import makeordernum
+from .ordernum import makeordernum, now
 from .secureID import secureID
 
 
@@ -607,6 +607,7 @@ def cakePay(request,orderNum):
             res_data['customer']=customer
             res_data['order'] = order
             return render(request,'customer/pay.html',res_data)
+        # elif request.method == "POST":
 
 
     else:
@@ -616,6 +617,43 @@ def cakePay(request,orderNum):
         elif request.method == "POST":
             return redirect('/')
 
+def paySuccess(request,orderNum):
+    res_data = {}
+    user_id = request.session.get('user')
+
+    if user_id:
+        customer = Orderer.objects.get(pk=user_id)
+        res_data['customername'] = customer.name
+        order = Order.objects.get(orderer=customer.userID, orderNum=orderNum)
+        # order = Order.objects.get(businessID=baker.businessID, orderNum=pk)
+        optionlist = OrderOption.objects.filter(businessID=order.businessID, orderID=orderNum)
+        option_list = []
+        for i in range(0, len(optionlist)):
+            option = DetailedOption.objects.get(businessID=order.businessID, pk=optionlist[i].optionID)
+            option_list.append(option)
+
+        orderoption_list = OrderOption.objects.filter(businessID=order.businessID,orderer=customer.userID,orderID=orderNum)
+
+        res_data['option_list']=option_list
+        res_data['orderoption_list']=orderoption_list
+
+
+        if request.method == "GET":
+            date = now()
+            res_data['date'] = date
+            res_data['customer'] = customer
+            res_data['order'] = order
+            return render(request, 'customer/paySuccess.html', res_data)
+        # elif request.method == "POST":
+
+
+
+    else:
+        if request.method == "GET":
+            res_data['comment'] = "잘못된 접근입니다. 로그인을 해주세요!"
+            return render(request, 'customer/inappropriateApproach.html', res_data)
+        elif request.method == "POST":
+            return redirect('/')
 
 
 

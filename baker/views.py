@@ -825,9 +825,9 @@ def orderInfo(request, pk):
         print(len(optionlist))
         print(optionlist[0].optionID)
         for i in range(0,len(optionlist)):
-            print(i)
-            print(optionlist[i].optionID)
-            print(baker.businessID)
+            # print(i)
+            # print(optionlist[i].optionID)
+            # print(baker.businessID)
             option = DetailedOption.objects.get(businessID=baker.businessID,pk=optionlist[i].optionID)
             option_list.append(option)
 
