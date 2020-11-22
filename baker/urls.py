@@ -46,7 +46,7 @@ urlpatterns = [
 
     # 주문 관리
     path('manageOrder/', views.manageOrder, name='manageOrder'),
-    path('manageOrder/orderInfo/<int:pk>/', views.orderInfo, name='orderInfo')
-
+    path('manageOrder/orderInfo/<int:pk>/', views.orderInfo, name='orderInfo'),
+    path('manageOrder/orderInfo/<int:pk>/reject/', views.orderReject, name='orderReject')
 
 ]
