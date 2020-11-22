@@ -1132,33 +1132,38 @@ def option_add(request):
                     detail.option = option
                     detail.businessID = baker.businessID
                     detail.detailName = form.cleaned_data['detailName']
+                    detail.pricing = form.cleaned_data['pricing']
+                    detail.save()
 
-                    try:
-                        detail = DetailedOption.objects.get(businessID = baker.businessID,detailName=form.cleaned_data['detailName'])
-                        option.delete()
-                        optionform = OptionForm(request.GET or None)
-                        formset = DetailedOptionFormset(queryset=DetailedOption.objects.none())
-                        res_data['optionform'] = optionform
-                        res_data['formset'] = formset
-                        res_data['error'] = "이전에 등록하지 않은 세부옵션명을 기입해주세요."
-                        return render(request, 'baker/option_add.html', res_data)
+                return redirect('/baker/manageCake/options/',res_data)
 
-                    except DetailedOption.DoesNotExist:
-                        detail.pricing = form.cleaned_data['pricing']
-                        detail.save()
 
-                try:
-                    curoption = Option.objects.get(businessID=baker.businessID, optionName=optionform.cleaned_data['optionName'])
-                    optionform = OptionForm(request.GET or None)
-                    formset = DetailedOptionFormset(queryset=DetailedOption.objects.none())
-                    res_data['optionform'] = optionform
-                    res_data['formset'] = formset
-                    res_data['error'] = "이전에 등록하지 않은 옵션명을 기입해주세요."
-                    return render(request, 'baker/option_add.html', res_data)
-                except Option.DoesNotExist:
-                    option = optionform.save()
-                    option.save()
-                    return redirect('/baker/manageCake/options/',res_data)
+                    # try:
+                    #     detail = DetailedOption.objects.get(businessID = baker.businessID,detailName=form.cleaned_data['detailName'])
+                    #     option.delete()
+                    #     optionform = OptionForm(request.GET or None)
+                    #     formset = DetailedOptionFormset(queryset=DetailedOption.objects.none())
+                    #     res_data['optionform'] = optionform
+                    #     res_data['formset'] = formset
+                    #     res_data['error'] = "이전에 등록하지 않은 세부옵션명을 기입해주세요."
+                    #     return render(request, 'baker/option_add.html', res_data)
+                    #
+                    # except DetailedOption.DoesNotExist:
+                    #     detail.pricing = form.cleaned_data['pricing']
+                    #     detail.save()
+
+                # try:
+                #     curoption = Option.objects.get(businessID=baker.businessID, optionName=optionform.cleaned_data['optionName'])
+                #     optionform = OptionForm(request.GET or None)
+                #     formset = DetailedOptionFormset(queryset=DetailedOption.objects.none())
+                #     res_data['optionform'] = optionform
+                #     res_data['formset'] = formset
+                #     res_data['error'] = "이전에 등록하지 않은 옵션명을 기입해주세요."
+                #     return render(request, 'baker/option_add.html', res_data)
+                # except Option.DoesNotExist:
+                #     option = optionform.save()
+                #     option.save()
+                #     return redirect('/baker/manageCake/options/',res_data)
             else:
                 print(optionform.errors)
                 optionform = OptionForm(request.GET or None)
