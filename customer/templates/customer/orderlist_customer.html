@@ -122,13 +122,13 @@
 
             <td><div class="mb-1">{{order.storeName}}</div><div class="mb-1">{{order.location}}</div><div>{{order.storeContact}}</div></td>
             <td>{{order.price}}원</td>
-            {% if order.status == 1 %}
+          {% if order.status == 1 %}
 <!--          결제하기 url 나중에 적기-->
-          <td><div style="font-weight:bold; color: blue;">주문 수락</div><a href="#"><button class="select_btn3 mt-1 mb-1">결제하기</button></a></td>
-            {% elif order.status == 0 %}
+            <td><div style="font-weight:bold; color: blue;">주문 수락</div><a href="{% url 'customer:pay' order.orderNum %}"><button class="select_btn3 mt-1 mb-1">결제하기</button></a></td>
+          {% elif order.status == 0 %}
             <td><div class="mt-1" style="font-weight:bold; color:#cc5f5f;">주문 요청</div><a href="{% url 'customer:order_delete' order.pk %}"><button class="select_btn mt-1 mb-1">주문취소</button></a></td>
-            {% elif order.status == 2 %}
-            <td style="font-weight:bold; color: red; word-break: break-all;">주문 거절됨<div class="mt-1 text-nowrap" style="color: black; font-weight:normal;">{{order.fromManager}}</div></td>
+          {% elif order.status == 2 %}
+            <td style="font-weight:bold; color: red;">주문 거절됨<span><img src="/static/img/question.png" style="width: 11px; margin-left: 2px; margin-bottom: 5px;"></span></td>
             {% elif order.status == 3 %}
             <td style="font-weight:bold; color: purple;">결제 완료</td>
             {% elif order.status == 4 %}
@@ -138,7 +138,9 @@
             {% endif %}
         </tr>
 
-        {% endfor %}
+
+
+      {% endfor %}
     </table>
 </div>
 {% endblock %}
