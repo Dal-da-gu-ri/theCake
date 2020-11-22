@@ -297,9 +297,9 @@
                                         {% if detailedOption.option_id == option.pk %}
                                             <!-- 필수상세옵션1-->
                                             {% if detailedOption.pricing >= 0 %}
-                                                <option value="{{detailedOption}}">{{detailedOption.detailName}} (+{{detailedOption.pricing}})</option>
+                                                <option value="{{detailedOption.pk}}">{{detailedOption.detailName}} (+{{detailedOption.pricing}})</option>
                                             {% elif detailedOption.pricing < 0 %}
-                                                <option value="{{detailedOption}}">{{detailedOption.detailName}} ({{detailedOption.pricing}})</option>
+                                                <option value="{{detailedOption.pk}}">{{detailedOption.detailName}} ({{detailedOption.pricing}})</option>
                                             {% endif %}
 
                                         {% endif %}
@@ -354,9 +354,9 @@
                                     {% if detailedOption.option_id == option.pk %}
                                         <!-- 필수상세옵션1-->
                                         {% if detailedOption.pricing >= 0 %}
-                                            <option value="{{detailedOption}}">{{detailedOption.detailName}} (+{{detailedOption.pricing}})</option>
+                                            <option value="{{detailedOption.pk}}">{{detailedOption.detailName}} (+{{detailedOption.pricing}})</option>
                                         {% elif detailedOption.pricing < 0 %}
-                                            <option value="{{detailedOption}}">{{detailedOption.detailName}} ({{detailedOption.pricing}})</option>
+                                            <option value="{{detailedOption.pk}}">{{detailedOption.detailName}} ({{detailedOption.pricing}})</option>
                                         {% endif %}
 
                                     {% endif %}
