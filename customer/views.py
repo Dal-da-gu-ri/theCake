@@ -484,63 +484,36 @@ def cakeOrder(request,crn,cakepk):
                 print(options[0])
                 print(details)
                 for i in range(0,len(options)):
-                    curdetail = DetailedOption.objects.get(businessID=crn,detailName=options[i])
-                    curoption = Option.objects.get(businessID=crn,optionName=curdetail.option)
-                    if curoption.withColorOrImage == '색상판':
-                        orderoption = OrderOption(
-                                        businessID = crn,
-                                        orderer = customer.userID,
-                                        optionID = curdetail.pk,
-                                        orderID = order.orderNum,
-                                        color = details[i]
-                                    )
-                        orderoption.save()
-                    elif curoption.withColorOrImage == '이미지':
-                        orderoption = OrderOption(
-                                        businessID = crn,
-                                        orderer = customer.userID,
-                                        optionID = curdetail.pk,
-                                        orderID = order.orderNum,
-                                        image = details[i]
-                                    )
-                        orderoption.save()
-                    elif curoption.withColorOrImage == '선택 없음':
-                        orderoption = OrderOption(
-                                        businessID = crn,
-                                        orderer = customer.userID,
-                                        optionID = curdetail.pk,
-                                        orderID = order.orderNum,
-                                    )
-                        orderoption.save()
+                    if options[i]:
+                        curdetail = DetailedOption.objects.get(businessID=crn,detailName=options[i])
+                        curoption = Option.objects.get(businessID=crn,optionName=curdetail.option)
+                        if curoption.withColorOrImage == '색상판':
+                            orderoption = OrderOption(
+                                            businessID = crn,
+                                            orderer = customer.userID,
+                                            optionID = curdetail.pk,
+                                            orderID = order.orderNum,
+                                            color = details[i]
+                                        )
+                            orderoption.save()
+                        elif curoption.withColorOrImage == '이미지':
+                            orderoption = OrderOption(
+                                            businessID = crn,
+                                            orderer = customer.userID,
+                                            optionID = curdetail.pk,
+                                            orderID = order.orderNum,
+                                            image = details[i]
+                                        )
+                            orderoption.save()
+                        elif curoption.withColorOrImage == '선택 없음':
+                            orderoption = OrderOption(
+                                            businessID = crn,
+                                            orderer = customer.userID,
+                                            optionID = curdetail.pk,
+                                            orderID = order.orderNum,
+                                        )
+                            orderoption.save()
 
-
-
-                    # if curoption.withColorOrImage == '색상판':
-                    #     orderoption = OrderOption(
-                    #                     businessID = crn,
-                    #                     orderer = customer.userID,
-                    #                     optionID = curoption.pk,
-                    #                     orderID = order.orderNum,
-                    #                     color = details[i]
-                    #                 )
-                    #     orderoption.save()
-                    # elif curoption.withColorOrImage == '이미지':
-                    #     orderoption = OrderOption(
-                    #                     businessID = crn,
-                    #                     orderer = customer.userID,
-                    #                     optionID = curoption.pk,
-                    #                     orderID = order.orderNum,
-                    #                     image = details[i]
-                    #                 )
-                    #     orderoption.save()
-                    # elif curoption.withColorOrImage == '선택 없음':
-                    #     orderoption = OrderOption(
-                    #                     businessID = crn,
-                    #                     orderer = customer.userID,
-                    #                     optionID = curoption.pk,
-                    #                     orderID = order.orderNum,
-                    #                 )
-                    #     orderoption.save()
                 amountChange(crn, request.session.get('selectedDay'), -1)
 
                 return redirect('/customer/orderList/', res_data)
