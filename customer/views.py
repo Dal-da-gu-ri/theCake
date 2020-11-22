@@ -230,7 +230,7 @@ def showStores(request):
         store_list=[]
         isStore = False
 
-        review_list = Review.objects.all()
+        review_list = Review.objects.all().order_by('cakeName')
         res_data['review_list'] = review_list
 
         if day:
@@ -364,7 +364,7 @@ def showReview(request, pk):
         res_data['customername'] = customer.name
         if request.method == "GET":
             store = Store.objects.get(businessID = pk)
-            review_list = Review.objects.filter(storeInfo=pk)
+            review_list = Review.objects.filter(storeInfo=pk).order_by('cakeName')
             res_data['store']=store
             res_data['review_list'] = review_list
             return render(request, 'customer/showReview.html', res_data)

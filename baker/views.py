@@ -511,14 +511,6 @@ def dailyamountsetting(request):
         elif request.method == "POST":
             return redirect('/')
 
-def storeReview(request):
-    res_data = {}
-    user_id = request.session.get('user')
-
-    if user_id:
-        baker = Baker.objects.get(pk=user_id)
-        res_data['bakername'] = baker.name
-    return render(request, 'baker/storeReview.html')
 
 # 케이크 관리
 def myCakes(request):
@@ -1259,7 +1251,7 @@ def storeReview(request):
         res_data['bakername'] = baker.name
         if request.method == "GET":
             # print("hi")
-            review_list = Review.objects.filter(storeInfo=baker.businessID)
+            review_list = Review.objects.filter(storeInfo=baker.businessID).order_by('cakeName')
             res_data['review_list'] = review_list
             return render(request, 'baker/storeReview.html', res_data)
 

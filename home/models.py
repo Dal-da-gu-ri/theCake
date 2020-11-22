@@ -224,6 +224,7 @@ class Review(models.Model):
     orderNum = models.CharField(max_length=20, verbose_name='주문 번호',primary_key=True) #random하게 하기
     # orderer = models.ForeignKey(Orderer,on_delete=models.CASCADE)
     # cakeStore = models.ForeignKey(Store,on_delete=models.CASCADE)
+    cakeName = models.CharField(max_length=200, verbose_name='케이크 이름',null=False,blank=False,default="")
     orderer = models.CharField(max_length=20,verbose_name="주문자",null=True,blank=False)
     secureID = models.CharField(max_length=20,verbose_name="주문자 ID 변환",null=True,blank=False)
     storeInfo = models.CharField(max_length=50, verbose_name='사업자 등록번호',null=True,blank=False)
