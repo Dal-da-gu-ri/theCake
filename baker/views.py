@@ -867,8 +867,22 @@ def orderReject(request,orderNum):
     if user_id:
         baker = Baker.objects.get(pk=user_id)
         res_data['bakername'] = baker.name
+
+        order = Order.objects.get(businessID=baker.businessID,orderNum=orderNum)
+
+
         if request.method == "GET":
+
+            res_data['order'] = order
             return render(request, 'baker/order_reject.html', res_data)
+        elif request.method == "POST":
+            msg = request.POST.get('fromManager', None)
+
+            order.fromManager = msg
+            order.status = 2
+            order.save()
+            return render(request, 'baker/manageOrder.html',res_data)
+
     else:
         if request.method == "GET":
             res_data['comment'] = "잘못된 접근입니다. 로그인을 해주세요!"
