@@ -150,8 +150,8 @@
 <script>
   $(function(){
     if ('{{order.status}}'!="0"){
-      $('#accept').attr('disabled', true);
-      $('#reject').attr('disabled', true);
+      $('#accept').hide();
+      $('#reject').hide();
     }
   });
 </script>
