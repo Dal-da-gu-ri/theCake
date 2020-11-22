@@ -27,9 +27,21 @@ table{
   margin-right: auto;
   margin-top: 10%;
 }
-tr td:first-child{
+
+#rate_table tr td:first-child{
   width: 45%;
 }
+
+#orderInfo_table td{
+  vertical-align:middle;
+  margin:0 auto;
+  height: 10%;
+}
+
+#orderInfo_table tr:not(:first-child){
+  color: gray;
+}
+
 
 #review{
   padding-top: 5%;
@@ -52,19 +64,21 @@ tr td:first-child{
 </style>
 
 <div class="text-center">
-  <table style="width:90%">
+  <table id="orderInfo_table" style="width:90%;">
     <tr>
-      <td colspan="2" class="text-center">
-        <img id="cakeImg" class="m-1" src="/media/{{order.cakeImg}}" alt="cake image">
-        <div class=" mt-2">{{order.cakeName}}</div>
+      <td rowspan="2" class="text-center" style="width: 50%;">
+        <img id="cakeImg" src="/media/{{order.cakeImg}}" alt="cake image">
+<!--        <div class=" mt-2">{{order.cakeName}}</div>-->
       </td>
-      <td>
-        주문번호: {{order.orderNum}}
+      <td style="vertical-align:top;">
+        주문한 케이크명: {{order.cakeName}}
+        <hr>
       </td>
     </tr>
     <tr>
       <td>
-
+        <div>주문번호: {{order.orderNum}}</div>
+        <div class="pt-2">가게명: {{order.storeName}}</div>
       </td>
     </tr>
   </table>
@@ -73,9 +87,9 @@ tr td:first-child{
 <hr>
 <form method = "POST" class="form_rate" onsubmit="cal_avgRate()">
  {% csrf_token %}
-  <table>
+  <table id="rate_table">
     <tr>
-      <td><div class="mt-2 text-nowrap">맛 평점</div></td>
+      <td><div class="text-nowrap">맛 평점</div></td>
       <td>
         <div class="taste text-nowrap align-items-center">
           <span class="starR on" id="taste_star1">별1</span>
@@ -116,8 +130,8 @@ tr td:first-child{
   </table>
 
   <input type="hidden" name="avg_rate" id="avg_rate" value="1"/>
-  <div id="review" class="mt-2 mb-2 text-center" style="padding-left:5%; font-size:0.9rem;">
-    <textarea type="text" name="review" id="review_content" class="p-2" placeholder="한 줄 평을 남겨주세요."></textarea>
+  <div id="review" class="mt-4 mb-2 text-center" style="padding-left:5%; font-size:0.9rem;">
+    <textarea type="text" step="0.01" name="review" id="review_content" class="p-2" placeholder="한 줄 평을 남겨주세요."></textarea>
   </div>
 
   <div class="mt-5 d-flex justify-content-center">
