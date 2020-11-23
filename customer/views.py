@@ -711,7 +711,10 @@ def writeReview(request,orderNum):
             # reviewAvg = (review.taste+review.service+review.design)/3
 
             print(store.totalorder,store.totalrate,reviewAvg)
-            totalamount = store.totalrate * float(store.totalorder)
+            if store.totalrate != 0 and store.totalorder != 0:
+                totalamount = store.totalrate * float(store.totalorder)
+            else:
+                totalamount = 0
             store.totalrate = (float(totalamount) + reviewAvg) / (float(store.totalorder) +1)
             store.totalorder = store.totalorder + 1
 
