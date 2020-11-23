@@ -297,6 +297,19 @@ def enrollStore(request):
         res_data['bakername'] = baker.name
         storeobject = Store()
         if request.method == 'POST':
+            existance = False
+            try:
+                storeobject = Store.objects.get(businessID=baker.businessID)
+                existance = True
+                totalorder = storeobject.totalorder
+                totalrate = storeobject.totalrate
+
+                # storeform = StoreForm(instance=storeobject)
+            except Store.DoesNotExist:
+                storeobject=Store()
+                # storeform = StoreForm(instance=storeobject)
+
+
             storeform = StoreForm(request.POST, request.FILES)
             if storeform.is_valid(): #유효성 검사
                     storeobject.businessID = baker.businessID
@@ -310,6 +323,7 @@ def enrollStore(request):
                     storeobject.address1 = storeform.cleaned_data['address1']
                     storeobject.address2 = storeform.cleaned_data['address2']
                     storeobject.address3 = storeform.cleaned_data['address3']
+
                     if storeform.cleaned_data['address2']:
                         storeobject.location = storeform.cleaned_data['address1'] + " " + storeform.cleaned_data[
                             'address2']
@@ -321,6 +335,12 @@ def enrollStore(request):
                     storeobject.daum_dong = request.POST.get('daum_dong',None)
                     storeobject.storeImg = storeform.cleaned_data['storeImg']
                     storeobject.aboutCake = storeform.cleaned_data['aboutCake']
+                    if existance:
+                        storeobject.totalorder = totalorder
+                        storeobject.totalrate = totalrate
+                    else:
+                        storeobject.totalorder = 0
+                        storeobject.totalrate = 0
 
                     storeobject.save()
                     res_data['store'] = storeform
