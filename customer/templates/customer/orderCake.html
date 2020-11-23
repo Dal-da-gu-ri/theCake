@@ -235,7 +235,7 @@
         background-color: white;
     }
     </style>
-<form method = "POST" name="order" class="form_order" onsubmit="return check_submit()">
+<form method = "POST" name="order" class="form_order" onsubmit="return check_submit()" enctype="multipart/form-data">
      {% csrf_token %}
     <table id="selected_cakeInfo" class="mt-4">
         <tr id="lg_tr">

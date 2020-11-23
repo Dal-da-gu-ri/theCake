@@ -317,7 +317,7 @@ class OrderOption(models.Model):
     optionID = models.IntegerField(verbose_name='옵션 ID',null=True,blank=False,default="")
     orderID = models.CharField(max_length=50,verbose_name='주문 번호',null=True,blank=False,default="")
     color = models.CharField(max_length=30, verbose_name='컬러 코드', null=True, blank=True, unique=False)
-    image = models.CharField(max_length=100, verbose_name='이미지 이름', null=True, blank=True, unique=False)
+    image = models.ImageField(verbose_name='이미지 이름', null=True, blank=True)
 
     class Meta:
         db_table = 'Order Option'
