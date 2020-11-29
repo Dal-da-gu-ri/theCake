@@ -643,6 +643,8 @@ def paySuccess(request,orderNum):
             res_data['date'] = date
             res_data['customer'] = customer
             res_data['order'] = order
+            order.status = 3
+            order.save()
             return render(request, 'customer/paySuccess.html', res_data)
         # elif request.method == "POST":
 
