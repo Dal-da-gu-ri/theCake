@@ -18,9 +18,9 @@
           name= "password_baker"
           required>
            <div class="ml-4">
-             <a href="{% url 'baker:cake_delete' cake.pk %}" onclick="return confirm('진짜.. 탈퇴하실 거예요..? 모든 정보가 삭제돼요...')" >
+
                <button type="submit" id="pw_submit" class="btn btn-secondary btn-block">확인</button>
-             </a>
+
            </div>
        </div>
     </form>
@@ -30,7 +30,7 @@
     if('{{result}}'=="진짜.. 탈퇴하실 거예요..? 모든 정보가 삭제돼요..."){
         answer = confirm('{{ result }}');
         if(answer == true){
-          location.href = "{% url 'baker:deleteAccount' baker.pk %}";
+          location.href = "{% url 'customer:deleteAccount' %}";
         }
     }
     else if ('{{result}}'=="비밀번호가 틀렸습니다.")
