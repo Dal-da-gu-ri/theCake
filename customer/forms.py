@@ -35,6 +35,10 @@ class OrdererForm(forms.ModelForm):
 
         }
 
+class OrderOptionForm(forms.ModelForm):
+    class Meta:
+        model = OrderOption
+        fields = ['image']
 
 class ReviewForm(forms.ModelForm):
     class Meta:

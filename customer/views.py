@@ -401,6 +401,8 @@ def cakeOrder(request,crn,cakepk):
 
         cakeobject = get_object_or_404(Cake,pk=cakepk)
         storeobject = get_object_or_404(Store,businessID=crn)
+        #orderoption = OrderOptionForm(request.POST, request.FILES, instance=orderoptionobject)
+
         # print(storeobject.pickUpOpen)
         # print(storeobject.pickUpClose)
         # print(TIME_CHOICES)
@@ -504,7 +506,7 @@ def cakeOrder(request,crn,cakepk):
                                             orderer = customer.userID,
                                             optionID = curdetail.pk,
                                             orderID = order.orderNum,
-                                            image = details[i]
+                                            #image = details[i]
                                         )
                             orderoption.save()
                         elif curoption.withColorOrImage == '선택 없음':
