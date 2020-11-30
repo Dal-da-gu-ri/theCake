@@ -18,7 +18,7 @@ urlpatterns = [
     # path('myPage/editMyInfo/',views.changeAccountInfo,name='editInfo'),
     path('myPage/editMyInfo/checkPw', views.checkPw, name='checkPw'),
     path('myPage/editMyInfo/changePw', views.changePw, name='changePw'),
-    # path('myPage/checkPw/changePw/',views.changePw,name='changePw'),
+    path('mypage/deleteAccount', views.deleteAccount, name='deleteAccount'),
 
 
     #path('signUp/join/emailSent/',views.join, name='emailSent_baker'),

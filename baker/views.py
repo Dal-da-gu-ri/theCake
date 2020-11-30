@@ -1119,6 +1119,31 @@ def changePw(request):
         elif request.method == "POST":
             return redirect('/')
 
+def deleteAccount(request):
+    res_data = {}
+    user_id = request.session.get('user')
+    if user_id:
+        baker = Baker.objects.get(pk=user_id)
+        res_data['bakername'] = baker.name
+        if request.method == "GET":
+            return render(request, 'baker/deleteAccount.html',res_data)
+        elif request.method == "POST":
+            if check_password(request.POST.get('password_baker'), baker.password):
+                res_data['result'] = "진짜.. 탈퇴하실 거예요..? 모든 정보가 삭제돼요..."
+                print(res_data)
+                return render(request, 'baker/deleteAccount.html', res_data)
+            else:
+                res_data['result'] = "비밀번호가 틀렸습니다."
+                print(res_data)
+                return render(request,'baker/deleteAccount.html',res_data)
+
+    else:
+        if request.method == "GET":
+            res_data['comment'] = "잘못된 접근입니다. 로그인을 해주세요!"
+            return render(request, 'baker/inappropriateApproach.html', res_data)
+        elif request.method == "POST":
+            return redirect('/')
+
 def logout(request):
     res_data = {}
 

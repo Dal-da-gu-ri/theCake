@@ -1,0 +1,64 @@
+{% extends 'base_baker.html' %}
+
+{% block content %}
+<div class="row">
+        <p class="pt-3 pl-4 path">마이페이지 > 회원 탈퇴</p>
+    </div>
+
+
+<div style="margin-top: 10%;">
+    <form method = "POST" class="form-signup">
+        {% csrf_token %}
+       <div class="form-inline form-group">
+          <label for="password_baker" class="col-sm-4 control-label">현재 비밀번호</label>
+          <input type="password"
+          class="col-lg-5 col-md-6 col-sm-6 form-control pw_baker"
+          id="password_baker"
+          placeholder="현재 비밀번호를 입력해주세요."
+          name= "password_baker"
+          required>
+           <div class="ml-4">
+             <a href="{% url 'baker:cake_delete' cake.pk %}" onclick="return confirm('진짜.. 탈퇴하실 거예요..? 모든 정보가 삭제돼요...')" >
+               <button type="submit" id="pw_submit" class="btn btn-secondary btn-block">확인</button>
+             </a>
+           </div>
+       </div>
+    </form>
+</div>
+
+<script>
+    if('{{result}}'=="진짜.. 탈퇴하실 거예요..? 모든 정보가 삭제돼요..."){
+        answer = confirm('{{ result }}');
+        if(answer == true){
+          location.href = "{% url 'baker:deleteAccount' baker.pk %}";
+        }
+    }
+    else if ('{{result}}'=="비밀번호가 틀렸습니다.")
+        error('{{ result }}');
+
+</script>
+<!--<script>-->
+<!--    $('#pw_submit').click(function(){-->
+<!--        var pw = $('#password_baker').val();-->
+
+<!--&lt;!&ndash;        $.ajax({&ndash;&gt;-->
+<!--&lt;!&ndash;            url: '{% url 'baker:checkPw' %}',&ndash;&gt;-->
+<!--&lt;!&ndash;            data: {'pw': pw},&ndash;&gt;-->
+<!--&lt;!&ndash;            success: function(data){&ndash;&gt;-->
+<!--&lt;!&ndash;                if(data.result == "success"){&ndash;&gt;-->
+<!--&lt;!&ndash;                    alert("확인되었습니다.");&ndash;&gt;-->
+<!--&lt;!&ndash;                    document.getElementById('password_baker').readOnly = true;&ndash;&gt;-->
+<!--&lt;!&ndash;                    $('#pw_submit').attr('disabled', 'disabled');&ndash;&gt;-->
+<!--&lt;!&ndash;                    $('#newPw').show();&ndash;&gt;-->
+<!--&lt;!&ndash;                }&ndash;&gt;-->
+<!--&lt;!&ndash;                else if(data.result == "fail"){&ndash;&gt;-->
+<!--&lt;!&ndash;                    alert("비밀번호가 존재하지 않습니다.");&ndash;&gt;-->
+<!--&lt;!&ndash;                }&ndash;&gt;-->
+<!--&lt;!&ndash;             }&ndash;&gt;-->
+<!--&lt;!&ndash;             error: function(data){&ndash;&gt;-->
+<!--&lt;!&ndash;                alert("에러발생");&ndash;&gt;-->
+<!--&lt;!&ndash;             }&ndash;&gt;-->
+<!--&lt;!&ndash;        })&ndash;&gt;-->
+<!--    })-->
+<!--</script>-->
+{% endblock %}

@@ -791,7 +791,6 @@ def checkPw(request):
         elif request.method == "POST":
             return redirect('/')
 
-
 def changePw(request):
     res_data = {}
     user_id = request.session.get('user')
@@ -815,6 +814,31 @@ def changePw(request):
                         }
             print(res_data)
             return redirect('/customer/myPage/editMyInfo/checkPw', res_data)
+
+    else:
+        if request.method == "GET":
+            res_data['comment'] = "잘못된 접근입니다. 로그인을 해주세요!"
+            return render(request, 'customer/inappropriateApproach.html', res_data)
+        elif request.method == "POST":
+            return redirect('/')
+
+def deleteAccount(request):
+    res_data = {}
+    user_id = request.session.get('user')
+    if user_id:
+        customer = Orderer.objects.get(pk=user_id)
+        res_data['customername'] = customer.name
+        if request.method == "GET":
+            return render(request, 'customer/checkPw.html',res_data)
+        elif request.method == "POST":
+            if check_password(request.POST.get('password_customer'), customer.password):
+                res_data['result'] = "진짜.. 탈퇴하실 거예요..? 모든 정보가 삭제돼요..."
+                print(res_data)
+                return render(request, 'customer/deleteAccount.html', res_data)
+            else:
+                res_data['result'] = "비밀번호가 틀렸습니다."
+                print(res_data)
+                return render(request,'customer/checkPw.html',res_data)
 
     else:
         if request.method == "GET":

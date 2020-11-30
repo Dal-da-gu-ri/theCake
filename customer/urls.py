@@ -61,7 +61,8 @@ urlpatterns = [
     # path('myPage/editMyInfo/',views.changeAccountInfo,name='editInfo'),
     path('myPage/editMyInfo/checkPw', views.checkPw, name='checkPw'),
     path('myPage/editMyInfo/changePw', views.changePw, name='changePw'),
-    # path('mypage/', views.mypage, name='mypage_customer'),
+    path('mypage/deleteAccount', views.deleteAccount, name='deleteAccount'),
+
     path('inappropriateApproach/', views.wrongApproach, name='wrongApproach')
 
 ]
