@@ -829,7 +829,7 @@ def deleteAccount(request):
         customer = Orderer.objects.get(pk=user_id)
         res_data['customername'] = customer.name
         if request.method == "GET":
-            return render(request, 'customer/checkPw.html',res_data)
+            return render(request, 'customer/deleteAccount.html',res_data)
         elif request.method == "POST":
             if check_password(request.POST.get('password_customer'), customer.password):
                 res_data['result'] = "진짜.. 탈퇴하실 거예요..? 모든 정보가 삭제돼요..."
@@ -838,7 +838,7 @@ def deleteAccount(request):
             else:
                 res_data['result'] = "비밀번호가 틀렸습니다."
                 print(res_data)
-                return render(request,'customer/checkPw.html',res_data)
+                return render(request,'customer/deleteAccount.html',res_data)
 
     else:
         if request.method == "GET":

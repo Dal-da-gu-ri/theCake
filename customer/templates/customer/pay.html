@@ -14,14 +14,15 @@ IMP.request_pay({
     pay_method : 'card',
     merchant_uid : 'merchant_' + new Date().getTime(),
     name : '{{order.cakeName}}',
-    amount : {{order.price}}, //판매 가격
+<!--    amount : {{order.price}}, //판매 가격-->
+    amount : 100,
     buyer_email : '{{customer.email}}',
     buyer_name : '{{customername}}',
     buyer_tel : '{{customer.phoneNum}}'
 }, function(rsp) {
      if ( rsp.success ) {
     	$.ajax({
-    		url: "{% url 'customer:paySuccess' order.orderNum%}",
+    		url: "{% url 'customer:paySuccess' order.orderNum %}",
     		type: 'POST',
     		dataType: 'json',
     		data: {
@@ -29,7 +30,7 @@ IMP.request_pay({
     		}
     	}).done(function(data) {
     		//[2] 서버에서 REST API로 결제정보확인 및 서비스루틴이 정상적인 경우
-    		if ( everythings_fine ) {
+    		if ( data.works ) {
     			var msg = '결제가 완료되었습니다.';
     			msg += '\n고유ID : ' + rsp.imp_uid;
     			msg += '\n상점 거래ID : ' + rsp.merchant_uid;
@@ -37,6 +38,9 @@ IMP.request_pay({
     			msg += '카드 승인번호 : ' + rsp.apply_num;
 
     			alert(msg);
+
+    			$(location).attr('href', '{% url 'customer:paySuccess' order.orderNum %}')
+
     		} else {
     			//[3] 아직 제대로 결제가 되지 않았습니다.
     			//[4] 결제된 금액이 요청한 금액과 달라 결제를 자동취소처리하였습니다.
