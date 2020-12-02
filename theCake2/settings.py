@@ -29,7 +29,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['54.180.85.13']
+ALLOWED_HOSTS = ['15.164.100.127']
 
 SECRET_KEY = my_settings.SECRET_KEY
 
