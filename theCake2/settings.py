@@ -29,7 +29,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['15.164.100.127']
+ALLOWED_HOSTS = ['13.125.125.89']
 
 SECRET_KEY = my_settings.SECRET_KEY
 
@@ -93,23 +93,23 @@ WSGI_APPLICATION = 'theCake2.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
 
-"""
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
-"""
+
 DATABASES = {
-    # 'default': {
-    #     'ENGINE': 'django.db.backends.mysql',
-    #     'NAME': 'thecakedb',
-    #     'USER': 'yeseul',
-    #     'PASSWORD': 'k01026035854!',
-    #     'HOST': '121.139.51.190',
-    #     'PORT': '3306',
-    # }
+     'default': {
+         'ENGINE': 'django.db.backends.mysql',
+         'NAME': 'thecakedb',
+         'USER': 'root',
+         'PASSWORD': 'daldaguri',
+         'HOST': 'thecake2.c6vvk46sjvco.ap-northeast-2.rds.amazonaws.com',
+         'PORT': '3306',
+     }
 }
 
 # Password validation
