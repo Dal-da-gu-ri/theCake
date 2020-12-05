@@ -22,7 +22,6 @@ class Orderer(models.Model):
 
 class checkOrderer(models.Model):
     userid = models.CharField(max_length=20, verbose_name='주문자 아이디',blank=False, primary_key=True)
-    useremail = models.EmailField(max_length=128, verbose_name='주문자 이메일',blank=False,null=True)
 
     def __str__(self):
         return self.userid
