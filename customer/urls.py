@@ -62,6 +62,7 @@ urlpatterns = [
     path('myPage/editMyInfo/checkPw', views.checkPw, name='checkPw'),
     path('myPage/editMyInfo/changePw', views.changePw, name='changePw'),
     path('myPage/deleteAccount', views.deleteAccount, name='deleteAccount'),
+    path('myPage/deleteAccount/bye/', views.bye, name='bye'),
 
     path('inappropriateApproach/', views.wrongApproach, name='wrongApproach')
 

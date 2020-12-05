@@ -844,25 +844,42 @@ def deleteAccount(request):
             if check_password(password, customer.password):
                 res_data['result'] = "진짜.. 탈퇴하실 거예요..? 모든 정보가 삭제돼요..."
                 # print(res_data)
-                reviewlist = Review.objects.filter(orderer=customer.userID)
-                orderoptions = OrderOption.objects.filter(orderer=customer.userID)
-                orderlist = Order.objects.filter(orderer=customer.userID)
-                checkorderer = checkOrderer.objects.get(userid=customer.userID)
-                orderer = Orderer.objects.get(userID=customer.userID)
-                for review in reviewlist:
-                    review.delete()
-                for orderoption in orderoptions:
-                    orderoption.delete()
-                for order in orderlist:
-                    order.delete()
-                checkorderer.delete()
-                orderer.delete()
-                #return render(request, 'customer/deleteAccount.html', res_data)
-                return redirect('/',res_data)
+
+                return render(request, 'customer/deleteAccount.html', res_data)
             else:
                 res_data['result'] = "비밀번호가 틀렸습니다."
                 # print(res_data)
                 return render(request,'customer/deleteAccount.html',res_data)
+
+    else:
+        if request.method == "GET":
+            res_data['comment'] = "잘못된 접근입니다. 로그인을 해주세요!"
+            return render(request, 'customer/inappropriateApproach.html', res_data)
+        elif request.method == "POST":
+            return redirect('/')
+
+def bye(request):
+    res_data = {}
+    user_id = request.session.get('user')
+    if user_id:
+        customer = Orderer.objects.get(pk=user_id)
+        res_data['customername'] = customer.name
+
+        reviewlist = Review.objects.filter(orderer=customer.userID)
+        orderoptions = OrderOption.objects.filter(orderer=customer.userID)
+        orderlist = Order.objects.filter(orderer=customer.userID)
+        checkorderer = checkOrderer.objects.get(userid=customer.userID)
+        orderer = Orderer.objects.get(userID=customer.userID)
+        for review in reviewlist:
+            review.delete()
+        for orderoption in orderoptions:
+            orderoption.delete()
+        for order in orderlist:
+            order.delete()
+        checkorderer.delete()
+        orderer.delete()
+        return redirect('/',res_data)
+
 
     else:
         if request.method == "GET":

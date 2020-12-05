@@ -1131,51 +1131,70 @@ def deleteAccount(request):
             password = request.POST.get('password_baker')
             if check_password(password, baker.password):
                 res_data['result'] = "진짜.. 탈퇴하실 거예요..? 모든 정보가 삭제돼요..."
-                # print(res_data)
-                store = Store.objects.get(businessID = baker.businessID)
-                reviewlist = Review.objects.filter(storeInfo = baker.businessID)
-                orderoptions = OrderOption.objects.filter(businessID = baker.businessID)
-                orders = Order.objects.filter(businessID = baker.businessID)
-                options = Option.objects.filter(businessID = baker.businessID)
-                opendays = OpenDays.objects.get(businessID = baker.businessID)
-                detailedoptions = DetailedOption.objects.filter(businessID = baker.businessID)
-                dailyamount = DailyAmount.objects.get(businessID = baker.businessID)
-                checkbaker = checkBaker.objects.get(businessCRN = baker.businessID)
-                cakeoptions = CakeOption.objects.filter(businessID = baker.businessID)
-                cakes = Cake.objects.filter(crn = baker.businessID)
-                baker = Baker.objects.get(businessID = baker.businessID)
 
-                store.delete()
-                for review in reviewlist:
-                    review.delete()
-                for orderoption in orderoptions:
-                    orderoption.delete()
-                for order in orders:
-                    order.delete()
-                for option in options:
-                    option.delete()
-                opendays.delete()
-                for detailedoption in detailedoptions:
-                    detailedoption.delete()
-                dailyamount.delete()
-                checkbaker.delete()
-                for cakeoption in cakeoptions:
-                    cakeoption.delete()
-                for cake in cakes:
-                    cake.delete()
-                baker.delete()
                 # return render(request, 'baker/deleteAccount.html', res_data)
+                print(res_data)
                 return redirect('/',res_data)
 
             else:
                 res_data['result'] = "비밀번호가 틀렸습니다."
-                # print(res_data)
+                print(res_data)
                 return render(request,'baker/deleteAccount.html',res_data)
 
     else:
         if request.method == "GET":
             res_data['comment'] = "잘못된 접근입니다. 로그인을 해주세요!"
             return render(request, 'baker/inappropriateApproach.html', res_data)
+        elif request.method == "POST":
+            return redirect('/')
+
+def bye(request):
+    res_data = {}
+    user_id = request.session.get('user')
+    if user_id:
+        baker = Baker.objects.get(pk=user_id)
+        res_data['bakername'] = baker.name
+
+        store = Store.objects.get(businessID=baker.businessID)
+        reviewlist = Review.objects.filter(storeInfo=baker.businessID)
+        orderoptions = OrderOption.objects.filter(businessID=baker.businessID)
+        orders = Order.objects.filter(businessID=baker.businessID)
+        options = Option.objects.filter(businessID=baker.businessID)
+        opendays = OpenDays.objects.get(businessID=baker.businessID)
+        detailedoptions = DetailedOption.objects.filter(businessID=baker.businessID)
+        dailyamount = DailyAmount.objects.get(businessID=baker.businessID)
+        checkbaker = checkBaker.objects.get(businessCRN=baker.businessID)
+        cakeoptions = CakeOption.objects.filter(businessID=baker.businessID)
+        cakes = Cake.objects.filter(crn=baker.businessID)
+        baker = Baker.objects.get(businessID=baker.businessID)
+
+        store.delete()
+        for review in reviewlist:
+            review.delete()
+        for orderoption in orderoptions:
+            orderoption.delete()
+        for order in orders:
+            order.delete()
+        for option in options:
+            option.delete()
+        opendays.delete()
+        for detailedoption in detailedoptions:
+            detailedoption.delete()
+        dailyamount.delete()
+        checkbaker.delete()
+        for cakeoption in cakeoptions:
+            cakeoption.delete()
+        for cake in cakes:
+            cake.delete()
+        baker.delete()
+
+        return redirect('/',res_data)
+
+
+    else:
+        if request.method == "GET":
+            res_data['comment'] = "잘못된 접근입니다. 로그인을 해주세요!"
+            return render(request, 'customer/inappropriateApproach.html', res_data)
         elif request.method == "POST":
             return redirect('/')
 
