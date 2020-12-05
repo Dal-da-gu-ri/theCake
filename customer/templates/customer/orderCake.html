@@ -49,7 +49,42 @@
         line-height:100px;
     }
 
-    #cake_letter {
+    #cream_square {
+        background-color:#ffffff;
+        border:2px solid #000000;
+        width:200px;
+        height:200px;
+        border-radius:5px;
+        text-align:center;
+        margin:0 auto;
+        font-size:12px;
+        vertical-align:middle;
+
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        line-height:150px;
+    }
+
+    #cake_square {
+        background-color:#ffffff;
+        border:1px solid #000000;
+        width:160px;
+        height:160px;
+        border-radius:5px;
+        text-align:center;
+        margin:auto;
+        font-size:12px;
+        color:#fff;
+        vertical-align:middle;
+
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        line-height:100px;
+    }
+
+    .cake_letter {
         width:190px;
         height:190px;
         display: flex;
@@ -58,7 +93,7 @@
         overflow: hidden;
     }
 
-    #cake_letter_content{
+    .cake_letter_content{
         /* font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; */
         font-size: 25px;
         color: black;
@@ -373,9 +408,7 @@
                         {% elif option.withColorOrImage == "이미지" %}
                         <tr>
                         <!-- 이미지업로드 -->
-<!--                            <td style="padding-left: 5%;"><input type="file" name="option_detail" id="optionalOption_image" accept="image/*"></td>-->
-                                 <td style="padding-left: 5%;">{{ orderoption.image }}</td>
-
+                            <td style="padding-left: 5%;"><input type="file" name="option_detail" id="optionalOption_image" accept="image/*"></td>
                         </tr>
                         {% else %}
                          <tr>
@@ -447,14 +480,35 @@
                     <div class="col-10 col-sm-10 col-md-4 col-lg-5 m-4">
                         <div id="cream_circle">
                             <div id="cake_circle">
-                                <div id="cake_letter">
-                                    <div id="cake_letter_content" class="text-nowrap">
+                                <div class="cake_letter">
+                                    <div class="cake_letter_content text-nowrap">
                                         <!-- 여기다가 쓰면 됨  -->
                                     </div>
                                 </div>
                             </div>
                         </div>
+                        <div id="cream_square">
+                            <div id="cake_square">
+                                <div class="cake_letter">
+                                    <div class="cake_letter_content text-nowrap">
+                                        <!-- 여기다가 쓰면 됨  -->
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- 다른 도형 추가 -->
+
+                        <div>
+                            <button type="button" id="circle" class="shape_btn">
+                                    원
+<!--                                <img src="http://c.huv.kr/c/0b/0b8c4a6d60aea665193612bb31af071039da9e16.png" alt="circle" class="shape">-->
+                            </button>
+                            <button type="button" id="square" class="shape_btn">
+                                    사각형
+                            </button>
+                        </div>
                     </div>
+
                 </div>
 <!--                <div style="text-align:right;" class="mb-2">-->
 <!--                    totalprice원-->
@@ -473,6 +527,59 @@
         <button type="submit" class="add_btn">주문하기</button>
     </div>
 </form>
+
+<!-- 도형 바꾸기 -->
+<script>
+        $(function() {
+            $("#cream_square").hide();
+        })
+
+        $(function(){
+            $("#circle").on('click', function(){
+                $("#cream_square").hide();
+                $("#cream_circle").show();
+            })
+        })
+
+         $(function(){
+            $("#square").on('click', function(){
+                $("#cream_circle").hide();
+                $("#cream_square").show();
+
+            })
+        })
+</script>
+
+<!-- 도형에 적용 -->
+<script>
+        $(function(){
+            $("#letter_color").on('input', function(){
+                var letter_color = $("#letter_color").val();
+                document.getElementByClassName('cake_letter_content').style.color = letter_color;
+            })
+        })
+
+        $(function(){
+            $("#letter_size").on('input', function(){
+                var letter_size = $("#letter_size").val();
+                document.getElementByClassName('cake_letter_content').style.fontSize = letter_size+'px';
+            })
+        })
+
+        $(function(){
+            $("#letter_content").on('input', function(){
+                var i;
+
+                var letter = $('#letter_content').val();
+                var letter_elements = document.querySelectorAll('.cake_letter_content');
+
+                for ( i=0; i<letter_elements.length ; i++ ) {
+                    letter_elements[i].innerHTML = letter;
+                }
+            })
+        })
+</script>
+
 
 
 <!-- 필수옵션 다 선택되지 않은 상태로 주문하기 누르면 오류 -->
@@ -561,6 +668,7 @@
     }
 </script>
 
+
 <script type="text/javascript" src="/static/js/color.js"></script>
 
 <!--cake color-->
@@ -576,6 +684,7 @@
 <!--                console.log(`cake_color red: ${r}, green: ${g}, blue: ${b}`);-->
                 // ctx2.fillStyle = "cake_color";
                 document.getElementById('cake_circle').style.backgroundColor = cake_color;
+                document.getElementById('cake_square').style.backgroundColor = cake_color;
 
                 var comp_rgb = complementaryColor1(r, g, b);
                 var comp_r = comp_rgb[0];
@@ -653,6 +762,7 @@
                 const b = parseInt(cream_color.substr(5,2), 16)
                 console.log(`cream_color red: ${r}, green: ${g}, blue: ${b}`)
                 document.getElementById('cream_circle').style.backgroundColor = cream_color;
+                document.getElementById('cream_square').style.backgroundColor = cream_color;
 
                 var comp_rgb = complementaryColor1(r, g, b);
                 var comp_r = comp_rgb[0];
@@ -718,29 +828,7 @@
 </script>
 
 <!--letter color-->
-<script>
-        $(function(){
-            $("#letter_color").on('input', function(){
-                console.log($("#letter_color").val());
-                var letter_color = $("#letter_color").val();
-                document.getElementById('cake_letter_content').style.color = letter_color;
-            })
-        })
 
-        $(function(){
-            $("#letter_size").on('input', function(){
-                console.log($("#letter_size").val());
-                var letter_size = $("#letter_size").val();
-                document.getElementById('cake_letter_content').style.fontSize = letter_size+'px';
-            })
-        })
-
-        $(function(){
-            $("#letter_content").on('input', function(){
-                cake_letter_content.innerHTML = letter_content.value;
-            })
-        })
-</script>
 <script>
     if('{{error}}'!="")
         alert('{{ error }}');
