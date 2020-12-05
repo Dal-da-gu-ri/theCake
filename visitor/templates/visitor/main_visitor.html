@@ -1,0 +1,188 @@
+{% extends 'base_visitor.html' %}
+{% block title%} ::: 방문자 메인화면 ::: {% endblock %}
+
+{% block content %}
+
+    <script type="application/javascript" src="/static/js/hangjungdong3.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+
+    <div class="row">
+        <p class="pt-3 pl-4 path">주문하기</p>
+    </div>
+
+<style>
+    #date {
+      width: 200px;
+      padding: .8em .5em;
+      border: 1px solid #999;
+      background: #ffffff;
+      border-radius: 0px;
+    }
+
+    input[type=date]::-ms-clear {
+      display: none;
+    }
+
+    .location_select {
+      width: 160px;
+      height: 43px;
+      padding: .6em .5em;
+      border: 1px solid #999;
+      background: url(https://farm1.staticflickr.com/379/19928272501_4ef877c265_t.jpg) no-repeat 95% 50%;
+      border-radius: 0px;   //IOS 둥근모서리 제거
+      /* 네이티브 모형 감추기 */
+      -webkit-appearance: none;
+      -moz-appearance: none;
+      appearance: none;
+    }
+
+    /* 네이티브 화살표 숨기기 */
+    select::-ms-expand {
+        display: none;
+    }
+
+    #date {
+      height: 43px;
+    }
+
+    .button {
+        background-color: #b5b5b5;
+        border:none;
+        color:white;
+        padding: 9px 43px;
+        text-align: center;
+        text-decoration:none;
+        display: inline-block;
+        font-size: 15px;
+        margin: 4px 0px;
+    }
+
+    #selectbox_letter {
+        color:#838383;
+        font-size:15px;
+        text-align: right;
+    }
+
+    .form-group {
+        /*position: relative;*/
+        margin: 5% 20%;
+    }
+</style>
+
+<div style="text-align: center;">
+      <div class="pt-5 text-nowrap">
+        <label class="pr-4">위치</label>
+        <select id="sido" class="location_select">
+          <option value="">시/ 도</option>
+        </select>
+        <select id="sigugun" class="location_select">
+          <option value="">시/ 군/ 구</option>
+        </select>
+        <select id="dong" class="location_select">
+          <option value="">읍/ 면/ 동</option>
+        </select>
+      </div>
+      <div class="pt-3 text-nowrap">
+          <label class="pr-4" for="date">날짜</label>
+          <input id="date" type="date" name="date">
+      </div>
+        <br>
+        <br>
+      <p id="selectbox_letter">※ 날짜와 위치를 모두 선택해주세요.</p>
+        <br>
+        <button type="submit" id="search_button" class="btn btn-secondary button text-nowrap" style="float: right;">주문가능 가게 찾기</button>
+</div>
+<div id="data_stores" class="mt-5">
+
+</div>
+
+
+
+<script>
+    $(document).ready(function(){
+    //sido option 추가
+    //each: 일반적인 반복함수 (배열이나 객체, 콜백함수)
+    $.each(hangjungdong.sido, function(idx, code){
+      //append를 이용하여 option 하위에 붙여넣음
+      // fn_option
+      $('#sido').append(fn_option(code.sido, code.codeNm));
+    });
+
+    //sido 변경시 시군구 option 추가
+    $('#sido').change(function(){
+      if($('#sido option:selected').val() != '세종특별자치시'){
+        $('#sigugun').prop('disabled', false);
+      }
+      $('#sigugun').show();
+      $('#sigugun').empty();
+      $('#sigugun').append(fn_option('','시/ 군/ 구'));
+      $.each(hangjungdong.sigugun, function(idx, code){
+        if($('#sido > option:selected').val() == code.sido)
+          $('#sigugun').append(fn_option(code.sigugun, code.codeNm));
+
+          $('#dong').empty();
+          $('#dong').append(fn_option('','읍/ 면/ 동'));
+    });
+
+      //세종특별자치시 예외처리
+      //옵션값을 읽어 비교 : $("#셀렉트박스id option:selected").val()
+      if($('#sido option:selected').val() == '세종특별자치시'){
+        //세종특별자치시일 경우 선택못하게 .
+        $('#sigugun').prop('disabled', true);
+        //index를 이용해서 selected 속성(attr)추가
+        //기본 선택 옵션이 최상위로 index 0을 가짐
+        //직접 index값을 주어 selected 속성 주기
+        $('#sigugun option:eq(1)').attr('selected', 'selected');
+        //trigger를 이용해 change 실행
+        //이벤트 핸들러 없이 동작하려면 trigger가 필요
+        $('#sigugun').trigger('change');
+      }
+    });
+
+    //시군구 변경시 행정동 옵션추가
+    $('#sigugun').change(function(){
+        //option 제거
+        $('#dong').empty();
+        $.each(hangjungdong.dong, function(idx, code){
+            if($('#sido > option:selected').val() == code.sido && $('#sigugun > option:selected').val() == code.sigugun)
+            $('#dong').append(fn_option(code.dong, code.codeNm));
+        });
+        //option의 맨 앞에 추가
+        $('#dong').prepend(fn_option('','읍/ 면/ 동'));
+
+        //option중 선택을 기본으로 선택
+        $('#dong option:eq(0)').attr('selected', 'selected'); //이거 안 먹힘
+
+    });
+  });
+
+    function fn_option(code, name){
+        return '<option value="' + code +'">' + name +'</option>';
+    }
+</script>
+
+<!-- 버튼 눌렀을 때 값 넘겨주기 -->
+<script>
+    $('#search_button').click(function(){
+        var sido = $('#sido').val()
+        var sigugun = $('#sigugun').val()
+        var dong = $('#dong').val()
+        var date = $('#date').val()
+        $.ajax({
+            url:'{% url 'visitor:showStores' %}',
+            data : { 'sido':sido, 'sigugun':sigugun, 'dong':dong, 'date':date },
+            success:function(data){
+                $('#data_stores').html(data)
+            }
+        })
+    })
+</script>
+
+<script>
+    var date = new Date();
+    minDate = date.toISOString().split('T')[0];
+    document.getElementsByName("date")[0].setAttribute('min', minDate);
+</script>
+
+{% endblock %}
+
