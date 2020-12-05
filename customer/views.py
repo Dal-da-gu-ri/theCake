@@ -89,7 +89,6 @@ def useridCheck(request):
         return render(request, 'customer/useridCheck.html')
     elif request.method == "POST":  # 등록 버튼을 사용한 방법기
         userID = request.POST.get('ID_customer',None)
-        userEmail = request.POST.get('email_customer', None)
         res_data = {}
 
         try:
@@ -99,8 +98,7 @@ def useridCheck(request):
         except checkOrderer.DoesNotExist:
             #comment = None
             checkorderer = checkOrderer(
-                userid=userID,
-                useremail=userEmail
+                userid=userID
             )
             checkorderer.save()
             return redirect('/customer/signUp/join')
