@@ -28,11 +28,11 @@
     if('{{result}}'=="진짜.. 탈퇴하실 거예요..? 모든 정보가 삭제돼요..."){
         answer = confirm('{{ result }}');
         if(answer == true){
-          location.href = "{% url 'baker:deleteAccount' %}";
+          location.href = "{% url 'baker:bye' %}";
         }
     }
     else if ('{{result}}'=="비밀번호가 틀렸습니다.")
-        error('{{ result }}');
+        alert('{{ result }}');
 
 </script>
 <!--<script>-->
