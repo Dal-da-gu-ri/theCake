@@ -147,43 +147,50 @@ class OpenDaysForm(forms.ModelForm):
             'monday': forms.NumberInput(
                 attrs={
                     'class': 'form-control',
-                    'placeholder': '월요일 주문가능수량'
+                    'placeholder': '월요일 주문가능수량',
+                    'min': 0
                 }
             ),
             'tuesday': forms.NumberInput(
                 attrs={
                     'class': 'form-control',
-                    'placeholder': '화요일 주문가능수량'
+                    'placeholder': '화요일 주문가능수량',
+                    'min': 0
                 }
             ),
             'wednesday': forms.NumberInput(
                 attrs={
                     'class': 'form-control',
-                    'placeholder': '수요일 주문가능수량'
+                    'placeholder': '수요일 주문가능수량',
+                    'min': 0
                 }
             ),
             'thursday': forms.NumberInput(
                 attrs={
                     'class': 'form-control',
-                    'placeholder': '목요일 주문가능수량'
+                    'placeholder': '목요일 주문가능수량',
+                    'min': 0
                 }
             ),
             'friday': forms.NumberInput(
                 attrs={
                     'class': 'form-control',
-                    'placeholder': '금요일 주문가능수량'
+                    'placeholder': '금요일 주문가능수량',
+                    'min': 0
                 }
             ),
             'saturday': forms.NumberInput(
                 attrs={
                     'class': 'form-control',
-                    'placeholder': '토요일 주문가능수량'
+                    'placeholder': '토요일 주문가능수량',
+                    'min': 0
                 }
             ),
             'sunday': forms.NumberInput(
                 attrs={
                     'class': 'form-control',
-                    'placeholder': '일요일 주문가능수량'
+                    'placeholder': '일요일 주문가능수량',
+                    'min': 0
                 }
             )
         }
@@ -784,7 +791,8 @@ class OptionForm(forms.ModelForm):
         widgets = {
             'optionName' : forms.TextInput(
                 attrs={
-                    'placeholder': '옵션명(10자리 이하)'
+                    'placeholder': '옵션명(10자리 이하)',
+                    'required': 'required'
                 }
             ),
             'isNecessary' : forms.CheckboxInput,
@@ -807,7 +815,8 @@ extra=1,
     widgets={
         'optionName': forms.TextInput(
             attrs={
-                'placeholder': '옵션명(10자리 이하)'
+                'placeholder': '옵션명(10자리 이하)',
+                'required': 'required'
             }
         ),
         'isNecessary': forms.CheckboxInput,
@@ -828,12 +837,14 @@ DetailedOptionFormset = modelformset_factory(
     extra=1,
     widgets={'detailName' : forms.TextInput(
                 attrs={
-                    'placeholder': '세부항목(10자리 이하)'
+                    'placeholder': '세부항목(10자리 이하)',
+                    'required': 'required'
                 }
             ),
             'pricing' : forms.NumberInput(
                 attrs={
-                    'placeholder': '숫자만 입력해주세요.'
+                    'placeholder': '숫자만 입력해주세요.',
+                    'required': 'required'
                 }
             )
     }
@@ -844,5 +855,5 @@ class CakeOptionForm(forms.ModelForm):
         model = CakeOption
         fields = ['isSelected']
         widgets = {
-            'isSelected' : forms.CheckboxInput
+            'isSelected': forms.CheckboxInput
         }
