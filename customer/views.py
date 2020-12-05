@@ -81,7 +81,7 @@ def join(request):
                 return render(request, 'customer/join_customer.html', res_data)
         else:
             # print(storeform.errors)
-            return redirect('/baker/inappropriateApproach')
+            return redirect('/customer/inappropriateApproach')
 
 def useridCheck(request):
     #global bsID
@@ -96,13 +96,11 @@ def useridCheck(request):
             res_data['error'] = "이미 등록된 아이디입니다. 다른 아이디를 입력해주세요!"
             return render(request, 'customer/useridCheck.html', res_data)
         except checkOrderer.DoesNotExist:
-            #comment = None
             checkorderer = checkOrderer(
                 userid=userID
             )
             checkorderer.save()
             return redirect('/customer/signUp/join')
-                #return render(request, 'baker/join_baker.html')
 
 def activate(request,uid64, token):
     res_data = {}
