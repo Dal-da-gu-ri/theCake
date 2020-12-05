@@ -390,7 +390,6 @@ def cakeOrder(request,crn,cakepk):
         ('24', '21:00'), ('25', '21:30'), ('26', '22:00'), ('27', '22:30'),
     ]
 
-
     if user_id:
         customer = Orderer.objects.get(pk=user_id)
         res_data['customername'] = customer.name
@@ -420,8 +419,6 @@ def cakeOrder(request,crn,cakepk):
         res_data['store']=storeobject
         res_data['cake']=cakeobject
 
-
-
         if request.method == "GET":
             optionspk =[]
             options =[]
@@ -440,6 +437,7 @@ def cakeOrder(request,crn,cakepk):
                     if detailed_list[j].option_id == optionobject.pk:
                         details.append(detailed_list[j])
 
+            orderoptionform = OrderOptionForm()
             print(cakeobject.cakeImg)
             # print(options)
             # for option in options:
@@ -449,11 +447,12 @@ def cakeOrder(request,crn,cakepk):
             #     print(detail.option_id)
             res_data['options']=options
             res_data['detailedOptions'] = details
+            res_data['orderoption']= orderoptionform
             return render(request, 'customer/orderCake.html', res_data)
         else:
             # 주문하기 버튼을 눌렀을 때 나올 화면
             if mappingDate(crn,request.session.get('selectedMonth'),request.session.get('selectedDay')) == True:
-
+                orderoptionform = OrderOptionForm(request.POST, request.FILES)
                 order = Order(
                     orderNum = makeordernum(),
                     orderer = customer.userID,
@@ -497,14 +496,25 @@ def cakeOrder(request,crn,cakepk):
                                         )
                             orderoption.save()
                         elif curoption.withColorOrImage == '이미지':
-                            orderoption = OrderOption(
-                                            businessID = crn,
-                                            orderer = customer.userID,
-                                            optionID = curdetail.pk,
-                                            orderID = order.orderNum,
-                                            #image = details[i]
-                                        )
-                            orderoption.save()
+                            if orderoptionform.is_valid():
+                                orderoption = orderoptionform.save(commit=False)
+                                orderoption.businessID = crn
+                                orderoption.orderer = customer.userID
+                                orderoption.optionID = curdetail.pk
+                                orderoption.orderID = order.orderNum
+                                orderoption.image = orderoptionform.cleaned_data['image']
+                            # orderoption = OrderOption(
+                            #                 businessID = crn,
+                            #                 orderer = customer.userID,
+                            #                 optionID = curdetail.pk,
+                            #                 orderID = order.orderNum,
+                            #                 #image = details[i]
+                            #             )
+
+                                orderoption.save()
+                            else:
+                                print(orderoptionform.errors)
+                                return redirect('/customer/inappropriateApproach')
                         elif curoption.withColorOrImage == '선택 없음':
                             orderoption = OrderOption(
                                             businessID = crn,

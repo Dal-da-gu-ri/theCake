@@ -89,7 +89,7 @@
                         {% endif %}
                       {% elif orderoption.image != NULL %}
                         {% if orderoption.optionID == option.id %}
-                          <div class="mt-2">{{option.option}}: {{option.detailName}} ({{option.pricing}}원){{orderoption.image}}<img id="customerImage" class="m-1" src="{{orderoption.image.value.url}}" alt="customer image"></div>
+                          <div class="mt-2">{{option.option}}: {{option.detailName}} ({{option.pricing}}원)<img id="customerImage" class="m-1" src="/media/{{orderoption.image}}" alt="customer image"></div>
                         {% endif %}
                       {% elif orderoption.color == NULL %}
                         {% if orderoption.image == NULL %}

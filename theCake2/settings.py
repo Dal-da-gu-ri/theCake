@@ -110,7 +110,7 @@ DATABASES = {
          #'PASSWORD': 'daldaguri',
          #'HOST': 'thecake2.c6vvk46sjvco.ap-northeast-2.rds.amazonaws.com',
          'USER': 'yeseul',
-         'PASSWORD': 'k01026035854!';
+         'PASSWORD': 'k01026035854!',
          'HOST': '121.139.51.190',
          'PORT': '3306',
      }

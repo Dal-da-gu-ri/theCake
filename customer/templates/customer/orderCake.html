@@ -373,7 +373,9 @@
                         {% elif option.withColorOrImage == "이미지" %}
                         <tr>
                         <!-- 이미지업로드 -->
-                            <td style="padding-left: 5%;"><input type="file" name="option_detail" id="optionalOption_image" accept="image/*"></td>
+<!--                            <td style="padding-left: 5%;"><input type="file" name="option_detail" id="optionalOption_image" accept="image/*"></td>-->
+                                 <td style="padding-left: 5%;">{{ orderoption.image }}</td>
+
                         </tr>
                         {% else %}
                          <tr>
