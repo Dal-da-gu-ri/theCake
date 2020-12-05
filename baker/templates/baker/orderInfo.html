@@ -87,13 +87,11 @@
                         {% if orderoption.optionID == option.id %}
                           <div class="mt-2"><div class="color_recommend" style="background-color: {{orderoption.color}};"></div>{{option.option}}: {{option.detailName}} ({{option.pricing}}원) </div>
                         {% endif %}
-                      {% elif orderoption.image != NULL %}
-                        {% if orderoption.optionID == option.id %}
-                          <div class="mt-2">{{option.option}}: {{option.detailName}} ({{option.pricing}}원)<img id="customerImage" class="m-1" src="/media/{{orderoption.image}}" alt="customer image"></div>
-                        {% endif %}
                       {% elif orderoption.color == NULL %}
-                        {% if orderoption.image == NULL %}
-                          {% if orderoption.optionID == option.id %}
+                        {% if orderoption.optionID == option.id %}
+                          {% if orderoption.image != "" %}
+                            <div class="mt-2">{{option.option}}: {{option.detailName}} ({{option.pricing}}원)<img id="customerImage" class="m-1" src="/media/{{orderoption.image}}" alt="customer image"></div>
+                          {% elif orderoption.image == "" %}
                             <div class="mt-2">{{option.option}}: {{option.detailName}} ({{option.pricing}}원)</div>
                           {% endif %}
                         {% endif %}

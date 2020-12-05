@@ -185,7 +185,7 @@
         var day28 = document.getElementById('day28').innerHTML;
         var day29 = document.getElementById('day29').innerHTML;
         var day30 = document.getElementById('day30').innerHTML;
-
+        var day31 = document.getElementById('day31').innerHTML;
 
         var row = null;
         var cnt = 0;
@@ -202,7 +202,6 @@
         }
         for(var i = 1; i<= dayy(year, month); i++){ //달력 일수만큼 찍어줌
             var cell = row.insertCell();
-            if(date.getMonth()==1 || date.getMonth()==3 || date.getMonth()==5 || date.getMonth()==8 || date.getMonth()==10){
                 if(year == date.getFullYear() && month-1 == date.getMonth()){
                     if(i == 1){cell.innerHTML = "<div>"+i+"</div>"+"<br>"+"<a>"+day1+"</a>"+"";}
                     else if(i == 2){cell.innerHTML = "<div>"+i+"</div>"+"<br>"+"<a>"+day2+"</a>";}
@@ -234,8 +233,9 @@
                     else if(i == 28){cell.innerHTML = "<div>"+i+"</div>"+"<a>"+day28+"</a>";}
                     else if(i == 29){cell.innerHTML = "<div>"+i+"</div>"+"<a>"+day29+"</a>";}
                     else if(i == 30){cell.innerHTML = "<div>"+i+"</div>"+"<a>"+day30+"</a>";}
+                    else if(i == 31){cell.innerHTML = "<div>"+i+"</div>"+"<a>"+day31+"</a>";}
                 }
-						}
+
 
             cnt += 1;
 
@@ -344,9 +344,9 @@
         <div id="day30">
             {{dailyform.day30}}
         </div>
-<!--        <div id="day31">-->
-<!--            {{dailyform.day31}}-->
-<!--        </div>-->
+        <div id="day31">
+            {{dailyform.day31}}
+        </div>
 <!--        <div id="day32">-->
 <!--            {{dailyform.day32}}-->
 <!--        </div>-->
