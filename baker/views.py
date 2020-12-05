@@ -468,7 +468,7 @@ def dailyamountsetting(request):
                 dailyobject.day28 = dailyform.cleaned_data['day28']
                 dailyobject.day29 = dailyform.cleaned_data['day29']
                 dailyobject.day30 = dailyform.cleaned_data['day30']
-                # dailyobject.day31 = dailyform.cleaned_data['day31']
+                dailyobject.day31 = dailyform.cleaned_data['day31']
                 # dailyobject.day32 = dailyform.cleaned_data['day32']
                 # dailyobject.day33 = dailyform.cleaned_data['day33']
                 # dailyobject.day34 = dailyform.cleaned_data['day34']
@@ -1128,13 +1128,48 @@ def deleteAccount(request):
         if request.method == "GET":
             return render(request, 'baker/deleteAccount.html',res_data)
         elif request.method == "POST":
-            if check_password(request.POST.get('password_baker'), baker.password):
+            password = request.POST.get('password_baker')
+            if check_password(password, baker.password):
                 res_data['result'] = "진짜.. 탈퇴하실 거예요..? 모든 정보가 삭제돼요..."
-                print(res_data)
-                return render(request, 'baker/deleteAccount.html', res_data)
+                # print(res_data)
+                store = Store.objects.get(businessID = baker.businessID)
+                reviewlist = Review.objects.filter(storeInfo = baker.businessID)
+                orderoptions = OrderOption.objects.filter(businessID = baker.businessID)
+                orders = Order.objects.filter(businessID = baker.businessID)
+                options = Option.objects.filter(businessID = baker.businessID)
+                opendays = OpenDays.objects.get(businessID = baker.businessID)
+                detailedoptions = DetailedOption.objects.filter(businessID = baker.businessID)
+                dailyamount = DailyAmount.objects.get(businessID = baker.businessID)
+                checkbaker = checkBaker.objects.get(businessCRN = baker.businessID)
+                cakeoptions = CakeOption.objects.filter(businessID = baker.businessID)
+                cakes = Cake.objects.filter(crn = baker.businessID)
+                baker = Baker.objects.get(businessID = baker.businessID)
+
+                store.delete()
+                for review in reviewlist:
+                    review.delete()
+                for orderoption in orderoptions:
+                    orderoption.delete()
+                for order in orders:
+                    order.delete()
+                for option in options:
+                    option.delete()
+                opendays.delete()
+                for detailedoption in detailedoptions:
+                    detailedoption.delete()
+                dailyamount.delete()
+                checkbaker.delete()
+                for cakeoption in cakeoptions:
+                    cakeoption.delete()
+                for cake in cakes:
+                    cake.delete()
+                baker.delete()
+                # return render(request, 'baker/deleteAccount.html', res_data)
+                return redirect('/',res_data)
+
             else:
                 res_data['result'] = "비밀번호가 틀렸습니다."
-                print(res_data)
+                # print(res_data)
                 return render(request,'baker/deleteAccount.html',res_data)
 
     else:
