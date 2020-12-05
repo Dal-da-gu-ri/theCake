@@ -2,9 +2,9 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'thecakedb',
-        'USER': 'sohyun',
-        'PASSWORD': 'Carrie#901',
-        'HOST': '121.139.51.190',
+        'USER': 'root',
+        'PASSWORD': 'daldaguri',
+        'HOST': 'thecake2.c6vvk46sjvco.ap-northeast-2.rds.amazonaws.com',
         'PORT': '3306',
     }
 }
