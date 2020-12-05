@@ -56,6 +56,7 @@ INSTALLED_APPS = [
     'sslserver',
     'customer',
     'baker',
+    'visitor',
     'home',
 ]
 

@@ -1,0 +1,70 @@
+{% load static %}
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+  <meta name="viewport"
+        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  <link rel="stylesheet" href="/static/css/base_customer.css">
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous"></script>
+  <title>{% block title %} {% endblock %}</title>
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Nanum+Gothic+Coding&display=swap');
+    *{
+        font-family: 'Nanum Gothic Coding', monospace;
+    }
+    .content{
+    width: 100%;
+    height: 15%;
+    line-height: 25%;
+    margin-top: -16px;
+    background-color: rgb(225, 189, 189);
+    }
+    .name{
+    background-color: rgb(225, 189, 189);
+    text-align: right;
+    font-size: small;
+    padding-right: 20px;
+}
+</style>
+</head>
+<body>
+   <div class="container">
+<header class="blog-header px-13">
+  <nav class="navbar navbar-expand-md navbar-light fixed-top bg-light ">
+    <!-- 맨 위 왼쪽 로고 -->
+  <img class=navbar-brand src="/static/img/logo_customer.png" alt="logo_customer" width="50">
+    <!-- 화면 줄였을 때 네비게이션바 -->
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarCollapse">
+    <ul class="navbar-nav mr-auto">
+        <li class="nav-item">
+<!--        <a class="nav-link text-nowrap" href="#">주문하기<span class="sr-only"></span></a>-->
+                    <a class="nav-link text-nowrap" href="/visitor/main">가게 찾아보기</a>
+        </li>
+        <li class="nav-item">
+        <a class="nav-link text-nowrap" href="/visitor/login">로그인하러 가기</a>
+        </li>
+    </ul>
+
+  </div>
+  </nav>
+
+<!-- 로고 -->
+<div class="content">
+    <div class="d-flex p-4">
+        <img src="/static/img/main_logo_customer.png" align="center" alt="주문자 로고">
+    </div>
+</div>
+
+</header>
+{% block content %}
+{% endblock %}
+     </div>
+</body>
+</html>

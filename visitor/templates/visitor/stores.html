@@ -1,0 +1,88 @@
+<!--store.reviewScore 추가해서 views.py에서 수정해야함.-->
+<style>
+    .gray{
+     color:#929292;
+    }
+
+    .store_name{
+        font-size: 1.1rem;
+        font-weight: bold;
+        text-align: center;
+        color: black;
+    }
+    .store_addr{
+         font-size: 0.85rem;
+    }
+
+    .card{
+        border: 1px solid #8e8e8e;
+    }
+
+    .card-body{
+        background-color: #f5efef;
+        padding: 1rem;
+    }
+
+    .select_btn{
+        transition:.15s ease;
+        border: 1px solid #cf8484;
+        background-color:white;
+        color: #cc5f5f;
+        width: 90%;
+        height: 1.7em;
+        border-radius: 2px;
+        font-size: 0.9rem;
+    }
+
+    .select_btn:hover {
+        background-color: #cf8484;
+        color: white;
+    }
+
+    .card-body{
+        padding: 0.5rem;
+    }
+
+    .star{
+        width: 1.5rem;
+        height: 1.5rem;
+    }
+</style>
+
+<div class="album py-3">
+    <div class="container pt-3">
+        <div class="row row-eq-height">
+        {% for store in store_list %}
+          <div class="col-lg-3 col-md-4 col-sm-6 col-6"  style="text-align: center;">
+            <div class="card mb-3">
+              <div class="image-block card-img-top embed-responsive embed-responsive-1by1">
+                    <img class="embed-responsive-item" src="/media/{{store.storeImg}}" alt="store image">
+              </div>
+              <div class="card-body">
+                <div class="pt-1">
+                    <div class="store_name">{{store.storeName}}</div>
+                    <div class="d-flex align-items-center justify-content-center mt-3">
+                        <span style="margin-right: 10px;"><img class="star" src="/static/star.png" alt="star"></span>
+                        <span style="font-weight: bold; font-size: 1.15rem;">{{store.totalrate|floatformat:2}}</span><span style="font-size: 1.15rem;">/5</span>
+                    </div>
+                    <div class="pt-3">
+    <!--                  가게위치 - 간단하게 ex) 인천 부평구 삼산동-->
+                    <span class="store_addr gray">{{store.daum_sido}} {{store.daum_sigungu}} {{store.daum_dong}}</span>
+                    </div>
+                    <div class="text-nowrap">
+                      <button class="select_btn mt-3" onclick="location.href='{% url 'visitor:storeInfo' store.pk %}'">가게 선택</button>
+                    </div>
+                </div>
+              </div>
+            </div>
+            <br>
+          </div>
+          {% endfor %}
+        </div>
+  </div>
+</div>
+
+<script>
+    if('{{error}}'!="")
+        alert('{{ error }}');
+</script>

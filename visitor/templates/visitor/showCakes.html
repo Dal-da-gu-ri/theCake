@@ -1,0 +1,216 @@
+{% extends 'base_visitor.html' %}
+
+{% block content %}
+
+
+<style>
+body {
+    min-height: 75rem;
+    padding-top: 4.5rem;
+    background-color: #fffcfa;
+    box-sizing : border-box;
+}
+
+#storeName{
+    text-align: center;
+    font-size: 1.2em;
+    color: #434343;
+}
+
+#store_intro{
+    color: #434343;
+    border: 2px solid #d8d8d8;
+    border-radius: 4px;
+    background-color: white;
+}
+
+#storeInfo {
+    font-size: 0.85em;
+}
+
+#select_btn{
+    transition:.15s ease;
+    border: 1px solid #cf8484;
+    background-color:white;
+    color: #cc5f5f;
+    width: 90%;
+    height: 1.7em;
+    border-radius: 2px;
+}
+
+#select_btn:hover {
+    background-color: #cf8484;
+    color: white;
+}
+
+.gray{
+    color:#929292;
+}
+
+.bd-placeholder-img {
+    font-size: 1.125rem;
+    text-anchor: middle;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+@media (min-width: 768px) {
+    .bd-placeholder-img-lg {
+      font-size: 3.5rem;
+    }
+}
+
+.card{
+    border: 1px solid #c2c2c2;
+}
+
+.card-body{
+    font-size: 0.9em;
+    background-color: #f5efef;
+    padding-top: 0.3rem !important;
+    padding-bottom: 0.3rem !important;
+}
+
+#order_btn{
+    transition:.15s ease;
+    border: 1px solid #cf8484;
+    background-color:white;
+    color: #cc5f5f;
+    width: 100%;
+    height: 1.7em;
+    border-radius: 2px;
+}
+
+#order_btn:hover {
+    background-color: #cf8484;
+    color: white;
+}
+
+#order_btn:focus {
+    outline: none;
+}
+
+#order_btn:active {
+    background-color: #cd7d7d;
+}
+
+#review{
+    float: right;
+    transition:.15s ease;
+    border: 2px solid #cf8484;
+    color: #cf8484;
+    background-color: white;
+    border-radius:1px;
+    font-weight:bold;
+}
+
+#review:hover {
+    background-color: #cf8484;
+    color: white;
+}
+#review:focus {
+    outline: none;
+}
+
+</style>
+
+<div style="font-size: 0.9rem;">
+<!--    가게 정보-->
+  {% for store in store_list %}
+    <div class="row">
+        <p class="pt-3 pl-4 path">주문하기 > ♥{{store.storeName}}♥에서 케이크 선택</p>
+  </div>
+</div>
+    <div class="row">
+    <div class="container justify-content-around">
+        <div class="row row-eq-height justify-content-around mt-3" style="height:20%">
+            <div class="col-9 col-sm-7 col-md-5">
+                <div class="d-flex justify-content-center align-items-center text-nowrap my-2" style="padding: 0.1em 1.5em; background-color: #aba0a0; width:18em; border-radius:1px;">
+                    <!-- 가게로고 -->
+                    <div class="d-inline-block">
+                        <img src="/media/{{store.storeImg}}" alt="store image" width="40">
+                    </div>
+                    <!-- 가게명 -->
+                    <div class="d-inline-block ml-4" id="storeName" style="font-weight: bold; color: white;">
+                        {{store.storeName}}
+                    </div>
+                </div>
+                <div class="d-flex justify-content-center text-nowrap" style="padding: 0.2em 1.5em; border: 2px solid #aba0a0; background-color: white; width:18em; border-radius:1px;">
+                    <div class="d-inline-block my-2" style="color: gray">
+                    <!-- 선택한 픽업날짜 -->
+                        <span>선택하신 픽업날짜</span><span class="ml-3">{{selectedYear}}</span><span> / {{selectedMonth}}</span><span> / {{selectedDay}}</span>
+                    </div>
+                </div>
+                <div class="d-flex justify-content-end text-nowrap">
+                    <div class="d-inline-block my-2">
+                        <button id="review" style="width: 9em; padding: 0.5em; font-size: 0.9em;" onclick="location.href='{% url 'visitor:showReview' store.pk %}'">리뷰 보러가기</button>
+                    </div>
+                </div>
+            </div>
+            <div class="col-10 col-sm-10 col-md-6" id="store_intro">
+                <!-- 가게소개 -->
+                <div class="mt-3">
+                    {{store.aboutStore}}
+                </div>
+                <hr>
+                <!-- 픽업시작시간, 픽업마감시간 -->
+                <div id="storeInfo">
+                    <div class="mb-2">
+                        <span>픽업시간: </span>{{store.get_pickUpOpen_display}} <span>~ </span>{{store.get_pickUpClose_display}}
+                    </div>
+                    <!-- 가게위치 -->
+                    <div class="mb-2">
+                        <span>가게위치: </span>{{store.location}}
+                    </div>
+                    <!-- 전화번호 -->
+                    <div class="mb-3">
+                        <span>전화번호: </span>{{store.storeContact}}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+  {% endfor %}
+
+
+</div>
+
+
+<hr width="1" size="500">
+
+
+<div class="form-group">
+<!--   가게 케이크들 -->
+    <div class="album py-3">
+
+      <div class="container pt-3">
+        <div class="row row-eq-height">
+
+          {% for cake in cake_list %}
+          <div class="col-lg-3 col-md-4 col-sm-6 col-6">
+            <div class="card mb-3">
+                  <div class="image-block card-img-top embed-responsive embed-responsive-1by1">
+                    <img class="embed-responsive-item" src="/media/{{cake.cakeImg}}" alt="cake image">
+                  </div>
+
+                  <div class="card-body">
+                        <div class="pt-1 pb-3">
+                            <p class="card-text pt-2 pb-3" style="text-align: center;">{{cake.cakeName}}</p>
+                          <div class="d-flex justify-content-around row pt-2">
+                            <span class="card-text gray">가격 (1호 기준)</span>
+                            <span>{{cake.cakePrice}}원</span>
+                          </div>
+                        </div>
+                  </div>
+            </div>
+            <br>
+          </div>
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+</div>
+
+{% endblock %}
