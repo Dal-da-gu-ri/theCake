@@ -799,6 +799,11 @@
 <!--        document.getElementById('total_price').setAttribute('value',price);-->
 <!--    }    -->
 
+$(function(){
+        var price = Number({{cake.cakePrice}});
+        console.log(typeof(price));
+        document.getElementById('total_price').setAttribute('value',price);
+    })
 
     function price_cal(){
         var price = Number({{cake.cakePrice}});
