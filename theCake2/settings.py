@@ -27,10 +27,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 #SECRET_KEY = 'mesn+zp#bh1k#k16(cwwd=iu!$*4u%95kcpl3g263(1r95%-go'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-#ALLOWED_HOSTS = ['13.125.125.89']
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['13.125.89.190', '172.0.0.1']
 
 SECRET_KEY = my_settings.SECRET_KEY
 
@@ -107,12 +106,9 @@ DATABASES = {
      'default': {
          'ENGINE': 'django.db.backends.mysql',
          'NAME': 'thecakedb',
-         #'USER': 'root',
-         #'PASSWORD': 'daldaguri',
-         #'HOST': 'thecake2.c6vvk46sjvco.ap-northeast-2.rds.amazonaws.com',
-         'USER': 'yeseul',
-         'PASSWORD': 'k01026035854!',
-         'HOST': '121.139.51.190',
+         'USER': 'root',
+         'PASSWORD': 'daldaguri',
+         'HOST': 'thecake2.c6vvk46sjvco.ap-northeast-2.rds.amazonaws.com',
          'PORT': '3306',
      }
 }
