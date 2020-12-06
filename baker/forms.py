@@ -38,7 +38,7 @@ from home.models import *
 class StoreForm(forms.ModelForm):
     class Meta:
         model = Store
-        fields = ['storeImg', 'storeName', 'storeContact', 'aboutStore', 'pickUpOpen', 'pickUpClose', 'postcode', 'address1', 'address2', 'address3', 'daum_sido', 'daum_sigungu', 'daum_dong', 'aboutCake']
+        fields = ['storeImg', 'storeName', 'storeContact', 'aboutStore', 'pickUpOpen', 'pickUpClose', 'postcode', 'address1', 'address2', 'address3', 'daum_sido', 'daum_sigungu', 'daum_dong', 'aboutCake', 'bankname', 'banknumber']
         widgets = {
             # label은 HTML에서 label태그를 의미
             # widget은 input이라고 생각
@@ -116,7 +116,15 @@ class StoreForm(forms.ModelForm):
                 attrs={'id': 'daum_dong',
                        'class': 'form-control',
                        'hidden': 'hidden'}
-            )
+            ),
+            'bankname': forms.Select(
+                attrs={'class': 'form-control',
+                       'required': 'required'}
+            ),
+            'banknumber': forms.Select(
+                attrs={'class': 'form-control',
+                       'required': 'required'}
+            ),
         }
 
 class CakeForm(forms.ModelForm):

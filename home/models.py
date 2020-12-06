@@ -74,6 +74,14 @@ class Store(models.Model):
         ('23', '20:30'),
         ('24', '21:00'), ('25', '21:30'), ('26', '22:00'), ('27', '22:30'),
     ]
+    BANK_CHOICES = [
+        ('1', '국민은행'), ('2', '기업은행'), ('3', '우리은행'), ('4', '농협은행'), ('5', '지역농축협'), ('6', '신한은행'),
+        ('7', '씨티은행'), ('8', '카카오뱅크'), ('9', '케이뱅크'), ('10', '하나은행'), ('11', 'SC제일은행'),
+        ('12', '경남은행'), ('13', '광주은행'), ('14', '대구은행'), ('15', '부산은행'), ('16', '산림조합은행'),
+        ('17', '산업은행'), ('18', '저축은행'), ('19', '새마을금고'), ('20', '수협은행'), ('21', '신협은행'),
+        ('22', '우체국은행'), ('23', '전북은행'), ('24', '제주은행'), ('25', '도이치은행'), ('26', '중국공상은행'),
+        ('27', '중국건설은행'), ('28', '중국은행'), ('29', 'BOA'), ('30', 'HSBC'), ('31', 'JP모간'), ('32', 'BNP파리바')
+    ]
     businessID = models.CharField(max_length=10, verbose_name='사업자 등록번호', blank=False, primary_key=True)
     #manager = models.CharField(max_length=30, verbose_name='사업자이름', null=True,blank=False)
     manager = models.ForeignKey(Baker, on_delete=models.CASCADE,null=True)
@@ -94,6 +102,8 @@ class Store(models.Model):
     aboutCake = models.TextField(verbose_name='케이크 소개글', null=True, blank=True)
     totalorder = models.IntegerField(verbose_name="전체 주문 수",null=True,default=0,blank=True)
     totalrate = models.FloatField(verbose_name="평점 평균",blank=True,default=0,null=True)
+    bankname = models.CharField(max_length=15, verbose_name='은행',null=True, blank=True, choices=BANK_CHOICES)
+    banknumber = models.CharField(max_length=20, verbose_name='계좌번호', null=True, blank=True)
 
     def __str__(self):
         return self.businessID
