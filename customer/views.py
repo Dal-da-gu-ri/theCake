@@ -1,8 +1,11 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.hashers import make_password, check_password
 # Create your views here.
+from django.views import View
+
 from home.tokens import account_activation_token
 from .textCustomer import messageSend
+from django.http import JsonResponse
 from django.contrib.sites.shortcuts import get_current_site
 from django.utils.http import urlsafe_base64_decode,urlsafe_base64_encode
 from django.core.mail import EmailMessage
@@ -13,6 +16,8 @@ from customer.forms import *
 from .mappingdate import mappingDate, amountChange
 from .ordernum import makeordernum, now
 from .secureID import secureID
+import requests
+from django.views.decorators.csrf import csrf_protect
 
 
 def temp(request):
@@ -65,7 +70,7 @@ def join(request):
                     customerobject.save()
                     # res_data['baker']=bakerform
                     current_site = get_current_site(request)
-                    message = messageSend(current_site.domain,
+                    message = messageSend("thecake2.ga",
                                           urlsafe_base64_encode(force_bytes(customerobject.pk)).encode().decode(),
                                           account_activation_token.make_token(customerobject))
                     mail_subject = "[The Cake] 회원가입 인증 메일입니다."
@@ -609,15 +614,23 @@ def cakePay(request,orderNum):
         res_data['customername'] = customer.name
         order = Order.objects.get(orderer=customer.userID, orderNum=orderNum)
 
+        current_site = get_current_site(request)
+        res_data['domain']=current_site.domain
+        # message = messageSend(current_site.domain,
+        #                       urlsafe_base64_encode(force_bytes(customerobject.pk)).encode().decode(),
+        #                       account_activation_token.make_token(customerobject))
 
+        print("pay")
         if request.method == "GET":
-
+            print("pay get")
             res_data['customer']=customer
             res_data['order'] = order
-            order.status = 3
-            order.save()
+            # order.status = 3
+            # order.save()
             return render(request,'customer/pay.html',res_data)
-        # elif request.method == "POST":
+        elif request.method == "POST":
+            print("pay post")
+            return render(request, 'customer/paySuccess.html', res_data)
 
 
     else:
@@ -627,10 +640,11 @@ def cakePay(request,orderNum):
         elif request.method == "POST":
             return redirect('/')
 
+@csrf_protect
 def paySuccess(request,orderNum):
     res_data = {}
     user_id = request.session.get('user')
-
+    print("pay success")
     if user_id:
         customer = Orderer.objects.get(pk=user_id)
         res_data['customername'] = customer.name
@@ -647,16 +661,24 @@ def paySuccess(request,orderNum):
         res_data['option_list']=option_list
         res_data['orderoption_list']=orderoption_list
 
-
+        order.status = 3
+        order.save()
+        print("Hello")
         if request.method == "GET":
+            print("in get")
             date = now()
             res_data['date'] = date
             res_data['customer'] = customer
             res_data['order'] = order
             # order.status = 3
             # order.save()
+            print(date)
+
             return render(request, 'customer/paySuccess.html', res_data)
-        # elif request.method == "POST":
+        elif request.method == "POST":
+            print("in post")
+            return render(request, 'customer/paySuccess.html', res_data)
+
 
 
 
@@ -667,8 +689,67 @@ def paySuccess(request,orderNum):
         elif request.method == "POST":
             return redirect('/')
 
-
-
+# @csrf_exempt
+# def payComplete(request):
+#     res_data = {}
+#     user_id = request.session.get('user')
+#
+#     if user_id:
+#         customer = Orderer.objects.get(pk=user_id)
+#         res_data['customername'] = customer.name
+#
+#         if request.method == 'POST' and request.is_ajax():
+#
+#             imp_uid = request.POST.get('imp_uid')
+#             # // 액세스 토큰(access token) 발급받기
+#             data = {
+#                 "imp_key": "5636942716287240",
+#                 "imp_secret": "bNleU6QtK96HzjrIWEzGS0MQ353OUmc69yk4FaxpjE6TXyCUdcA5cmWfsZ4mlgtvPNzuY7ThL0bJzNEM"
+#             }
+#             response = requests.post('https://api.iamport.kr/users/getToken', data=data)
+#             data = response.json()
+#             my_token = data['response']['access_token']
+#
+#             #  // imp_uid로 아임포트 서버에서 결제 정보 조회
+#             headers = {"Authorization": my_token}
+#             response = requests.get('https://api.iamport.kr/payments/' + imp_uid, data=data, headers=headers)
+#             data = response.json()
+#
+#             # // DB에서 결제되어야 하는 금액 조회 const
+#             order_amount = 100
+#             amountToBePaid = data['response']['amount']  # 아임포트에서 결제후 실제 결제라고 인지 된 금액
+#             status = data['response']['status']  # 아임포트에서의 상태
+#             if order_amount == amountToBePaid:
+#                 # DB에 결제 정보 저장
+#                 # await Orders.findByIdAndUpdate(merchant_uid, { $set: paymentData}); // DB에
+#                 # if status == 'ready':
+#                 #     # DB에 가상계좌 발급정보 저장
+#                 #
+#                 #     return HttpResponse(json.dumps({'status': "vbankIssued", 'message': "가상계좌 발급 성공"}),
+#                 #
+#                 #                         content_type="application/json")
+#
+#                 if status == 'paid':
+#                     return render(request, 'customer/paySuccess.html', res_data)
+#                     # return HttpResponse(json.dumps({'status': "success", 'message': "일반 결제 성공"}),
+#                     #
+#                     #                     content_type="application/json")
+#                     #
+#                 else:
+#                     pass
+#
+#             else:
+#                 return render(request, 'customer/inappropriateApproach.html', res_data)
+#                 # return HttpResponse(json.dumps({'status': "forgery", 'message': "위조된 결제시도"}),
+#                 #                     content_type="application/json")
+#         else:
+#             return render(request, 'customer/paySuccess.html', res_data)
+#     else:
+#         if request.method == "GET":
+#             res_data['comment'] = "잘못된 접근입니다. 로그인을 해주세요!"
+#             return render(request, 'customer/inappropriateApproach.html', res_data)
+#         elif request.method == "POST":
+#             return redirect('/')
 
 def writeReview(request,orderNum):
     res_data = {}
@@ -904,7 +985,70 @@ def logout(request):
         return redirect('/')
 
 
+class PointCheckoutAjaxView(View):
+    def post(self, request, *args, **kwargs):
+        # if not request.user.is_authenticated():
+        #     return JsonResponse({}, status=401)
 
+        user = request.session.get('user')
+        amount = request.POST.get('amount')
+        type = request.POST.get('type')
+
+        try:
+            trans = PointTransaction.objects.create_new(
+                user=user,
+                amount=amount,
+                type=type
+            )
+        except:
+            trans = None
+
+        if trans is not None:
+            data = {
+                "works": True,
+                "merchant_id": trans
+            }
+            return JsonResponse(data)
+        else:
+            return JsonResponse({}, status=401)
+
+
+class PointImpAjaxView(View):
+    def post(self, request, *args, **kwargs):
+        # if not request.user.is_authenticated():
+        #     return JsonResponse({}, status=401)
+
+        user = request.session.get('user')
+        merchant_id = request.POST.get('merchant_id')
+        imp_id = request.POST.get('imp_id')
+        amount = request.POST.get('amount')
+
+        try:
+            trans = PointTransaction.objects.get(
+                user=user,
+                order_id=merchant_id,
+                amount=amount
+            )
+        except:
+            trans = None
+
+        if trans is not None:
+            trans.transaction_id = imp_id
+            trans.success = True
+            trans.save()
+
+            data = {
+                "works": True
+            }
+
+            return JsonResponse(data)
+        else:
+            return JsonResponse({}, status=401)
+
+def charge_point(request):
+    template = 'customer/charge.html'
+
+    return render(request, template)
 
 
 def wrongApproach(request):

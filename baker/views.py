@@ -95,7 +95,7 @@ def join(request):
                 )
                 store.save()
                 current_site = get_current_site(request)
-                message = messageSend(current_site.domain,
+                message = messageSend("thecake2.ga",
                                   urlsafe_base64_encode(force_bytes(baker.pk)).encode().decode(),
                                   account_activation_token.make_token(baker))
                 mail_subject = "[The Cake] 회원가입 인증 메일입니다."
@@ -613,6 +613,8 @@ def cake_add(request):
                 if Cake.objects.filter(cakeName=cakeobject.cakeName, crn=cakeobject.crn).exists():
                     cakeform = CakeForm()
                     res_data['cake'] = cakeform
+                    options = Option.objects.filter(businessID=baker.businessID)
+                    res_data['options'] = options
                     res_data['error'] = "이미 등록된 케이크 이름입니다."
                     return render(request, 'baker/cake_add.html', res_data)
                 else:
