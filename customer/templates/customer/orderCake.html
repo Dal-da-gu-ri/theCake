@@ -543,11 +543,11 @@
                 <div class="row">
                     <div id="color_select" class="col-10 col-sm-10 col-md-5 col-lg-5 m-4" style="text-align:center;">
                         <div style="display: inline-block;">
-                            <p class="text-nowrap mb-3" style="text-align:left;">케이크색상<input type="color" id="cake_color" value="#ffffff"></p>
+                            <p class="text-nowrap mb-3" style="text-align:left;">케이크 색상<input type="color" id="cake_color" value="#ffffff"></p>
                             <div class="color_recommend" id="color1" onclick="color1_click();"></div><div class="color_recommend" id="color2" style="margin-left: 0.4em;" onclick="color2_click();"></div><div class="color_recommend" id="color3" style="margin-left: 0.4em;" onclick="color3_click();"></div><div class="color_recommend" id="color4" style="margin-left: 0.4em;" onclick="color4_click();"></div><div class="color_recommend" id="color9" style="margin-left: 0.4em;" onclick="color9_click();"></div>
                             <br><br>
                             <hr style="margin-bottom: 1em; margin-top: 0px;">
-                            <p class="text-nowrap mb-3" style="text-align:left;">크림색상<input type="color" id="cream_color" value="#ffffff"></p>
+                            <p class="text-nowrap mb-3" style="text-align:left;">크림 색상<input type="color" id="cream_color" value="#ffffff"></p>
                             <div id="color5" class="color_recommend" onclick="color5_click();"></div><div class="color_recommend" id="color6" style="margin-left: 0.4em;" onclick="color6_click();"></div><div id="color7" class="color_recommend" style="margin-left: 0.4em;" onclick="color7_click();"></div><div class="color_recommend" id="color8" style="margin-left: 0.4em;" onclick="color8_click();"></div><div class="color_recommend" id="color10" style="margin-left: 0.4em;" onclick="color10_click();"></div>
                             <br><br>
                             <hr style="margin-bottom: 1em; margin-top: 0px;">
@@ -590,7 +590,7 @@
                         </div>
                         <!-- 다른 도형 추가 -->
 
-                        <div style="margin-top: 6em;">
+                        <div style="margin-top: 2em;">
                             <button type="button" id="circle" class="shape_btn">
                                     원
 <!--                                <img src="http://c.huv.kr/c/0b/0b8c4a6d60aea665193612bb31af071039da9e16.png" alt="circle" class="shape">-->
@@ -598,6 +598,10 @@
                             <button type="button" id="square" class="shape_btn">
                                     사각형
                             </button>
+                        </div>
+
+                        <div style="margin-top: 2em;">
+                          <p id="cakeColor"></p><p id="creamColor"></p>
                         </div>
                     </div>
 
@@ -616,7 +620,7 @@
     </div>
     <div style="text-align:right;">
 <!--        <button type="submit" class="add_btn" onclick="location.href='{% url 'customer:orderList_customer' %}'">주문하기</button>-->
-        <button type="submit" class="add_btn">주문하기</button>
+        <button type="submit" class="add_btn mb-5">주문하기</button>
     </div>
 </form>
 
@@ -824,10 +828,10 @@
 
 <script type="text/javascript" src="/static/js/color.js"></script>
 
-<!--cake color-->
+<!--color-->
 <script>
-  var cream_comp_hex, cream_tri1_hex, cream_tri2_hex, cream_mono_hex, cream_mono_hex2, cake_hex;
-    var cake_comp_hex, cake_tri1_hex, cake_tri2_hex, cake_mono_hex, cake_mono_hex2, cream_hex;
+  var cream_comp_hex, cream_tri1_hex, cream_tri2_hex, cream_mono_hex, cream_mono_hex2;
+    var cake_comp_hex, cake_tri1_hex, cake_tri2_hex, cake_mono_hex, cake_mono_hex2;
         $(function(){
             $("#cake_color").on('input', function(){
                 // console.log($("#cake_color").val());
@@ -840,7 +844,7 @@
 
                 document.getElementById('cake_circle').setAttribute( 'title', `${temp_cake_hex}` );
                 document.getElementById('cake_square').setAttribute( 'title', `${temp_cake_hex}` );
-                cake_hex = temp_cake_hex;
+                $('#cakeColor').html('케이크 색상: '+`${temp_cake_hex}`);
 
                 document.getElementById('cake_circle').style.backgroundColor = cake_color;
                 document.getElementById('cake_square').style.backgroundColor = cake_color;
@@ -891,52 +895,36 @@
 	          document.getElementById('cake_square').style.backgroundColor = document.getElementById('color1').style.backgroundColor;
 	          document.getElementById('cake_circle').setAttribute( 'title', `${cake_comp_hex}` );
 	          document.getElementById('cake_square').setAttribute( 'title', `${cake_comp_hex}` );
-	          cake_hex = cake_comp_hex;
+	          $('#cakeColor').html('케이크 색상: '+`${cake_comp_hex}`);
         }
         function color2_click() {
 	          document.getElementById('cake_circle').style.backgroundColor = document.getElementById('color2').style.backgroundColor;
 	          document.getElementById('cake_square').style.backgroundColor = document.getElementById('color2').style.backgroundColor;
 	          document.getElementById('cake_circle').setAttribute( 'title', `${cake_tri1_hex}` );
 	          document.getElementById('cake_square').setAttribute( 'title', `${cake_tri1_hex}` );
-	          cake_hex = cake_tri1_hex;
-        }
+	          $('#cakeColor').html('케이크 색상: '+`${cake_tri1_hex}`);
+	      }
         function color3_click() {
 	          document.getElementById('cake_circle').style.backgroundColor = document.getElementById('color3').style.backgroundColor;
 	          document.getElementById('cake_square').style.backgroundColor = document.getElementById('color3').style.backgroundColor;
 	          document.getElementById('cake_circle').setAttribute( 'title', `${cake_tri2_hex}` );
 	          document.getElementById('cake_square').setAttribute( 'title', `${cake_tri2_hex}` );
-	          cake_hex = cake_tri2_hex;
+	          $('#cakeColor').html('케이크 색상: '+`${cake_tri2_hex}`);
         }
         function color4_click() {
 	          document.getElementById('cake_circle').style.backgroundColor = document.getElementById('color4').style.backgroundColor;
 	          document.getElementById('cake_square').style.backgroundColor = document.getElementById('color4').style.backgroundColor;
 	          document.getElementById('cake_circle').setAttribute( 'title', `${cake_mono_hex}` );
 	          document.getElementById('cake_square').setAttribute( 'title', `${cake_mono_hex}` );
-	          cake_hex = cake_mono_hex;
+	          $('#cakeColor').html('케이크 색상: '+`${cake_mono_hex}`);
         }
         function color9_click() {
 	          document.getElementById('cake_circle').style.backgroundColor = document.getElementById('color9').style.backgroundColor;
 	          document.getElementById('cake_square').style.backgroundColor = document.getElementById('color9').style.backgroundColor;
 	          document.getElementById('cake_circle').setAttribute( 'title', `${cake_mono_hex2}` );
 	          document.getElementById('cake_square').setAttribute( 'title', `${cake_mono_hex2}` );
-	          cake_hex = cake_mono_hex2;
+	          $('#cakeColor').html('케이크 색상: '+`${cake_mono_hex2}`);
         }
-<!--        function cake_square_click() {-->
-<!--            clipboardData.setData("Text", `${cake_hex}`);-->
-<!--            alert(`${cake_hex}`);-->
-<!--       }-->
-
-
-<!--       $("#cake_circle").hover(function(){-->
-<!--            $(this).text(`${cake_hex}`);-->
-<!--            }, function(){-->
-<!--              $(this).text("");-->
-<!--       });-->
-<!--       $("#cake_square").hover(function(){-->
-<!--            $(this).text(`${cake_hex}`);-->
-<!--            }, function(){-->
-<!--              $(this).text("");-->
-<!--       });-->
 
 
 <!--cream color-->
@@ -957,7 +945,7 @@
 
                 document.getElementById('cream_circle').setAttribute( 'title', `${temp_cream_hex}` );
                 document.getElementById('cream_square').setAttribute( 'title', `${temp_cream_hex}` );
-                cream_hex = temp_cream_hex;
+	              $('#creamColor').html('크림 색상: '+`${temp_cream_hex}`);
 
                 var comp_rgb = complementaryColor1(r, g, b);
                 var comp_r = comp_rgb[0];
@@ -1003,49 +991,43 @@
 	          document.getElementById('cream_square').style.backgroundColor = document.getElementById('color5').style.backgroundColor;
 	          document.getElementById('cream_circle').setAttribute( 'title', `${cream_comp_hex}` );
 	          document.getElementById('cream_square').setAttribute( 'title', `${cream_comp_hex}` );
-	          cream_hex = cream_comp_hex;
+	          $('#creamColor').html('크림 색상: '+`${cream_comp_hex}`);
         }
         function color6_click() {
 	          document.getElementById('cream_circle').style.backgroundColor = document.getElementById('color6').style.backgroundColor;
 	          document.getElementById('cream_square').style.backgroundColor = document.getElementById('color6').style.backgroundColor;
 	          document.getElementById('cream_circle').setAttribute( 'title', `${cream_tri1_hex}` );
 	          document.getElementById('cream_square').setAttribute( 'title', `${cream_tri1_hex}` );
-	          cream_hex = cream_tri1_hex;
+	          $('#creamColor').html('크림 색상: '+`${cream_comp_hex}`);
         }
         function color7_click() {
 	          document.getElementById('cream_circle').style.backgroundColor = document.getElementById('color7').style.backgroundColor;
 	          document.getElementById('cream_square').style.backgroundColor = document.getElementById('color7').style.backgroundColor;
 	          document.getElementById('cream_circle').setAttribute( 'title', `${cream_tri2_hex}` );
 	          document.getElementById('cream_square').setAttribute( 'title', `${cream_tri2_hex}` );
-	          cream_hex = cream_tri2_hex;
+	          $('#creamColor').html('크림 색상: '+`${cream_tri2_hex}`);
         }
         function color8_click() {
 	          document.getElementById('cream_circle').style.backgroundColor = document.getElementById('color8').style.backgroundColor;
 	          document.getElementById('cream_square').style.backgroundColor = document.getElementById('color8').style.backgroundColor;
 	          document.getElementById('cream_circle').setAttribute( 'title', `${cream_mono_hex}` );
 	          document.getElementById('cream_square').setAttribute( 'title', `${cream_mono_hex}` );
-	          cream_hex = cream_mono_hex;
+	          $('#creamColor').html('크림 색상: '+`${cream_mono_hex}`);
         }
         function color10_click() {
 	          document.getElementById('cream_circle').style.backgroundColor = document.getElementById('color10').style.backgroundColor;
 	          document.getElementById('cream_square').style.backgroundColor = document.getElementById('color10').style.backgroundColor;
 	          document.getElementById('cream_circle').setAttribute( 'title', `${cream_mono_hex2}` );
 	          document.getElementById('cream_square').setAttribute( 'title', `${cream_mono_hex2}` );
-	          cream_hex = cream_mono_hex2;
+	          $('#creamColor').html('크림 색상: '+`${cream_mono_hex2}`);
         }
 
 </script>
-
-<!--letter color-->
 
 <script>
     if('{{error}}'!="")
         alert('{{ error }}');
 </script>
-<script language="JavaScript">
-
-</script>
-<a href="javascript:copy_clip('http://daonsol.com');">주소</a>
 
 <!--<script>-->
 <!--    history.pushState(null, null, location.href);-->

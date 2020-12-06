@@ -219,7 +219,7 @@
                         {{optionform.withColorOrImage}}
     <!--                    <span class="ml-4 mr-1">이미지 업로드</span>-->
     <!--                    {{optionform.withImage}}-->
-                      <span><img src="/static/img/question.png" style="width: 11px; margin-left:-30px; margin-bottom: 5px;"></span>
+                      <span data-html="true" data-toggle="tooltip" data-placement="top" title="해당 옵션에 색상판 또는 이미지가 필요하면 선택해주세요.<br>색상판을 선택하면 종류에 '색상판'을 적고 금액을 적어주세요"><img src="/static/img/question.png" style="width: 11px; margin-left:-30px; margin-bottom: 5px;"></span>
                     </div>
     <!--                <div id="detail">-->
     <!--                    <div class="detail_obj text-nowrap d-flex align-items-center ml-1 my-2">-->
@@ -393,40 +393,10 @@
     alert('{{ error }}');
 </script>
 
-
-<!--<script>-->
-<!--  $(document).ready(function(){-->
-<!--    $("#id_withColor").change(function(){-->
-<!--        if($("#id_withImage").is(":checked")||$("#id_withColor").is(":checked")){-->
-<!--            $("#detail").hide();-->
-<!--            $(".add-form-row addDetail_btn ml-3").disabled();-->
-<!--        }else{-->
-<!--            $("#detail").show();-->
-<!--        }-->
-<!--    });-->
-<!--    $("#id_withImage").change(function(){-->
-<!--        if($("#id_withImage").is(":checked")||$("#id_withColor").is(":checked")){-->
-<!--            $("#detail").hide();-->
-<!--            $(".add-form-row addDetail_btn ml-3").disabled();-->
-<!--        }else{-->
-<!--            $("#detail").show();-->
-<!--        }-->
-<!--    });-->
-<!--  });-->
-<!--</script>-->
-<!--<script>-->
-<!--  $(document).ready(function(){-->
-<!--    $("#id_withColor").change(function(){-->
-<!--      if($("#id_withColor").is(":checked")){-->
-<!--        $("#id_withImage").is(":checked")=false;-->
-<!--        console.log('컬러가 체크되어잇으니 이미지는 해제해라');-->
-<!--      }-->
-<!--    });-->
-<!--    $("#id_withImage").change(function(){-->
-<!--      if($("#id_withImage").is(":checked"))-->
-<!--        $("#id_withColor").is(":checked")=false;-->
-<!--    });-->
-<!--  });-->
-<!--</script>-->
+<script>
+  $(function () {
+	$('[data-toggle="tooltip"]').tooltip()
+})
+</script>
 {% endblock %}
 

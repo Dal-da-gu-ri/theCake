@@ -108,7 +108,9 @@
             <th>케이크</th>
             <th>매장 정보</th>
             <th>가격</th>
-            <th>주문 진행 상황</th>
++            <th>주문 진행 상황
+            <span data-html="true" data-toggle="tooltip" data-placement="top" title="주문요청: 주문 검토 중입니다!<br>주문수락: 주문이 들어갔어요!<br>결제를 완료해주세요.<br>픽업완료: 리뷰를 작성해주세요!<br>주문거절: 주문을 다시 해주세요!"><img src="/static/img/question.png" style="width: 11px; margin-left:-5px; margin-bottom: 5px;" ></span>
+            </th>
         </tr>
         {% for order in order_list %}
         <tr>
