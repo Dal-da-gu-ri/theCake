@@ -590,14 +590,15 @@ def orderlist(request):
 
         if request.method == "GET":
             order_list = Order.objects.filter(orderer = customer.userID).order_by('-status','pickupDate','pickupTime')
-
             optionlist = OrderOption.objects.filter(orderID=customer.userID)
+            store_list = Store.objects.all()
             # option_list = []
             # for i in range(0, len(optionlist)):
             #     option = DetailedOption.objects.get(orderID=customer.userID, pk=optionlist[i].optionID)
             #     option_list.append(option)
             res_data['option_list']=optionlist
             res_data['order_list']=order_list
+            res_data['store_list'] = store_list
             return render(request, 'customer/orderlist_customer.html',res_data)
 
     else:
