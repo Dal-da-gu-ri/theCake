@@ -97,7 +97,7 @@
         /* font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; */
         font-size: 25px;
         color: black;
-        font-weight: bold;
+<!--        font-weight: bold;-->
     }
 
     #selected_cakeInfo{
@@ -200,6 +200,83 @@
 
     }
 
+    .shape_btn{
+        background-color: #e3e3e3;
+        border: 1px solid #545454;
+        border-radius: .2rem;
+        color: #545454;
+        font-weight:bold;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        margin: 1px;
+        padding-top: 5px;
+        padding-bottom: 5px;
+        width: 80px;
+        height: 1.9em;
+    }
+
+    .shape_btn:hover {
+        background-color: #d0d0d0;
+        transition: 0.15s;
+    }
+
+    .shape_btn:focus {
+        outline: none;
+    }
+
+   #italic_btn{
+        background-color: white;
+        border: 1px solid #545454;
+        color: #545454;
+        border-radius: .1rem;
+        font-weight:bold;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        margin: 1px;
+        padding-top: 5px;
+        padding-bottom: 5px;
+        width: 90px;
+        height: 1.7em;
+    }
+
+    #italic_btn:hover {
+        background-color: rgb(245, 245, 245);
+        transition: 0.15s;
+    }
+
+    #italic_btn:focus {
+        outline: none;
+    }
+
+    #return_btn{
+        background-color: white;
+        border: 1px solid #545454;
+        color: #545454;
+        border-radius: .1rem;
+        font-weight:bold;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        margin: 1px;
+        padding-top: 5px;
+        padding-bottom: 5px;
+        width: 90px;
+        height: 1.7em;
+    }
+
+    #return_btn:hover {
+        background-color: rgb(245, 245, 245);
+        transition: 0.15s;
+    }
+
+    #return_btn:focus {
+        outline: none;
+    }
+
+
+
 <!--    select {-->
 <!--        width: 160px;-->
 <!--        height: 35px;-->
@@ -268,6 +345,11 @@
         height: 5rem;
         width: 100%;
         background-color: white;
+    }
+
+    #letter_font{
+        width: 100px;
+        height: 25px;
     }
     </style>
 <form method = "POST" name="order" class="form_order" onsubmit="return check_submit()" enctype="multipart/form-data">
@@ -474,6 +556,16 @@
                                 <span>색상<input type="color" id="letter_color" value="#ffffff"></span>
                                 <span class="ml-2">크기<input type="number" id="letter_size" min="1" max="70"></span>
                             </p>
+                            <p class="my-2" style="text-align:left;">
+                                <span>폰트</span>
+                                <select id="letter_font" name="font" style="text-align:left;">
+                                  <option value="gothic" selected="selected">Gothic</option>
+                                  <option value="Comic Sans MS">Comic Sans MS</option>
+                                  <option value="courier">Courier</option>
+                                </select>
+                                <button type="button" id="italic_btn">기울이기</button>
+                                <button type="button" id="return_btn">원래대로</button>
+                            </p>
                             <textarea id="letter_content" placeholder="문구 입력"></textarea>
                         </div>
                     </div>
@@ -498,7 +590,7 @@
                         </div>
                         <!-- 다른 도형 추가 -->
 
-                        <div>
+                        <div style="margin-top: 6em;">
                             <button type="button" id="circle" class="shape_btn">
                                     원
 <!--                                <img src="http://c.huv.kr/c/0b/0b8c4a6d60aea665193612bb31af071039da9e16.png" alt="circle" class="shape">-->
@@ -552,17 +644,59 @@
 
 <!-- 도형에 적용 -->
 <script>
+        $(function() {
+            $("#return_btn").hide();
+        })
+
+        $(function() {
+            $("#italic_btn").on('click', function(){
+                $("#italic_btn").hide();
+                $("#return_btn").show();
+
+                var i;
+
+                var letter_elements = document.querySelectorAll('.cake_letter_content');
+                for ( i=0; i<letter_elements.length ; i++ ) {
+                    letter_elements[i].style.fontStyle = "italic";
+                }
+            })
+        })
+
+        $(function() {
+            $("#return_btn").on('click', function(){
+                $("#return_btn").hide();
+                $("#italic_btn").show();
+
+                var i;
+
+                var letter_elements = document.querySelectorAll('.cake_letter_content');
+                for ( i=0; i<letter_elements.length ; i++ ) {
+                    letter_elements[i].style.fontStyle = "normal";
+                }
+            })
+        })
+
         $(function(){
             $("#letter_color").on('input', function(){
+                var i;
+
                 var letter_color = $("#letter_color").val();
-                document.getElementByClassName('cake_letter_content').style.color = letter_color;
+                var letter_elements = document.querySelectorAll('.cake_letter_content');
+                for ( i=0; i<letter_elements.length ; i++ ) {
+                    letter_elements[i].style.color = letter_color;
+                }
             })
         })
 
         $(function(){
             $("#letter_size").on('input', function(){
+                var i;
+
                 var letter_size = $("#letter_size").val();
-                document.getElementByClassName('cake_letter_content').style.fontSize = letter_size+'px';
+                var letter_elements = document.querySelectorAll('.cake_letter_content');
+                for ( i=0; i<letter_elements.length ; i++ ) {
+                    letter_elements[i].style.fontSize = letter_size+'px';
+                }
             })
         })
 
@@ -578,6 +712,25 @@
                 }
             })
         })
+
+        $(function(){
+            $("#letter_font").on('change', function(){
+                var i;
+
+                var letter_fonts = document.getElementById("letter_font");
+                var font = letter_fonts.options[letter_fonts.selectedIndex].text;
+
+                var letter_font = $('#letter_font').val();
+                <!-- 여기에 적용해야함 -->
+                var letter_elements = document.querySelectorAll('.cake_letter_content');
+
+                for ( i=0; i<letter_elements.length ; i++ ) {
+                    letter_elements[i].style.fontFamily = letter_font;
+                }
+            })
+        })
+
+
 </script>
 
 
@@ -772,16 +925,18 @@
 <!--            clipboardData.setData("Text", `${cake_hex}`);-->
 <!--            alert(`${cake_hex}`);-->
 <!--       }-->
-       $("#cake_circle").hover(function(){
-            $(this).text(`${cake_hex}`);
-            }, function(){
-              $(this).text("");
-       });
-       $("#cake_square").hover(function(){
-            $(this).text(`${cake_hex}`);
-            }, function(){
-              $(this).text("");
-       });
+
+
+<!--       $("#cake_circle").hover(function(){-->
+<!--            $(this).text(`${cake_hex}`);-->
+<!--            }, function(){-->
+<!--              $(this).text("");-->
+<!--       });-->
+<!--       $("#cake_square").hover(function(){-->
+<!--            $(this).text(`${cake_hex}`);-->
+<!--            }, function(){-->
+<!--              $(this).text("");-->
+<!--       });-->
 
 
 <!--cream color-->
