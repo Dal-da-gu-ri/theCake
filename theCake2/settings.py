@@ -29,7 +29,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ['13.125.89.190', '172.0.0.1']
+ALLOWED_HOSTS = ['3.35.132.61', '172.0.0.1']
 
 SECRET_KEY = my_settings.SECRET_KEY
 
@@ -108,7 +108,7 @@ DATABASES = {
          'NAME': 'thecakedb',
          'USER': 'root',
          'PASSWORD': 'daldaguri',
-         'HOST': 'thecake2.c6vvk46sjvco.ap-northeast-2.rds.amazonaws.com',
+         'HOST': 'thecake3.c6vvk46sjvco.ap-northeast-2.rds.amazonaws.com',
          'PORT': '3306',
      }
 }
