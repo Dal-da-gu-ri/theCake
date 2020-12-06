@@ -3,6 +3,8 @@ from django.contrib.auth.hashers import make_password, check_password
 # Create your views here.
 from django.views import View
 
+from baker.create_password import passwordMaker
+from baker.textBaker import passwordMessage
 from home.tokens import account_activation_token
 from .textCustomer import messageSend
 from django.http import JsonResponse
@@ -968,6 +970,53 @@ def bye(request):
             return render(request, 'customer/inappropriateApproach.html', res_data)
         elif request.method == "POST":
             return redirect('/')
+
+def search(request):
+    return render(request, 'customer/idpw_search_customer.html')
+
+def idsearch(request):
+    if request.method=="GET":
+        return render(request,'customer/idpw_search_customer.html')
+    elif request.method == "POST":
+        #전송받은 이메일 비밀번호 확인
+        email = request.POST.get('email_customer')
+        res_data={}
+        if Orderer.objects.filter(email=email).exists():
+            customer = Orderer.objects.get(email=email)
+            #res_data['searched_id']=baker.userID
+            res_data['result']="고객님의 아이디는 "+customer.userID+" 입니다."
+            return render(request, 'customer/idpw_search_customer.html',res_data)
+            #return redirect('/baker/search', res_data)
+
+        else:
+            res_data['result'] = "등록되지 않은 이메일입니다."
+            return render(request, 'customer/idpw_search_customer.html',res_data)
+            #return redirect('/baker/search', res_data)
+
+def pwsearch(request):
+        # print("here")
+        userid = request.POST.get('userid')
+        # print(userid)
+        res_data = {}
+        if Orderer.objects.filter(userID=userid).exists():
+            customer = Orderer.objects.get(userID=userid)
+            temppw = passwordMaker()
+            current_site = get_current_site(request)
+            message = passwordMessage(current_site.domain,userid,temppw)
+            customer.password = make_password(temppw)
+            customer.save()
+            mail_subject = "[The Cake] 임시 비밀번호 전송"
+            user_email = customer.email
+            email = EmailMessage(mail_subject, message, to=[user_email])
+            email.send()
+            res_data['comment'] = user_email + " 로 임시 비밀번호가 전송되었습니다."
+            #return redirect('/baker/search', res_data)
+            return render(request, 'customer/idpw_search_customer.html',res_data)
+
+        else:
+            res_data['comment'] = "등록되지 않은 아이디입니다."
+            #return redirect('/baker/search', res_data)
+            return render(request, 'customer/idpw_search_customer.html',res_data)
 
 def logout(request):
     res_data = {}
