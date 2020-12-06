@@ -7,9 +7,9 @@ urlpatterns = [
     # 로그인, 아이디비번찾기, 회원가입
     path('login/', views.login, name='login_customer'),
 
-    # path('search/', views.search, name='search_customer'),
-    # path('search/id', views.idsearch, name='id'),
-    # path('search/pw', views.pwsearch, name='pw'),
+    path('search/', views.search, name='search_customer'),
+    path('search/id', views.idsearch, name='id'),
+    path('search/pw', views.pwsearch, name='pw'),
 
     #path('signUp/', views.signUp, name='signUp_customer'),
     path('signUp/idCheck/', views.useridCheck, name='idCheck'),
