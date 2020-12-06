@@ -121,10 +121,9 @@ class StoreForm(forms.ModelForm):
                 attrs={'class': 'form-control',
                        'required': 'required'}
             ),
-            'banknumber': forms.Select(
-                attrs={'class': 'form-control',
-                       'required': 'required'}
-            ),
+            'banknumber': forms.TextInput(
+                attrs={'class': 'form-control'}
+            )
         }
 
 class CakeForm(forms.ModelForm):
