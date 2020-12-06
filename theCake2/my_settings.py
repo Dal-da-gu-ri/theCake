@@ -4,7 +4,7 @@ DATABASES = {
         'NAME': 'thecakedb',
         'USER': 'root',
         'PASSWORD': 'daldaguri',
-        'HOST': 'thecake2.c6vvk46sjvco.ap-northeast-2.rds.amazonaws.com',
+        'HOST': 'thecake3.c6vvk46sjvco.ap-northeast-2.rds.amazonaws.com',
         'PORT': '3306',
     }
 }
