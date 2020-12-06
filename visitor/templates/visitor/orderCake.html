@@ -1,0 +1,1043 @@
+{% extends 'base_visitor.html' %}
+{% block title %} :: 케이크 주문 :: {% endblock %}
+{% block content %}
+   <div class="row">
+        <p class="pt-3 pl-4 path">주문하기 > ♥{{store.storeName}}♥에서 나만의 케이크 만들기</p>
+    </div>
+
+
+    <style>
+    .color_recommend {
+        float: left;
+	      border:2px solid #000000;
+	      width: 15px;
+	      height: 15px;
+	      border-radius: 100%;
+    }
+    #cream_circle {
+        background-color:#ffffff;
+        border:2px solid #000000;
+        width:200px;
+        height:200px;
+        border-radius:100px;
+        text-align:center;
+        margin:0 auto;
+        font-size:12px;
+        vertical-align:middle;
+
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        line-height:150px;
+    }
+
+    #cake_circle {
+        background-color:#ffffff;
+        border:1px solid #000000;
+        width:160px;
+        height:160px;
+        border-radius:80px;
+        text-align:center;
+        margin:auto;
+        font-size:12px;
+        color:#fff;
+        vertical-align:middle;
+
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        line-height:100px;
+    }
+
+    #cream_square {
+        background-color:#ffffff;
+        border:2px solid #000000;
+        width:200px;
+        height:200px;
+        border-radius:5px;
+        text-align:center;
+        margin:0 auto;
+        font-size:12px;
+        vertical-align:middle;
+
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        line-height:150px;
+    }
+
+    #cake_square {
+        background-color:#ffffff;
+        border:1px solid #000000;
+        width:160px;
+        height:160px;
+        border-radius:5px;
+        text-align:center;
+        margin:auto;
+        font-size:12px;
+        color:#fff;
+        vertical-align:middle;
+
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        line-height:100px;
+    }
+
+    .cake_letter {
+        width:190px;
+        height:190px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        overflow: hidden;
+    }
+
+    .cake_letter_content{
+        /* font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; */
+        font-size: 25px;
+        color: black;
+<!--        font-weight: bold;-->
+    }
+
+    #selected_cakeInfo{
+        width: 100%;
+    }
+
+    #lg_border{
+        border-right: 2px solid #f0e7e7;
+    }
+
+    .border_bottom{
+        border-bottom: 2px solid #f0e7e7;
+    }
+
+    #cakeImg{
+        width: 13rem;
+        height: 13rem;
+        object-fit: contain;
+        border: 2px solid #ffe0e0;
+    }
+
+    #baker_msg{
+        text-align: left;
+        display: inline-block;
+        border: 2px solid #ffe0e0;
+        border-radius: 12px;
+        padding: 7px;
+        width: 16rem;
+        height: 15rem;
+        background-color: white;
+    }
+
+    #letter_content{
+        border: 2px solid #ffe0e0;
+        border-radius: 12px;
+        padding: 7px;
+        height: 5rem;
+        width: 15rem;
+        background-color: white;
+    }
+
+    textarea:focus{
+        outline:none;
+    }
+
+    #color_select{
+        margin-left: 100px;
+    }
+
+<!--    #color_select p{-->
+<!--        padding-bottom: 10px;-->
+<!--    }-->
+
+    #color_select p input{
+        margin-left: 10px;
+    }
+
+<!--    #color_select{-->
+<!--        border: 0.15em dashed gray;-->
+<!--        border-radius: 3px;-->
+<!--    }-->
+
+<!--    td{-->
+<!--        white-space: nowrap;-->
+<!--    }-->
+
+<!--    #color_select tr:first-child{-->
+<!--        border-right: 1px solid gray;-->
+<!--    }-->
+
+    .add_btn {
+        background-color: #b8b8b8;
+        border: 1px solid #b8b8b8;
+        border-radius: .2rem;
+        color: white;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        margin: 1px;
+        padding-top: 5px;
+        padding-bottom: 5px;
+        width: 120px;
+        height: 1.9em;
+    }
+
+    .add_btn:hover {
+        background-color: #a7a7a7;
+        transition: 0.15s;
+    }
+
+    .add_btn:focus {
+        outline: none;
+    }
+
+    .add_btn:active {
+        background-color: #969393;
+    }
+
+    #requiredOption_table, #optionalOption_table{
+
+    }
+
+    .shape_btn{
+        background-color: #e3e3e3;
+        border: 1px solid #545454;
+        border-radius: .2rem;
+        color: #545454;
+        font-weight:bold;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        margin: 1px;
+        padding-top: 5px;
+        padding-bottom: 5px;
+        width: 80px;
+        height: 1.9em;
+    }
+
+    .shape_btn:hover {
+        background-color: #d0d0d0;
+        transition: 0.15s;
+    }
+
+    .shape_btn:focus {
+        outline: none;
+    }
+
+   #italic_btn{
+        background-color: white;
+        border: 1px solid #545454;
+        color: #545454;
+        border-radius: .1rem;
+        font-weight:bold;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        margin: 1px;
+        padding-top: 5px;
+        padding-bottom: 5px;
+        width: 90px;
+        height: 1.7em;
+    }
+
+    #italic_btn:hover {
+        background-color: rgb(245, 245, 245);
+        transition: 0.15s;
+    }
+
+    #italic_btn:focus {
+        outline: none;
+    }
+
+    #return_btn{
+        background-color: white;
+        border: 1px solid #545454;
+        color: #545454;
+        border-radius: .1rem;
+        font-weight:bold;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        margin: 1px;
+        padding-top: 5px;
+        padding-bottom: 5px;
+        width: 90px;
+        height: 1.7em;
+    }
+
+    #return_btn:hover {
+        background-color: rgb(245, 245, 245);
+        transition: 0.15s;
+    }
+
+    #return_btn:focus {
+        outline: none;
+    }
+
+
+
+<!--    select {-->
+<!--        width: 160px;-->
+<!--        height: 35px;-->
+<!--        padding: .6em .5em;-->
+<!--        border: 1px solid #999;-->
+<!--        background: url(https://farm1.staticflickr.com/379/19928272501_4ef877c265_t.jpg) no-repeat 95% 50%;-->
+<!--        border-radius: 0px;-->
+<!--        -webkit-appearance: none;-->
+<!--        -moz-appearance: none;-->
+<!--        appearance: none;-->
+<!--    }    -->
+
+    .option {
+        width: 110px;
+        height: 30px;
+<!--        padding: .5em .5em;-->
+        border: 1px solid #999;
+        border-radius: 0px;
+        font-size: 0.95em;
+        padding-left: 0.2rem;
+    }
+
+    @media (min-width: 768px) {
+        .option {
+            width: 120px;
+        }
+    }
+
+     @media (min-width: 992px) {
+        .option {
+            width: 160px;
+        }
+    }
+
+    #pickupTime{
+        width: 135px;
+        height: 30px;
+        border: 1px solid #999;
+        border-radius: 0px;
+        font-size: 0.9rem;
+        padding-left: 0.2rem;
+    }
+
+<!--    /* 네이티브 화살표 숨기기 */-->
+<!--    select::-ms-expand {-->
+<!--        display: none;-->
+<!--    }-->
+
+    .font{
+        font-size: 0.85em;
+    }
+
+    #lettering{
+        border: 2px solid #ffe0e0;
+        border-radius: 12px;
+        padding: 7px;
+        height: 5rem;
+        width: 100%;
+        background-color: white;
+    }
+
+     #message{
+        border: 2px solid #ffe0e0;
+        border-radius: 12px;
+        padding: 7px;
+        height: 5rem;
+        width: 100%;
+        background-color: white;
+    }
+
+    #letter_font{
+        width: 100px;
+        height: 25px;
+    }
+    </style>
+<form method = "POST" name="order" class="form_order" onsubmit="return check_submit()" enctype="multipart/form-data">
+     {% csrf_token %}
+    <table id="selected_cakeInfo" class="mt-4">
+        <tr id="lg_tr">
+            <td rowspan="5" id="lg_border" style="text-align: center; vertical-align: top; width: 30%;">
+                <div class="mt-3" style="font-weight: bold;"><span>픽업 날짜: </span><span class="ml-3">{{selectedYear}}</span><span> / {{selectedMonth}}</span><span> / {{selectedDay}}</span></div>
+                <div class="mt-2">
+                    <span style="font-weight: bold;">픽업 시간</span>
+                    <select name="pickupTime" id="pickupTime">
+                            <option value="">선택해주세요.</option>
+                        {% for pickuptime in pickuptimes %}
+                            <option value="{{pickuptime}}">{{pickuptime}}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <hr>
+                <div class="mt-4 m-2">내가 선택한 디자인</div>
+                <img id="cakeImg" class="m-1" src="/media/{{cake.cakeImg}}" alt="cake image">
+                <div id="cakeInfo" class="m-2">
+                    <div class="m-2" style="font-weight: bold;">{{cake.cakeName}}</div>
+                    <span>가격 (1호 기준)</span>
+                    <span>{{cake.cakePrice}}원</span>
+                </div>
+                <div class="mt-5 d-flex justify-content-around" style="font-weight: bold;">
+                    <span>사장님이 전하는 말</span>
+                    <span style="color: #ec6161;">※필독</span>
+                </div>
+                <span id="baker_msg" class="mt-3 mx-1 p-2">
+<!--                  <pre>-->
+                    {{store.aboutCake}}
+<!--                  </pre>-->
+                </span>
+            </td>
+        <td id="lg_border2">
+            <div class="mt-3">
+<!--            <div class="mt-3">-->
+<!--                <div style="col-6 col-sm-6 col-md-4 padding-left:5%;">-->
+                <div style="width:45%; float: left; padding-left:5%;">
+                    <table id="requiredOption_table" class="font text-nowrap">
+                        <tr>
+                            <th style="font-weight: bold; font-size: 0.95rem; height: 22px;">필수옵션</th>
+                        </tr>
+                        {% for option in options %}
+                        {% if option.isNecessary == 1 %}
+                        <tr>
+                            {% if option.withColorOrImage == "색상판" %}
+                            <td rowspan="2">{{option.optionName}}</td>
+                            {% elif option.withColorOrImage == "이미지" %}
+                            <td rowspan="2">{{option.optionName}}</td>
+                            {% else %}
+                            <td>{{option.optionName}}</td>
+                            {% endif %}
+                            <td style="padding-left: 5%;">
+                                <!-- 동적으로 필수옵션 개수 만큼 -->
+                                <select name="option" class="option requiredOption" onchange="price_cal()">
+                                    <!--필수옵션이름-->
+                                    <option value="">필수선택</option>
+                                        <!-- 동적으로 세부옵션만큼 -->
+                                        {% for detailedOption in detailedOptions %}
+                                        {% if detailedOption.option_id == option.pk %}
+                                            <!-- 필수상세옵션1-->
+                                            {% if detailedOption.pricing >= 0 %}
+                                                <option value="{{detailedOption.pk}}">{{detailedOption.detailName}} (+{{detailedOption.pricing}})</option>
+                                            {% elif detailedOption.pricing < 0 %}
+                                                <option value="{{detailedOption.pk}}">{{detailedOption.detailName}} ({{detailedOption.pricing}})</option>
+                                            {% endif %}
+
+                                        {% endif %}
+                                        {% endfor %}
+                                </select>
+                            </td>
+                        </tr>
+                        {% if option.withColorOrImage == "색상판" %}
+                        <tr>
+                        <!-- 색상판 -->
+                            <td style="padding-left: 5%;"><input type="color" name="option_detail" id="requiredOption_color" value="#ffffff"></td>
+                        </tr>
+                        {% elif option.withColorOrImage == "이미지" %}
+                        <tr>
+                        <!-- 이미지업로드 -->
+<!--                            <td style="padding-left: 5%;"><input type="file" name="option_detail" id="requiredOption_image" accept="image/*"></td>-->
+                            <td style="padding-left: 5%;">{{ orderoption.image }}</td>
+                        </tr>
+                        {% else %}
+                         <tr>
+                        <!-- 선택안함 -->
+                            <td style="padding-left: 5%;"><input type="hidden" name="option_detail" id="requiredOption_null" value=""></td>
+                        </tr>
+                        {% endif %}
+
+                        {% endif %}
+                        {% endfor %}
+                    </table>
+                </div>
+<!--                <div style="col-6 col-sm-6 col-md-4 padding-right:5%;">-->
+                <div style="width:45%; float: right; padding-right:5%;">
+                    <table id="optionalOption_table" class="font text-nowrap">
+                        <tr class="mb-2">
+                            <th style="font-weight: bold; font-size: 0.95rem; height: 22px;">선택옵션</th>
+                        </tr>
+                        {% for option in options %}
+                        {% if option.isNecessary == 0 %}
+                        <tr>
+                            {% if option.withColorOrImage == "색상판" %}
+                            <td rowspan="2">{{option.optionName}}</td>
+                            {% elif option.withColorOrImage == "이미지" %}
+                            <td rowspan="2">{{option.optionName}}</td>
+                            {% else %}
+                            <td>{{option.optionName}}</td>
+                            {% endif %}
+                            <td style="padding-left: 5%;">
+                                 <!-- 이게 동적으로 필수옵션 개수 만큼 -->
+                                <select name="option" class="option" onchange="price_cal()">
+                                    <!--필수옵션이름-->
+                                    <option value="">필요시 선택</option>
+                                    <!-- 이게 동적으로 세부옵션만큼 -->
+                                    {% for detailedOption in detailedOptions %}
+                                    {% if detailedOption.option_id == option.pk %}
+                                        <!-- 필수상세옵션1-->
+                                        {% if detailedOption.pricing >= 0 %}
+                                            <option value="{{detailedOption.pk}}">{{detailedOption.detailName}} (+{{detailedOption.pricing}})</option>
+                                        {% elif detailedOption.pricing < 0 %}
+                                            <option value="{{detailedOption.pk}}">{{detailedOption.detailName}} ({{detailedOption.pricing}})</option>
+                                        {% endif %}
+
+                                    {% endif %}
+                                    {% endfor %}
+                                </select>
+                            </td>
+                        </tr>
+                        {% if option.withColorOrImage == "색상판" %}
+                        <tr>
+                        <!-- 색상판 -->
+                            <td style="padding-left: 5%;"><input type="color" name="option_detail" id="optionalOption_color" value="#ffffff"></td>
+                        </tr>
+                        {% elif option.withColorOrImage == "이미지" %}
+                        <tr>
+                        <!-- 이미지업로드 -->
+                            <td style="padding-left: 5%;"><input type="file" name="option_detail" id="optionalOption_image" accept="image/*"></td>
+                        </tr>
+                        {% else %}
+                         <tr>
+                        <!-- 선택안함 -->
+                            <td style="padding-left: 5%;"><input type="hidden" name="option_detail" id="optionalOption_null" value=""></td>
+                        </tr>
+                        {% endif %}
+
+                        {% endif %}
+                        {% endfor %}
+
+                        <!-- 못하겠어 -->
+                        {% if options.isNecessary == 1  %}
+                            <tr>선택옵션이 존재하지 않습니다.</tr>
+                        {% endif %}
+                    </table>
+
+                </div>
+            </div>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <div class="mt-5" style="font-weight:bold; padding-left:5%;">
+                    <div style="font-weight: bold; font-size: 0.95rem;">레터링 문구</div>
+                </div>
+                <div class="mt-2 mb-2" style="padding-left:5%; font-size:0.9rem;"><textarea type="text" name="cakeText" id="lettering" placeholder="레터링이 필수옵션이거나, 추가옵션 시에는 선택했을 경우에만 기입해주세요."></textarea></div>
+            </td>
+        </tr>
+        <tr>
+            <td class="border_bottom">
+                <div class="mt-3" style="font-weight:bold; padding-left:5%;">
+                    <div style="font-weight: bold; font-size: 0.95rem;">사장님께 전하는 말</div>
+                </div>
+                <div class="mt-2 mb-2" style="padding-left:5%; font-size:0.9rem;"><textarea type="text" name="message" id="message"></textarea></div>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <div class="ml-3 mt-3" style="font-weight:bold;">
+                    <div class="text-nowrap">색조합 추천 받기</div>
+                </div>
+                <div class="ml-3 mt-2">
+                    <span style="font-size: 0.9em; color: #ec6161; font-weight:bold;" class="text-nowrap">※ 시뮬레이션입니다. 실제 케이크에 적용되지 않습니다!</span>
+                </div>
+<!--                <div class="ml-4 mt-3" style="font-size: 0.9em; color: red;">-->
+<!--                    <div style="text-align:left;">시뮬레이션입니다.</div>-->
+<!--                    <div style="text-align:left;">실제 케이크와는 다르니 유의해주세요.</div>-->
+<!--                </div>-->
+                <div class="row">
+                    <div id="color_select" class="col-10 col-sm-10 col-md-5 col-lg-5 m-4" style="text-align:center;">
+                        <div style="display: inline-block;">
+                            <p class="text-nowrap mb-3" style="text-align:left;">케이크 색상<input type="color" id="cake_color" value="#ffffff"></p>
+                            <div class="color_recommend" id="color1" onclick="color1_click();"></div><div class="color_recommend" id="color2" style="margin-left: 0.4em;" onclick="color2_click();"></div><div class="color_recommend" id="color3" style="margin-left: 0.4em;" onclick="color3_click();"></div><div class="color_recommend" id="color4" style="margin-left: 0.4em;" onclick="color4_click();"></div><div class="color_recommend" id="color9" style="margin-left: 0.4em;" onclick="color9_click();"></div>
+                            <br><br>
+                            <hr style="margin-bottom: 1em; margin-top: 0px;">
+                            <p class="text-nowrap mb-3" style="text-align:left;">크림 색상<input type="color" id="cream_color" value="#ffffff"></p>
+                            <div id="color5" class="color_recommend" onclick="color5_click();"></div><div class="color_recommend" id="color6" style="margin-left: 0.4em;" onclick="color6_click();"></div><div id="color7" class="color_recommend" style="margin-left: 0.4em;" onclick="color7_click();"></div><div class="color_recommend" id="color8" style="margin-left: 0.4em;" onclick="color8_click();"></div><div class="color_recommend" id="color10" style="margin-left: 0.4em;" onclick="color10_click();"></div>
+                            <br><br>
+                            <hr style="margin-bottom: 1em; margin-top: 0px;">
+                            <p class="text-nowrap mb-2" style="text-align:left;">레터링</p>
+                            <p class="text-nowrap mb-1" style="text-align:left;">
+                                <span>색상<input type="color" id="letter_color" value="#ffffff"></span>
+                                <span class="ml-2">크기<input type="number" id="letter_size" min="1" max="70"></span>
+                            </p>
+                            <p class="my-2" style="text-align:left;">
+                                <span>폰트</span>
+                                <select id="letter_font" name="font" style="text-align:left;">
+                                  <option value="gothic" selected="selected">Gothic</option>
+                                  <option value="Comic Sans MS">Comic Sans MS</option>
+                                  <option value="courier">Courier</option>
+                                </select>
+                                <button type="button" id="italic_btn">기울이기</button>
+                                <button type="button" id="return_btn">원래대로</button>
+                            </p>
+                            <textarea id="letter_content" placeholder="문구 입력"></textarea>
+                        </div>
+                    </div>
+                    <div class="col-10 col-sm-10 col-md-4 col-lg-5 m-4">
+                        <div id="cream_circle" onclick="cream_circle_click();">
+                            <div id="cake_circle" onclick="cake_circle_click();">
+                                <div class="cake_letter">
+                                    <div class="cake_letter_content text-nowrap">
+                                        <!-- 여기다가 쓰면 됨  -->
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="cream_square" onclick="cream_square_click();">
+                            <div id="cake_square" onclick="cake_square_click();">
+                                <div class="cake_letter">
+                                    <div class="cake_letter_content text-nowrap">
+                                        <!-- 여기다가 쓰면 됨  -->
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- 다른 도형 추가 -->
+
+                        <div style="margin-top: 2em;">
+                            <button type="button" id="circle" class="shape_btn">
+                                    원
+<!--                                <img src="http://c.huv.kr/c/0b/0b8c4a6d60aea665193612bb31af071039da9e16.png" alt="circle" class="shape">-->
+                            </button>
+                            <button type="button" id="square" class="shape_btn">
+                                    사각형
+                            </button>
+                        </div>
+
+                        <div style="margin-top: 2em;">
+                          <p id="cakeColor"></p><p id="creamColor"></p>
+                        </div>
+                    </div>
+
+                </div>
+<!--                <div style="text-align:right;" class="mb-2">-->
+<!--                    totalprice원-->
+<!--                </div>-->
+<!--                <div style="text-align:right;">-->
+<!--                    <button type="submit" class="add_btn" onclick="location.href='{% url 'customer:orderList_customer' %}'">주문하기</button>-->
+<!--                </div>-->
+            </td>
+        </tr>
+    </table>
+    <div style="text-align:right; font-size: 1.1rem; font-weight: bold; color: #ec6161;" class="mb-2">
+        최종가격: <span id="totalprice">{{cake.cakePrice}}</span><span>  원</span><input type="hidden" name="total_price" id="total_price" value="" />
+    </div>
+    <div style="text-align:right;">
+<!--        <button type="submit" class="add_btn" onclick="location.href='{% url 'customer:orderList_customer' %}'">주문하기</button>-->
+        <button onclick="href.location='{% url visitor:main_visitor %}'" class="add_btn mb-5"> 로그인 하러 가기</button>
+    </div>
+</form>
+
+<!-- 도형 바꾸기 -->
+<script>
+        $(function() {
+            $("#cream_square").hide();
+        })
+
+        $(function(){
+            $("#circle").on('click', function(){
+                $("#cream_square").hide();
+                $("#cream_circle").show();
+            })
+        })
+
+         $(function(){
+            $("#square").on('click', function(){
+                $("#cream_circle").hide();
+                $("#cream_square").show();
+
+            })
+        })
+</script>
+
+<!-- 도형에 적용 -->
+<script>
+        $(function() {
+            $("#return_btn").hide();
+        })
+
+        $(function() {
+            $("#italic_btn").on('click', function(){
+                $("#italic_btn").hide();
+                $("#return_btn").show();
+
+                var i;
+
+                var letter_elements = document.querySelectorAll('.cake_letter_content');
+                for ( i=0; i<letter_elements.length ; i++ ) {
+                    letter_elements[i].style.fontStyle = "italic";
+                }
+            })
+        })
+
+        $(function() {
+            $("#return_btn").on('click', function(){
+                $("#return_btn").hide();
+                $("#italic_btn").show();
+
+                var i;
+
+                var letter_elements = document.querySelectorAll('.cake_letter_content');
+                for ( i=0; i<letter_elements.length ; i++ ) {
+                    letter_elements[i].style.fontStyle = "normal";
+                }
+            })
+        })
+
+        $(function(){
+            $("#letter_color").on('input', function(){
+                var i;
+
+                var letter_color = $("#letter_color").val();
+                var letter_elements = document.querySelectorAll('.cake_letter_content');
+                for ( i=0; i<letter_elements.length ; i++ ) {
+                    letter_elements[i].style.color = letter_color;
+                }
+            })
+        })
+
+        $(function(){
+            $("#letter_size").on('input', function(){
+                var i;
+
+                var letter_size = $("#letter_size").val();
+                var letter_elements = document.querySelectorAll('.cake_letter_content');
+                for ( i=0; i<letter_elements.length ; i++ ) {
+                    letter_elements[i].style.fontSize = letter_size+'px';
+                }
+            })
+        })
+
+        $(function(){
+            $("#letter_content").on('input', function(){
+                var i;
+
+                var letter = $('#letter_content').val();
+                var letter_elements = document.querySelectorAll('.cake_letter_content');
+
+                for ( i=0; i<letter_elements.length ; i++ ) {
+                    letter_elements[i].innerHTML = letter;
+                }
+            })
+        })
+
+        $(function(){
+            $("#letter_font").on('change', function(){
+                var i;
+
+                var letter_fonts = document.getElementById("letter_font");
+                var font = letter_fonts.options[letter_fonts.selectedIndex].text;
+
+                var letter_font = $('#letter_font').val();
+                <!-- 여기에 적용해야함 -->
+                var letter_elements = document.querySelectorAll('.cake_letter_content');
+
+                for ( i=0; i<letter_elements.length ; i++ ) {
+                    letter_elements[i].style.fontFamily = letter_font;
+                }
+            })
+        })
+
+
+</script>
+
+
+
+<!-- 필수옵션 다 선택되지 않은 상태로 주문하기 누르면 오류 -->
+<script>
+    function check_submit(){
+        var check=0;
+        var requiredOption_list = document.getElementsByClassName("requiredOption");
+
+        <!-- 필수옵션을 다 선택하지 않았을 경우 -->
+        for(var i=0; i< requiredOption_list.length; i++){
+            if(requiredOption_list[i].options[requiredOption_list[i].selectedIndex].value == ""){
+                check=1;
+                break;
+            }
+        }
+        <!-- 픽업시간을 선택하지 않았을 경우(우선) -->
+        var pickupTime = document.getElementById("pickupTime");
+        if(pickupTime.options[pickupTime.selectedIndex].value == ""){
+            check=2;
+        }
+        <!-- 경고창 -->
+        if(check == 1){
+            alert("필수옵션을 다 선택해주세요.");
+            return false;
+        }
+        else if(check == 2){
+            alert("픽업 시간을 선택해주세요.");
+            return false;
+        }
+        else
+            return true;
+    }
+</script>
+
+<!-- 최종 가격 계산 -->
+<!-- 케이크 1호 가격 + 선택한 필수옵션 + 선택한 선택옵션-->
+<!-- -일땐 -해야되고 +일떈 +해야됨 -->
+<script>
+<!--    function price_cal(){-->
+<!--        var price = Number({{cake.cakePrice}});-->
+<!--        var option_list = document.getElementsByClassName("option");-->
+<!--        var selectedDetailedOption = new Array;-->
+<!--        var detailedOption;-->
+
+<!--        for(var i=0; i< option_list.length; i++){-->
+<!--            console.log(option_list[i].options[option_list[i].selectedIndex].value);-->
+<!--            selectedDetailedOption.push(option_list[i].options[option_list[i].selectedIndex].value);-->
+<!--        }-->
+
+<!--        console.log(selectedDetailedOption);-->
+<!--        {% for detailedOption in detailedOptions %}-->
+<!--            detailedOption = "{{detailedOption.detailName}}";-->
+<!--            if(selectedDetailedOption.includes(detailedOption)){-->
+<!--                price += {{detailedOption.pricing}};-->
+<!--            }-->
+<!--        {% endfor %}-->
+
+<!--        console.log(price);-->
+<!--        document.getElementById("totalprice").innerHTML = price;-->
+<!--        document.getElementById('total_price').setAttribute('value',price);-->
+<!--    }    -->
+
+$(function(){
+        var price = Number({{cake.cakePrice}});
+        console.log(typeof(price));
+        document.getElementById('total_price').setAttribute('value',price);
+    })
+
+    function price_cal(){
+        var price = Number({{cake.cakePrice}});
+        var option_list = document.getElementsByClassName("option");
+        var selectedDetailedOption = new Array;
+        var detailedOption;
+
+        for(var i=0; i< option_list.length; i++){
+            console.log(option_list[i].options[option_list[i].selectedIndex].value);
+            selectedDetailedOption.push(Number(option_list[i].options[option_list[i].selectedIndex].value));
+        }
+
+        console.log(selectedDetailedOption);
+        {% for detailedOption in detailedOptions %}
+            detailedOption = {{detailedOption.pk}};
+            if(selectedDetailedOption.includes(detailedOption)){
+                price += {{detailedOption.pricing}};
+            }
+        {% endfor %}
+
+        console.log(price);
+        document.getElementById("totalprice").innerHTML = price;
+        document.getElementById('total_price').setAttribute('value',price);
+    }
+</script>
+
+
+<script type="text/javascript" src="/static/js/color.js"></script>
+
+<!--color-->
+<script>
+  var cream_comp_hex, cream_tri1_hex, cream_tri2_hex, cream_mono_hex, cream_mono_hex2;
+    var cake_comp_hex, cake_tri1_hex, cake_tri2_hex, cake_mono_hex, cake_mono_hex2;
+        $(function(){
+            $("#cake_color").on('input', function(){
+                // console.log($("#cake_color").val());
+                var cake_color = $("#cake_color").val();
+                const r = parseInt(cake_color.substr(1,2), 16);
+                const g = parseInt(cake_color.substr(3,2), 16);
+                const b = parseInt(cake_color.substr(5,2), 16);
+
+                var temp_cake_hex = '#'+parseInt( (r), 10 ).toString( 16 )+parseInt( (g), 10 ).toString( 16 )+parseInt( (b), 10 ).toString( 16 );
+
+                document.getElementById('cake_circle').setAttribute( 'title', `${temp_cake_hex}` );
+                document.getElementById('cake_square').setAttribute( 'title', `${temp_cake_hex}` );
+                $('#cakeColor').html('케이크 색상: '+`${temp_cake_hex}`);
+
+                document.getElementById('cake_circle').style.backgroundColor = cake_color;
+                document.getElementById('cake_square').style.backgroundColor = cake_color;
+
+                var comp_rgb = complementaryColor1(r, g, b);
+                var comp_r = comp_rgb[0];
+                var comp_g = comp_rgb[1];
+                var comp_b = comp_rgb[2];
+                cream_comp_hex = '#'+parseInt( (comp_r), 10 ).toString( 16 )+parseInt( (comp_g), 10 ).toString( 16 )+parseInt( (comp_b), 10 ).toString( 16 );
+
+                var tri_rgb = triColor1(r, g, b);
+                var tri_r1 = tri_rgb[0];
+                var tri_g1 = tri_rgb[1];
+                var tri_b1 = tri_rgb[2];
+                cream_tri1_hex = '#'+parseInt( (tri_r1), 10 ).toString( 16 )+parseInt( (tri_g1), 10 ).toString( 16 )+parseInt( (tri_b1), 10 ).toString( 16 );
+                var tri_r2 = tri_rgb[3];
+                var tri_g2 = tri_rgb[4];
+                var tri_b2 = tri_rgb[5];
+                cream_tri2_hex = '#'+parseInt( (tri_r2), 10 ).toString( 16 )+parseInt( (tri_g2), 10 ).toString( 16 )+parseInt( (tri_b2), 10 ).toString( 16 );
+
+                var mono_rgb = monoColor1(r, g, b);
+                var mono_r = mono_rgb[0];
+                var mono_g = mono_rgb[1];
+                var mono_b = mono_rgb[2];
+                var mono_r2 = mono_rgb[3];
+                var mono_g2 = mono_rgb[4];
+                var mono_b2 = mono_rgb[5];
+                cream_mono_hex = '#'+parseInt( (mono_r), 10 ).toString( 16 )+parseInt( (mono_g), 10 ).toString( 16 )+parseInt( (mono_b), 10 ).toString( 16 );
+                cream_mono_hex2 = '#'+parseInt( (mono_r2), 10 ).toString( 16 )+parseInt( (mono_g2), 10 ).toString( 16 )+parseInt( (mono_b2), 10 ).toString( 16 );
+
+                document.getElementById('color5').style.backgroundColor = 'rgb(' + comp_r + ',' + comp_g + ',' + comp_b + ')';
+                document.getElementById('color6').style.backgroundColor = 'rgb(' + tri_r1 + ',' + tri_g1 + ',' + tri_b1 + ')';
+                document.getElementById('color7').style.backgroundColor = 'rgb(' + tri_r2 + ',' + tri_g2 + ',' + tri_b2 + ')';
+                document.getElementById('color8').style.backgroundColor = 'rgb(' + mono_r + ',' + mono_g + ',' + mono_b + ')';
+                document.getElementById('color10').style.backgroundColor = 'rgb(' + mono_r2 + ',' + mono_g2 + ',' + mono_b2 + ')';
+
+                document.getElementById( 'color5' ).setAttribute( 'title', `${cream_comp_hex}` );
+                document.getElementById( 'color6' ).setAttribute( 'title', `${cream_tri1_hex}` );
+                document.getElementById( 'color7' ).setAttribute( 'title', `${cream_tri2_hex}` );
+                document.getElementById( 'color8' ).setAttribute( 'title', `${cream_mono_hex}` );
+                document.getElementById( 'color10' ).setAttribute( 'title', `${cream_mono_hex2}` );
+
+
+            })
+        })
+        function color1_click() {
+	          document.getElementById('cake_circle').style.backgroundColor = document.getElementById('color1').style.backgroundColor;
+	          document.getElementById('cake_square').style.backgroundColor = document.getElementById('color1').style.backgroundColor;
+	          document.getElementById('cake_circle').setAttribute( 'title', `${cake_comp_hex}` );
+	          document.getElementById('cake_square').setAttribute( 'title', `${cake_comp_hex}` );
+	          $('#cakeColor').html('케이크 색상: '+`${cake_comp_hex}`);
+        }
+        function color2_click() {
+	          document.getElementById('cake_circle').style.backgroundColor = document.getElementById('color2').style.backgroundColor;
+	          document.getElementById('cake_square').style.backgroundColor = document.getElementById('color2').style.backgroundColor;
+	          document.getElementById('cake_circle').setAttribute( 'title', `${cake_tri1_hex}` );
+	          document.getElementById('cake_square').setAttribute( 'title', `${cake_tri1_hex}` );
+	          $('#cakeColor').html('케이크 색상: '+`${cake_tri1_hex}`);
+	      }
+        function color3_click() {
+	          document.getElementById('cake_circle').style.backgroundColor = document.getElementById('color3').style.backgroundColor;
+	          document.getElementById('cake_square').style.backgroundColor = document.getElementById('color3').style.backgroundColor;
+	          document.getElementById('cake_circle').setAttribute( 'title', `${cake_tri2_hex}` );
+	          document.getElementById('cake_square').setAttribute( 'title', `${cake_tri2_hex}` );
+	          $('#cakeColor').html('케이크 색상: '+`${cake_tri2_hex}`);
+        }
+        function color4_click() {
+	          document.getElementById('cake_circle').style.backgroundColor = document.getElementById('color4').style.backgroundColor;
+	          document.getElementById('cake_square').style.backgroundColor = document.getElementById('color4').style.backgroundColor;
+	          document.getElementById('cake_circle').setAttribute( 'title', `${cake_mono_hex}` );
+	          document.getElementById('cake_square').setAttribute( 'title', `${cake_mono_hex}` );
+	          $('#cakeColor').html('케이크 색상: '+`${cake_mono_hex}`);
+        }
+        function color9_click() {
+	          document.getElementById('cake_circle').style.backgroundColor = document.getElementById('color9').style.backgroundColor;
+	          document.getElementById('cake_square').style.backgroundColor = document.getElementById('color9').style.backgroundColor;
+	          document.getElementById('cake_circle').setAttribute( 'title', `${cake_mono_hex2}` );
+	          document.getElementById('cake_square').setAttribute( 'title', `${cake_mono_hex2}` );
+	          $('#cakeColor').html('케이크 색상: '+`${cake_mono_hex2}`);
+        }
+
+
+<!--cream color-->
+
+
+        $(function(){
+            $("#cream_color").on('input', function(){
+                // console.log($("#cream_color").val());
+                var cream_color = $("#cream_color").val();
+                const r = parseInt(cream_color.substr(1,2), 16)
+                const g = parseInt(cream_color.substr(3,2), 16)
+                const b = parseInt(cream_color.substr(5,2), 16)
+
+                document.getElementById('cream_circle').style.backgroundColor = cream_color;
+                document.getElementById('cream_square').style.backgroundColor = cream_color;
+
+                var temp_cream_hex = '#'+parseInt( (r), 10 ).toString( 16 )+parseInt( (g), 10 ).toString( 16 )+parseInt( (b), 10 ).toString( 16 );
+
+                document.getElementById('cream_circle').setAttribute( 'title', `${temp_cream_hex}` );
+                document.getElementById('cream_square').setAttribute( 'title', `${temp_cream_hex}` );
+	              $('#creamColor').html('크림 색상: '+`${temp_cream_hex}`);
+
+                var comp_rgb = complementaryColor1(r, g, b);
+                var comp_r = comp_rgb[0];
+                var comp_g = comp_rgb[1];
+                var comp_b = comp_rgb[2];
+                cake_comp_hex = '#'+parseInt( (comp_r), 10 ).toString( 16 )+parseInt( (comp_g), 10 ).toString( 16 )+parseInt( (comp_b), 10 ).toString( 16 );
+
+                var tri_rgb = triColor1(r, g, b);
+                var tri_r1 = tri_rgb[0];
+                var tri_g1 = tri_rgb[1];
+                var tri_b1 = tri_rgb[2];
+                cake_tri1_hex = '#'+parseInt( (tri_r1), 10 ).toString( 16 )+parseInt( (tri_g1), 10 ).toString( 16 )+parseInt( (tri_b1), 10 ).toString( 16 );
+                var tri_r2 = tri_rgb[3];
+                var tri_g2 = tri_rgb[4];
+                var tri_b2 = tri_rgb[5];
+                cake_tri2_hex = '#'+parseInt( (tri_r2), 10 ).toString( 16 )+parseInt( (tri_g2), 10 ).toString( 16 )+parseInt( (tri_b2), 10 ).toString( 16 );
+
+                var mono_rgb = monoColor1(r, g, b);
+                var mono_r = mono_rgb[0];
+                var mono_g = mono_rgb[1];
+                var mono_b = mono_rgb[2];
+                var mono_r2 = mono_rgb[3];
+                var mono_g2 = mono_rgb[4];
+                var mono_b2 = mono_rgb[5];
+                cake_mono_hex = '#'+parseInt( (mono_r), 10 ).toString( 16 )+parseInt( (mono_g), 10 ).toString( 16 )+parseInt( (mono_b), 10 ).toString( 16 );
+                cake_mono_hex2 = '#'+parseInt( (mono_r2), 10 ).toString( 16 )+parseInt( (mono_g2), 10 ).toString( 16 )+parseInt( (mono_b2), 10 ).toString( 16 );
+                console.log(`${mono_r2}`);
+                document.getElementById('color1').style.backgroundColor = 'rgb(' + comp_r + ',' + comp_g + ',' + comp_b + ')';
+                document.getElementById('color2').style.backgroundColor = 'rgb(' + tri_r1 + ',' + tri_g1 + ',' + tri_b1 + ')';
+                document.getElementById('color3').style.backgroundColor = 'rgb(' + tri_r2 + ',' + tri_g2 + ',' + tri_b2 + ')';
+                document.getElementById('color4').style.backgroundColor = 'rgb(' + mono_r + ',' + mono_g + ',' + mono_b + ')';
+                document.getElementById('color9').style.backgroundColor = 'rgb(' + mono_r2 + ',' + mono_g2 + ',' + mono_b2 + ')';
+
+                document.getElementById( 'color1' ).setAttribute( 'title', `${cake_comp_hex}` );
+                document.getElementById( 'color2' ).setAttribute( 'title', `${cake_tri1_hex}` );
+                document.getElementById( 'color3' ).setAttribute( 'title', `${cake_tri2_hex}` );
+                document.getElementById( 'color4' ).setAttribute( 'title', `${cake_mono_hex}` );
+                document.getElementById( 'color9' ).setAttribute( 'title', `${cake_mono_hex2}` );
+            })
+        })
+        function color5_click() {
+	          document.getElementById('cream_circle').style.backgroundColor = document.getElementById('color5').style.backgroundColor;
+	          document.getElementById('cream_square').style.backgroundColor = document.getElementById('color5').style.backgroundColor;
+	          document.getElementById('cream_circle').setAttribute( 'title', `${cream_comp_hex}` );
+	          document.getElementById('cream_square').setAttribute( 'title', `${cream_comp_hex}` );
+	          $('#creamColor').html('크림 색상: '+`${cream_comp_hex}`);
+        }
+        function color6_click() {
+	          document.getElementById('cream_circle').style.backgroundColor = document.getElementById('color6').style.backgroundColor;
+	          document.getElementById('cream_square').style.backgroundColor = document.getElementById('color6').style.backgroundColor;
+	          document.getElementById('cream_circle').setAttribute( 'title', `${cream_tri1_hex}` );
+	          document.getElementById('cream_square').setAttribute( 'title', `${cream_tri1_hex}` );
+	          $('#creamColor').html('크림 색상: '+`${cream_comp_hex}`);
+        }
+        function color7_click() {
+	          document.getElementById('cream_circle').style.backgroundColor = document.getElementById('color7').style.backgroundColor;
+	          document.getElementById('cream_square').style.backgroundColor = document.getElementById('color7').style.backgroundColor;
+	          document.getElementById('cream_circle').setAttribute( 'title', `${cream_tri2_hex}` );
+	          document.getElementById('cream_square').setAttribute( 'title', `${cream_tri2_hex}` );
+	          $('#creamColor').html('크림 색상: '+`${cream_tri2_hex}`);
+        }
+        function color8_click() {
+	          document.getElementById('cream_circle').style.backgroundColor = document.getElementById('color8').style.backgroundColor;
+	          document.getElementById('cream_square').style.backgroundColor = document.getElementById('color8').style.backgroundColor;
+	          document.getElementById('cream_circle').setAttribute( 'title', `${cream_mono_hex}` );
+	          document.getElementById('cream_square').setAttribute( 'title', `${cream_mono_hex}` );
+	          $('#creamColor').html('크림 색상: '+`${cream_mono_hex}`);
+        }
+        function color10_click() {
+	          document.getElementById('cream_circle').style.backgroundColor = document.getElementById('color10').style.backgroundColor;
+	          document.getElementById('cream_square').style.backgroundColor = document.getElementById('color10').style.backgroundColor;
+	          document.getElementById('cream_circle').setAttribute( 'title', `${cream_mono_hex2}` );
+	          document.getElementById('cream_square').setAttribute( 'title', `${cream_mono_hex2}` );
+	          $('#creamColor').html('크림 색상: '+`${cream_mono_hex2}`);
+        }
+
+</script>
+
+<script>
+    if('{{error}}'!="")
+        alert('{{ error }}');
+</script>
+
+<!--<script>-->
+<!--    history.pushState(null, null, location.href);-->
+<!--    window.onpopstate = function () {-->
+<!--        history.go(1);-->
+<!--    };-->
+<!--</script>-->
+{% endblock %}
