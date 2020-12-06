@@ -191,5 +191,5 @@ def cakeOrder(request,crn,cakepk):
         return render(request, 'visitor/orderCake.html', res_data)
     else:
         # 로그인하러 가기
-        return redirect('/visitor/main/')
+        return redirect('/')
 
