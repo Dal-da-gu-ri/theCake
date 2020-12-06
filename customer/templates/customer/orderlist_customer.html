@@ -121,8 +121,11 @@
 <!--               <img class="embed-responsive-item" src="{{cake.cakeImg.value.url}}">-->
 
             </td>
-
-            <td><div class="mb-1">{{order.storeName}}</div><div class="mb-1">{{order.location}}</div><div>{{order.storeContact}}</div><div>{{store.bankname}}  {{store.banknumber}}</div></td>
+            {% for store in store_list %}
+              {% if store.businessID == order.businessID %}
+            <td><div class="mb-1">{{order.storeName}}</div><div class="mb-1">{{order.location}}</div><div>{{order.storeContact}}</div><div>{{store.get_bankname_display}}  {{store.banknumber}}</div></td>
+              {% endif %}
+            {% endfor %}
             <td>{{order.price}}원</td>
           {% if order.status == 1 %}
 <!--          결제하기 url 나중에 적기-->
