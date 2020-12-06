@@ -6,5 +6,6 @@ urlpatterns = [
     path('main/stores/',views.showStores,name='showStores'),
     path('main/stores/<int:pk>/', views.storeInfo, name='storeInfo'),
     path('main/stores/<int:pk>/showReview', views.showReview, name='showReview'),
+    path('main/stores/<int:crn>/order/<str:cakepk>/', views.cakeOrder, name='cakeOrder'),
     path('login/',views.visitorlogin, name='visitorlogin')
     ]
