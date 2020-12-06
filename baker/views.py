@@ -334,7 +334,9 @@ def enrollStore(request):
                     storeobject.daum_sigungu = request.POST.get('daum_sigungu',None)
                     storeobject.daum_dong = request.POST.get('daum_dong',None)
                     storeobject.storeImg = storeform.cleaned_data['storeImg']
-                    storeobject.aboutCake = storeform.cleaned_data['aboutCake']
+                    storeobject.bankname = storeform.cleaned_data['bankname']
+                    storeobject.banknumber = storeform.cleaned_data['banknumber']
+
                     if existance:
                         storeobject.totalorder = totalorder
                         storeobject.totalrate = totalrate
