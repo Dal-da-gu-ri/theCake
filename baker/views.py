@@ -95,7 +95,8 @@ def join(request):
                 )
                 store.save()
                 current_site = get_current_site(request)
-                message = messageSend("thecake2.ga",
+                # "thecake2.ga"
+                message = messageSend(current_site.domain,
                                   urlsafe_base64_encode(force_bytes(baker.pk)).encode().decode(),
                                   account_activation_token.make_token(baker))
                 mail_subject = "[The Cake] 회원가입 인증 메일입니다."
