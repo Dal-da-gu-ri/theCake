@@ -12,55 +12,11 @@ from .forms import *
 from .create_password import passwordMaker
 from .createcakepk import newcakepk
 from .dailyamounts import setDailyAmounts
-#make_password(str) : 이 함수에 넣어준 문자열을 암호화합니다. (hashing)
-#check_password(a,b) : a,b가 일치하는지 확인, 반환합니다.
-from django.db.models import Case, Q
 from django.http import JsonResponse
 
 from customer.mappingdate import mappingDate, amountChange
 
-# Create your views here.
-
-### 회원가입 및 로그인
-
-def join3(request):
-    #global bsID, emailBaker
-    if request.method == "GET":
-        return render(request, 'baker/join_baker.html')
-    elif request.method == "POST":
-        userid = request.POST.get('userid',None)
-        namebaker = request.POST.get('name_baker',None)
-        emailbaker = request.POST.get('email_baker',None)
-        passwordbaker = request.POST.get('password_baker',None)
-        phoneNumbaker = request.POST.get('phoneNum_baker',None)
-        res_data = {}
-        baker = Baker(
-            #businessID=crnNum,
-            userID=userid,
-            email=emailbaker,
-            name=namebaker,
-            phoneNum=phoneNumbaker,
-            password=make_password(passwordbaker)
-        )
-        baker.save()
-
-        # store = Store(
-        #     businessID=crnNum
-        # )
-        # store.save()
-        current_site = get_current_site(request)
-        message = messageSend(current_site.domain,
-                              urlsafe_base64_encode(force_bytes(baker.pk)).encode().decode(),
-                              account_activation_token.make_token(baker))
-        mail_subject = "[The Cake] 회원가입 인증 메일입니다."
-        user_email = baker.email
-        email = EmailMessage(mail_subject, message, to=[user_email])
-        email.send()
-        res_data['comment'] = user_email + " 로 이메일이 발송되었습니다. \n\n인증을 완료해주세요 :)"
-        return render(request, 'baker/userEmailSent.html', res_data)
-
 def join(request):
-    #global bsID, emailBaker
     if request.method == "GET":
         return render(request, 'baker/join_baker.html')
     elif request.method == "POST":
@@ -95,7 +51,6 @@ def join(request):
                 )
                 store.save()
                 current_site = get_current_site(request)
-                # "thecake2.ga"
                 message = messageSend(current_site.domain,
                                   urlsafe_base64_encode(force_bytes(baker.pk)).encode().decode(),
                                   account_activation_token.make_token(baker))
@@ -103,67 +58,12 @@ def join(request):
                 user_email = baker.email
                 email = EmailMessage(mail_subject, message, to=[user_email])
                 email.send()
-                # res_data['comment'] = user_email+" 로 이메일이 발송되었습니다. \n\n인증을 완료해주세요 :)"
                 res_data['email'] = user_email
                 return render(request,'baker/userEmailSent.html',res_data)
         except checkBaker.DoesNotExist:
-            # comment = None
             res_data['error'] = "등록되지 않은 아이디입니다."
             return render(request, 'baker/join_baker.html', res_data)
 
-def join2(request):
-    res_data={}
-    if request.method == 'POST':
-        bakerform = BakerForm(request.POST)  # ,instance=request.user  ,request.FILES, data
-        if bakerform.is_valid():  # 유효성 검사
-
-            try:
-                curBaker = checkBaker.objects.get(userid=bakerform.cleaned_data['userID'])
-                crnNum = curBaker.businessCRN
-
-                try:
-                    newBaker = Baker.objects.get(userID = bakerform.cleaned_data['userID'])
-                    res_data['error'] = "이미 가입된 계정입니다."
-                    return render(request, 'baker/join_baker.html', res_data)
-
-                except Baker.DoesNotExist:
-
-                    bakerobject = Baker(
-                        businessID = curBaker.businessCRN,
-                        userID = bakerform.cleaned_data['userID'],
-                        email = request.POST.get('email_baker',None),
-                        name = bakerform.cleaned_data['name'],
-                        phoneNum = bakerform.cleaned_data['phoneNum'],
-                        password = make_password(request.POST.get('password_baker',None))
-                    )
-
-                    bakerobject.save()
-                    # res_data['baker']=bakerform
-                    current_site = get_current_site(request)
-                    message = messageSend(current_site.domain,
-                                          urlsafe_base64_encode(force_bytes(bakerobject.pk)).encode().decode(),
-                                          account_activation_token.make_token(bakerobject))
-                    mail_subject = "[The Cake] 회원가입 인증 메일입니다."
-                    user_email = bakerobject.email
-                    email = EmailMessage(mail_subject, message, to=[user_email])
-                    email.send()
-                    res_data['comment'] = user_email + " 로 이메일이 발송되었습니다. \n\n인증을 완료해주세요 :)"
-                    return render(request, 'baker/userEmailSent.html', res_data)
-
-            except checkBaker.DoesNotExist:
-                res_data['error'] = "등록되지 않은 아이디입니다."
-                return render(request, 'baker/join_baker.html', res_data)
-        else:
-            # print(storeform.errors)
-            return redirect('/baker/inappropriateApproach')
-
-    else:
-        # bakerobject = Baker.objects.get(businessID=baker.businessID)
-        bakerform = BakerForm()
-        # storeform = StoreForm()
-        res_data['baker'] = bakerform
-
-        return render(request, 'baker/join_baker.html', res_data)
 
 def login(request):
     if request.method=="GET":
@@ -180,12 +80,8 @@ def login(request):
             if baker.is_active:
                 if check_password(password,baker.password):
                     request.session['user']=baker.userID
-
-                #리다이렉트
                     return redirect('/baker/manageStore/enrollStore')
-                    #return render(request,'baker/enrollStore.html')
                 else:
-                    #res_data['error'] = "비밀번호가 틀렸습니다."
                     res_data['error'] = "아이디/비밀번호 오류"
                     return render(request, 'baker/login_baker.html', res_data)
             else:
@@ -193,7 +89,6 @@ def login(request):
                 return render(request, 'baker/login_baker.html', res_data)
 
         else:
-            #res_data['error'] = "존재하지 않는 사업자번호입니다."
             res_data['error'] = "아이디/비밀번호 오류"
             return render(request,'baker/login_baker.html',res_data)
 
@@ -216,15 +111,12 @@ def crnCheck(request):
                     res_data['error'] = "이미 등록된 사업자등록번호입니다."
                     return render(request, 'baker/crnCheck.html', res_data)
                 except checkBaker.DoesNotExist:
-                    # comment = None
                     checkbaker = checkBaker(
                         userid=bakerid,
                         businessCRN=crn
                     )
                     checkbaker.save()
                     return redirect('/baker/signUp/join')
-                    # return render(request, 'baker/join_baker.html')
-
             else:
                 res_data['error'] = "유효하지 않은 사업자등록번호입니다."
                 return render(request, 'baker/crnCheck.html', res_data)
@@ -274,7 +166,6 @@ def activate(request,uid64, token):
         baker.is_active = True
         baker.save()
         if request.method == "GET":
-            # res_data['comment'] = baker.userID+"님의 계정이 활성화되었습니다."
             res_data['bakerid']=baker.userID
             return render(request,'baker/userActivate.html',res_data)
     elif request.method == "POST":
@@ -304,13 +195,8 @@ def enrollStore(request):
                 existance = True
                 totalorder = storeobject.totalorder
                 totalrate = storeobject.totalrate
-
-                # storeform = StoreForm(instance=storeobject)
             except Store.DoesNotExist:
                 storeobject=Store()
-                # storeform = StoreForm(instance=storeobject)
-
-
             storeform = StoreForm(request.POST, request.FILES)
             if storeform.is_valid(): #유효성 검사
                     storeobject.businessID = baker.businessID
@@ -380,10 +266,8 @@ def opendays(request):
         baker = Baker.objects.get(pk=user_id)
         res_data['bakername'] = baker.name
         daysobject = OpenDays()
-        # dailyobject = DailyAmount()
         if request.method == "POST":
             daysform = OpenDaysForm(request.POST)
-            # dailyform = DailyAmountForm(request.POST)
             if daysform.is_valid():
                 daysobject.businessID = baker.businessID
                 daysobject.monday = daysform.cleaned_data['monday']
@@ -404,10 +288,6 @@ def opendays(request):
                     return redirect('/baker/inappropriateApproach')
 
         else:
-            # daysobject = OpenDays.objects.get(businessID=baker.businessID)
-            # daysform = OpenDaysForm(instance=daysobject)
-            # res_data['opendays'] = daysform
-            # print("in")
             try:
                 daysobject = OpenDays.objects.get(businessID=baker.businessID)
                 daysform = OpenDaysForm(instance=daysobject)
@@ -415,9 +295,6 @@ def opendays(request):
                 daysobject=OpenDays()
                 daysform = OpenDaysForm(instance=daysobject)
             res_data['opendays'] = daysform
-            # dailyobject = DailyAmount.objects.get(businessID=baker.businessID)
-            # dailyform = DailyAmountForm(instance=dailyobject)
-            # res_data['dailyform'] = dailyform
             return render(request, 'baker/weekhandle.html', res_data) # 나중에 opendays.html으로 바꿔야함
 
     else:
@@ -514,19 +391,12 @@ def dailyamountsetting(request):
                 return redirect('/baker/inappropriateApproach')
 
         else:
-            # print("heree2")
-            # daysobject = OpenDays.objects.get(businessID=baker.businessID)
-            # daysform = OpenDaysForm(instance=daysobject)
-            # res_data['opendays'] = daysform
-
-            # dailyobject = DailyAmount.objects.filter(businessID=baker.businessID)
             try:
                 dailyobject = DailyAmount.objects.get(businessID=baker.businessID)
                 dailyform = DailyAmountForm(instance=dailyobject)
             except DailyAmount.DoesNotExist:
                 dailyobject=DailyAmount()
                 dailyform = DailyAmountForm(instance=dailyobject)
-            # dailyform = DailyAmountForm()
             res_data['dailyform'] = dailyform
             return render(request, 'baker/dayhandle2.html', res_data)  # 나중에 opendays.html으로 바꿔야함
 
@@ -566,7 +436,6 @@ def cake_add(request):
         res_data['bakername'] = baker.name
         if request.method == "POST":
             cakeform = CakeForm(request.POST,request.FILES)
-            # cakeoptionform = CakeOptionForm(request.POST)
             store = Store.objects.get(pk=baker.businessID)
 
             if cakeform.is_valid():
@@ -575,7 +444,6 @@ def cake_add(request):
                 cakeobject.cakeName = cakeform.cleaned_data['cakeName']
                 cakeobject.cakeImg = cakeform.cleaned_data['cakeImg']
                 cakeobject.cakePrice = cakeform.cleaned_data['cakePrice']
-                # cakeobject.mini = cakeform.cleaned_data['mini']
                 while cakesearch == False:
                     newpk = newcakepk()
                     try:
@@ -598,13 +466,6 @@ def cake_add(request):
 
 
                 for option in selectedoptions:
-                    # curoption = Option.objects.get(businessID=baker.businessID,pk=option)
-                    # cakeoption = CakeOption(
-                    #         businessID = baker.businessID,
-                    #         optionID = curoption.pk,
-                    #         cakeID= newpk,
-                    #         isSelected = True
-                    #      )
                     cakeoption = CakeOption.objects.get(businessID=baker.businessID,optionID=option,cakeID= newpk)
                     cakeoption.isSelected = True
                     cakeoption.save()
@@ -662,9 +523,6 @@ def cake_edit(request,pk):
                 res_data['name'] = cakeobject.cakeImg
 
                 selectedoptions = request.POST.getlist('option_selected',None)
-
-
-
                 alloptions = CakeOption.objects.filter(businessID=baker.businessID,cakeID=pk)
 
                 option_list = Option.objects.filter(businessID=baker.businessID)
@@ -683,27 +541,9 @@ def cake_edit(request,pk):
                             isSelected=False
                         )
                         cakeoption.save()
-                        # alloptions.append(cakeoption)
-                    print("2:",available)
                     available = False
 
-
                 alloptions = CakeOption.objects.filter(businessID=baker.businessID,cakeID=pk)
-
-                print(option_list)
-                print(alloptions)
-
-
-                # for option in option_list:
-                #     cakeoption = CakeOption(
-                #         businessID=baker.businessID,
-                #         optionID=option.pk,
-                #         cakeID=newpk,
-                #         isSelected=False
-                #     )
-                #     cakeoption.save()
-
-
                 optionhandle = False
                 for opt in alloptions:
                     for sel in range(0,len(selectedoptions)):
@@ -726,8 +566,6 @@ def cake_edit(request,pk):
 
                     thiscake=Cake.objects.filter(crn=cakeobject.crn,cakeName=cakeobject.cakeName)
                     if len(thiscake)>1:
-                        # cakeform = CakeForm()
-                        # res_data['cake'] = cakeform
                         cakeform = CakeForm(instance=cakeobject)
                         options = Option.objects.filter(businessID=baker.businessID)
 
@@ -756,7 +594,6 @@ def cake_edit(request,pk):
                     res_data['cake'] = cakeform
                     return redirect('/baker/manageCake/myCakes', res_data)
             else:
-                    # print(cakeform.errors)
                     cakeform = CakeForm()
                     res_data['cake'] = cakeform
                     return render(request, 'baker/cake_edit.html', res_data)
@@ -818,10 +655,6 @@ def manageOrder(request):
     if user_id:
         baker = Baker.objects.get(pk=user_id)
         res_data['bakername'] = baker.name
-        # order_list = Order.objects.filter(businessID=baker.businessID)
-
-        # status_list = ['주문 요청','주문 수락']
-        # status = Case(*[When])
         order_list = Order.objects.filter(businessID=baker.businessID).order_by('status','pickupDate','pickupTime')
         print(order_list)
         res_data['order_list'] = order_list
@@ -850,19 +683,8 @@ def orderInfo(request, pk):
         print(len(optionlist))
         print(optionlist[0].optionID)
         for i in range(0,len(optionlist)):
-            # print(i)
-            # print(optionlist[i].optionID)
-            # print(baker.businessID)
             option = DetailedOption.objects.get(businessID=baker.businessID,pk=optionlist[i].optionID)
             option_list.append(option)
-
-        # for i in range(0,len(order.options)):
-        #     option = DetailedOption.objects.get(businessID=baker.businessID,pk=order.options[i])
-        #     option_list.append(option)
-        # print(order)
-        # print(option_list)
-        # print(order.options)
-        # print(len(order.options))
 
         orderer = Orderer.objects.get(userID=order.orderer)
         orderoption_list = OrderOption.objects.filter(businessID=baker.businessID,orderer=orderer.userID,orderID=pk)
@@ -877,8 +699,6 @@ def orderInfo(request, pk):
             order.status = 1
             order.save()
             return redirect('/baker/manageOrder/',res_data)
-            # return render(request, 'baker/manageOrder.html',res_data)
-
 
     else:
         if request.method == "GET":
@@ -943,15 +763,11 @@ def idsearch(request):
         res_data={}
         if Baker.objects.filter(email=email).exists():
             baker = Baker.objects.get(email=email)
-            #res_data['searched_id']=baker.userID
             res_data['result']="고객님의 아이디는 "+baker.userID+" 입니다."
             return render(request, 'baker/idpw_search_baker.html',res_data)
-            #return redirect('/baker/search', res_data)
-
         else:
             res_data['result'] = "등록되지 않은 이메일입니다."
             return render(request, 'baker/idpw_search_baker.html',res_data)
-            #return redirect('/baker/search', res_data)
 
 def pwsearch(request):
         print("here")
@@ -970,43 +786,12 @@ def pwsearch(request):
             email = EmailMessage(mail_subject, message, to=[user_email])
             email.send()
             res_data['comment'] = user_email + " 로 임시 비밀번호가 전송되었습니다."
-            #return redirect('/baker/search', res_data)
             return render(request, 'baker/idpw_search_baker.html',res_data)
 
         else:
             res_data['comment'] = "등록되지 않은 아이디입니다."
-            #return redirect('/baker/search', res_data)
             return render(request, 'baker/idpw_search_baker.html',res_data)
 
-def pwsearch1(request):
-    """if request.method=="GET":
-        print("here")
-        return render(request,'baker/idpw_search_baker.html')
-    elif request.method == "POST":
-        print("posting")
-
-        userid = request.POST.get('userid')
-        res_data = {}
-        if Baker.objects.filter(userID=userid).exists():
-            baker = Baker.objects.get(userID=userid)
-            temppw = passwordMaker()
-            current_site = get_current_site(request)
-            message = passwordMessage(current_site.domain,userid,temppw)
-            baker.password = temppw
-            baker.save()
-            mail_subject = "[The Cake] 임시 비밀번호 전송"
-            user_email = baker.email
-            email = EmailMessage(mail_subject, message, to=[user_email])
-            email.send()
-            res_data['comment'] = user_email + " 로 임시 비밀번호가 전송되었습니다."
-            return redirect('/baker/search', res_data)
-            #return render(request, 'baker/idpw_search_baker.html',res_data)
-
-        else:
-            res_data['comment'] = "등록되지 않은 아이디입니다."
-            return redirect('/baker/search', res_data)
-            #return render(request, 'baker/idpw_search_baker.html',res_data)
-"""
 
 
 def editInfo(request):
@@ -1017,56 +802,6 @@ def editInfo(request):
         baker = Baker.objects.get(pk=user_id)
         res_data['bakername'] = baker.name
     return render(request,'baker/changePw.html',res_data)
-
-def changeAccountInfo(request):
-    res_data = {}
-    user_id = request.session.get('user')
-
-    if user_id:
-        baker = Baker.objects.get(pk=user_id)
-        res_data['bakername'] = baker.name
-        # bakerobject = Baker()
-        if request.method == 'POST':
-            bakerform = BakerForm(request.POST)
-            if bakerform.is_valid():  # 유효성 검사
-
-                # userID = bakerform.cleaned_data['userID'],
-                # email = bakerform.cleaned_data['email'],
-                baker.name = bakerform.cleaned_data['name']
-                baker.phoneNum = bakerform.cleaned_data['phoneNum']
-                baker.password = make_password(request.POST.get('password_baker',None))
-
-                baker.save()
-                # res_data['baker'] = bakerform
-                res_data={
-                    'baker':bakerform,
-                    'userID':baker.userID,
-                    'email_baker':baker.email
-                }
-                # res_data['name'] = storeobject.storeImg
-                return render(request, 'baker/changePw.html', res_data)
-            else:
-                return redirect('/baker/inappropriateApproach')
-
-        else:
-            baker = Baker.objects.get(businessID=baker.businessID)
-            # bakerform = BakerForm(instance=baker)
-            # storeform = StoreForm()
-            # res_data['baker'] = bakerform
-            res_data = {
-                # 'baker': bakerform,
-                'userID': baker.userID,
-                'email_baker': baker.email
-            }
-            return render(request, 'baker/changePw.html', res_data)
-
-    else:
-        if request.method == "GET":
-            res_data = {}
-            res_data['comment'] = "잘못된 접근입니다. 로그인을 해주세요!"
-            return render(request, 'baker/inappropriateApproach.html', res_data)
-        elif request.method == "POST":
-            return redirect('/')
 
 def checkPw(request):
     res_data = {}
@@ -1097,7 +832,6 @@ def changePw(request):
     user_id = request.session.get('user')
     if user_id:
         baker = Baker.objects.get(pk=user_id)
-        # res_data['bakername'] = baker.name
         if request.method == "GET":
             res_data = {'userID': baker.userID,
                         'email_baker': baker.email,
@@ -1135,11 +869,25 @@ def deleteAccount(request):
         elif request.method == "POST":
             password = request.POST.get('password_baker')
             if check_password(password, baker.password):
-                res_data['result'] = "진짜.. 탈퇴하실 거예요..? 모든 정보가 삭제돼요..."
 
-                # return render(request, 'baker/deleteAccount.html', res_data)
-                print(res_data)
-                return redirect('/',res_data)
+                orderrequests = Order.objects.filter(businessID=baker.businessID,status=0)
+                orderaccept = Order.objects.filter(businessID=baker.businessID,status=1)
+                orderpaid = Order.objects.filter(businessID=baker.businessID,status=3)
+
+                if orderrequests:
+                    res_data['result'] = "주문 요청 상태인 주문이 남아있습니다."
+                    return redirect('/baker/myPage/deleteAccount',res_data)
+                else:
+                    if orderaccept:
+                        res_data['result'] = "주문 수락 상태인 주문이 남아있습니다."
+                        return redirect('/baker/myPage/deleteAccount', res_data)
+                    else:
+                        if orderpaid:
+                            res_data['result'] = "결제 완료 상태인 주문이 남아있습니다."
+                            return redirect('/baker/myPage/deleteAccount', res_data)
+                        else:
+                            res_data['result'] = "진짜.. 탈퇴하실 거예요..? 모든 정보가 삭제돼요..."
+                            return render(request,'baker/deleteAccount.html',res_data)
 
             else:
                 res_data['result'] = "비밀번호가 틀렸습니다."
@@ -1225,9 +973,7 @@ def options(request):
     if user_id:
         baker = Baker.objects.get(pk=user_id)
         res_data['bakername'] = baker.name
-        #cake_list = Cake.objects.all()
         option_list = Option.objects.filter(businessID=baker.businessID)
-        # detail_list = DetailedOption.objects.filter(businessID=baker.businessID)
         detail_list = DetailedOption.objects.all()
 
         res_data['option_list']= option_list
@@ -1264,8 +1010,6 @@ def option_add(request):
                 option.optionName = optionform.cleaned_data['optionName']
                 option.isNecessary = optionform.cleaned_data['isNecessary']
                 option.withColorOrImage = optionform.cleaned_data['withColorOrImage']
-                # option.withImage = optionform.cleaned_data['withImage']
-                # option.withColor = optionform.cleaned_data['withColor']
                 option = optionform.save()
                 option.save()
                 for form in formset:
@@ -1277,34 +1021,6 @@ def option_add(request):
                     detail.save()
 
                 return redirect('/baker/manageCake/options/',res_data)
-
-
-                    # try:
-                    #     detail = DetailedOption.objects.get(businessID = baker.businessID,detailName=form.cleaned_data['detailName'])
-                    #     option.delete()
-                    #     optionform = OptionForm(request.GET or None)
-                    #     formset = DetailedOptionFormset(queryset=DetailedOption.objects.none())
-                    #     res_data['optionform'] = optionform
-                    #     res_data['formset'] = formset
-                    #     res_data['error'] = "이전에 등록하지 않은 세부옵션명을 기입해주세요."
-                    #     return render(request, 'baker/option_add.html', res_data)
-                    #
-                    # except DetailedOption.DoesNotExist:
-                    #     detail.pricing = form.cleaned_data['pricing']
-                    #     detail.save()
-
-                # try:
-                #     curoption = Option.objects.get(businessID=baker.businessID, optionName=optionform.cleaned_data['optionName'])
-                #     optionform = OptionForm(request.GET or None)
-                #     formset = DetailedOptionFormset(queryset=DetailedOption.objects.none())
-                #     res_data['optionform'] = optionform
-                #     res_data['formset'] = formset
-                #     res_data['error'] = "이전에 등록하지 않은 옵션명을 기입해주세요."
-                #     return render(request, 'baker/option_add.html', res_data)
-                # except Option.DoesNotExist:
-                #     option = optionform.save()
-                #     option.save()
-                #     return redirect('/baker/manageCake/options/',res_data)
             else:
                 print(optionform.errors)
                 optionform = OptionForm(request.GET or None)
@@ -1313,8 +1029,6 @@ def option_add(request):
                 res_data['formset'] = formset
                 res_data['error']="모든 칸을 입력해주세요."
                 return render(request, 'baker/option_add.html', res_data)
-
-                # return redirect('/baker/inappropriateApproach')
 
     else:
         if request.method == "GET":
@@ -1335,7 +1049,6 @@ def option_edit(request,pk):
         optionobject = get_object_or_404(Option,pk=pk)
         if DetailedOption.objects.filter(option_id = optionobject.pk,businessID = baker.businessID):
             detail_list = DetailedOption.objects.filter(option_id = optionobject.pk,businessID = baker.businessID)
-        # detailobject = get_object_or_404(DetailedOption,optionName = optionobject.optionName)
 
         if request.method == "POST":
             optionform = OptionForm(request.POST,instance=optionobject)
@@ -1352,21 +1065,14 @@ def option_edit(request,pk):
 
                 res_data['option'] = optionform
                 res_data['detail'] = detail
-
-                # detailobject.save()
                 return redirect('/baker/manageCake/options', res_data)
             else:
-                    # optionform = OptionForm()
-                    # res_data['option'] = optionform
-                    # res_data['error'] = "이미 등록된 옵션 이름입니다."
-                    # detail에 대한 오류가 발생할 수도 있음
                     return render(request, 'baker/option_edit.html', res_data)
 
         else:
             optionform = OptionForm(instance=optionobject)
             if DetailedOption.objects.filter(option_id=optionobject.pk, businessID=baker.businessID):
                 detail_list = DetailedOption.objects.filter(option_id=optionobject.pk, businessID=baker.businessID)
-            # detailform = DetailedOptionForm()
             res_data['option'] = optionform
             res_data['detail'] = detail_list
             return render(request, 'baker/option_edit.html', res_data)
@@ -1418,7 +1124,6 @@ def storeReview(request):
         baker = Baker.objects.get(pk=user_id)
         res_data['bakername'] = baker.name
         if request.method == "GET":
-            # print("hi")
             review_list = Review.objects.filter(storeInfo=baker.businessID).order_by('cakeName')
             res_data['review_list'] = review_list
             return render(request, 'baker/storeReview.html', res_data)

@@ -34,6 +34,15 @@
           location.href = "{% url 'customer:bye' %}";
         }
     }
+    else if('{{result}}'=="주문 요청 상태인 주문이 남아있습니다."){
+        alert('{{ result }}');
+    }
+    else if('{{result}}'=="주문 수락 상태인 주문이 남아있습니다."){
+        alert('{{ result }}');
+    }
+    else if('{{result}}'=="결제 완료 상태인 주문이 남아있습니다."){
+        alert('{{ result }}');
+    }
     else if ('{{result}}'=="비밀번호가 틀렸습니다.")
         alert('{{ result }}');
 

@@ -1,7 +1,5 @@
 from django.db import models
 from django.core.validators import FileExtensionValidator
-# Create your models here.
-# from easy_thumbnails.fields import ThumbnailerImageField
 
 class Orderer(models.Model):
     userID = models.CharField(max_length=20, verbose_name='주문자 아이디',blank=False, primary_key=True,default="")
@@ -34,7 +32,6 @@ class checkOrderer(models.Model):
 class Baker(models.Model):
     userID = models.CharField(max_length=20, verbose_name='사업자 아이디', blank=False, primary_key=True,default="")
     businessID = models.CharField(max_length=10, verbose_name='사업자 등록번호', blank=False, null=True)
-    #businessName = models.CharField(max_length=40, verbose_name='사업자명', blank=False, null=True)
     email = models.EmailField(max_length=128, verbose_name='사업자 이메일', null=True, blank=False)  # unique=True,
     name = models.CharField(max_length=30, verbose_name='사업자 이름', null=True, blank=False)
     phoneNum = models.CharField(max_length=30, verbose_name='사업자 전화번호', null=True, blank=False)  # unique=True,
@@ -51,7 +48,6 @@ class Baker(models.Model):
 
 class checkBaker(models.Model):
     userid = models.CharField(max_length=20, verbose_name='사업자 아이디', blank=False, primary_key=True,default="")
-    #businessname = models.CharField(max_length=40, verbose_name='사업자명',blank=False, primary_key=True)
     businessCRN = models.CharField(max_length=10,verbose_name='사업자 등록번호',blank=False,null=True)
 
     def __str__(self):
@@ -83,7 +79,6 @@ class Store(models.Model):
         ('27', '중국건설은행'), ('28', '중국은행'), ('29', 'BOA'), ('30', 'HSBC'), ('31', 'JP모간'), ('32', 'BNP파리바')
     ]
     businessID = models.CharField(max_length=10, verbose_name='사업자 등록번호', blank=False, primary_key=True)
-    #manager = models.CharField(max_length=30, verbose_name='사업자이름', null=True,blank=False)
     manager = models.ForeignKey(Baker, on_delete=models.CASCADE,null=True)
     storeName = models.CharField(max_length=30, verbose_name='가게 이름', null=True, blank=True)
     location = models.CharField(max_length=200, verbose_name='가게 위치', null=True, blank=True) #나중에 blank False로 수정하기
@@ -214,13 +209,9 @@ class Order(models.Model):
     storeContact = models.CharField(max_length=30, verbose_name='가게 연락처', null=True, blank=True) #,unique=True
     cakeName = models.CharField(max_length=200, verbose_name='케이크 이름',null=True,blank=False)
     cakeImg = models.ImageField(verbose_name='케이크 이미지', null=True, blank=True)
-    # options = models.TextField(verbose_name='선택 옵션',null=True,blank=False)
-    # requiredOpt = models.TextField(verbose_name='필수 선택 옵션',null=True,blank=False)
-    # additionalOpt = models.TextField(verbose_name='추가 선택 옵션',null=True,blank=True)
     cakeText = models.TextField(verbose_name='케이크 문구',null=True,blank=True)
     message = models.TextField(verbose_name='요청 사항',null=True,blank=True)
     price = models.IntegerField(verbose_name='가격',null=True,blank=False)
-    # status = models.CharField(max_length=30,verbose_name='주문 진행 상황',null=True,blank=False)
     status = models.IntegerField(verbose_name='주문 진행 상황',default=0,blank=False)
     fromManager = models.TextField(verbose_name='사장님 메세지', null=True, blank=True)
     def __str__(self):
@@ -233,9 +224,7 @@ class Order(models.Model):
 
 
 class Review(models.Model):
-    orderNum = models.CharField(max_length=20, verbose_name='주문 번호',primary_key=True) #random하게 하기
-    # orderer = models.ForeignKey(Orderer,on_delete=models.CASCADE)
-    # cakeStore = models.ForeignKey(Store,on_delete=models.CASCADE)
+    orderNum = models.CharField(max_length=20, verbose_name='주문 번호',primary_key=True)
     cakeName = models.CharField(max_length=200, verbose_name='케이크 이름',null=False,blank=False,default="")
     orderer = models.CharField(max_length=20,verbose_name="주문자",null=True,blank=False)
     secureID = models.CharField(max_length=20,verbose_name="주문자 ID 변환",null=True,blank=False)
@@ -255,8 +244,6 @@ class Option(models.Model):
     optionName = models.CharField(max_length=30, verbose_name='옵션명', null=True, blank=False)
     isNecessary = models.BooleanField(default=False, verbose_name='필수 여부', null=True, blank=False)
     withColorOrImage = models.CharField(max_length=100,default="선택 없음", verbose_name='색상판/이미지 유무', null=False, blank=False, choices=[('색상판', '색상판'), ('이미지', '이미지'),('선택 없음', '선택 없음')])
-    # withImage = models.BooleanField(default=False, verbose_name='이미지추가 유무', null=True, blank=False)
-    # withColor = models.BooleanField(default=False, verbose_name='색상판 유무', null=True, blank=False)
     isUsed = models.BooleanField(default=False)
 
     class Meta:
@@ -271,13 +258,8 @@ class Option(models.Model):
         return ', '.join(self.details.all().values_list('detailName', flat=True))
 
 
-    # class Meta:
-    #     abstract = True
-
-
 class DetailedOption(models.Model):
     businessID = models.CharField(max_length=50, verbose_name='사업자 등록번호', null=True, blank=False,default="")
-    # optionName = models.CharField(max_length=30, verbose_name='옵션명', null=True, blank=False, unique=True,default="")
     option = models.ForeignKey(Option,related_name='details', on_delete=models.CASCADE, null=True)
     detailName = models.CharField(max_length=50,verbose_name='옵션 세부항목명',null=True,blank=False,default="")
     pricing = models.IntegerField(verbose_name='추가 금액',null=True,blank=False,default="")
@@ -297,9 +279,6 @@ class Cake(models.Model): #원래 Store상속받음
     cakeName = models.CharField(max_length=200, verbose_name='케이크 이름',null=False,blank=False,default="")
     cakeImg = models.ImageField(verbose_name='케이크 이미지',null=True,blank=True, default="logo_baker.png")
     cakePrice = models.IntegerField(verbose_name='1호 기준 가격',null=True,blank=False)
-    #mini = models.BooleanField(default=False,verbose_name='미니사이즈 가능 여부',null=True,blank=False)
-    # mini = models.CharField(max_length=200, verbose_name='미니사이즈 가능 여부', null=False, blank=False, default="",
-    #                         choices=[('가능', '가능'), ('불가', '불가능')])
 
     class Meta:
         db_table = 'Cake'
@@ -310,8 +289,6 @@ class CakeOption(models.Model):
     businessID = models.CharField(max_length=50, verbose_name='사업자 등록번호', null=True, blank=False,default="")
     optionID = models.IntegerField(verbose_name='옵션 ID',null=True,blank=False,default="")
     cakeID = models.CharField(max_length=100,verbose_name='케이크 ID',null=True,blank=False,default="")
-    # option = models.ForeignKey(Option,related_name='Option', on_delete=models.CASCADE, null=True)
-    # cake = models.ForeignKey(Cake,related_name='Cake', on_delete=models.CASCADE, null=True)
     isSelected = models.BooleanField(default=False,verbose_name='선택 여부',null=True,blank=False)
 
     class Meta:
