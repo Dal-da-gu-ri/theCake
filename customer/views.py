@@ -21,22 +21,6 @@ from .secureID import secureID
 import requests
 from django.views.decorators.csrf import csrf_protect
 
-
-def temp(request):
-    return render(request, 'customer/temp.html')
-
-def showStores2(request):
-    search_key1 = request.GET['search_key1']
-    search_key2 = request.GET['search_key2']
-    search_key3 = request.GET['search_key3']
-    search_key4 = request.GET['search_key4']
-    context = { 'search_key1':search_key1, 'search_key2':search_key2, 'search_key3':search_key3, 'search_key4':search_key4 }
-    return render(request,'customer/showStores2.html',context)
-
-@csrf_exempt
-def main(request):
-    return render(request, 'customer/main_customer.html')
-
 def join(request):
     res_data = {}
 
@@ -528,7 +512,6 @@ def cakePay(request,orderNum):
 def paySuccess(request,orderNum):
     res_data = {}
     user_id = request.session.get('user')
-    print("pay success")
     if user_id:
         customer = Orderer.objects.get(pk=user_id)
         res_data['customername'] = customer.name
@@ -546,9 +529,7 @@ def paySuccess(request,orderNum):
 
         order.status = 3
         order.save()
-        print("Hello")
         if request.method == "GET":
-            print("in get")
             date = now()
             res_data['date'] = date
             res_data['customer'] = customer
@@ -559,7 +540,6 @@ def paySuccess(request,orderNum):
 
             return render(request, 'customer/paySuccess.html', res_data)
         elif request.method == "POST":
-            print("in post")
             return render(request, 'customer/paySuccess.html', res_data)
     else:
         if request.method == "GET":

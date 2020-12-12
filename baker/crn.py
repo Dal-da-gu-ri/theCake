@@ -17,10 +17,3 @@ result = ""
 for idx, value in enumerate(sys.argv):
     if(idx == 0): continue
     result += Search_CRN(value)
-
-"""
-if result == "부가가치세 일반과세자 입니다.":
-    print("확인")
-else:
-    print("실패")
-"""

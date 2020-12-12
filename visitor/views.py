@@ -59,9 +59,6 @@ def showStores(request):
                         res_data['happy'] = "조회된 가게 있음."
                     else:
                         res_data['error'] = "조회된 가게가 없습니다."
-
-                    # print(store_list)
-
                 else:
                     stores = Store.objects.filter(daum_sido=sido, daum_sigungu=sigugun)
                     for store in stores:
@@ -95,8 +92,6 @@ def showStores(request):
 
     else:  # 선택된 가게가 없는 데 넘어온 경우..
         res_data['error'] = "날짜를 선택해주세요."
-        # return HttpResponse(user_id)
-
     res_data['store_list'] = store_list
     return render(request, 'visitor/stores.html', res_data)
 
@@ -143,21 +138,11 @@ def cakeOrder(request,crn,cakepk):
     ]
     cakeobject = get_object_or_404(Cake, pk=cakepk)
     storeobject = get_object_or_404(Store, businessID=crn)
-    # orderoption = OrderOptionForm(request.POST, request.FILES, instance=orderoptionobject)
 
-    # print(storeobject.pickUpOpen)
-    # print(storeobject.pickUpClose)
-    # print(TIME_CHOICES)
-
-    # print(storeobject.pickUpOpen, TIME_CHOICES[int(storeobject.pickUpOpen)][1])
-    # print(storeobject.pickUpClose, TIME_CHOICES[int(storeobject.pickUpClose)][1])
-
-    # print(TIME_CHOICES[int(storeobject.pickUpOpen)][0],TIME_CHOICES[int(storeobject.pickUpOpen)][1])
-    # print(TIME_CHOICES[int(storeobject.pickUpClose)][0],TIME_CHOICES[int(storeobject.pickUpClose)][1])
     pickuptimes = []
     for i in range(int(storeobject.pickUpOpen), int(storeobject.pickUpClose) + 1):
         pickuptimes.append(TIME_CHOICES[i][1])
-    # print(pickuptimes)
+
     res_data['selectedYear'] = request.session.get('selectedYear')
     res_data['selectedMonth'] = request.session.get('selectedMonth')
     res_data['selectedDay'] = request.session.get('selectedDay')
@@ -169,7 +154,6 @@ def cakeOrder(request,crn,cakepk):
     if request.method == "GET":
         optionspk = []
         options = []
-        # detailedpk =[]
         details = []
         option_list = CakeOption.objects.filter(businessID=crn, cakeID=cakepk, isSelected=1)
         detailed_list = DetailedOption.objects.filter(businessID=crn)
