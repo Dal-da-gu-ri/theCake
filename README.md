@@ -23,35 +23,35 @@
 1. 가상 환경 설치
 
 <div>
-  $ mkdir theCake
+      $ mkdir theCake
   </div>
   <div>
-  $ cd theCake
+      $ cd theCake
 </div>
   <div>
-  $ sudo pip install virtualenv
+      $ sudo pip install virtualenv
   </div>
   <div>
-  $ virtualenv cakeVenv
+      $ virtualenv cakeVenv
   </div>
   <div>
-  $ source cakeVenv/bin/activate
+      $ source cakeVenv/bin/activate
   </div>
-
+<div>
 2. Github clone
-
-<div>
-  생성한 theCake 디렉토리에 clone
-  </div>
-  
-3. Requirements install
-
-<div>
-  $ pip install –r requirements.txt
 </div>
-
+<div>
+      생성한 theCake 디렉토리에 clone
+  </div>
+ <div> 
+3. Requirements install
+</div>
+<div>
+      $ pip install –r requirements.txt
+</div>
+<div>
 4. 파이썬 환경 변수 설정
-
+</div>
 + 이후의 과정은 The CAKE 메뉴얼을 확인해주세요! :)
 
 ### - DALDAGURI -
