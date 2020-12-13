@@ -22,8 +22,12 @@
 
 1. 가상 환경 설치
 
+<div>
 $ mkdir theCake
+  </div>
+  <div>
 $ cd theCake
+  </div>
 $ sudo pip install virtualenv
 $ virtualenv cakeVenv
 $ source cakeVenv/bin/activate
