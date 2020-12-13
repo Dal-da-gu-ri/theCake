@@ -17,9 +17,8 @@
   <img width = "500" src="https://user-images.githubusercontent.com/29995265/102017507-c42dc280-3daa-11eb-868d-acf0af8dcbb2.png">
   </div>
   
-  
-### 서비스 설치 및 실행 과정
+-----------
+### 서비스 이용은 The CAKE 메뉴얼을 확인해주세요! :)
 
-#### The CAKE 메뉴얼을 확인해주세요! :)
 
 ## - DALDAGURI -
