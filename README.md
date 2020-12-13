@@ -21,20 +21,20 @@
 #### 서비스 설치 및 실행 과정
 
 1. 가상 환경 설치
-'''
-  $ mkdir theCake
-  $ cd theCake
-  $ sudo pip install virtualenv
-  $ virtualenv cakeVenv
-  $ source cakeVenv/bin/activate
-  '''
+
+$ mkdir theCake
+$ cd theCake
+$ sudo pip install virtualenv
+$ virtualenv cakeVenv
+$ source cakeVenv/bin/activate
+
 2. Github clone
-  생성한 theCake 디렉토리에 clone
+
+생성한 theCake 디렉토리에 clone
   
 3. Requirements install
-'''
-  $ pip install –r requirements.txt
-'''
+
+$ pip install –r requirements.txt
 
 4. 파이썬 환경 변수 설정
 
